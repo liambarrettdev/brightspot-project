@@ -1,0 +1,13 @@
+{
+    "_template": "/base/util/Image",
+    "src": "{{image(278,174)}}",
+    "alt": "{{words(5)}}",
+    "caption": "{{words(5)}}",
+    "credit": "{{words(5)}}",
+    "link": {
+        "_template": "/base/util/Link",
+        "href": "#",
+        "body": "{{words(5)}}",
+        "target": "_blank"
+    }
+}

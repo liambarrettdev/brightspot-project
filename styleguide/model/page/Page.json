@@ -1,0 +1,57 @@
+{
+    "_wrapper": false,
+    "_template": "/model/page/Page",
+    "type": "Page",
+    "locale": "en",
+    "head": {
+        "_dataUrl": "/model/page/Head.json"
+    },
+    "header": {
+        "_dataUrl": "/model/page/Header.json"
+    },
+    "above": {
+        "_dataUrl": "/model/page/Above.json"
+    },
+    "breadcrumbs": [
+        {
+            "_template": "/base/util/Link",
+            "href": "#",
+            "body": "{{words(5)}}"
+        }
+    ],
+    "aside": {
+        "_dataUrl": "/model/page/Aside.json"
+    },
+    "headline": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs([1, 3])}}"
+            }
+        ]
+    },
+    "subHeadline": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs([1, 3])}}"
+            }
+        ]
+    },
+    "lead": {
+        "_template": "/base/util/Image",
+        "src": "{{image(278,174)}}",
+        "alt": "{{words(5)}}"
+    },
+    "content": {
+        "_delegate": true
+    },
+    "below": {
+        "_dataUrl": "/model/page/Below.json"
+    },
+    "footer": {
+        "_dataUrl": "/model/page/Footer.json"
+    }
+}

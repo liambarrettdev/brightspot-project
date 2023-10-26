@@ -1,0 +1,5 @@
+{{#with title}}<title>{{this}}</title>{{/with}}
+{{#with canonicalLink}}<link rel="canonical" href="{{this}}">{{/with}}
+{{#with description}}<meta name="description" content="{{this}}"/>{{/with}}
+{{#with keywords}}<meta name="keywords" content="{{this}}"/>{{/with}}
+{{#each extraItems}}{{this}}{{/each}}

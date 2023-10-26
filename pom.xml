@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dari.version>3.2.2466-9f28f3</dari.version>
+        <brightspot.version>3.2.7262-cf4a82</brightspot.version>
+        <styleguide.version>1.1.350-86f868</styleguide.version>
+        <slf4j.version>2.0.3</slf4j.version>
+    </properties>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.psddev</groupId>
+        <artifactId>dari-parent</artifactId>
+        <version>3.2.2466-9f28f3</version>
+    </parent>
+
+    <groupId>com.brightspot</groupId>
+    <artifactId>base-brightspot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>Base Brightspot</name>
+
+    <dependencies>
+
+        <!-- ===============
+        Core Dari/Brightspot
+        ================ -->
+
+        <!-- Dari DB -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>dari-db</artifactId>
+            <version>${dari.version}</version>
+        </dependency>
+
+        <!-- Dari AWS -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>dari-aws</artifactId>
+            <version>${dari.version}</version>
+        </dependency>
+
+        <!-- Dari Mail -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>dari-mail</artifactId>
+            <version>${dari.version}</version>
+        </dependency>
+
+        <!-- Dari MySQL -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>dari-mysql</artifactId>
+            <version>${dari.version}</version>
+        </dependency>
+
+        <!-- Dari Util -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>dari-util</artifactId>
+            <version>${dari.version}</version>
+        </dependency>
+
+        <!-- CMS DB -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>cms-db</artifactId>
+            <version>${brightspot.version}</version>
+        </dependency>
+
+        <!-- CMS Spellchecker -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>cms-hunspell</artifactId>
+            <version>${brightspot.version}</version>
+        </dependency>
+
+        <!-- CMS Tool UI -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>cms-tool-ui</artifactId>
+            <version>${brightspot.version}</version>
+            <type>war</type>
+        </dependency>
+
+        <!-- =============
+        Brightspot Plugins
+        ============== -->
+
+        <!-- Analytics -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>analytics</artifactId>
+            <version>2.1-20170511.201317-3</version>
+        </dependency>
+
+        <!-- Auth -->
+        <!--
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>auth</artifactId>
+            <version>2.1.99-d30210</version>
+        </dependency>
+        -->
+
+        <!-- Community -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>community</artifactId>
+            <version>1.1.56-628ab2</version>
+        </dependency>
+
+        <!-- Conversation -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>conversation</artifactId>
+            <version>1.1.59-0e4d91</version>
+        </dependency>
+
+        <!-- Crosslinker -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>crosslinker</artifactId>
+            <version>2.3.10-x7bf993</version>
+        </dependency>
+
+        <!-- Handlebars -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>handlebars</artifactId>
+            <version>1.2.105-8d0304</version>
+        </dependency>
+
+        <!-- Image -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>image</artifactId>
+            <version>1.2.60-xe15eaa</version>
+        </dependency>
+
+        <!-- Personalization -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>personalization</artifactId>
+            <version>1.1.20-085c51</version>
+        </dependency>
+
+        <!-- Sitemap -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>sitemap</artifactId>
+            <version>1.0.7-4cdc5c</version>
+        </dependency>
+
+        <!-- Watch -->
+        <dependency>
+            <groupId>com.psddev</groupId>
+            <artifactId>watch</artifactId>
+            <version>1.0.18-x2a8d30</version>
+        </dependency>
+
+        <!-- ==============================
+        Settings Backed Object Dependencies
+        =============================== -->
+
+        <!-- Database - MySQL -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Database - Solr -->
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+            <version>4.8.1</version>
+        </dependency>
+
+        <!-- ============
+        Java Servlet Spec
+        ============= -->
+
+        <!-- Java Servlet Spec -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Java JSPs -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.3</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Java Expression Language -->
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>3.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Java Standard Tag Library Support -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!-- Standard TagLibs -->
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+        <!-- =============
+        Miscellaneous APIs
+        ============== -->
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cronutils</groupId>
+            <artifactId>cron-utils</artifactId>
+            <version>9.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+
+        <!-- ========
+        SLF4J Logging
+        ========= -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <debug>true</debug>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <overlays>
+                        <overlay>
+                            <groupId>com.psddev</groupId>
+                            <artifactId>cms-tool-ui</artifactId>
+                            <targetPath>cms</targetPath>
+                        </overlay>
+                    </overlays>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>com.psddev</groupId>
+                        <artifactId>styleguide</artifactId>
+                        <version>${styleguide.version}</version>
+                    </dependency>
+                </dependencies>
+
+                <executions>
+                    <execution>
+                        <id>generate-view-classes</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <classpathScope>compile</classpathScope>
+                            <includePluginDependencies>true</includePluginDependencies>
+                            <mainClass>com.psddev.styleguide.ViewClassGenerator</mainClass>
+                            <arguments>
+                                <argument>--java-package-prefix=com.brightspot.project.view</argument>
+                                <argument>--json-dir=${project.basedir}/styleguide</argument>
+                                <argument>--build-dir=${project.build.directory}/generated-sources/styleguide</argument>
+                                <argument>--ignore-files=_config.json</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <execution>
+                        <id>add-view-classes</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/styleguide</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.12.1</version>
+
+                <executions>
+                    <execution>
+                        <id>install-node-and-npm</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v10.24.1</nodeVersion>
+                            <npmVersion>6.13.4</npmVersion>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>npm</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>
+                                install --legacy-bundling
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>grunt</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>grunt</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>
+                                --bsp-maven-build-finalName=${project.build.finalName}
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>public.psddev</id>
+            <url>https://artifactory.psdops.com/public</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>public.psddev</id>
+            <url>https://artifactory.psdops.com/public</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>

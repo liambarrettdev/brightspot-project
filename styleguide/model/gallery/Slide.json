@@ -1,0 +1,9 @@
+{
+    "_template": "/model/gallery/Slide",
+    "media": {
+        "_dataUrl": "/model/image/Image.json"
+    },
+    "title": "{{words(5)}}",
+    "description": "{{words(10)}}",
+    "attribution": "{{words(2)}}"
+}

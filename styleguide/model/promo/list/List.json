@@ -1,0 +1,19 @@
+{
+    "_template": "/model/promo/list/List",
+    "title": "{{words(5)}}",
+    "description": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs([1, 3])}}"
+            }
+        ]
+    },
+    "items": [
+        {
+            "_dataUrl": "/model/promo/Promo.json",
+            "_repeat": "4"
+        }
+    ]
+}

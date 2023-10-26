@@ -1,0 +1,35 @@
+.inputContainer {
+    margin-right: 18px;
+    clear: both;
+}
+
+.inputContainer.is-minimal,
+.inputContainer.is-half,
+.inputContainer.is-third,
+.inputContainer.is-quarter {
+    float: left;
+    clear: none;
+}
+
+.inputContainer.is-half,
+.inputContainer.is-third,
+.inputContainer.is-quarter {
+    flex-grow: 1;
+}
+
+.inputContainer.is-minimal {
+    min-width: 0;
+    width: auto;
+}
+
+.inputContainer.is-half {
+    width: calc(100% / 2 - 18px);
+}
+
+.inputContainer.is-third {
+    width: calc(100% / 3 - 18px);
+}
+
+.inputContainer.is-quarter {
+    width: calc(100% / 4 - 18px);
+}

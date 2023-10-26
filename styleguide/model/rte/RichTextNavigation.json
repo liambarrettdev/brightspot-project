@@ -1,0 +1,10 @@
+{
+    "_template": "/model/rte/RichTextNavigation",
+    "title": "{{words(5)}}",
+    "previousPage": {
+        "_dataUrl": "/model/link/Link.json"
+    },
+    "nextPage": {
+        "_dataUrl": "/model/link/Link.json"
+    }
+}

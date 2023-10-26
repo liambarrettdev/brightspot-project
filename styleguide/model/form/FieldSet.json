@@ -1,0 +1,17 @@
+{
+    "_template": "/model/form/FieldSet",
+    "inputs": [
+        {
+            "_dataUrl": "/model/form/input/TextInput.json"
+        },
+        {
+            "_dataUrl": "/model/form/input/ChoiceInput.json"
+        },
+        {
+            "_dataUrl": "/model/form/input/SelectInput.json"
+        },
+        {
+            "_dataUrl": "/model/form/input/HiddenInput.json"
+        }
+    ]
+}

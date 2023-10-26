@@ -1,0 +1,5 @@
+{
+    "_template": "/model/rte/RichTextHeading",
+    "tag": "h2",
+    "text": "{{words}}"
+}

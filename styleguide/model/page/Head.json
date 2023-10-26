@@ -1,0 +1,37 @@
+{
+    "_template": "/model/page/Head",
+    "title": "Test",
+    "description": "Test Styleguide",
+    "keywords": [
+        "one",
+        "two",
+        "three"
+    ],
+    "canonicalLink": "#",
+    "extraItems": [
+        {
+            "_template": "/base/page/Meta",
+            "httpEquiv": "X-UA-Compatible",
+            "content": "IE=edge"
+        },
+        {
+            "_template": "/base/page/Meta",
+            "name": "viewport",
+            "content": "width=device-width, initial-scale=1, user-scalable=no"
+        },
+        {
+            "_template" : "/base/page/ExternalStylesheet",
+            "rel": "stylesheet",
+            "type": "text/css",
+            "media": "screen",
+            "href" : "/All.min.css"
+        },
+        {
+            "_template": "/base/page/ExternalScript",
+            "type": "text/javascript",
+            "src": "/All.min.js",
+            "async": false,
+            "defer": false
+        }
+    ]
+}

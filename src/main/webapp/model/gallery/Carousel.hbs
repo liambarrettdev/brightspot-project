@@ -1,0 +1,13 @@
+{{#with title}}
+    <h3>{{this}}</h3>
+    <br/>
+{{/with}}
+<div class="Carousel" data-flickity-custom-counter="true">
+    <div class="Carousel-slides" data-slides>
+        {{#each slides}}
+            <div class="Carousel-slide">
+                {{this}}
+            </div>
+        {{/each}}
+    </div>
+</div>

@@ -1,0 +1,30 @@
+@gutter: 20px;
+
+/* Guttering */
+@sm-gutter: 34px;
+@md-gutter: 100px;
+@xl-gutter: 200px;
+
+/* Breakpoints */
+@xxl-min: (@xl-max + 1);
+@xl-max: 1440px;
+@xl-min: (@lg-max + 1);
+@lg-max: 1024px;
+@lg-min: (@md-max + 1);
+@md-max: 768px;
+@md-min: (@sm-max + 1);
+@sm-max: 568px;
+
+/* Media Queries */
+@mq-md: ~'only screen and (min-width: @{md-min})';
+@mq-lg: ~'only screen and (min-width: @{lg-min})';
+@mq-xl: ~'only screen and (min-width: @{xl-min})';
+@mq-xxl: ~'only screen and (min-width: @{xxl-min})';
+@mq-max-sm: ~'only screen and (max-width: @{sm-max})';
+@mq-max-md: ~'only screen and (max-width: @{md-max})';
+@mq-max-lg: ~'only screen and (max-width: @{lg-max})';
+@mq-max-xl: ~'only screen and (max-width: @{xl-max})';
+@mq-only-sm: ~'only screen and (max-width: @{sm-max})';
+@mq-only-md: ~'only screen and (min-width: @{md-min}) and (max-width: @{md-max})';
+@mq-only-lg: ~'only screen and (min-width: @{lg-min}) and (max-width: @{lg-max})';
+@mq-only-xl: ~'only screen and (min-width: @{xl-min}) and (max-width: @{xl-max})';

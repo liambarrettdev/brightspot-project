@@ -1,0 +1,7 @@
+<div>
+    <label for="{{name}}">{{label}}</label>
+    <input type="{{type}}" name="{{name}}"
+        {{#with regex}}pattern="{{this}}"{{/with}}
+        {{#with placeholder}}placeholder="{{this}}"{{/with}}
+        {{#if required}}required{{/if}}>
+</div>

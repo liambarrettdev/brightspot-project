@@ -1,0 +1,13 @@
+{
+    "_template": "/model/form/input/ChoiceInput",
+    "label": "{{words(5)}}",
+    "name": "{{words(1)}}",
+    "type": "{{words(1)}}",
+    "required": false,
+    "options": [
+        {
+            "_dataUrl": "/model/form/input/Option.json",
+            "_repeat": "4"
+        }
+    ]
+}
