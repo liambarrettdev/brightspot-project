@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.project.view.model.promo.PromoView;
-import com.brightspot.project.view.model.promo.list.ListView;
+import com.brightspot.view.model.promo.PromoView;
+import com.brightspot.view.model.promo.list.ListView;
 
 public class ListModuleViewModel extends AbstractViewModel<ListModule> implements ListView {
 

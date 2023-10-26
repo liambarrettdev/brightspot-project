@@ -3,7 +3,7 @@ package com.brightspot.model.form.field.text;
 import java.util.Optional;
 
 import com.brightspot.model.form.field.FieldType;
-import com.brightspot.project.view.model.form.input.TextInputView;
+import com.brightspot.view.model.form.input.TextInputView;
 import com.psddev.cms.view.ViewModel;
 
 public class TextInputViewModel extends ViewModel<TextField> implements TextInputView {

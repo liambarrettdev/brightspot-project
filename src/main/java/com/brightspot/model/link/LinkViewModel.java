@@ -2,7 +2,7 @@ package com.brightspot.model.link;
 
 import java.util.Optional;
 
-import com.brightspot.project.view.base.util.LinkView;
+import com.brightspot.view.base.util.LinkView;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.view.ViewModel;
 import com.psddev.cms.view.servlet.CurrentSite;

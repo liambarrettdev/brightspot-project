@@ -3,8 +3,8 @@ package com.brightspot.model.page;
 import java.util.Optional;
 
 import com.brightspot.model.AbstractViewModel;
+import com.brightspot.view.model.page.FooterView;
 import com.brightspot.tool.CustomSiteSettings;
-import com.brightspot.project.view.model.page.FooterView;
 
 public class FooterViewModel extends AbstractViewModel<AbstractPage> implements FooterView {
 

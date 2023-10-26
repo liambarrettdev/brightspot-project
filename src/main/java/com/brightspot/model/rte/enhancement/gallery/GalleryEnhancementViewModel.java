@@ -3,8 +3,8 @@ package com.brightspot.model.rte.enhancement.gallery;
 import java.util.Optional;
 
 import com.brightspot.model.rte.enhancement.Alignable;
-import com.brightspot.project.view.base.EnhancementView;
-import com.brightspot.project.view.model.gallery.CarouselView;
+import com.brightspot.view.base.EnhancementView;
+import com.brightspot.view.model.gallery.CarouselView;
 import com.psddev.cms.view.ViewModel;
 
 public class GalleryEnhancementViewModel extends ViewModel<GalleryEnhancement> implements EnhancementView {

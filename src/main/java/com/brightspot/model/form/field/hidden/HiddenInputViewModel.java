@@ -1,6 +1,6 @@
 package com.brightspot.model.form.field.hidden;
 
-import com.brightspot.project.view.model.form.input.HiddenInputView;
+import com.brightspot.view.model.form.input.HiddenInputView;
 import com.psddev.cms.view.ViewModel;
 
 public class HiddenInputViewModel extends ViewModel<HiddenField> implements HiddenInputView {

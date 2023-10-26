@@ -5,9 +5,9 @@ import java.util.Collection;
 import java.util.List;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.project.view.base.page.ExternalScriptView;
-import com.brightspot.project.view.base.page.ExternalStylesheetView;
-import com.brightspot.project.view.model.page.HeadView;
+import com.brightspot.view.base.page.ExternalScriptView;
+import com.brightspot.view.base.page.ExternalStylesheetView;
+import com.brightspot.view.model.page.HeadView;
 import com.psddev.cms.db.Directory;
 import com.psddev.cms.db.ElFunctionUtils;
 import com.psddev.cms.db.Seo;

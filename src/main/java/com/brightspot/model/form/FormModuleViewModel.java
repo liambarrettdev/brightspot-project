@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.project.view.model.form.FormView;
+import com.brightspot.view.model.form.FormView;
 
 public class FormModuleViewModel extends AbstractViewModel<FormModule> implements FormView {
 

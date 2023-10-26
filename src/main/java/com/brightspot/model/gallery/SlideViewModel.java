@@ -1,7 +1,7 @@
 package com.brightspot.model.gallery;
 
-import com.brightspot.project.view.base.util.ImageView;
-import com.brightspot.project.view.model.gallery.SlideView;
+import com.brightspot.view.base.util.ImageView;
+import com.brightspot.view.model.gallery.SlideView;
 import com.psddev.cms.view.ViewModel;
 
 public class SlideViewModel extends ViewModel<Slide> implements SlideView {

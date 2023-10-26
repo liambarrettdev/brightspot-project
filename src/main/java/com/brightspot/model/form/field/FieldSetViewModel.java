@@ -3,7 +3,7 @@ package com.brightspot.model.form.field;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import com.brightspot.project.view.model.form.FieldSetView;
+import com.brightspot.view.model.form.FieldSetView;
 import com.psddev.cms.view.ViewModel;
 
 public class FieldSetViewModel extends ViewModel<FieldSet> implements FieldSetView {

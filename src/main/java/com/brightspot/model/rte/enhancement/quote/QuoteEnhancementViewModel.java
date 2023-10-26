@@ -3,8 +3,8 @@ package com.brightspot.model.rte.enhancement.quote;
 import java.util.Optional;
 
 import com.brightspot.model.rte.enhancement.Alignable;
-import com.brightspot.project.view.base.EnhancementView;
-import com.brightspot.project.view.model.quote.QuoteView;
+import com.brightspot.view.base.EnhancementView;
+import com.brightspot.view.model.quote.QuoteView;
 import com.psddev.cms.view.ViewModel;
 
 public class QuoteEnhancementViewModel extends ViewModel<QuoteEnhancement> implements EnhancementView {

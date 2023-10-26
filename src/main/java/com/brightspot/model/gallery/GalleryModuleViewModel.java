@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.project.view.model.gallery.CarouselView;
-import com.brightspot.project.view.model.gallery.SlideView;
+import com.brightspot.view.model.gallery.CarouselView;
+import com.brightspot.view.model.gallery.SlideView;
 
 public class GalleryModuleViewModel extends AbstractViewModel<GalleryModule> implements CarouselView {
 

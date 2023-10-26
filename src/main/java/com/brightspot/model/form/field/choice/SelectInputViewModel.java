@@ -3,7 +3,7 @@ package com.brightspot.model.form.field.choice;
 import java.util.Optional;
 
 import com.brightspot.model.form.field.FieldType;
-import com.brightspot.project.view.model.form.input.SelectInputView;
+import com.brightspot.view.model.form.input.SelectInputView;
 
 public class SelectInputViewModel extends ChoiceFieldViewModel implements SelectInputView {
 

@@ -3,8 +3,8 @@ package com.brightspot.model.image;
 import java.util.Optional;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.project.view.base.util.ImageView;
-import com.brightspot.project.view.base.util.LinkView;
+import com.brightspot.view.base.util.ImageView;
+import com.brightspot.view.base.util.LinkView;
 import com.psddev.dari.util.StorageItem;
 
 public class ImageViewModel extends AbstractViewModel<Image> implements ImageView {

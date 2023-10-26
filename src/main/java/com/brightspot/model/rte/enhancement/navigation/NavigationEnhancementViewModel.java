@@ -1,7 +1,7 @@
 package com.brightspot.model.rte.enhancement.navigation;
 
-import com.brightspot.project.view.base.util.LinkView;
-import com.brightspot.project.view.model.rte.RichTextNavigationView;
+import com.brightspot.view.base.util.LinkView;
+import com.brightspot.view.model.rte.RichTextNavigationView;
 import com.psddev.cms.view.ViewModel;
 
 public class NavigationEnhancementViewModel extends ViewModel<NavigationEnhancement> implements RichTextNavigationView {

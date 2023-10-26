@@ -4,11 +4,11 @@ import java.util.Locale;
 import java.util.Optional;
 
 import com.brightspot.model.AbstractViewModel;
+import com.brightspot.view.model.page.FooterView;
+import com.brightspot.view.model.page.HeadView;
+import com.brightspot.view.model.page.HeaderView;
+import com.brightspot.view.model.page.PageView;
 import com.brightspot.tool.CustomSiteSettings;
-import com.brightspot.project.view.model.page.FooterView;
-import com.brightspot.project.view.model.page.HeadView;
-import com.brightspot.project.view.model.page.HeaderView;
-import com.brightspot.project.view.model.page.PageView;
 
 public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewModel<M> implements PageView {
 

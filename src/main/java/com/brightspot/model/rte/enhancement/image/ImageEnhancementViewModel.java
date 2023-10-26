@@ -3,8 +3,8 @@ package com.brightspot.model.rte.enhancement.image;
 import java.util.Optional;
 
 import com.brightspot.model.rte.enhancement.Alignable;
-import com.brightspot.project.view.base.EnhancementView;
-import com.brightspot.project.view.base.util.ImageView;
+import com.brightspot.view.base.EnhancementView;
+import com.brightspot.view.base.util.ImageView;
 import com.psddev.cms.view.ViewModel;
 
 public class ImageEnhancementViewModel extends ViewModel<ImageEnhancement> implements EnhancementView {

@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.AbstractPageViewModel;
-import com.brightspot.model.slug.Sluggable;
 import com.brightspot.model.promo.Promotable;
+import com.brightspot.model.slug.Sluggable;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;

@@ -331,7 +331,7 @@
                             <includePluginDependencies>true</includePluginDependencies>
                             <mainClass>com.psddev.styleguide.ViewClassGenerator</mainClass>
                             <arguments>
-                                <argument>--java-package-prefix=com.brightspot.project.view</argument>
+                                <argument>--java-package-prefix=com.brightspot.view</argument>
                                 <argument>--json-dir=${project.basedir}/styleguide</argument>
                                 <argument>--build-dir=${project.build.directory}/generated-sources/styleguide</argument>
                                 <argument>--ignore-files=_config.json</argument>

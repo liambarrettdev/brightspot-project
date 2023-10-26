@@ -1,11 +1,11 @@
 package com.brightspot.model.page.content;
 
-import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.tag.Taggable;
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.image.Image;
+import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.Sluggable;
+import com.brightspot.model.tag.Taggable;
 import com.brightspot.tool.HasImagePreview;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.PageFilter;

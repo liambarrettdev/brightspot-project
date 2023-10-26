@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.project.view.base.util.ConcatenatedView;
+import com.brightspot.view.base.util.ConcatenatedView;
 
 public class ArticlePageViewModel extends AbstractViewModel<Article> implements ConcatenatedView {
 

@@ -11,8 +11,8 @@ import com.brightspot.model.link.InternalLink;
 import com.brightspot.model.link.Link;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.model.page.AbstractPageViewModel;
-import com.brightspot.project.view.base.util.ImageView;
-import com.brightspot.project.view.base.util.LinkView;
+import com.brightspot.view.base.util.ImageView;
+import com.brightspot.view.base.util.LinkView;
 
 public class AbstractContentPageViewModel extends AbstractPageViewModel<AbstractContentPage> {
 

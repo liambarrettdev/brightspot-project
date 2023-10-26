@@ -8,8 +8,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.TimeZone;
 
-import com.ibm.icu.text.NumberFormat;
 import com.brightspot.tool.CustomSiteSettings;
+import com.ibm.icu.text.NumberFormat;
 import com.psddev.cms.db.Localization;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUser;
