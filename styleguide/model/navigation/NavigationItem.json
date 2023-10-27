@@ -1,0 +1,12 @@
+{
+    "_template": "/model/navigation/NavigationItem",
+    "ctaText": "{{words(2)}}",
+    "ctaUrl": "#",
+    "items": [
+        {
+            "_template": "/model/navigation/NavigationItem",
+            "ctaText": "{{words(2)}}",
+            "ctaUrl": "#"
+        }
+    ]
+}

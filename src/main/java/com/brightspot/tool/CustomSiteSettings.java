@@ -1,32 +1,28 @@
 package com.brightspot.tool;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Locale;
 import java.util.function.Function;
 
-import com.brightspot.tool.rte.BasicRichTextToolbar;
+import com.brightspot.model.page.Footer;
+import com.brightspot.model.page.Header;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Modification;
 import com.psddev.dari.db.Recordable;
-import org.apache.commons.lang3.StringUtils;
 
 @Recordable.BeanProperty("site")
 @Recordable.FieldInternalNamePrefix("settings.site.")
 public class CustomSiteSettings extends Modification<Site> {
 
-    private static final String YEAR_TOKEN = "$YYYY";
+    public static final String TAB_LAYOUT = "Layout";
 
     private Locale locale;
 
-    @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
-    @ToolUi.Note("If published in this text, the special '" + YEAR_TOKEN
-        + "' date token will be replaced with the value for the current year.")
-    private String copyright;
+    @ToolUi.Tab(TAB_LAYOUT)
+    private Header header;
+
+    @ToolUi.Tab(TAB_LAYOUT)
+    private Footer footer;
 
     public Locale getLocale() {
         return locale;
@@ -36,25 +32,21 @@ public class CustomSiteSettings extends Modification<Site> {
         this.locale = locale;
     }
 
-    public String getCopyright() {
-        return replaceDateToken(copyright);
+    public Header getHeader() {
+        return header;
     }
 
-    public void setCopyright(String copyright) {
-        this.copyright = copyright;
+    public void setHeader(Header header) {
+        this.header = header;
     }
 
-    // -- Utility Methods -- //
-
-    private String replaceDateToken(String text) {
-        if (StringUtils.isNotBlank(text) && text.contains(YEAR_TOKEN)) {
-            Instant instant = (new Date()).toInstant();
-            LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
-            return text.replace(YEAR_TOKEN, DateTimeFormatter.ofPattern("yyyy").format(localDateTime));
-        }
-        return text;
+    public Footer getFooter() {
+        return footer;
     }
 
+    public void setFooter(Footer footer) {
+        this.footer = footer;
+    }
     // -- Static Methods --//
 
     public static <T> T get(Site site, Function<CustomSiteSettings, T> getter) {

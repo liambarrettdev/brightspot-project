@@ -8,8 +8,6 @@ import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.util.ObjectUtils;
 
 @ViewBinding(value = HeadViewModel.class)
-@ViewBinding(value = HeaderViewModel.class)
-@ViewBinding(value = FooterViewModel.class)
 @ViewBinding(value = AbstractPageViewModel.class, types = { PageFilter.PAGE_VIEW_TYPE })
 public abstract class AbstractPage extends Content implements Directory.Item {
 

@@ -4,11 +4,11 @@ import java.util.Locale;
 import java.util.Optional;
 
 import com.brightspot.model.AbstractViewModel;
+import com.brightspot.tool.CustomSiteSettings;
 import com.brightspot.view.model.page.FooterView;
 import com.brightspot.view.model.page.HeadView;
 import com.brightspot.view.model.page.HeaderView;
 import com.brightspot.view.model.page.PageView;
-import com.brightspot.tool.CustomSiteSettings;
 
 public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewModel<M> implements PageView {
 
@@ -29,7 +29,9 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
 
     @Override
     public Object getHeader() {
-        return createView(HeaderView.class, model);
+        return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getHeader))
+            .map(header -> createView(HeaderView.class, header))
+            .orElse(null);
     }
 
     @Override
@@ -44,7 +46,9 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
 
     @Override
     public Object getFooter() {
-        return createView(FooterView.class, model);
+        return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getFooter))
+            .map(footer -> createView(FooterView.class, footer))
+            .orElse(null);
     }
 
     @Override

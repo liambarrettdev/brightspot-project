@@ -20,11 +20,11 @@
             "content": "width=device-width, initial-scale=1, user-scalable=no"
         },
         {
-            "_template" : "/base/page/ExternalStylesheet",
+            "_template": "/base/page/ExternalStylesheet",
             "rel": "stylesheet",
             "type": "text/css",
             "media": "screen",
-            "href" : "/All.min.css"
+            "href": "/All.min.css"
         },
         {
             "_template": "/base/page/ExternalScript",
