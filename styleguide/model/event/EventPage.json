@@ -2,6 +2,11 @@
     "_wrapper": false,
     "_template": "/model/event/EventPage",
     "name": "{{words(5)}}",
+    "image": {
+        "_template": "/base/util/Image",
+        "src": "{{image(278,174)}}",
+        "alt": "{{words(5)}}"
+    },
     "type": "Online",
     "location": "{{words(2)}}",
     "date": "12th Oct - 15th Oct",

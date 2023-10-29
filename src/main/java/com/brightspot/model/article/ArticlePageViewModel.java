@@ -30,7 +30,7 @@ public class ArticlePageViewModel extends AbstractViewModel<Article> implements 
     @Override
     public Object getByline() {
         return Optional.ofNullable(model.asAuthorableData().getAuthor())
-            .map(Person::getDisplayName)
+            .map(author -> createView(LinkView.class, author))
             .orElse(null);
     }
 

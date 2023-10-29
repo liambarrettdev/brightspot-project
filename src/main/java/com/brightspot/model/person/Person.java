@@ -3,6 +3,7 @@ package com.brightspot.model.person;
 import java.util.List;
 
 import com.brightspot.model.image.Image;
+import com.brightspot.model.link.Linkable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
@@ -15,7 +16,7 @@ import com.psddev.dari.util.StringUtils;
 
 @Content.PreviewField("avatar")
 @ViewBinding(value = PersonPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
-public class Person extends AbstractPage {
+public class Person extends AbstractPage implements Linkable {
 
     @Indexed(unique = true)
     private String email;
@@ -88,5 +89,12 @@ public class Person extends AbstractPage {
     @Override
     public String createPermalink(Site site) {
         return StringUtils.toNormalized(getLabel());
+    }
+
+    // Linkable
+
+    @Override
+    public String getLinkableText() {
+        return getDisplayName();
     }
 }
