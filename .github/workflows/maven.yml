@@ -17,8 +17,8 @@ jobs:
       with:
         node-version: '10.24.1'
 
-    - name: Install NPM
-      run: npm install -g grunt-cli
+    - name: Update Git Config
+      run: git config --global url."https://".insteadOf git://
     
     - name: Set up JDK
       uses: actions/setup-java@v2
