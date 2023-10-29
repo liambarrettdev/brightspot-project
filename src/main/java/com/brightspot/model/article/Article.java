@@ -4,12 +4,10 @@ import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.model.page.content.AbstractContentPage;
 import com.brightspot.model.person.Authorable;
 import com.brightspot.model.rte.RichTextModule;
-import com.psddev.cms.db.Seo;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.crosslinker.db.Crosslinkable;
 
-@Seo.DescriptionFields("headline")
 @ToolUi.FieldDisplayOrder({
     "name",
     "displayName",

@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.model.person.Person;
 import com.brightspot.view.base.util.ImageView;
 import com.brightspot.view.base.util.LinkView;
 import com.brightspot.view.model.article.ArticlePageView;
