@@ -1,0 +1,30 @@
+name: Maven Build
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '10.24.1'
+
+    - name: Update Git Config
+      run: git config --global url."https://".insteadOf git://
+    
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '8'
+        distribution: 'adopt'
+
+    - name: Build with Maven
+      run: mvn clean -P library verify
