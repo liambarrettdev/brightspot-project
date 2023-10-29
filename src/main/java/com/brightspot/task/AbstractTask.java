@@ -49,7 +49,7 @@ public abstract class AbstractTask extends RepeatingTask {
         if (enabled) {
             // forces the task to run immediately if true
             if (executeImmediately().compareAndSet(true, false)) {
-                return currentTime;
+                return DateTime.now().minus(1000);
             }
 
             DateTime nextRunTime = Optional.ofNullable(getSettings().getCronExpression())
