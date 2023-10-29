@@ -35,11 +35,6 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
     }
 
     @Override
-    public Object getHeadline() {
-        return model.getDisplayName();
-    }
-
-    @Override
     public Object getContent() {
         return createView(MAIN_CONTENT_VIEW, model);
     }

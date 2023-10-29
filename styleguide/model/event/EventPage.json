@@ -1,0 +1,22 @@
+{
+    "_wrapper": false,
+    "_template": "/model/event/EventPage",
+    "name": "{{words(5)}}",
+    "image": {
+        "_template": "/base/util/Image",
+        "src": "{{image(278,174)}}",
+        "alt": "{{words(5)}}"
+    },
+    "type": "Online",
+    "location": "{{words(2)}}",
+    "date": "12th Oct - 15th Oct",
+    "description": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs([1, 20])}}"
+            }
+        ]
+    }
+}

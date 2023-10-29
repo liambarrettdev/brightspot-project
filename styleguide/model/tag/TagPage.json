@@ -1,0 +1,11 @@
+{
+    "_wrapper": false,
+    "_template": "/model/tag/TagPage",
+    "name": "{{words(2)}}",
+    "content": [
+        {
+            "_dataUrl": "/model/promo/Promo.json",
+            "_repeat": "10"
+        }
+    ]
+}

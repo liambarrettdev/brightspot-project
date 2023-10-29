@@ -1,10 +1,10 @@
 package com.brightspot.model.promo;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.view.base.util.ImageView;
-import com.brightspot.view.model.promo.PromoView;
 import com.brightspot.utils.LocalizationUtils;
 import com.brightspot.utils.StateUtils;
+import com.brightspot.view.base.util.ImageView;
+import com.brightspot.view.model.promo.PromoView;
 
 public class PromotableViewModel extends AbstractViewModel<Promotable> implements PromoView {
 
@@ -17,7 +17,7 @@ public class PromotableViewModel extends AbstractViewModel<Promotable> implement
 
     @Override
     public Object getDescription() {
-        return buildRichTextView(model.getPromoDescription());
+        return model.getPromoDescription();
     }
 
     @Override

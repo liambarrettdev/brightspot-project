@@ -7,14 +7,15 @@ import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.Sluggable;
 import com.brightspot.model.tag.Taggable;
 import com.brightspot.tool.HasImagePreview;
-import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.PageFilter;
+import com.psddev.cms.db.Seo;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.util.ObjectUtils;
 import com.psddev.dari.util.StringUtils;
 
+@Seo.DescriptionFields("subHeadline")
 @ViewBinding(value = AbstractContentPageViewModel.class, types = { PageFilter.PAGE_VIEW_TYPE })
 public abstract class AbstractContentPage extends AbstractPage implements
     HasImagePreview,
@@ -26,10 +27,8 @@ public abstract class AbstractContentPage extends AbstractPage implements
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.getLeadImagePlaceholderHtml()}'></span>")
     private Image leadImage;
 
-    @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
     private String headline;
 
-    @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
     private String subHeadline;
 
     public Image getLeadImage() {
@@ -83,6 +82,11 @@ public abstract class AbstractContentPage extends AbstractPage implements
     @Override
     public String getPromoTitleFallback() {
         return getDisplayName();
+    }
+
+    @Override
+    public String getPromoDescriptionFallback() {
+        return getSubHeadline();
     }
 
     @Override

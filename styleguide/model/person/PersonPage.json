@@ -1,0 +1,28 @@
+{
+    "_wrapper": false,
+    "_template": "/model/person/PersonPage",
+    "name": "{{words(2)}}",
+    "image": {
+        "_template": "/base/util/Image",
+        "src": "{{image(278,174)}}",
+        "alt": "{{words(5)}}"
+    },
+    "position": "{{words(2)}}",
+    "email": "#",
+    "website": "#",
+    "biography": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs([1, 20])}}"
+            }
+        ]
+    },
+    "content": [
+        {
+            "_dataUrl": "/model/promo/Promo.json",
+            "_repeat": "5"
+        }
+    ]
+}

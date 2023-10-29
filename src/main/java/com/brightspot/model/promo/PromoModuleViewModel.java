@@ -15,7 +15,7 @@ public class PromoModuleViewModel extends AbstractViewModel<PromoModule> impleme
 
     @Override
     public Object getDescription() {
-        return buildRichTextView(model.getDescription());
+        return model.getDescription();
     }
 
     @Override

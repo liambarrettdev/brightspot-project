@@ -1,18 +1,14 @@
-package com.brightspot.model.page.basic;
+package com.brightspot.model.page;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.brightspot.model.module.AbstractModule;
-import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.page.AbstractPageViewModel;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.view.ViewBinding;
-import com.psddev.dari.db.Recordable;
 
-@Recordable.DisplayName("Page")
-@ViewBinding(value = BasicPageViewModel.class, types = { AbstractPageViewModel.MAIN_CONTENT_VIEW })
-public class BasicPage extends AbstractPage {
+@ViewBinding(value = PageViewModel.class, types = { AbstractPageViewModel.MAIN_CONTENT_VIEW })
+public class Page extends AbstractPage {
 
     private List<AbstractModule> contents;
 

@@ -8,6 +8,7 @@ import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.Sluggable;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
+import com.brightspot.utils.RichTextUtils;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
@@ -118,6 +119,15 @@ public class Event extends AbstractPage implements
     @Override
     public String getPromoTitleFallback() {
         return getDisplayName();
+    }
+
+    @Override
+    public String getPromoDescriptionFallback() {
+        return Optional.ofNullable(getDescription())
+            .map(RichTextUtils::stripRichTextElements)
+            .map(RichTextUtils::getFirstBodyParagraph)
+            .map(RichTextUtils::richTextToPlainText)
+            .orElse(null);
     }
 
     // Sluggable

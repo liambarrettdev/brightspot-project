@@ -2,21 +2,21 @@ package com.brightspot.model.person;
 
 import java.util.List;
 
+import com.brightspot.model.image.Image;
+import com.brightspot.model.link.Linkable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.AbstractPageViewModel;
-import com.brightspot.tool.field.annotation.MimeTypes;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Query;
-import com.psddev.dari.util.StorageItem;
 import com.psddev.dari.util.StringUtils;
 
 @Content.PreviewField("avatar")
 @ViewBinding(value = PersonPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
-public class Person extends AbstractPage {
+public class Person extends AbstractPage implements Linkable {
 
     @Indexed(unique = true)
     private String email;
@@ -28,8 +28,8 @@ public class Person extends AbstractPage {
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class, inline = false)
     private String biography;
 
-    @MimeTypes("+image/")
-    private StorageItem avatar;
+    @Embedded
+    private Image avatar;
 
     @ToolUi.Tab("Content")
     @Indexed
@@ -74,11 +74,11 @@ public class Person extends AbstractPage {
         this.biography = biography;
     }
 
-    public StorageItem getAvatar() {
+    public Image getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(StorageItem avatar) {
+    public void setAvatar(Image avatar) {
         this.avatar = avatar;
     }
 
@@ -89,5 +89,12 @@ public class Person extends AbstractPage {
     @Override
     public String createPermalink(Site site) {
         return StringUtils.toNormalized(getLabel());
+    }
+
+    // Linkable
+
+    @Override
+    public String getLinkableText() {
+        return getDisplayName();
     }
 }

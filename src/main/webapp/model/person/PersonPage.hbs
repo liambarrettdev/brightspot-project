@@ -1,0 +1,37 @@
+{{#with name}}
+    <div class="name">
+        {{this}}
+    </div>
+{{/with}}
+{{#with image}}
+    <div class="image">
+        {{this}}
+    </div>
+{{/with}}
+{{#with position}}
+    <div class="position">
+        {{this}}
+    </div>
+{{/with}}
+{{#with email}}
+    <div class="email">
+        {{this}}
+    </div>
+{{/with}}
+{{#with website}}
+    <div class="website">
+        {{this}}
+    </div>
+{{/with}}
+{{#with biography}}
+    <div class="biography">
+        {{this}}
+    </div>
+{{/with}}
+{{#with content}}
+    <div class="promo">
+        {{#each this}}
+            {{this}}
+        {{/each}}
+    </div>
+{{/with}}

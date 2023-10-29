@@ -11,7 +11,6 @@ import com.brightspot.model.link.InternalLink;
 import com.brightspot.model.link.Link;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.model.page.AbstractPageViewModel;
-import com.brightspot.view.base.util.ImageView;
 import com.brightspot.view.base.util.LinkView;
 
 public class AbstractContentPageViewModel extends AbstractPageViewModel<AbstractContentPage> {
@@ -40,20 +39,5 @@ public class AbstractContentPageViewModel extends AbstractPageViewModel<Abstract
         return breadcrumbs.stream()
             .map(breadcrumb -> createView(LinkView.class, breadcrumb))
             .collect(Collectors.toList());
-    }
-
-    @Override
-    public Object getLead() {
-        return createView(ImageView.class, model.getLeadImage());
-    }
-
-    @Override
-    public Object getHeadline() {
-        return buildRichTextView(model.getHeadline());
-    }
-
-    @Override
-    public Object getSubHeadline() {
-        return buildRichTextView(model.getSubHeadline());
     }
 }
