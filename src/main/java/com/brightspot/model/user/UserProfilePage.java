@@ -7,7 +7,7 @@ import com.psddev.cms.db.Site;
 import com.psddev.cms.view.ViewBinding;
 
 @ViewBinding(value = UserProfilePageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
-public class UserProfile extends AbstractPage implements SiteSingleton {
+public class UserProfilePage extends AbstractPage implements SiteSingleton {
 
     // -- Overrides -- //
 

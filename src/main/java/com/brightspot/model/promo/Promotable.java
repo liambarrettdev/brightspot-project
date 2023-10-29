@@ -3,7 +3,6 @@ package com.brightspot.model.promo;
 import com.brightspot.model.image.Image;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.tool.HasImagePreview;
-import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.brightspot.utils.DirectoryUtils;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
@@ -61,7 +60,6 @@ public interface Promotable extends Linkable {
 
         @ToolUi.Tab(TAB_PROMO)
         @ToolUi.Placeholder(dynamicText = "${content.getPromoDescriptionFallback()}", editable = true)
-        @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
         private String promoDescription;
 
         @ToolUi.Tab(TAB_PROMO)

@@ -1,4 +1,4 @@
-package com.brightspot.model.page.basic;
+package com.brightspot.model.page;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.view.base.util.ConcatenatedView;
 
-public class BasicPageViewModel extends AbstractViewModel<BasicPage> implements ConcatenatedView {
+public class PageViewModel extends AbstractViewModel<Page> implements ConcatenatedView {
 
     @Override
     public Collection<?> getItems() {

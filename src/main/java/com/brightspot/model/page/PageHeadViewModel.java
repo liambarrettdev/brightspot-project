@@ -13,7 +13,7 @@ import com.psddev.cms.db.ElFunctionUtils;
 import com.psddev.cms.db.Seo;
 import com.psddev.dari.util.StringUtils;
 
-public class HeadViewModel extends AbstractViewModel<AbstractPage> implements HeadView {
+public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implements HeadView {
 
     @Override
     public Object getTitle() {

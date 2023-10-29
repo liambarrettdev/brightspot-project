@@ -6,15 +6,7 @@
     },
     "byline": "{{words(2)}}",
     "date": "{{date()}}",
-    "description": {
-        "_template": "base/util/Concatenated",
-        "items": [
-            {
-                "_template": "/base/util/RawHtml",
-                "html": "{{paragraphs([1, 3])}}"
-            }
-        ]
-    },
+    "description": "{{words(15)}}",
     "ctaUrl": "#",
     "ctaText": "{{words(1)}}"
 }

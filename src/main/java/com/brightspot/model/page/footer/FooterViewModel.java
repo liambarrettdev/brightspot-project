@@ -1,4 +1,4 @@
-package com.brightspot.model.page;
+package com.brightspot.model.page.footer;
 
 import java.util.Optional;
 

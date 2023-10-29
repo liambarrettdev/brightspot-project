@@ -5,12 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.brightspot.auth.AuthenticationUser;
+import com.brightspot.model.image.Image;
 import com.brightspot.tool.DefaultGlobal;
-import com.brightspot.tool.field.annotation.MimeTypes;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.ToolUi;
-import com.psddev.dari.util.StorageItem;
 
 @ToolUi.FieldDisplayOrder({
     "email",
@@ -38,8 +37,8 @@ public class User extends Content implements
 
     @ToolUi.Heading("Personal Details")
 
-    @MimeTypes("+image/")
-    private StorageItem avatar;
+    @Embedded
+    private Image avatar;
 
     @Indexed
     @ToolUi.CssClass("is-half")
@@ -76,11 +75,11 @@ public class User extends Content implements
         this.status = status;
     }
 
-    public StorageItem getAvatar() {
+    public Image getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(StorageItem avatar) {
+    public void setAvatar(Image avatar) {
         this.avatar = avatar;
     }
 

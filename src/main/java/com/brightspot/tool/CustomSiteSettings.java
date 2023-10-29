@@ -3,8 +3,8 @@ package com.brightspot.tool;
 import java.util.Locale;
 import java.util.function.Function;
 
-import com.brightspot.model.page.Footer;
-import com.brightspot.model.page.Header;
+import com.brightspot.model.page.footer.Footer;
+import com.brightspot.model.page.header.Header;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Modification;

@@ -1,23 +1,55 @@
 package com.brightspot.model.article;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.view.base.util.ConcatenatedView;
+import com.brightspot.model.person.Person;
+import com.brightspot.view.base.util.ImageView;
+import com.brightspot.view.base.util.LinkView;
+import com.brightspot.view.model.article.ArticlePageView;
 
-public class ArticlePageViewModel extends AbstractViewModel<Article> implements ConcatenatedView {
+public class ArticlePageViewModel extends AbstractViewModel<Article> implements ArticlePageView {
 
     @Override
-    public Collection<?> getItems() {
-        List<Object> items = new ArrayList<>();
+    public Object getLead() {
+        return createView(ImageView.class, model.getLeadImage());
+    }
 
-        Optional.ofNullable(model.getBody())
+    @Override
+    public Object getHeadline() {
+        return model.getHeadline();
+    }
+
+    @Override
+    public Object getSubHeadline() {
+        return model.getSubHeadline();
+    }
+
+    @Override
+    public Object getByline() {
+        return Optional.ofNullable(model.asAuthorableData().getAuthor())
+            .map(Person::getDisplayName)
+            .orElse(null);
+    }
+
+    @Override
+    public Object getPublishDate() {
+        return model.getPublishDate().toString();
+    }
+
+    @Override
+    public Object getBody() {
+        return Optional.ofNullable(model.getBody())
             .map(this::buildModuleView)
-            .ifPresent(items::add);
+            .orElse(null);
+    }
 
-        return items;
+    @Override
+    public Collection<?> getTags() {
+        return model.asTaggableData().getTags().stream()
+            .map(tag -> createView(LinkView.class, tag))
+            .collect(Collectors.toList());
     }
 }

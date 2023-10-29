@@ -1,4 +1,4 @@
-package com.brightspot.model.page;
+package com.brightspot.model.page.header;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

@@ -1,0 +1,29 @@
+{
+    "_wrapper": false,
+    "_template": "/model/article/ArticlePage",
+    "lead": {
+        "_template": "/base/util/Image",
+        "src": "{{image(278,174)}}",
+        "alt": "{{words(5)}}"
+    },
+    "byline": "{{words(2)}}",
+    "publishDate": "Wednesday, February 24, 2016",
+    "headline": "{{words(5)}}",
+    "subHeadline": "{{words(15)}}",
+    "body": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_dataUrl": "/model/rte/RichTextContent.json"
+            },
+            {
+                "_dataUrl": "/model/link/Link.json"
+            }
+        ]
+    },
+    "tags": [
+        {
+            "_dataUrl": "/model/link/Link.json"
+        }
+    ]
+}

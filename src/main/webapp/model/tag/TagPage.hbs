@@ -1,0 +1,12 @@
+{{#with name}}
+    <div class="name">
+        {{this}}
+    </div>
+{{/with}}
+{{#with content}}
+    <div class="promo">
+        {{#each this}}
+            {{this}}
+        {{/each}}
+    </div>
+{{/with}}

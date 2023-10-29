@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.brightspot.model.link.Linkable;
 import com.brightspot.model.page.AbstractPage;
+import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.model.slug.Sluggable;
+import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.Taxon;
 import com.psddev.cms.db.ToolUi;
@@ -23,8 +26,9 @@ import com.psddev.dari.util.StringUtils;
     "sluggable.slug",
     "parent"
 })
-@ViewBinding(value = TagViewModel.class)
+@ViewBinding(value = TagPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
 public class Tag extends AbstractPage implements
+    Linkable,
     Sluggable,
     Taxon {
 
@@ -64,6 +68,13 @@ public class Tag extends AbstractPage implements
             .orElse(asSluggableData().getSlug());
     }
 
+    // Linkable
+
+    @Override
+    public String getLinkableText() {
+        return getDisplayName();
+    }
+
     // Sluggable
 
     @Override
@@ -101,5 +112,14 @@ public class Tag extends AbstractPage implements
         }
 
         return ancestry;
+    }
+
+    public List<Taggable> getMostRecentContent() {
+        return Query.from(Taggable.class)
+            .where(Taggable.Data.TAGS_FIELD + " = ?", this)
+            .sortDescending(Content.PUBLISH_DATE_FIELD)
+            .resolveToReferenceOnly()
+            .select(0, 10)
+            .getItems();
     }
 }
