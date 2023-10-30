@@ -3,6 +3,8 @@ package com.brightspot.model.page.header;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import com.brightspot.integration.IntegrationSiteSettings;
+import com.brightspot.integration.TagManager;
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.view.base.util.ImageView;
 import com.brightspot.view.model.navigation.NavigationItemView;
@@ -26,6 +28,13 @@ public class HeaderViewModel extends AbstractViewModel<Header> implements Header
     public Collection<?> getItems() {
         return model.getNavigationItems().stream()
             .map(navItem -> createView(NavigationItemView.class, navItem))
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<?> getTagManager() {
+        return IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getTagManagers).stream()
+            .map(tagManager -> buildObjectView(TagManager.BODY_VIEW_TYPE, tagManager.unwrap()))
             .collect(Collectors.toList());
     }
 }

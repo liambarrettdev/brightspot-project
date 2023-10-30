@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.user.User;
+import com.brightspot.tool.Wrapper;
 import com.brightspot.tool.field.annotation.CurrentUser;
 import com.brightspot.tool.rte.RichTextProcessor;
 import com.brightspot.view.base.util.ConcatenatedView;
@@ -62,9 +62,15 @@ public abstract class AbstractViewModel<M> extends ViewModel<M> {
             .build();
     }
 
-    protected Object buildModuleView(AbstractModule module) {
-        return Optional.ofNullable(module)
-            .map(m -> createView(m.getViewType(), m.unwrap()))
+    protected Object buildObjectView(String type, Object object) {
+        return Optional.ofNullable(object)
+            .map(o -> createView(type, object))
+            .orElse(null);
+    }
+
+    protected Object buildWrappedObjectView(Wrapper wrapper) {
+        return Optional.ofNullable(wrapper)
+            .map(o -> buildObjectView(o.getViewType(), o.unwrap()))
             .orElse(null);
     }
 

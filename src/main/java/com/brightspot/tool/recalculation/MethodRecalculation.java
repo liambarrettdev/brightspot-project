@@ -12,7 +12,8 @@ import com.psddev.dari.db.Record;
 
 /**
  * Class for describing an indexed method recalculation event. Create one to recalculate the {{@code methodName}} for
- * all results of the {{@code query}}. Ingested then deleted by {{@link com.brightspot.task.recalculation.MethodRecalculationTask}}.
+ * all results of the {{@code query}}. Ingested then deleted by
+ * {{@link com.brightspot.task.recalculation.MethodRecalculationTask}}.
  */
 public class MethodRecalculation extends Record {
 

@@ -3,7 +3,10 @@ package com.brightspot.model.page;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.brightspot.integration.IntegrationSiteSettings;
+import com.brightspot.integration.TagManager;
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.view.base.page.ExternalScriptView;
 import com.brightspot.view.base.page.ExternalStylesheetView;
@@ -58,6 +61,18 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
                 .build());
         }
 
+        items.addAll(IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getExtraHeadScripts).stream()
+            .filter(script -> !script.asHeadScriptData().isDisabled())
+            .map(this::buildWrappedObjectView)
+            .collect(Collectors.toList()));
+
         return items;
+    }
+
+    @Override
+    public Collection<?> getTagManager() {
+        return IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getTagManagers).stream()
+            .map(tagManager -> buildObjectView(TagManager.HEAD_VIEW_TYPE, tagManager.unwrap()))
+            .collect(Collectors.toList());
     }
 }

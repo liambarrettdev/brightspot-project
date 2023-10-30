@@ -1,6 +1,8 @@
 package com.brightspot.tool;
 
-public interface ModelWrapper {
+public interface Wrapper {
+
+    String getViewType();
 
     Object unwrap();
 }
