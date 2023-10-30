@@ -1,17 +1,20 @@
-package com.brightspot.model.tag;
+package com.brightspot.model.category;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
+import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.AbstractPageViewModel;
+import com.brightspot.model.page.Page;
 import com.brightspot.model.slug.Sluggable;
+import com.brightspot.model.taxonomy.Taxonomy;
 import com.psddev.cms.db.Content;
+import com.psddev.cms.db.Directory;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.Taxon;
 import com.psddev.cms.db.ToolUi;
@@ -27,33 +30,27 @@ import com.psddev.dari.util.StringUtils;
     "sluggable.slug",
     "parent"
 })
-@ViewBinding(value = TagPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
-public class Tag extends AbstractPage implements
+@ViewBinding(value = CategoryPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
+public class Category extends AbstractPage implements
     Linkable,
     Sluggable,
-    Taxon {
+    Taxonomy {
 
     @Indexed
     @Where("_id != ?")
+    @Types({ Category.class, Page.class })
     @ToolUi.Filterable
-    private Tag parent;
+    private Hierarchical parent;
 
-    public Tag getParent() {
+    public Hierarchical getParent() {
         return parent;
     }
 
-    public void setParent(Tag parent) {
+    public void setParent(Hierarchical parent) {
         this.parent = parent;
     }
 
     // -- Overrides -- //
-
-    @Override
-    public String getLabel() {
-        return isRoot()
-            ? getName()
-            : getAncestry().stream().map(Tag::getName).collect(Collectors.joining(" :: "));
-    }
 
     // Directory.Item
 
@@ -64,10 +61,19 @@ public class Tag extends AbstractPage implements
         }
 
         return Optional.ofNullable(getParent())
+            .filter(Directory.Item.class::isInstance)
+            .map(Directory.Item.class::cast)
             .map(parent -> parent.createPermalink(site))
             .map(prefix -> StringUtils.ensureEnd(prefix, "/"))
             .map(prefix -> prefix + asSluggableData().getSlug())
             .orElse(asSluggableData().getSlug());
+    }
+
+    // Hierarchical
+
+    @Override
+    public Hierarchical getHierarchicalParent() {
+        return getParent();
     }
 
     // Linkable
@@ -87,13 +93,8 @@ public class Tag extends AbstractPage implements
     // Taxon
 
     @Override
-    public boolean isRoot() {
-        return ObjectUtils.isBlank(parent);
-    }
-
-    @Override
     public Collection<? extends Taxon> getChildren() {
-        return Query.from(Tag.class)
+        return Query.from(Category.class)
             .where("* matches *")
             .and("parent = ?", this)
             .selectAll();
@@ -101,14 +102,14 @@ public class Tag extends AbstractPage implements
 
     // -- Helper Methods -- //
 
-    public List<Tag> getAncestry() {
-        List<Tag> ancestry = new ArrayList<>(Collections.singletonList(this));
+    public List<Hierarchical> getAncestry() {
+        List<Hierarchical> ancestry = new ArrayList<>(Collections.singletonList(this));
 
-        if (!isRoot()) {
-            Tag currentAncestor = getParent();
+        Hierarchical currentAncestor = getParent();
+        if (!ObjectUtils.isBlank(currentAncestor)) {
             while (currentAncestor != null && !currentAncestor.equals(this) && !ancestry.contains(currentAncestor)) {
                 ancestry.add(currentAncestor);
-                currentAncestor = currentAncestor.getParent();
+                currentAncestor = currentAncestor.getHierarchicalParent();
             }
             Collections.reverse(ancestry);
         }
@@ -116,9 +117,9 @@ public class Tag extends AbstractPage implements
         return ancestry;
     }
 
-    public List<Taggable> getMostRecentContent() {
-        return Query.from(Taggable.class)
-            .where(Taggable.Data.TAGS_FIELD + " = ?", this)
+    public List<Categorizable> getMostRecentContent() {
+        return Query.from(Categorizable.class)
+            .where(Categorizable.Data.CATEGORY_FIELD + " = ?", this)
             .sortDescending(Content.PUBLISH_DATE_FIELD)
             .resolveToReferenceOnly()
             .select(0, 10)

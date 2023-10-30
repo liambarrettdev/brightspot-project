@@ -47,6 +47,7 @@ public class CustomSiteSettings extends Modification<Site> {
     public void setFooter(Footer footer) {
         this.footer = footer;
     }
+
     // -- Static Methods --//
 
     public static <T> T get(Site site, Function<CustomSiteSettings, T> getter) {
