@@ -17,6 +17,7 @@ import com.psddev.crosslinker.db.Crosslinkable;
     "headline",
     "subHeadline",
     "body",
+    "categorizable.category",
     "taggable.tags"
 })
 @Crosslinkable.SimulationName("Default")

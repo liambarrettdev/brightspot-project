@@ -1,5 +1,6 @@
 package com.brightspot.model.page.content;
 
+import com.brightspot.model.category.Categorizable;
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.image.Image;
 import com.brightspot.model.page.AbstractPage;
@@ -18,6 +19,7 @@ import com.psddev.dari.util.StringUtils;
 @Seo.DescriptionFields("subHeadline")
 @ViewBinding(value = AbstractContentPageViewModel.class, types = { PageFilter.PAGE_VIEW_TYPE })
 public abstract class AbstractContentPage extends AbstractPage implements
+    Categorizable,
     HasImagePreview,
     Hierarchical,
     Promotable,
@@ -54,6 +56,7 @@ public abstract class AbstractContentPage extends AbstractPage implements
     public void setSubHeadline(String subHeadline) {
         this.subHeadline = subHeadline;
     }
+
     // -- Overrides -- //
 
     // Directory.Item
@@ -67,7 +70,7 @@ public abstract class AbstractContentPage extends AbstractPage implements
 
     @Override
     public Hierarchical getHierarchicalParent() {
-        return null;
+        return asCategorizableData().getCategory();
     }
 
     // Linkable
