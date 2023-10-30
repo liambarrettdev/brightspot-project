@@ -1,5 +1,5 @@
 {
-  "name": "brightspot-template",
+  "name": "base-brightspot",
   "private": true,
   "dependencies": {
     "brightspot-base": "perfectsense/brightspot-base#v3.0.1237-07cc26",

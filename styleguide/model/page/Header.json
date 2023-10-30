@@ -19,5 +19,10 @@
                 }
             ]
         }
+    ],
+    "tagManager": [
+        {
+            "_dataUrl": "/integration/google/GoogleTagManagerBody.json"
+        }
     ]
 }

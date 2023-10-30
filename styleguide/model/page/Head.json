@@ -1,11 +1,11 @@
 {
     "_template": "/model/page/Head",
-    "title": "Test",
-    "description": "Test Styleguide",
+    "title": "{{words(5)}",
+    "description": "{{words(10)}}",
     "keywords": [
-        "one",
-        "two",
-        "three"
+        "{{words(3)}}",
+        "{{words(3)}}",
+        "{{words(3)}}"
     ],
     "canonicalLink": "#",
     "extraItems": [
@@ -32,6 +32,11 @@
             "src": "/All.min.js",
             "async": false,
             "defer": false
+        }
+    ],
+    "tagManager": [
+        {
+            "_dataUrl": "/integration/google/GoogleTagManagerHead.json"
         }
     ]
 }
