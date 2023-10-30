@@ -1,0 +1,7 @@
+{
+    "_template": "/model/html/HtmlContent",
+    "rawHtml": {
+        "_template": "/base/util/RawHtml",
+        "html": "{{paragraphs([1, 3])}}"
+    }
+}
