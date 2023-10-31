@@ -14,7 +14,7 @@ import com.brightspot.view.model.page.HeadView;
 import com.psddev.cms.db.Directory;
 import com.psddev.cms.db.ElFunctionUtils;
 import com.psddev.cms.db.Seo;
-import com.psddev.dari.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implements HeadView {
 

@@ -6,6 +6,8 @@ import com.psddev.dari.db.Recordable;
 
 public interface DefaultGlobal extends Recordable {
 
+    // -- Modification Data -- //
+
     @FieldInternalNamePrefix(Data.FIELD_PREFIX)
     class Data extends Modification<DefaultGlobal> {
 

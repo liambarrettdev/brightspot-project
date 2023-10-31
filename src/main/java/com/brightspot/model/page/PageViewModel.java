@@ -18,7 +18,9 @@ public class PageViewModel extends AbstractViewModel<Page> implements Concatenat
 
         Optional.ofNullable(model.getContents())
             .map(List::stream)
-            .map(stream -> stream.map(this::buildWrappedObjectView).filter(Objects::nonNull).collect(Collectors.toList()))
+            .map(stream -> stream.map(this::buildWrappedObjectView)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList()))
             .ifPresent(items::addAll);
 
         return items;

@@ -3,16 +3,19 @@ package com.brightspot.model.event;
 import java.util.Date;
 import java.util.Optional;
 
+import com.brightspot.model.expiry.Expirable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.Sluggable;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.brightspot.utils.RichTextUtils;
+import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
-import com.psddev.dari.util.StringUtils;
+import com.psddev.dari.util.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 @ToolUi.DefaultSortField("startDate")
 @ToolUi.FieldDisplayOrder({
@@ -22,6 +25,7 @@ import com.psddev.dari.util.StringUtils;
 })
 @ViewBinding(value = EventPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
 public class Event extends AbstractPage implements
+    Expirable,
     Promotable,
     Sluggable {
 
@@ -101,10 +105,20 @@ public class Event extends AbstractPage implements
 
         return Optional.ofNullable(getType())
             .map(Type::toString)
-            .map(StringUtils::toNormalized)
-            .map(prefix -> StringUtils.ensureEnd(prefix, "/"))
+            .map(Utils::toNormalized)
+            .map(prefix -> StringUtils.appendIfMissing(prefix, "/"))
             .map(prefix -> prefix + asSluggableData().getSlug())
             .orElse(asSluggableData().getSlug());
+    }
+
+    // Expirable
+
+    @Override
+    public Boolean isExpired() {
+        Date now = new Date();
+        Date expiryDate = ObjectUtils.firstNonBlank(endDate, startDate, now);
+
+        return !now.before(expiryDate);
     }
 
     // Linkable
@@ -134,7 +148,7 @@ public class Event extends AbstractPage implements
 
     @Override
     public String getSlugFallback() {
-        return StringUtils.toNormalized(getDisplayName());
+        return Utils.toNormalized(getDisplayName());
     }
 
     // -- Enums -- //

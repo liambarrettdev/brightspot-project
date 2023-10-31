@@ -8,13 +8,13 @@ import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.Sluggable;
 import com.brightspot.model.tag.Taggable;
 import com.brightspot.tool.HasImagePreview;
+import com.brightspot.utils.Utils;
 import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Seo;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.util.ObjectUtils;
-import com.psddev.dari.util.StringUtils;
 
 @Seo.DescriptionFields("subHeadline")
 @ViewBinding(value = AbstractContentPageViewModel.class, types = { PageFilter.PAGE_VIEW_TYPE })
@@ -100,7 +100,7 @@ public abstract class AbstractContentPage extends AbstractPage implements
     // Sluggable
 
     public String getSlugFallback() {
-        return StringUtils.toNormalized(getLabel());
+        return Utils.toNormalized(getLabel());
     }
 
     // -- Helper Methods -- //

@@ -33,8 +33,8 @@ public class PromoModule extends AbstractModule implements
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.getPromoImagePlaceholderHtml()}'></span>")
     private Image image;
 
+    @ToolUi.DisplayName("CTA Text")
     @ToolUi.Placeholder(dynamicText = "${content.getButtonTextFallback()}", editable = true)
-    @DisplayName("CTA Text")
     private String ctaText;
 
     public Promo getPromo() {

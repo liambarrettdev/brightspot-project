@@ -13,7 +13,7 @@ import com.psddev.dari.util.ObjectUtils;
 @ViewBinding(value = AbstractPageViewModel.class, types = { PageFilter.PAGE_VIEW_TYPE })
 public abstract class AbstractPage extends Content implements Directory.Item {
 
-    @DisplayName("Internal Name")
+    @ToolUi.DisplayName("Internal Name")
     @ToolUi.Placeholder(dynamicText = "${content.getNameFallback()}", editable = true)
     private String name;
 
