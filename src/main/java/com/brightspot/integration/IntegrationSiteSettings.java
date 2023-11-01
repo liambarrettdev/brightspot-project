@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import com.brightspot.model.form.field.captcha.CaptchaProvider;
 import com.brightspot.model.page.HeadScript;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
@@ -16,6 +17,8 @@ public class IntegrationSiteSettings extends Modification<Site> {
 
     public static final String TAB_INTEGRATIONS = "Integrations";
 
+    @ToolUi.Heading("Page")
+
     @ToolUi.Tab(TAB_INTEGRATIONS)
     @Embedded
     private List<HeadScript> extraHeadScripts;
@@ -23,6 +26,12 @@ public class IntegrationSiteSettings extends Modification<Site> {
     @ToolUi.Tab(TAB_INTEGRATIONS)
     @Embedded
     private List<TagManager> tagManagers;
+
+    @ToolUi.Heading("Forms")
+
+    @ToolUi.Tab(TAB_INTEGRATIONS)
+    @Embedded
+    private CaptchaProvider captchaProvider;
 
     public List<HeadScript> getExtraHeadScripts() {
         if (extraHeadScripts == null) {
@@ -44,6 +53,14 @@ public class IntegrationSiteSettings extends Modification<Site> {
 
     public void setTagManagers(List<TagManager> tagManagers) {
         this.tagManagers = tagManagers;
+    }
+
+    public CaptchaProvider getCaptchaProvider() {
+        return captchaProvider;
+    }
+
+    public void setCaptchaProvider(CaptchaProvider captchaProvider) {
+        this.captchaProvider = captchaProvider;
     }
 
     // -- Static Methods --//
