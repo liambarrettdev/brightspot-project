@@ -6,7 +6,6 @@ import com.brightspot.utils.LocalizationUtils;
 import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
-import com.psddev.cms.tool.ToolPageContext;
 import com.psddev.cms.view.ViewBinding;
 
 @ToolUi.NoteHtml("<span data-dynamic-html='${content.getNoteHtml()}'></span>")
