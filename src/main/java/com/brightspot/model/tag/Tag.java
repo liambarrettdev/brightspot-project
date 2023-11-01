@@ -11,6 +11,7 @@ import com.brightspot.model.link.Linkable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.model.slug.Sluggable;
+import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.Taxon;
@@ -18,7 +19,7 @@ import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Query;
 import com.psddev.dari.util.ObjectUtils;
-import com.psddev.dari.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 @ToolUi.DefaultSortField("displayName")
 @ToolUi.FieldDisplayOrder({
@@ -65,7 +66,7 @@ public class Tag extends AbstractPage implements
 
         return Optional.ofNullable(getParent())
             .map(parent -> parent.createPermalink(site))
-            .map(prefix -> StringUtils.ensureEnd(prefix, "/"))
+            .map(prefix -> StringUtils.appendIfMissing(prefix, "/"))
             .map(prefix -> prefix + asSluggableData().getSlug())
             .orElse(asSluggableData().getSlug());
     }
@@ -81,7 +82,7 @@ public class Tag extends AbstractPage implements
 
     @Override
     public String getSlugFallback() {
-        return StringUtils.toNormalized(getDisplayName());
+        return Utils.toNormalized(getDisplayName());
     }
 
     // Taxon

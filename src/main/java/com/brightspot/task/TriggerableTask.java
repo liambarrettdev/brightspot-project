@@ -1,12 +1,12 @@
 package com.brightspot.task;
 
-import com.psddev.dari.util.StringUtils;
+import com.brightspot.utils.Utils;
 import com.psddev.dari.util.Task;
 
 public interface TriggerableTask {
 
     default String getTaskParam() {
-        return StringUtils.toNormalized(getTaskWidgetLabel());
+        return Utils.toNormalized(getTaskWidgetLabel());
     }
 
     String getTaskWidgetLabel();

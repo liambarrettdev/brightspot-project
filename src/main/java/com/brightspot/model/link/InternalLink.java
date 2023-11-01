@@ -5,7 +5,7 @@ import java.util.Optional;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Recordable;
-import com.psddev.dari.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 @ToolUi.FieldDisplayOrder({
     "item",

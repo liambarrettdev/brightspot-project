@@ -1,0 +1,29 @@
+{
+    "_template": "/model/event/Calendar",
+    "title": "{{words(5)}}",
+    "description": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs([1, 20])}}"
+            }
+        ]
+    },
+    "currentMonth": "May 2023",
+    "prevMonth": {
+        "_dataUrl": "/model/link/Link.json"
+    },
+    "nextMonth": {
+        "_dataUrl": "/model/link/Link.json"
+    },
+    "events": [
+        {
+            "_dataUrl": "/model/promo/Promo.json",
+            "_repeat": 3
+        }
+    ],
+    "cta": {
+        "_dataUrl": "/model/link/Link.json"
+    }
+}

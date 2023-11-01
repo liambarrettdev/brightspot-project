@@ -7,7 +7,7 @@ import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Recordable;
 
-@Recordable.DisplayName("Raw HTML")
+@Recordable.DisplayName("HTML")
 @ViewBinding(value = HtmlModuleViewModel.class, types = HtmlModule.VIEW_CLASS)
 public class HtmlModule extends AbstractModule implements ShareableModule {
 
@@ -15,6 +15,7 @@ public class HtmlModule extends AbstractModule implements ShareableModule {
 
     private String name;
 
+    @ToolUi.DisplayName("Raw HTML")
     @ToolUi.CodeType("text/html")
     private String rawHtml;
 

@@ -18,7 +18,7 @@ import com.brightspot.tool.email.attachment.Attachment;
 import com.psddev.dari.util.AbstractMailProvider;
 import com.psddev.dari.util.MailMessage;
 import com.psddev.dari.util.ObjectUtils;
-import com.psddev.dari.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

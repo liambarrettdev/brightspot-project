@@ -18,7 +18,7 @@ import com.brightspot.utils.DirectoryUtils;
 import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Site;
 import com.psddev.dari.util.JspUtils;
-import com.psddev.dari.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

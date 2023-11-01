@@ -7,12 +7,12 @@ import com.brightspot.model.link.Linkable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
+import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Query;
-import com.psddev.dari.util.StringUtils;
 
 @Content.PreviewField("avatar")
 @ViewBinding(value = PersonPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
@@ -88,7 +88,7 @@ public class Person extends AbstractPage implements Linkable {
 
     @Override
     public String createPermalink(Site site) {
-        return StringUtils.toNormalized(getLabel());
+        return Utils.toNormalized(getLabel());
     }
 
     // Linkable

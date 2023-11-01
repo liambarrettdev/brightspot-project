@@ -15,7 +15,7 @@ public interface HeadScript extends Recordable, Wrapper {
     @FieldInternalNamePrefix(Data.FIELD_PREFIX)
     class Data extends Modification<HeadScript> {
 
-        private static final String FIELD_PREFIX = "script.";
+        public static final String FIELD_PREFIX = "script.";
 
         private Boolean disabled;
 

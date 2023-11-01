@@ -2,9 +2,9 @@ package com.brightspot.model.form.field;
 
 import java.util.Optional;
 
+import com.brightspot.utils.Utils;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.util.ObjectUtils;
-import com.psddev.dari.util.StringUtils;
 
 public abstract class FieldInput extends Field {
 
@@ -36,7 +36,7 @@ public abstract class FieldInput extends Field {
 
     public String getParameterNameFallback() {
         return Optional.ofNullable(getName())
-            .map(StringUtils::toNormalized)
+            .map(Utils::toNormalized)
             .orElse(null);
     }
 }
