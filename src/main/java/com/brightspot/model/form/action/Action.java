@@ -5,5 +5,5 @@ import com.psddev.dari.db.Recordable;
 
 public interface Action extends Recordable {
 
-    String onSubmit(FormModule form);
+    boolean onSubmit(FormModule form);
 }

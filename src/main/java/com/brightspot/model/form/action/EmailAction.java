@@ -3,12 +3,10 @@ package com.brightspot.model.form.action;
 import java.util.Map;
 
 import com.brightspot.model.form.FormModule;
-import com.brightspot.utils.LocalizationUtils;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Record;
 import com.psddev.dari.util.MailMessage;
 import com.psddev.dari.util.PageContextFilter;
-import org.apache.commons.lang.LocaleUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +63,7 @@ public class EmailAction extends Record implements Action {
     }
 
     @Override
-    public String onSubmit(FormModule form) {
+    public boolean onSubmit(FormModule form) {
         try {
             String to = getToEmail();
             String subject = getSubject();
@@ -94,10 +92,10 @@ public class EmailAction extends Record implements Action {
                 .bodyPlain(body)
                 .send();
         } catch (RuntimeException e) {
-            LOGGER.error("Cannot send mail message!", e);
-            return LocalizationUtils.currentSiteText(form, "action.email.errorMessage");
+            LOGGER.error("Cannot send mail message", e);
+            return false;
         }
 
-        return null;
+        return true;
     }
 }

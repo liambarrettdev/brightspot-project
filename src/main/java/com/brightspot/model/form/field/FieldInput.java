@@ -3,7 +3,6 @@ package com.brightspot.model.form.field;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 
 import com.brightspot.utils.Utils;
