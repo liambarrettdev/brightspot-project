@@ -2,5 +2,11 @@
     {{#each inputs}}
         {{this}}
     {{/each}}
-    <input type="submit" value="Log In">
+    <input type="submit" value="Submit">
+    {{#with successMessage}}
+        <div class="SuccessMessage">{{this}}</div>
+    {{/with}}
+    {{#with errorMessage}}
+        <div class="ErrorMessage">{{this}}</div>
+    {{/with}}
 </form>

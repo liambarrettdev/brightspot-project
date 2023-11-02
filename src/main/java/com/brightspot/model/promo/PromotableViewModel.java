@@ -8,7 +8,7 @@ import com.brightspot.view.model.promo.PromoView;
 
 public class PromotableViewModel extends AbstractViewModel<Promotable> implements PromoView {
 
-    public static final String DEFAULT_CTA_TEXT = "Read More";
+    private static final String DEFAULT_CTA_TEXT = "Read More";
 
     @Override
     public Object getTitle() {

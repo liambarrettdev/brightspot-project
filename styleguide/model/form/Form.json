@@ -1,7 +1,6 @@
 {
     "_template": "/model/form/Form",
     "title": "{{words(5)}}",
-    "action": "#",
     "method": "POST",
     "inputs": [
         {
@@ -19,5 +18,8 @@
         {
             "_dataUrl": "/model/form/input/HiddenInput.json"
         }
-    ]
+    ],
+    "submitLabel": "{{words(1)}}",
+    "successMessage": "{{words(10)}}",
+    "errorMessage": "{{words(10)}}"
 }
