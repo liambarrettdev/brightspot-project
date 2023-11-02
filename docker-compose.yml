@@ -1,25 +1,25 @@
 version: '3'
 services:
     tomcat:
-        image: brightspot/tomcat:8-jdk8
+        image: brightspot/tomcat:8.5.69-jdk8
         hostname: task.brightspot
         ports:
             - 5005:5005
         volumes:
             - .:/code:cached
-            - $HOME/.aws/credentials:/etc/aws/credentials:cached
+            - ~/.aws/credentials:/etc/aws/credentials:cached
             - storage-data:/servers/tomcat/storage
         environment:
             - ROOT_WAR=/code/target/base-brightspot-1.0-SNAPSHOT.war
             - CONTEXT_PROPERTIES=/code/docker-context.properties
             - LOGGING_PROPERTIES=/code/docker-logging.properties
-            - SOLR_URL=http://solr:8080/solr/collection1
+            - TEMPLATE_CONFIG=/code/docker-template.yml
     solr:
         image: brightspot/solr:4
         ports:
             - 8081:8080
         volumes:
-            - solr-data:/var/solr/data/collection1/data
+            - solr-data:/servers/tomcat/solr/collection1/data
     apache:
         image: brightspot/apache:2-dims3
         ports:
@@ -28,7 +28,9 @@ services:
         volumes:
             - storage-data:/var/www/localhost/htdocs/storage
     mysql:
-        image: brightspot/mysql:percona5
+        image: brightspot/mysql:mysql5.6
+        ports:
+            - 3306:3306
         volumes:
             - mysql-data:/var/lib/mysql
             - mysql-logs:/var/log/mysql
