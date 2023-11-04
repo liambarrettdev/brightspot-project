@@ -49,7 +49,7 @@ public class PasswordAuthenticator extends AbstractAuthenticator {
     @Override
     public Session getCurrentSession(HttpServletRequest request) throws AuthenticationException {
         return Optional.ofNullable(JspUtils.getSignedCookie(request, COOKIE_NAME))
-            .filter(sessionId -> !StringUtils.isBlank(sessionId))
+            .filter(sessionId -> StringUtils.isNotBlank(sessionId))
             .map(Session::getSession)
             .orElse(null);
     }

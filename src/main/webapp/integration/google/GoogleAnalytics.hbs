@@ -1,14 +1,12 @@
 {{#with trackingId}}
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{this}}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){window.dataLayer.push(arguments);}
 
         gtag('js', new Date());
-        {{#if ../disablePageViews}}
-        gtag('config', '{{this}}', { send_page_view: false });
-        {{else}}
-        gtag('config', '{{this}}');
-        {{/if}}
-</script>
+        {{#if ../disablePageViews}}gtag('config', '{{this}}', { send_page_view: false });{{else}}gtag('config', '{{this}}');{{/if}}
+    </script>
+    <!-- Google Analytics -->
 {{/with}}

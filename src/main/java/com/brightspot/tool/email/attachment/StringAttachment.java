@@ -17,7 +17,7 @@ public class StringAttachment extends Attachment {
     @Override
     public byte[] getBytes() {
         return Optional.ofNullable(getBody())
-                .map(String::getBytes)
-                .orElse(null);
+            .map(String::getBytes)
+            .orElse(null);
     }
 }

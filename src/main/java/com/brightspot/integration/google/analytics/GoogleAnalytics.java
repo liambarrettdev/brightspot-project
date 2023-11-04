@@ -1,11 +1,11 @@
 package com.brightspot.integration.google.analytics;
 
-import com.brightspot.model.page.HeadScript;
+import com.brightspot.model.page.HeadItem;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Record;
 
 @ViewBinding(value = GoogleAnalyticsViewModel.class, types = GoogleAnalytics.VIEW_TYPE)
-public class GoogleAnalytics extends Record implements HeadScript {
+public class GoogleAnalytics extends Record implements HeadItem {
 
     protected static final String VIEW_TYPE = "google-analytics";
 
@@ -35,11 +35,6 @@ public class GoogleAnalytics extends Record implements HeadScript {
     @Override
     public String getViewType() {
         return VIEW_TYPE;
-    }
-
-    @Override
-    public Object unwrap() {
-        return this;
     }
 
     @Override

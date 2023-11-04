@@ -1,7 +1,5 @@
 package com.brightspot.model.category;
 
-import java.util.Collection;
-
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.view.model.category.CategoryPageView;
 
@@ -13,7 +11,7 @@ public class CategoryPageViewModel extends AbstractViewModel<Category> implement
     }
 
     @Override
-    public Collection<?> getContent() {
-        return CategoryPageView.super.getContent();
+    public Object getRelatedContent() {
+        return buildPromoListView(model.getMostRecentContent());
     }
 }

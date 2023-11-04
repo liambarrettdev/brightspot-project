@@ -4,21 +4,20 @@ import com.brightspot.model.category.Categorizable;
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.image.Image;
 import com.brightspot.model.page.AbstractPage;
+import com.brightspot.model.person.Authorable;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.Sluggable;
 import com.brightspot.model.tag.Taggable;
 import com.brightspot.tool.HasImagePreview;
 import com.brightspot.utils.Utils;
-import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Seo;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
-import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.util.ObjectUtils;
 
 @Seo.DescriptionFields("subHeadline")
-@ViewBinding(value = AbstractContentPageViewModel.class, types = { PageFilter.PAGE_VIEW_TYPE })
 public abstract class AbstractContentPage extends AbstractPage implements
+    Authorable,
     Categorizable,
     HasImagePreview,
     Hierarchical,

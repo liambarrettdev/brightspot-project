@@ -17,11 +17,4 @@ public abstract class AbstractModule extends Content implements Wrapper {
             this.as(Site.ObjectModification.class).setOwner(currentSite);
         }
     }
-
-    // -- Overrides -- //
-
-    @Override
-    public Object unwrap() {
-        return this;
-    }
 }
