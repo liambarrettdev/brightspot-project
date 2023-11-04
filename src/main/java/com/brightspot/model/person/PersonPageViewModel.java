@@ -1,12 +1,8 @@
 package com.brightspot.model.person;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.view.base.util.ImageView;
 import com.brightspot.view.model.person.PersonPageView;
-import com.brightspot.view.model.promo.PromoView;
 
 public class PersonPageViewModel extends AbstractViewModel<Person> implements PersonPageView {
 
@@ -41,9 +37,7 @@ public class PersonPageViewModel extends AbstractViewModel<Person> implements Pe
     }
 
     @Override
-    public Collection<?> getContent() {
-        return model.getMostRecentContent().stream()
-            .map(item -> createView(PromoView.class, item))
-            .collect(Collectors.toList());
+    public Object getRelatedContent() {
+        return buildPromoListView(model.getMostRecentContent());
     }
 }

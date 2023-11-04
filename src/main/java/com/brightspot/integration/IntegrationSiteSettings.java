@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.function.Function;
 
 import com.brightspot.model.form.field.captcha.CaptchaProvider;
-import com.brightspot.model.page.HeadScript;
+import com.brightspot.model.page.HeadItem;
+import com.brightspot.model.page.element.CustomHeadElements;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Modification;
@@ -21,11 +22,11 @@ public class IntegrationSiteSettings extends Modification<Site> {
 
     @ToolUi.Tab(TAB_INTEGRATIONS)
     @Embedded
-    private List<HeadScript> extraHeadScripts;
+    private List<CustomHeadElements> customHeadElements;
 
     @ToolUi.Tab(TAB_INTEGRATIONS)
     @Embedded
-    private List<TagManager> tagManagers;
+    private List<HeadItem> extraHeadItems;
 
     @ToolUi.Heading("Forms")
 
@@ -33,26 +34,26 @@ public class IntegrationSiteSettings extends Modification<Site> {
     @Embedded
     private CaptchaProvider captchaProvider;
 
-    public List<HeadScript> getExtraHeadScripts() {
-        if (extraHeadScripts == null) {
-            extraHeadScripts = new ArrayList<>();
+    public List<CustomHeadElements> getCustomHeadElements() {
+        if (customHeadElements == null) {
+            customHeadElements = new ArrayList<>();
         }
-        return extraHeadScripts;
+        return customHeadElements;
     }
 
-    public void setExtraHeadScripts(List<HeadScript> extraHeadScripts) {
-        this.extraHeadScripts = extraHeadScripts;
+    public void setCustomHeadElements(List<CustomHeadElements> customHeadElements) {
+        this.customHeadElements = customHeadElements;
     }
 
-    public List<TagManager> getTagManagers() {
-        if (tagManagers == null) {
-            tagManagers = new ArrayList<>();
+    public List<HeadItem> getExtraHeadItems() {
+        if (extraHeadItems == null) {
+            extraHeadItems = new ArrayList<>();
         }
-        return tagManagers;
+        return extraHeadItems;
     }
 
-    public void setTagManagers(List<TagManager> tagManagers) {
-        this.tagManagers = tagManagers;
+    public void setExtraHeadItems(List<HeadItem> extraHeadItems) {
+        this.extraHeadItems = extraHeadItems;
     }
 
     public CaptchaProvider getCaptchaProvider() {

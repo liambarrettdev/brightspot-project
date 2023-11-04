@@ -2,7 +2,6 @@ package com.brightspot.model.article;
 
 import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.model.page.content.AbstractContentPage;
-import com.brightspot.model.person.Authorable;
 import com.brightspot.model.rte.RichTextModule;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
@@ -22,9 +21,7 @@ import com.psddev.crosslinker.db.Crosslinkable;
 })
 @Crosslinkable.SimulationName("Default")
 @ViewBinding(value = ArticlePageViewModel.class, types = { AbstractPageViewModel.MAIN_CONTENT_VIEW })
-public class Article extends AbstractContentPage implements
-    Authorable,
-    Crosslinkable {
+public class Article extends AbstractContentPage implements Crosslinkable {
 
     @Required
     @Crosslinkable.Crosslinked

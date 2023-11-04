@@ -1,9 +1,9 @@
 package com.brightspot.integration;
 
-import com.brightspot.tool.Wrapper;
+import com.brightspot.model.page.HeadItem;
 import com.psddev.dari.db.Recordable;
 
-public interface TagManager extends Recordable, Wrapper {
+public interface TagManager extends HeadItem, Recordable {
 
     String HEAD_VIEW_TYPE = "tag-manager-head";
 

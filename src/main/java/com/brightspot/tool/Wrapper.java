@@ -4,5 +4,7 @@ public interface Wrapper {
 
     String getViewType();
 
-    Object unwrap();
+    default Object unwrap() {
+        return this;
+    }
 }

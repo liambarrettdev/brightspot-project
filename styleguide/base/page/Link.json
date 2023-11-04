@@ -1,0 +1,7 @@
+{
+    "_template": "/base/page/Link",
+    "rel": "canonical",
+    "href": "#",
+    "asAttribute": "script",
+    "crossOrigin": true
+}

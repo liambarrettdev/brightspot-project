@@ -1,14 +1,16 @@
 {
     "_template": "/model/page/Head",
     "title": "{{words(5)}",
-    "description": "{{words(10)}}",
-    "keywords": [
-        "{{words(3)}}",
-        "{{words(3)}}",
-        "{{words(3)}}"
+    "linkElements": [
+        {
+            "_template": "/base/page/Link",
+            "rel": "canonical",
+            "href": "#",
+            "asAttribute": "script",
+            "crossOrigin": true
+        }
     ],
-    "canonicalLink": "#",
-    "extraItems": [
+    "metaElements": [
         {
             "_template": "/base/page/Meta",
             "httpEquiv": "X-UA-Compatible",
@@ -18,14 +20,9 @@
             "_template": "/base/page/Meta",
             "name": "viewport",
             "content": "width=device-width, initial-scale=1, user-scalable=no"
-        },
-        {
-            "_template": "/base/page/ExternalStylesheet",
-            "rel": "stylesheet",
-            "type": "text/css",
-            "media": "screen",
-            "href": "/All.min.css"
-        },
+        }
+    ],
+    "scriptElements": [
         {
             "_template": "/base/page/ExternalScript",
             "type": "text/javascript",
@@ -34,9 +31,18 @@
             "defer": false
         }
     ],
-    "tagManager": [
+    "styleElements": [
         {
-            "_dataUrl": "/integration/google/GoogleTagManagerHead.json"
+            "_template": "/base/page/ExternalStylesheet",
+            "rel": "stylesheet",
+            "type": "text/css",
+            "media": "screen",
+            "href": "/All.min.css"
+        }
+    ],
+    "extraItems": [
+        {
+            "_dataUrl": "/integration/google/GoogleAnalytics.json"
         }
     ]
 }

@@ -23,11 +23,6 @@ public class GoogleTagManager extends Record implements TagManager {
 
     @Override
     public String getViewType() {
-        return null;
-    }
-
-    @Override
-    public Object unwrap() {
-        return this;
+        return TagManager.HEAD_VIEW_TYPE;
     }
 }

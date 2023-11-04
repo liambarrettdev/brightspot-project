@@ -19,6 +19,7 @@ import com.psddev.cms.db.Site;
 import com.psddev.cms.view.ViewModel;
 import com.psddev.cms.view.servlet.CurrentSite;
 import com.psddev.cms.view.servlet.MainObject;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -74,11 +75,11 @@ public abstract class AbstractViewModel<M> extends ViewModel<M> {
             .orElse(null);
     }
 
-    protected ListView buildPromoListView(List<? extends Promotable> items) {
+    protected ListView buildPromoListView(List<? extends Recordable> items) {
         return buildPromoListView(null, null, items);
     }
 
-    protected ListView buildPromoListView(Object title, String description, List<? extends Promotable> items) {
+    protected ListView buildPromoListView(Object title, String description, List<? extends Recordable> items) {
         if (ObjectUtils.isBlank(items)) {
             return null;
         }
@@ -86,7 +87,10 @@ public abstract class AbstractViewModel<M> extends ViewModel<M> {
         return new ListView.Builder()
             .title(title)
             .description(description)
-            .items(items.stream().map(item -> createView(PromoView.class, item)).collect(Collectors.toList()))
+            .items(items.stream()
+                .filter(Promotable.class::isInstance)
+                .map(item -> createView(PromoView.class, item))
+                .collect(Collectors.toList()))
             .build();
     }
 

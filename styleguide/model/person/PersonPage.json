@@ -19,10 +19,7 @@
             }
         ]
     },
-    "content": [
-        {
-            "_dataUrl": "/model/promo/Promo.json",
-            "_repeat": "5"
-        }
-    ]
+    "relatedContent": {
+        "_dataUrl": "/model/promo/list/List.json"
+    }
 }
