@@ -1,0 +1,21 @@
+{
+    "_template": "/model/page/header/Header",
+    "text": "Example Header",
+    "image": {
+        "_dataUrl": "/model/image/Image.json"
+    },
+    "pageNavigation": {
+        "_template": "/base/page/PageNavigation",
+        "items": [
+            {
+                "_dataUrl": "/model/navigation/NavigationItem.json",
+                "_repeat": 3
+            }
+        ]
+    },
+    "tagManager": [
+        {
+            "_dataUrl": "/integration/google/GoogleTagManagerBody.json"
+        }
+    ]
+}

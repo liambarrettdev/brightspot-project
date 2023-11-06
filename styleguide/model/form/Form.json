@@ -1,7 +1,8 @@
 {
     "_template": "/model/form/Form",
-    "title": "{{words(5)}}",
+    "title": "Example Form",
     "method": "POST",
+    "action": "#",
     "inputs": [
         {
             "_dataUrl": "/model/form/FieldSet.json"
@@ -19,7 +20,7 @@
             "_dataUrl": "/model/form/input/HiddenInput.json"
         }
     ],
-    "submitLabel": "{{words(1)}}",
-    "successMessage": "{{words(10)}}",
-    "errorMessage": "{{words(10)}}"
+    "submitLabel": "Submit",
+    "successMessage": "Submitted Successfully",
+    "errorMessage": "Submission Failed"
 }

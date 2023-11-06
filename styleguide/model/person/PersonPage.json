@@ -1,25 +1,42 @@
 {
     "_wrapper": false,
-    "_template": "/model/person/PersonPage",
-    "name": "{{words(2)}}",
-    "image": {
-        "_template": "/base/util/Image",
-        "src": "{{image(278,174)}}",
-        "alt": "{{words(5)}}"
+    "_template": "/model/page/Page",
+    "type": "Page",
+    "locale": "en",
+    "head": {
+        "_dataUrl": "/model/page/Head.json"
     },
-    "position": "{{words(2)}}",
-    "email": "#",
-    "website": "#",
-    "biography": {
+    "body": {
         "_template": "base/util/Concatenated",
         "items": [
             {
-                "_template": "/base/util/RawHtml",
-                "html": "{{paragraphs([1, 20])}}"
+                "_dataUrl": "/model/page/header/Header.json"
+            },
+            {
+                "_template": "/model/person/PersonPage",
+                "name": "{{name}}",
+                "image": {
+                    "_dataUrl": "/model/image/Image.json"
+                },
+                "position": "Contractor",
+                "email": "example@email.com",
+                "website": "http://example.com",
+                "biography": {
+                    "_template": "base/util/Concatenated",
+                    "items": [
+                        {
+                            "_template": "/base/util/RawHtml",
+                            "html": "{{paragraphs([1, 20])}}"
+                        }
+                    ]
+                },
+                "relatedContent": {
+                    "_dataUrl": "/model/promo/list/List.json"
+                }
+            },
+            {
+                "_dataUrl": "/model/page/footer/Footer.json"
             }
         ]
-    },
-    "relatedContent": {
-        "_dataUrl": "/model/promo/list/List.json"
     }
 }

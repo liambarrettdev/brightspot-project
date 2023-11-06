@@ -1,0 +1,17 @@
+{{#defineBlock "NavigationItem" ~}}
+
+    {{#defineElement "items" ~}}
+        <ul class="{{elementName}}">
+            {{#each this ~}}
+                <li>{{this}}</li>
+            {{~/each}}
+        </ul>
+    {{~/defineElement}}
+
+    {{#defineBlockContainer ~}}
+        {{#defineBlockBody ~}}
+            {{#if cta}}<a href="{{cta}}">{{ctaText}}</a>{{else}}<span>{{ctaText}}</span>{{/if}}
+            {{element "items"}}
+        {{~/defineBlockBody}}
+    {{~/defineBlockContainer}}
+{{~/defineBlock}}

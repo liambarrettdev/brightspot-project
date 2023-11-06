@@ -1,4 +1,4 @@
-package com.brightspot.model.page.content;
+package com.brightspot.model.page.creativework;
 
 import com.brightspot.model.category.Categorizable;
 import com.brightspot.model.hierarchy.Hierarchical;
@@ -16,7 +16,7 @@ import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.util.ObjectUtils;
 
 @Seo.DescriptionFields("subHeadline")
-public abstract class AbstractContentPage extends AbstractPage implements
+public abstract class AbstractCreativeWorkPage extends AbstractPage implements
     Authorable,
     Categorizable,
     HasImagePreview,

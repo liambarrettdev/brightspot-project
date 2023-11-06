@@ -1,37 +1,27 @@
-{{#with headline}}
-    <div class="headline">
-        {{this}}
-    </div>
-{{/with}}
-{{#with lead}}
-    <div class="lead">
-        {{this}}
-    </div>
-{{/with}}
-{{#with subHeadline}}
-    <div class="subHeadline">
-        {{this}}
-    </div>
-{{/with}}
-{{#with publishDate}}
-    <div class="publishDate">
-        {{this}}
-    </div>
-{{/with}}
-{{#with byline}}
-    <div class="byline">
-        {{this}}
-    </div>
-{{/with}}
-{{#with body}}
-    <div class="body">
-        {{this}}
-    </div>
-{{/with}}
-{{#with tags}}
-    <div class="tags">
-        {{#each this}}
-            {{this}}
-        {{/each}}
-    </div>
-{{/with}}
+{{#defineBlock "ArticlePage" extend="model/page/creativework/CreativeWorkPage" ~}}
+    {{#defineElement "lead" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "body" ~}}
+        <div class="{{elementName}}" itemprop="articleBody">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineBlockContainer ~}}
+        <article class="{{blockName}}" itemprop="mainEntity" itemscope itemtype="http://schema.org/Article"{{extraAttributes}}>
+            {{element "meta"}}
+
+            {{#defineBlockBody ~}}
+                {{element "preHeadline"}}
+                {{element "headline"}}
+                {{element "subHeadline"}}
+                {{element "byline"}}
+                {{element "lead"}}
+                {{element "body"}}
+                {{element "tags"}}
+                {{element "sharebar"}}
+                {{element "comments"}}
+            {{~/defineBlockBody}}
+        </article>
+    {{~/defineBlockContainer}}
+{{~/defineBlock}}

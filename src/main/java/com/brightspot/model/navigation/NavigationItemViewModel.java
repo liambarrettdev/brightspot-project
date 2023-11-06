@@ -9,13 +9,13 @@ import com.brightspot.view.model.navigation.NavigationItemView;
 public class NavigationItemViewModel extends AbstractViewModel<NavigationItem> implements NavigationItemView {
 
     @Override
-    public Object getCtaText() {
-        return model.getCtaText();
+    public Object getCta() {
+        return model.getCtaUrl(getSite());
     }
 
     @Override
-    public Object getCtaUrl() {
-        return model.getCtaUrl(getSite());
+    public Object getCtaText() {
+        return model.getCtaText();
     }
 
     @Override

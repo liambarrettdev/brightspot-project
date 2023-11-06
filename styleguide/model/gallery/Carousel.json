@@ -1,6 +1,6 @@
 {
     "_template": "/model/gallery/Carousel",
-    "title": "{{words(5)}}",
+    "title": "Example Gallery",
     "description": {
         "_template": "base/util/Concatenated",
         "items": [

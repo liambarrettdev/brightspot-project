@@ -1,6 +1,6 @@
 {
     "_template": "/base/util/Link",
     "href": "#",
-    "body": "{{words(5)}}",
+    "body": "Example Link",
     "target": "_blank"
 }

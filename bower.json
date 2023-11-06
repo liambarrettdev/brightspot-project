@@ -5,9 +5,8 @@
     "brightspot-base": "perfectsense/brightspot-base#v3.0.1237-07cc26",
     "bsp-carousel": "perfectsense/brightspot-js-carousel#1.4.1",
     "bsp-modal": "perfectsense/brightspot-js-modal#1.0.2",
-    "bsp-tabber": "perfectsense/brightspot-js-tabber#2.0.4",
     "bsp-utils": "perfectsense/brightspot-js-utils#3.1.0",
-    "handlebars": "4.0.5"
+    "handlebars": "4.7.8"
   },
   "ignore": [
     "**/.*",

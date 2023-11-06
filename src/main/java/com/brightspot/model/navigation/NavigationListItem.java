@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.brightspot.model.link.InternalLink;
 import com.brightspot.model.link.Link;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
@@ -17,10 +18,10 @@ public class NavigationListItem extends Record implements NavigationItem {
     @ToolUi.Placeholder(dynamicText = "${content.getTextFallback()}", editable = true)
     private String text;
 
-    private Link link;
+    private Link link = new InternalLink();
 
     @Embedded
-    @Types({ NavigationTextItem.class, NavigationListItem.class })
+    @Types({ NavigationTextItem.class, NavigationLinkItem.class })
     private List<NavigationItem> items;
 
     public String getText() {

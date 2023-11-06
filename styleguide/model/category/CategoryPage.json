@@ -1,8 +1,27 @@
 {
     "_wrapper": false,
-    "_template": "/model/category/CategoryPage",
-    "name": "{{words(2)}}",
-    "relatedContent": {
-        "_dataUrl": "/model/promo/list/List.json"
+    "_template": "/model/page/Page",
+    "type": "Page",
+    "locale": "en",
+    "head": {
+        "_dataUrl": "/model/page/Head.json"
+    },
+    "body": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_dataUrl": "/model/page/header/Header.json"
+            },
+            {
+                "_template": "/model/category/CategoryPage",
+                "name": "{{words(2)}}",
+                "relatedContent": {
+                    "_dataUrl": "/model/promo/list/List.json"
+                }
+            },
+            {
+                "_dataUrl": "/model/page/footer/Footer.json"
+            }
+        ]
     }
 }

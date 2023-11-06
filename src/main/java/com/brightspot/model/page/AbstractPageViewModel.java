@@ -14,16 +14,22 @@ import com.brightspot.model.link.InternalLink;
 import com.brightspot.model.link.Link;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.tool.CustomSiteSettings;
+import com.brightspot.view.base.util.ConcatenatedView;
 import com.brightspot.view.base.util.LinkView;
-import com.brightspot.view.model.page.FooterView;
 import com.brightspot.view.model.page.HeadView;
-import com.brightspot.view.model.page.HeaderView;
 import com.brightspot.view.model.page.PageView;
+import com.brightspot.view.model.page.footer.FooterView;
+import com.brightspot.view.model.page.header.HeaderView;
 import org.apache.commons.collections4.CollectionUtils;
 
 public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewModel<M> implements PageView {
 
     public static final String MAIN_CONTENT_VIEW = "main";
+
+    @Override
+    public Object getType() {
+        return model.getPageType();
+    }
 
     @Override
     public Object getLocale() {
@@ -36,13 +42,6 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
     @Override
     public Object getHead() {
         return createView(HeadView.class, model);
-    }
-
-    @Override
-    public Object getHeader() {
-        return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getHeader))
-            .map(header -> createView(HeaderView.class, header))
-            .orElse(null);
     }
 
     @Override
@@ -76,19 +75,29 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
     }
 
     @Override
-    public Object getContent() {
-        return createView(MAIN_CONTENT_VIEW, model);
+    public Object getBody() {
+        ConcatenatedView.Builder body = new ConcatenatedView.Builder();
+
+        body.addToItems(getHeader());
+        body.addToItems(getContent());
+        body.addToItems(getFooter());
+
+        return body.build();
     }
 
-    @Override
-    public Object getFooter() {
-        return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getFooter))
-            .map(footer -> createView(FooterView.class, footer))
+    private Object getHeader() {
+        return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getHeader))
+            .map(header -> createView(HeaderView.class, header))
             .orElse(null);
     }
 
-    @Override
-    public Object getType() {
-        return model.getPageType();
+    private Object getContent() {
+        return createView(MAIN_CONTENT_VIEW, model);
+    }
+
+    private Object getFooter() {
+        return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getFooter))
+            .map(footer -> createView(FooterView.class, footer))
+            .orElse(null);
     }
 }

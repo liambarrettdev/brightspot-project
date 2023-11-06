@@ -14,6 +14,9 @@ services:
             - CONTEXT_PROPERTIES=/code/docker-context.properties
             - LOGGING_PROPERTIES=/code/docker-logging.properties
             #- TEMPLATE_CONFIG=/code/docker-template.yml
+        depends_on:
+            - mysql
+            - solr
     solr:
         image: brightspot/solr:4
         ports:

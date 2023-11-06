@@ -1,12 +1,12 @@
 {
     "_template": "/model/promo/Promo",
-    "title": "",
+    "title": "Example Promo",
     "media": {
         "_dataUrl": "/model/image/Image.json"
     },
-    "byline": "{{words(2)}}",
+    "byline": "{{name}}",
     "date": "{{date()}}",
-    "description": "{{words(15)}}",
-    "ctaUrl": "#",
-    "ctaText": "{{words(1)}}"
+    "description": "{{sentences(1)}}",
+    "cta": "#",
+    "ctaText": "Read More"
 }

@@ -3,7 +3,7 @@
     "media": {
         "_dataUrl": "/model/image/Image.json"
     },
-    "title": "{{words(5)}}",
-    "description": "{{words(10)}}",
-    "attribution": "{{words(2)}}"
+    "title": "Example Slide",
+    "description": "{{sentences(1)}}",
+    "attribution": "{{name}}"
 }

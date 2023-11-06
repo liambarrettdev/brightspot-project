@@ -1,7 +1,7 @@
 {
     "_template": "/model/form/input/Option",
-    "text": "{{words(2)}}",
-    "value": "{{words(1)}}",
+    "text": "Example Option",
+    "value": "option",
     "selected": false,
     "disabled": false
 }
