@@ -5,6 +5,12 @@
         </head>
     {{~/defineElement}}
 
+    {{#defineElement "breadcrumbs" ~}}
+        <div class="{{elementName}}">
+            {{#each this ~}}{{this}}<div class="breadcrumbs-divider"><svg><use xlink:href="#icon-caret-right"></use></svg></div>{{~/each}}
+        </div>
+    {{~/defineElement}}
+
     {{#defineElement "body" ~}}
         <body class="{{../type}}{{elementName}}">
             {{this}}
@@ -16,6 +22,7 @@
         <html class="{{type}}" lang="{{#with locale ~}}{{locale}}{{else}}en{{~/with}}">
         {{#defineBlockBody ~}}
             {{element "head"}}
+            {{element "breadcrumbs"}}
             {{element "body"}}
         {{~/defineBlockBody}}
         </html>

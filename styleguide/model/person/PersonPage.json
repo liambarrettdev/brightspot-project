@@ -14,7 +14,7 @@
             },
             {
                 "_template": "/model/person/PersonPage",
-                "name": "John Doe",
+                "name": "{{name}}",
                 "image": {
                     "_dataUrl": "/model/image/Image.json"
                 },

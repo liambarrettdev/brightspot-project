@@ -3,7 +3,7 @@
     "src": "{{image(278,174)}}",
     "alt": "alt text",
     "caption": "example caption",
-    "credit": "John Doe",
+    "credit": "{{name}}",
     "link": {
         "_dataUrl": "/model/link/Link.json"
     }

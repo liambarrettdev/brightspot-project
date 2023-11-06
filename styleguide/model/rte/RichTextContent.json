@@ -5,7 +5,7 @@
         "items": [
             {
                 "_template": "/base/util/RawHtml",
-                "html": "{{paragraphs([1, 3])}}"
+                "html": "{{paragraphs(2)}}"
             },
             {
                 "_template": "/base/Enhancement",
@@ -13,6 +13,10 @@
                 "content": {
                     "_dataUrl": "/model/image/Image.json"
                 }
+            },
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs(1)}}"
             }
         ]
     }

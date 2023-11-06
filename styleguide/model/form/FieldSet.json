@@ -1,5 +1,6 @@
 {
     "_template": "/model/form/FieldSet",
+    "title": "Example Group",
     "inputs": [
         {
             "_dataUrl": "/model/form/input/TextInput.json"

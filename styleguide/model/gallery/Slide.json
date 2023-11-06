@@ -4,6 +4,6 @@
         "_dataUrl": "/model/image/Image.json"
     },
     "title": "Example Slide",
-    "description": "{{words(10)}}",
-    "attribution": "John Doe"
+    "description": "{{sentences(1)}}",
+    "attribution": "{{name}}"
 }

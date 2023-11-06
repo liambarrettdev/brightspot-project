@@ -2,6 +2,7 @@
     "_template": "/model/form/Form",
     "title": "Example Form",
     "method": "POST",
+    "action": "#",
     "inputs": [
         {
             "_dataUrl": "/model/form/FieldSet.json"

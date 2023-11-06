@@ -45,24 +45,7 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
     }
 
     @Override
-    public Object getBody() {
-        ConcatenatedView.Builder body = new ConcatenatedView.Builder();
-
-        body.addToItems(getHeader());
-        body.addToItems(getBreadcrumbs());
-        body.addToItems(getContent());
-        body.addToItems(getFooter());
-
-        return body.build();
-    }
-
-    private Object getHeader() {
-        return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getHeader))
-            .map(header -> createView(HeaderView.class, header))
-            .orElse(null);
-    }
-
-    private Collection<?> getBreadcrumbs() {
+    public Collection<?> getBreadcrumbs() {
         List<Link> breadcrumbs = new ArrayList<>(Optional.of(model)
             .filter(Hierarchical.class::isInstance)
             .map(Hierarchical.class::cast)
@@ -89,6 +72,23 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
         return breadcrumbs.stream()
             .map(breadcrumb -> createView(LinkView.class, breadcrumb))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public Object getBody() {
+        ConcatenatedView.Builder body = new ConcatenatedView.Builder();
+
+        body.addToItems(getHeader());
+        body.addToItems(getContent());
+        body.addToItems(getFooter());
+
+        return body.build();
+    }
+
+    private Object getHeader() {
+        return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getHeader))
+            .map(header -> createView(HeaderView.class, header))
+            .orElse(null);
     }
 
     private Object getContent() {

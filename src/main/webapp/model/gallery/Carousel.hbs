@@ -1,13 +1,22 @@
-{{#with title}}
-    <h3>{{this}}</h3>
-    <br/>
-{{/with}}
-<div class="Carousel" data-flickity-custom-counter="true">
-    <div class="Carousel-slides" data-slides>
-        {{#each slides}}
-            <div class="Carousel-slide">
-                {{this}}
+{{#defineBlock "Carousel" ~}}
+
+    {{#defineElement "title" ~}}
+        <h3>{{this}}</h3>
+        <br/>
+    {{~/defineElement}}
+
+    {{#defineElement "slides" ~}}
+        <div class="{{elementName}}" data-slides>
+            {{#each this}}{{this}}{{/each}}
+        </div>
+    {{~/defineElement}}
+
+    {{#defineBlockContainer ~}}
+        {{#defineBlockBody ~}}
+            {{element "title"}}
+            <div class="{{blockName}}" data-flickity-custom-counter="true">
+                {{element "slides"}}
             </div>
-        {{/each}}
-    </div>
-</div>
+        {{~/defineBlockBody}}
+    {{~/defineBlockContainer}}
+{{~/defineBlock}}

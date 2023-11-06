@@ -6,6 +6,12 @@
     "head": {
         "_dataUrl": "/model/page/Head.json"
     },
+    "breadcrumbs": [
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "_repeat": 3
+        }
+    ],
     "body": {
         "_template": "base/util/Concatenated",
         "items": [

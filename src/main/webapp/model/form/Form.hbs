@@ -1,12 +1,30 @@
-<form action="{{action}}" method="{{method}}">
-    {{#each inputs}}
-        {{this}}
-    {{/each}}
-    <input type="submit" value="Submit">
-    {{#with successMessage}}
-        <div class="SuccessMessage">{{this}}</div>
-    {{/with}}
-    {{#with errorMessage}}
-        <div class="ErrorMessage">{{this}}</div>
-    {{/with}}
-</form>
+{{#defineBlock "Form" ~}}
+
+    {{#defineElement "inputs" ~}}
+        <div class="{{elementName}}">
+            {{#each this ~}}{{this}}{{~/each}}
+        </div>
+    {{~/defineElement}}
+
+    {{#defineElement "submitLabel" ~}}
+        <div class="{{elementName}}"><input type="submit" value="{{this}}"></div>
+    {{~/defineElement}}
+
+    {{#defineElement "successMessage" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "errorMessage" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineBlockContainer ~}}
+        {{#defineBlockBody ~}}
+            <form class="{{blockName}}" action="{{action}}" method="{{method}}">
+                {{element "inputs"}}
+                {{element "successMessage"}}
+                {{element "errorMessage"}}
+            </form>
+        {{~/defineBlockBody}}
+    {{~/defineBlockContainer}}
+{{~/defineBlock}}

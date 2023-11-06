@@ -1,4 +1,4 @@
-{{#defineBlock "ArticlePage" extend="model/page/content/ContentPage" ~}}
+{{#defineBlock "ArticlePage" extend="model/page/creativework/CreativeWorkPage" ~}}
     {{#defineElement "lead" ~}}
         <div class="{{elementName}}">{{this}}</div>
     {{~/defineElement}}
@@ -12,7 +12,6 @@
             {{element "meta"}}
 
             {{#defineBlockBody ~}}
-                {{element "breadcrumbs"}}
                 {{element "preHeadline"}}
                 {{element "headline"}}
                 {{element "subHeadline"}}

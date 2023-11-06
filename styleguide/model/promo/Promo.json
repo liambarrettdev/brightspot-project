@@ -4,9 +4,9 @@
     "media": {
         "_dataUrl": "/model/image/Image.json"
     },
-    "byline": "John Doe",
+    "byline": "{{name}}",
     "date": "{{date()}}",
-    "description": "{{words(15)}}",
+    "description": "{{sentences(1)}}",
     "cta": "#",
     "ctaText": "Read More"
 }
