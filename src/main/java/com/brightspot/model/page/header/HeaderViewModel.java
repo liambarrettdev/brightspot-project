@@ -8,7 +8,6 @@ import com.brightspot.integration.TagManager;
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.view.base.page.PageNavigationView;
 import com.brightspot.view.base.util.ImageView;
-import com.brightspot.view.model.navigation.NavigationItemView;
 import com.brightspot.view.model.page.header.HeaderView;
 import com.psddev.cms.view.ViewBinding;
 
