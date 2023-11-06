@@ -1,7 +1,7 @@
 {
     "_template": "/model/quote/Quote",
-    "quote": "Lorem Ipsum Dolor",
-    "attribution": "Jane Doe",
+    "quote": "{{words(15)}}",
+    "attribution": "John Doe",
     "image": {
         "_dataUrl": "/model/image/Image.json"
     }

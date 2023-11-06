@@ -1,6 +1,6 @@
 {
     "_template": "/model/event/Calendar",
-    "title": "{{words(5)}}",
+    "title": "Example Calendar",
     "description": {
         "_template": "base/util/Concatenated",
         "items": [
@@ -12,10 +12,14 @@
     },
     "currentMonth": "May 2023",
     "prevMonth": {
-        "_dataUrl": "/model/link/Link.json"
+        "_template": "/base/util/Link",
+        "href": "#",
+        "body": "April 2023"
     },
     "nextMonth": {
-        "_dataUrl": "/model/link/Link.json"
+        "_template": "/base/util/Link",
+        "href": "#",
+        "body": "June 2023"
     },
     "events": [
         {

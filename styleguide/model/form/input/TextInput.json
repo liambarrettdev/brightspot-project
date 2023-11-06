@@ -1,9 +1,9 @@
 {
     "_template": "/model/form/input/TextInput",
-    "label": "{{words(5)}}",
-    "name": "{{words(1)}}",
-    "type": "{{words(1)}}",
-    "regex": "{{words(1)}}",
-    "placeholder": "{{words(1)}}",
+    "label": "Example Text Input",
+    "name": "text",
+    "type": "text",
+    "regex": "*",
+    "placeholder": "Please enter a value",
     "required": false
 }

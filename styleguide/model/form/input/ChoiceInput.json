@@ -1,8 +1,8 @@
 {
     "_template": "/model/form/input/ChoiceInput",
-    "label": "{{words(5)}}",
-    "name": "{{words(1)}}",
-    "type": "{{words(1)}}",
+    "label": "Example Choice Input",
+    "name": "choice",
+    "type": "radio",
     "required": false,
     "options": [
         {

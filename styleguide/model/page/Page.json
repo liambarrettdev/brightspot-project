@@ -6,29 +6,24 @@
     "head": {
         "_dataUrl": "/model/page/Head.json"
     },
-    "header": {
-        "_dataUrl": "/model/page/Header.json"
-    },
-    "above": {
-        "_dataUrl": "/model/page/Above.json"
-    },
-    "breadcrumbs": [
-        {
-            "_template": "/base/util/Link",
-            "href": "#",
-            "body": "{{words(5)}}"
-        }
-    ],
-    "aside": {
-        "_dataUrl": "/model/page/Aside.json"
-    },
-    "content": {
-        "_delegate": true
-    },
-    "below": {
-        "_dataUrl": "/model/page/Below.json"
-    },
-    "footer": {
-        "_dataUrl": "/model/page/Footer.json"
+    "body": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_dataUrl": "/model/page/header/Header.json"
+            },
+            {
+                "_template": "base/util/Concatenated",
+                "items": [
+                    {
+                        "_template": "/base/util/RawHtml",
+                        "html": "{{paragraphs([1, 20])}}"
+                    }
+                ]
+            },
+            {
+                "_dataUrl": "/model/page/footer/Footer.json"
+            }
+        ]
     }
 }

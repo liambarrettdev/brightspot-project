@@ -11,8 +11,7 @@
                 "_template": "/base/Enhancement",
                 "alignment": "left",
                 "content": {
-                    "_template": "/base/util/Image",
-                    "src": "{{image(278,174)}}"
+                    "_dataUrl": "/model/image/Image.json"
                 }
             }
         ]

@@ -1,35 +1,43 @@
-{{#with name}}
-    <div class="name">
-        {{this}}
-    </div>
-{{/with}}
-{{#with image}}
-    <div class="image">
-        {{this}}
-    </div>
-{{/with}}
-{{#with position}}
-    <div class="position">
-        {{this}}
-    </div>
-{{/with}}
-{{#with email}}
-    <div class="email">
-        {{this}}
-    </div>
-{{/with}}
-{{#with website}}
-    <div class="website">
-        {{this}}
-    </div>
-{{/with}}
-{{#with biography}}
-    <div class="biography">
-        {{this}}
-    </div>
-{{/with}}
-{{#with relatedContent}}
-    <div class="related">
-        {{this}}
-    </div>
-{{/with}}
+{{#defineBlock "PersonPage" ~}}
+    {{#defineElement "image" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "name" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "position" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "email" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "website" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "biography" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "relatedContent" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineBlockContainer ~}}
+        <div class="{{blockName}}" itemprop="author" itemscope itemtype="http://schema.org/Person"{{extraAttributes}}>
+            {{#defineBlockBody ~}}
+                {{element "image"}}
+                {{element "name"}}
+                {{element "position"}}
+                {{element "email"}}
+                {{element "website"}}
+                {{element "biography"}}
+                {{element "relatedContent"}}
+            {{~/defineBlockBody}}
+        </div>
+    {{~/defineBlockContainer}}
+{{~/defineBlock}}

@@ -1,12 +1,17 @@
 {
     "_template": "/model/navigation/NavigationItem",
-    "ctaText": "{{words(2)}}",
-    "ctaUrl": "#",
+    "cta": "#",
+    "ctaText": "Nav Item",
     "items": [
         {
             "_template": "/model/navigation/NavigationItem",
-            "ctaText": "{{words(2)}}",
-            "ctaUrl": "#"
+            "cta": "#",
+            "ctaText": "Sub Nav Item"
+        },
+        {
+            "_template": "/model/navigation/NavigationItem",
+            "cta": "#",
+            "ctaText": "Sub Nav Item"
         }
     ]
 }

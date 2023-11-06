@@ -34,8 +34,13 @@ public class ArticlePageViewModel extends AbstractViewModel<Article> implements 
     }
 
     @Override
-    public Object getPublishDate() {
+    public Object getDatePublished() {
         return model.getPublishDate().toString();
+    }
+
+    @Override
+    public Object getDateModified() {
+        return ArticlePageView.super.getDateModified();
     }
 
     @Override

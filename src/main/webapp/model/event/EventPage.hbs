@@ -1,30 +1,38 @@
-{{#with name}}
-    <div class="name">
-        {{this}}
-    </div>
-{{/with}}
-{{#with image}}
-    <div class="image">
-        {{this}}
-    </div>
-{{/with}}
-{{#with type}}
-    <div class="type">
-        {{this}}
-    </div>
-{{/with}}
-{{#with location}}
-    <div class="location">
-        {{this}}
-    </div>
-{{/with}}
-{{#with date}}
-    <div class="date">
-        {{this}}
-    </div>
-{{/with}}
-{{#with description}}
-    <div class="description">
-        {{this}}
-    </div>
-{{/with}}
+{{#defineBlock "EventPage" ~}}
+    {{#defineElement "name" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "image" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "type" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "location" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "date" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "description" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineBlockContainer ~}}
+        <div class="{{blockName}}" itemprop="author" itemscope itemtype="http://schema.org/Event"{{extraAttributes}}>
+            {{#defineBlockBody ~}}
+                {{element "name"}}
+                {{element "image"}}
+                {{element "type"}}
+                {{element "location"}}
+                {{element "date"}}
+                {{element "description"}}
+            {{~/defineBlockBody}}
+        </div>
+    {{~/defineBlockContainer}}
+{{~/defineBlock}}

@@ -1,0 +1,9 @@
+{{#defineBlock "Footer" ~}}
+    {{#defineElement "copyright" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    <div class="{{blockName}}">
+        {{element "copyright"}}
+    </div>
+{{~/defineBlock}}

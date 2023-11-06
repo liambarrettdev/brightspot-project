@@ -1,36 +1,23 @@
-<!DOCTYPE html>
-<html class="{{type}}" lang="{{#with locale}}{{locale}}{{else}}en{{/with}}">
-<head>
-    {{head}}
-</head>
-<body class="{{type}}-body">
-{{#with header}}
-    <div class="header">
-        {{this}}
-    </div>
-{{/with}}
-{{#with breadcrumbs}}
-    <div class="breadcrumbs">
-        {{#each this}}
+{{#defineBlock "Page" ~}}
+    {{#defineElement "head" ~}}
+        <head>
             {{this}}
-            <div class="breadcrumbs-divider">
-                <svg>
-                    <use xlink:href="#icon-caret-right"></use>
-                </svg>
-            </div>
-        {{/each}}
-    </div>
-{{/with}}
-{{#with content}}
-    <div class="content">
-        {{this}}
-    </div>
-{{/with}}
-{{#with footer}}
-    <div class="footer">
-        {{this}}
-    </div>
-{{/with}}
-</body>
-</html>
+        </head>
+    {{~/defineElement}}
 
+    {{#defineElement "body" ~}}
+        <body class="{{../type}}{{elementName}}">
+            {{this}}
+        </body>
+    {{~/defineElement}}
+
+    {{#defineBlockContainer ~}}
+        <!DOCTYPE html>
+        <html class="{{type}}" lang="{{#with locale ~}}{{locale}}{{else}}en{{~/with}}">
+        {{#defineBlockBody ~}}
+            {{element "head"}}
+            {{element "body"}}
+        {{~/defineBlockBody}}
+        </html>
+    {{~/defineBlockContainer}}
+{{~/defineBlock}}

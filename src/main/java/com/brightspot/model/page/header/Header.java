@@ -10,6 +10,7 @@ import com.psddev.dari.db.Record;
 import com.psddev.dari.db.Recordable;
 
 @ViewBinding(value = HeaderViewModel.class)
+@ViewBinding(value = PageNavigationViewModel.class)
 public class Header extends Record {
 
     @Required

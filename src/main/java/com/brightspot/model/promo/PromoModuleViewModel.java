@@ -26,7 +26,7 @@ public class PromoModuleViewModel extends AbstractViewModel<PromoModule> impleme
     }
 
     @Override
-    public Object getCtaUrl() {
+    public Object getCta() {
         return Optional.ofNullable(model.getPromo())
             .map(promo -> promo.getUrl(getSite()))
             .orElse(null);

@@ -26,7 +26,7 @@ public class PromotableViewModel extends AbstractViewModel<Promotable> implement
     }
 
     @Override
-    public Object getCtaUrl() {
+    public Object getCta() {
         return model.getPromotableUrl(getSite());
     }
 

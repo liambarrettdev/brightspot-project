@@ -1,10 +1,18 @@
-{{#with name}}
-    <div class="name">
-        {{this}}
-    </div>
-{{/with}}
-{{#with relatedContent}}
-    <div class="related">
-        {{this}}
-    </div>
-{{/with}}
+{{#defineBlock "TagPage" ~}}
+    {{#defineElement "name" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "relatedContent" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineBlockContainer ~}}
+        <div class="{{blockName}}" itemprop="author" itemscope itemtype="http://schema.org/Taxon"{{extraAttributes}}>
+            {{#defineBlockBody ~}}
+                {{element "name"}}
+                {{element "relatedContent"}}
+            {{~/defineBlockBody}}
+        </div>
+    {{~/defineBlockContainer}}
+{{~/defineBlock}}
