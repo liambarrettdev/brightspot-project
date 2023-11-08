@@ -1,22 +1,22 @@
-{{#defineBlock "Carousel" ~}}
+{{~#defineBlock "Carousel"~}}
 
-    {{#defineElement "title" ~}}
+    {{~#defineElement "title"~}}
         <h3>{{this}}</h3>
         <br/>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "slides" ~}}
+    {{~#defineElement "slides"~}}
         <div class="{{elementName}}" data-slides>
             {{#each this}}{{this}}{{/each}}
         </div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineBlockContainer ~}}
-        {{#defineBlockBody ~}}
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
             {{element "title"}}
             <div class="{{blockName}}" data-flickity-custom-counter="true">
                 {{element "slides"}}
             </div>
-        {{~/defineBlockBody}}
-    {{~/defineBlockContainer}}
-{{~/defineBlock}}
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

@@ -1,30 +1,30 @@
-{{#defineBlock "Page" ~}}
-    {{#defineElement "head" ~}}
+{{~#defineBlock "Page"~}}
+    {{~#defineElement "head"~}}
         <head>
             {{this}}
         </head>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "breadcrumbs" ~}}
+    {{~#defineElement "breadcrumbs"~}}
         <div class="{{elementName}}">
-            {{#each this ~}}{{this}}<div class="breadcrumbs-divider"><svg><use xlink:href="#icon-caret-right"></use></svg></div>{{~/each}}
+            {{#each this}}{{this}}<div class="breadcrumbs-divider"><svg><use xlink:href="#icon-caret-right"></use></svg></div>{{/each}}
         </div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "body" ~}}
+    {{~#defineElement "body"~}}
         <body class="{{../type}}{{elementName}}">
             {{this}}
         </body>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineBlockContainer ~}}
+    {{~#defineBlockContainer~}}
         <!DOCTYPE html>
-        <html class="{{type}}" lang="{{#with locale ~}}{{locale}}{{else}}en{{~/with}}">
-        {{#defineBlockBody ~}}
+        <html class="{{type}}" lang="{{#with locale}}{{locale}}{{else}}en{{/with}}">
+        {{#defineBlockBody}}
             {{element "head"}}
             {{element "breadcrumbs"}}
             {{element "body"}}
-        {{~/defineBlockBody}}
+        {{/defineBlockBody}}
         </html>
-    {{~/defineBlockContainer}}
-{{~/defineBlock}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

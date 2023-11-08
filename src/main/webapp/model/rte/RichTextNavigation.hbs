@@ -1,19 +1,19 @@
-{{#defineBlock "Navigation" ~}}
+{{~#defineBlock "Navigation"~}}
 
-    {{#defineElement "previousPage" ~}}
+    {{~#defineElement "previousPage"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "nextPage" ~}}
+    {{~#defineElement "nextPage"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineBlockContainer ~}}
-        {{#defineBlockBody ~}}
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
             <div class="{{blockName}}">
                 {{element "previousPage"}}
                 {{element "nextPage"}}
             </div>
-        {{~/defineBlockBody}}
-    {{~/defineBlockContainer}}
-{{~/defineBlock}}
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

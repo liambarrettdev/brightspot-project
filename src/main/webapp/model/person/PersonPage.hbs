@@ -1,35 +1,35 @@
-{{#defineBlock "PersonPage" ~}}
-    {{#defineElement "image" ~}}
+{{~#defineBlock "PersonPage"~}}
+    {{~#defineElement "image"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "name" ~}}
+    {{~#defineElement "name"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "position" ~}}
+    {{~#defineElement "position"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "email" ~}}
+    {{~#defineElement "email"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "website" ~}}
+    {{~#defineElement "website"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "biography" ~}}
+    {{~#defineElement "biography"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "relatedContent" ~}}
+    {{~#defineElement "relatedContent"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineBlockContainer ~}}
+    {{~#defineBlockContainer~}}
         <div class="{{blockName}}" itemprop="author" itemscope itemtype="http://schema.org/Person"{{extraAttributes}}>
-            {{#defineBlockBody ~}}
+            {{#defineBlockBody}}
                 {{element "image"}}
                 {{element "name"}}
                 {{element "position"}}
@@ -37,7 +37,9 @@
                 {{element "website"}}
                 {{element "biography"}}
                 {{element "relatedContent"}}
-            {{~/defineBlockBody}}
+                {{element "sharebar"}}
+                {{element "comments"}}
+            {{/defineBlockBody}}
         </div>
-    {{~/defineBlockContainer}}
-{{~/defineBlock}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

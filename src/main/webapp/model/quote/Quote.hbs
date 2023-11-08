@@ -1,17 +1,17 @@
-{{#defineBlock "Quote" ~}}
-    {{#defineElement "image" ~}}
+{{~#defineBlock "Quote"~}}
+    {{~#defineElement "image"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "attribution" ~}}
+    {{~#defineElement "attribution"~}}
         <div class="{{elementName}}">– {{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "quote" ~}}
-        <blockquote class="{{elementName}}">{{~this~}}</blockquote>
-    {{~/defineElement}}
+    {{~#defineElement "quote"~}}
+        <blockquote class="{{elementName}}">{{this}}</blockquote>
+    {{~/defineElement~}}
 
-    <div class="{{blockName}}" data-has-image="{{#if image ~}}true{{else}}false{{~/if}}">
+    <div class="{{blockName}}" data-has-image="{{#if image~}}true{{else}}false{{/if}}">
         <div class="{{blockName}}-container">
             {{element "quote"}}
             <div class="{{blockName}}-info">
@@ -20,4 +20,4 @@
             </div>
         </div>
     </div>
-{{~/defineBlock}}
+{{~/defineBlock~}}

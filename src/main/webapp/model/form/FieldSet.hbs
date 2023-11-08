@@ -1,21 +1,21 @@
-{{#defineBlock "FieldSet" ~}}
+{{~#defineBlock "FieldSet"~}}
 
-    {{#defineElement "title" ~}}
+    {{~#defineElement "title"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "inputs" ~}}
+    {{~#defineElement "inputs"~}}
         <div class="{{elementName}}">
-            {{#each this ~}}{{this}}{{~/each}}
+            {{#each this}}{{this}}{{/each}}
         </div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineBlockContainer ~}}
-        {{#defineBlockBody ~}}
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
             <div class="{{blockName}}">
                 {{element "title"}}
                 {{element "inputs"}}
             </div>
-        {{~/defineBlockBody}}
-    {{~/defineBlockContainer}}
-{{~/defineBlock}}
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

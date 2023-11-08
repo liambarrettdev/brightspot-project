@@ -1,6 +1,6 @@
-{{#defineBlock "Slide" ~}}
+{{~#defineBlock "Slide"~}}
 
-    {{#defineElement "media" ~}}
+    {{~#defineElement "media"~}}
         <div class="{{elementName}}">
             <div class="{{elementName}}-icon">
                 <svg>
@@ -9,22 +9,22 @@
             </div>
             {{this}}
         </div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "title" ~}}
+    {{~#defineElement "title"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "description" ~}}
+    {{~#defineElement "description"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "attribution" ~}}
+    {{~#defineElement "attribution"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineBlockContainer ~}}
-        {{#defineBlockBody ~}}
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
             <div class="{{blockName}}">
                 {{element "media"}}
                 <div class="{{blockName}}-info">
@@ -33,6 +33,6 @@
                     {{element "attribution"}}
                 </div>
             </div>
-        {{~/defineBlockBody}}
-    {{~/defineBlockContainer}}
-{{~/defineBlock}}
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

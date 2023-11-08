@@ -1,17 +1,17 @@
-{{#defineBlock "ArticlePage" extend="model/page/creativework/CreativeWorkPage" ~}}
-    {{#defineElement "lead" ~}}
+{{~#defineBlock "ArticlePage" extend="model/page/creativework/CreativeWorkPage"~}}
+    {{~#defineElement "lead"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "body" ~}}
+    {{~#defineElement "body"~}}
         <div class="{{elementName}}" itemprop="articleBody">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineBlockContainer ~}}
+    {{~#defineBlockContainer~}}
         <article class="{{blockName}}" itemprop="mainEntity" itemscope itemtype="http://schema.org/Article"{{extraAttributes}}>
             {{element "meta"}}
 
-            {{#defineBlockBody ~}}
+            {{#defineBlockBody}}
                 {{element "preHeadline"}}
                 {{element "headline"}}
                 {{element "subHeadline"}}
@@ -21,7 +21,7 @@
                 {{element "tags"}}
                 {{element "sharebar"}}
                 {{element "comments"}}
-            {{~/defineBlockBody}}
+            {{/defineBlockBody}}
         </article>
-    {{~/defineBlockContainer}}
-{{~/defineBlock}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

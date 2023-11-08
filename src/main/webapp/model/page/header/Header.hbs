@@ -1,14 +1,14 @@
-{{#defineBlock "Header" ~}}
-    {{#defineElement "pageNavigation" ~}}
+{{~#defineBlock "Header"~}}
+    {{~#defineElement "pageNavigation"~}}
         {{this}}
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "tagManager" ~}}
-        {{#each this ~}}{{this}}{{~/each}}
-    {{~/defineElement}}
+    {{~#defineElement "tagManager"~}}
+        {{#each this}}{{this}}{{/each}}
+    {{~/defineElement~}}
 
     <div class="{{blockName}}">
         {{element "pageNavigation"}}
         {{element "tagManager"}}
     </div>
-{{~/defineBlock}}
+{{~/defineBlock~}}
