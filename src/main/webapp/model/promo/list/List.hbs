@@ -1,9 +1,27 @@
-<div class="list">
-    <div class="list-title">{{title}}</div>
-    <div class="list-description">{{description}}</div>
-    <div class="list-items">
-        {{#each items}}
-            <div class="list-items-item">{{this}}</div>
-        {{/each}}
+{{#defineBlock "PromoList" ~}}
+    {{#defineElement "title" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "description" ~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement}}
+
+    {{#defineElement "items" ~}}
+        <div class="{{elementName}}">
+            {{#each this}}
+                <div class="{{elementName}}-item">{{this}}</div>
+            {{/each}}
+        </div>
+    {{~/defineElement}}
+
+    <div class="{{blockName}}">
+        <div class="{{blockName}}-media" style="background-image: url({{media.src}})">
+            <div class="{{blockName}}-content">
+                {{element "title"}}
+                {{element "description"}}
+                {{element "items"}}
+            </div>
+        </div>
     </div>
-</div>
+{{~/defineBlock}}

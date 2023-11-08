@@ -98,10 +98,17 @@ public class Category extends AbstractPage implements
         return Query.from(Category.class)
             .where("* matches *")
             .and("parent = ?", this)
+            .resolveToReferenceOnly()
             .selectAll();
     }
 
     // -- Helper Methods -- //
+
+    public List<Taxon> getTaxonAndChildren() {
+        ArrayList<Taxon> items = new ArrayList<>(Collections.singletonList(this));
+        items.addAll(getChildren());
+        return items;
+    }
 
     public List<Hierarchical> getAncestry() {
         List<Hierarchical> ancestry = new ArrayList<>(Collections.singletonList(this));
@@ -120,10 +127,11 @@ public class Category extends AbstractPage implements
 
     public List<Categorizable> getMostRecentContent() {
         return Query.from(Categorizable.class)
-            .where(Categorizable.Data.CATEGORY_FIELD + " = ?", this)
+            .where(Categorizable.Data.CATEGORY_FIELD + " = ?", getTaxonAndChildren())
             .sortDescending(Content.PUBLISH_DATE_FIELD)
             .resolveToReferenceOnly()
             .select(0, 10)
             .getItems();
     }
+
 }

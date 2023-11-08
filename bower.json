@@ -1,6 +1,7 @@
 {
   "name": "base-brightspot",
   "private": true,
+  "version": "1.0.0",
   "dependencies": {
     "brightspot-base": "perfectsense/brightspot-base#v3.0.1237-07cc26",
     "bsp-carousel": "perfectsense/brightspot-js-carousel#1.4.1",

@@ -97,10 +97,17 @@ public class Tag extends AbstractPage implements
         return Query.from(Tag.class)
             .where("* matches *")
             .and("parent = ?", this)
+            .resolveToReferenceOnly()
             .selectAll();
     }
 
     // -- Helper Methods -- //
+
+    public List<Taxon> getTaxonAndChildren() {
+        ArrayList<Taxon> items = new ArrayList<>(Collections.singletonList(this));
+        items.addAll(getChildren());
+        return items;
+    }
 
     public List<Tag> getAncestry() {
         List<Tag> ancestry = new ArrayList<>(Collections.singletonList(this));
@@ -119,7 +126,7 @@ public class Tag extends AbstractPage implements
 
     public List<Taggable> getMostRecentContent() {
         return Query.from(Taggable.class)
-            .where(Taggable.Data.TAGS_FIELD + " = ?", this)
+            .where(Taggable.Data.TAGS_FIELD + " = ?", getTaxonAndChildren())
             .sortDescending(Content.PUBLISH_DATE_FIELD)
             .resolveToReferenceOnly()
             .select(0, 10)
