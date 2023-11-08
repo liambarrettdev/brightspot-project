@@ -1,26 +1,26 @@
-{{#defineBlock "CreativeWorkPage" extend="model/page/Main" ~}}
-    {{#defineElement "meta" noWith=true ~}}
-        {{#with datePublished ~}}
+{{~#defineBlock "CreativeWorkPage" extend="model/page/Main"~}}
+    {{~#defineElement "meta" noWith=true~}}
+        {{#with datePublished}}
             <meta itemprop="datePublished" content="{{this}}">
-        {{~/with}}
-        {{#with dateModified ~}}
+        {{/with}}
+        {{#with dateModified}}
             <meta itemprop="dateModified" content="{{this}}">
-        {{~/with}}
-    {{~/defineElement}}
+        {{/with}}
+    {{~/defineElement~}}
 
-    {{#defineElement "preHeadline" ~}}
+    {{~#defineElement "preHeadline"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "headline" ~}}
+    {{~#defineElement "headline"~}}
         <div class="{{elementName}}" itemprop="headline">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "subHeadline" ~}}
+    {{~#defineElement "subHeadline"~}}
         <div class="{{elementName}}" itemprop="alternativeHeadline">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "byline" ~}}
+    {{~#defineElement "byline"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
-{{~/defineBlock}}
+    {{~/defineElement~}}
+{{~/defineBlock~}}

@@ -1,19 +1,19 @@
-{{#defineBlock "PromoList" ~}}
-    {{#defineElement "title" ~}}
+{{~#defineBlock "PromoList"~}}
+    {{~#defineElement "title"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "description" ~}}
+    {{~#defineElement "description"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "items" ~}}
+    {{~#defineElement "items"~}}
         <div class="{{elementName}}">
             {{#each this}}
                 <div class="{{elementName}}-item">{{this}}</div>
             {{/each}}
         </div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
     <div class="{{blockName}}">
         <div class="{{blockName}}-media" style="background-image: url({{media.src}})">
@@ -24,4 +24,4 @@
             </div>
         </div>
     </div>
-{{~/defineBlock}}
+{{~/defineBlock~}}

@@ -1,16 +1,16 @@
-{{#defineBlock "Main" ~}}
+{{~#defineBlock "Main"~}}
 
-    {{#defineElement "tags" ~}}
+    {{~#defineElement "tags"~}}
         <div class="{{elementName}}">
-            {{#each this ~}}{{this}}{{~/each}}
+            {{#each this}}{{this}}{{/each}}
         </div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "sharebar" ~}}
+    {{~#defineElement "sharebar"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "comments" ~}}
+    {{~#defineElement "comments"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
-{{~/defineBlock}}
+    {{~/defineElement~}}
+{{~/defineBlock~}}

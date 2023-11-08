@@ -1,6 +1,6 @@
-{{#defineBlock "TextInput" ~}}
-    {{#defineBlockContainer ~}}
-        {{#defineBlockBody ~}}
+{{~#defineBlock "TextInput"~}}
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
             <div class="{{blockName}}">
                 <label for="{{name}}">{{label}}</label>
                 <input type="{{type}}" name="{{name}}"
@@ -8,6 +8,6 @@
                     {{#with placeholder}}placeholder="{{this}}"{{/with}}
                     {{#if required}}required{{/if}}>
             </div>
-        {{~/defineBlockBody}}
-    {{~/defineBlockContainer}}
-{{~/defineBlock}}
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

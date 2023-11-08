@@ -1,17 +1,17 @@
-{{#defineBlock "SelectInput" ~}}
-    {{#defineBlockContainer ~}}
-        {{#defineBlockBody ~}}
+{{~#defineBlock "SelectInput"~}}
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
             <div class="{{blockName}}">
                 <label for="{{name}}">{{label}}</label>
                 <select name="{{name}}" {{#if multiple}}multiple{{/if}} {{#if required}}required{{/if}}>
-                    {{#with placeholder ~}}
+                    {{#with placeholder}}
                         <option value="" disabled selected>{{this}}</option>
-                    {{~/with}}
-                    {{#each options ~}}
+                    {{/with}}
+                    {{#each options}}
                         <option value="{{value}}" {{#if disabled}}disabled{{/if}} {{#if selected}}selected{{/if}}>{{text}}</option>
-                    {{~/each}}
+                    {{/each}}
                 </select>
             </div>
-        {{~/defineBlockBody}}
-    {{~/defineBlockContainer}}
-{{~/defineBlock}}
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

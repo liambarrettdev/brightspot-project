@@ -1,38 +1,40 @@
-{{#defineBlock "EventPage" ~}}
-    {{#defineElement "name" ~}}
+{{~#defineBlock "EventPage"~}}
+    {{~#defineElement "name"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "image" ~}}
+    {{~#defineElement "image"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "type" ~}}
+    {{~#defineElement "type"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "location" ~}}
+    {{~#defineElement "location"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "date" ~}}
+    {{~#defineElement "date"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "description" ~}}
+    {{~#defineElement "description"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineBlockContainer ~}}
+    {{~#defineBlockContainer~}}
         <div class="{{blockName}}" itemprop="author" itemscope itemtype="http://schema.org/Event"{{extraAttributes}}>
-            {{#defineBlockBody ~}}
+            {{#defineBlockBody}}
                 {{element "name"}}
                 {{element "image"}}
                 {{element "type"}}
                 {{element "location"}}
                 {{element "date"}}
                 {{element "description"}}
-            {{~/defineBlockBody}}
+                {{element "sharebar"}}
+                {{element "comments"}}
+            {{/defineBlockBody}}
         </div>
-    {{~/defineBlockContainer}}
-{{~/defineBlock}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

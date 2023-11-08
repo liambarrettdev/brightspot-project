@@ -1,15 +1,15 @@
-{{#defineBlock "Promo" ~}}
-    {{#defineElement "title" ~}}
+{{~#defineBlock "Promo"~}}
+    {{~#defineElement "title"~}}
         <div class="{{elementName}}"><h3>{{this}}</h3></div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "description" ~}}
+    {{~#defineElement "description"~}}
         <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
-    {{#defineElement "cta" ~}}
+    {{~#defineElement "cta"~}}
         <div class="{{elementName}}"><a class="btn" href="{{this}}">{{../ctaText}}</a></div>
-    {{~/defineElement}}
+    {{~/defineElement~}}
 
     <div class="{{blockName}}">
         <div class="{{blockName}}-media" style="background-image: url({{media.src}})">
@@ -20,4 +20,4 @@
             </div>
         </div>
     </div>
-{{~/defineBlock}}
+{{~/defineBlock~}}
