@@ -1,4 +1,4 @@
-# Base Brightspot Template
+# Brightspot Project Template
 
 ## Local Dev Environment Setup
 This is a standard Brightspot 3.x deployment. Versions for the various components are listed below. An 'x' signifies that the latest point release version should be used but an older version is fine too. A '^' signifies that at least that point release version **MUST** be used but a later version is fine too.

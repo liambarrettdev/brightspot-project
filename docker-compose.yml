@@ -10,7 +10,7 @@ services:
             - ~/.aws/credentials:/etc/aws/credentials:cached
             - storage-data:/servers/tomcat/storage
         environment:
-            - ROOT_WAR=/code/target/base-brightspot-1.0-SNAPSHOT.war
+            - ROOT_WAR=/code/target/brightspot-project-1.0-SNAPSHOT.war
             - CONTEXT_PROPERTIES=/code/docker-context.properties
             - LOGGING_PROPERTIES=/code/docker-logging.properties
             #- TEMPLATE_CONFIG=/code/docker-template.yml
