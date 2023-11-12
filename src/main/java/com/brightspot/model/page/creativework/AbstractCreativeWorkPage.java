@@ -1,13 +1,13 @@
 package com.brightspot.model.page.creativework;
 
-import com.brightspot.model.category.Categorizable;
+import com.brightspot.model.category.HasCategory;
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.image.Image;
 import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.person.Authorable;
+import com.brightspot.model.person.HasAuthor;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.Sluggable;
-import com.brightspot.model.tag.Taggable;
+import com.brightspot.model.tag.HasTag;
 import com.brightspot.tool.HasImagePreview;
 import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Seo;
@@ -17,13 +17,13 @@ import com.psddev.dari.util.ObjectUtils;
 
 @Seo.DescriptionFields("subHeadline")
 public abstract class AbstractCreativeWorkPage extends AbstractPage implements
-    Authorable,
-    Categorizable,
+    HasAuthor,
+    HasCategory,
     HasImagePreview,
     Hierarchical,
     Promotable,
     Sluggable,
-    Taggable {
+    HasTag {
 
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.getLeadImagePlaceholderHtml()}'></span>")
     private Image leadImage;

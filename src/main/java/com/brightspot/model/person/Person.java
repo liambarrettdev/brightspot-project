@@ -33,9 +33,9 @@ public class Person extends AbstractPage implements Linkable {
 
     @ToolUi.Tab("Content")
     @Indexed
-    public List<Authorable> getMostRecentContent() {
-        return Query.from(Authorable.class)
-            .where(Authorable.Data.AUTHOR_FIELD + " = ?", this)
+    public List<HasAuthor> getMostRecentContent() {
+        return Query.from(HasAuthor.class)
+            .where(HasAuthor.Data.AUTHOR_FIELD + " = ?", this)
             .sortDescending(Content.PUBLISH_DATE_FIELD)
             .resolveToReferenceOnly()
             .select(0, 10)
