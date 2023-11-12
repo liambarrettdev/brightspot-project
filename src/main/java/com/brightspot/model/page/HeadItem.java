@@ -2,9 +2,8 @@ package com.brightspot.model.page;
 
 import com.brightspot.tool.Wrapper;
 import com.psddev.dari.db.Modification;
-import com.psddev.dari.db.Recordable;
 
-public interface HeadItem extends Recordable, Wrapper {
+public interface HeadItem extends Wrapper {
 
     default HeadItem.Data asHeadItemData() {
         return this.as(Data.class);
