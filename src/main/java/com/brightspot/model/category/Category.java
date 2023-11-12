@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.link.Linkable;
+import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.model.page.Page;
@@ -29,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
     "name",
     "displayName",
     "sluggable.slug",
+    "contents",
     "parent"
 })
 @ViewBinding(value = CategoryPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
@@ -37,11 +39,25 @@ public class Category extends AbstractPage implements
     Sluggable,
     Taxonomy {
 
+    @ToolUi.Note("This will override the default page content")
+    private List<AbstractModule> contents;
+
     @Indexed
     @Where("_id != ?")
     @Types({ Category.class, Page.class })
     @ToolUi.Filterable
     private Hierarchical parent;
+
+    public List<AbstractModule> getContents() {
+        if (contents == null) {
+            contents = new ArrayList<>();
+        }
+        return contents;
+    }
+
+    public void setContents(List<AbstractModule> contents) {
+        this.contents = contents;
+    }
 
     public Hierarchical getParent() {
         return parent;
@@ -125,9 +141,9 @@ public class Category extends AbstractPage implements
         return ancestry;
     }
 
-    public List<Categorizable> getMostRecentContent() {
-        return Query.from(Categorizable.class)
-            .where(Categorizable.Data.CATEGORY_FIELD + " = ?", getTaxonAndChildren())
+    public List<HasCategory> getMostRecentContent() {
+        return Query.from(HasCategory.class)
+            .where(HasCategory.Data.CATEGORY_FIELD + " = ?", getTaxonAndChildren())
             .sortDescending(Content.PUBLISH_DATE_FIELD)
             .resolveToReferenceOnly()
             .select(0, 10)

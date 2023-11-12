@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.utils.LocalizationUtils;
-import com.brightspot.view.model.form.FormView;
+import com.brightspot.view.model.form.FormModuleView;
 import com.brightspot.view.model.form.input.HiddenInputView;
 import com.psddev.cms.view.ViewResponse;
 import com.psddev.cms.view.servlet.HttpMethod;
@@ -15,7 +15,7 @@ import com.psddev.dari.db.State;
 
 import static com.brightspot.integration.GenericHttpClient.Method.POST;
 
-public class FormModuleViewModel extends AbstractViewModel<FormModule> implements FormView {
+public class FormModuleViewModel extends AbstractViewModel<FormModule> implements FormModuleView {
 
     @HttpMethod
     private String method;

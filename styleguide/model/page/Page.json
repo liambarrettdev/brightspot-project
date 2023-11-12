@@ -19,6 +19,12 @@
                 "_dataUrl": "/model/page/header/Header.json"
             },
             {
+                "_dataUrl": "/model/page/module/Above.json"
+            },
+            {
+                "_dataUrl": "/model/page/module/Aside.json"
+            },
+            {
                 "_template": "base/util/Concatenated",
                 "items": [
                     {
@@ -26,6 +32,9 @@
                         "html": "{{paragraphs([1, 20])}}"
                     }
                 ]
+            },
+            {
+                "_dataUrl": "/model/page/module/Below.json"
             },
             {
                 "_dataUrl": "/model/page/footer/Footer.json"

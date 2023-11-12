@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.link.Linkable;
+import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.model.slug.Sluggable;
@@ -26,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
     "name",
     "displayName",
     "sluggable.slug",
+    "contents",
     "parent"
 })
 @ViewBinding(value = TagPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
@@ -34,10 +36,24 @@ public class Tag extends AbstractPage implements
     Sluggable,
     Taxon {
 
+    @ToolUi.Note("This will override the default page content")
+    private List<AbstractModule> contents;
+
     @Indexed
     @Where("_id != ?")
     @ToolUi.Filterable
     private Tag parent;
+
+    public List<AbstractModule> getContents() {
+        if (contents == null) {
+            contents = new ArrayList<>();
+        }
+        return contents;
+    }
+
+    public void setContents(List<AbstractModule> contents) {
+        this.contents = contents;
+    }
 
     public Tag getParent() {
         return parent;
@@ -124,9 +140,9 @@ public class Tag extends AbstractPage implements
         return ancestry;
     }
 
-    public List<Taggable> getMostRecentContent() {
-        return Query.from(Taggable.class)
-            .where(Taggable.Data.TAGS_FIELD + " = ?", getTaxonAndChildren())
+    public List<HasTag> getMostRecentContent() {
+        return Query.from(HasTag.class)
+            .where(HasTag.Data.TAGS_FIELD + " = ?", getTaxonAndChildren())
             .sortDescending(Content.PUBLISH_DATE_FIELD)
             .resolveToReferenceOnly()
             .select(0, 10)

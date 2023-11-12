@@ -1,0 +1,11 @@
+{
+    "_template": "/model/page/module/Aside",
+    "content": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_dataUrl": "/model/promo/list/ListModule.json"
+            }
+        ]
+    }
+}

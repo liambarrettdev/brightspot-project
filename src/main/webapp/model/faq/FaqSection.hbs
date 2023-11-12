@@ -1,0 +1,18 @@
+{{~#defineBlock "FaqSection"~}}
+    {{~#defineElement "heading"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "questions"~}}
+        <div class="{{elementName}}">
+            {{#each this}}
+                <div class="{{elementName}}-question">{{this}}</div>
+            {{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    <div class="{{blockName}}">
+        {{element "heading"}}
+        {{element "questions"}}
+    </div>
+{{~/defineBlock~}}

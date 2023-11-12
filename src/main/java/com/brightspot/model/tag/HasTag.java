@@ -7,7 +7,7 @@ import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Modification;
 import com.psddev.dari.db.Recordable;
 
-public interface Taggable extends Recordable {
+public interface HasTag extends Recordable {
 
     default Data asTaggableData() {
         return this.as(Data.class);
@@ -16,7 +16,7 @@ public interface Taggable extends Recordable {
     // -- Modification Data -- //
 
     @FieldInternalNamePrefix(Data.FIELD_PREFIX)
-    class Data extends Modification<Taggable> {
+    class Data extends Modification<HasTag> {
 
         public static final String FIELD_PREFIX = "taggable.";
         public static final String TAGS_FIELD = FIELD_PREFIX + "tags";

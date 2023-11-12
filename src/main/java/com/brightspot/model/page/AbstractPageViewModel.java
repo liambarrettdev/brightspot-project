@@ -20,6 +20,9 @@ import com.brightspot.view.model.page.HeadView;
 import com.brightspot.view.model.page.PageView;
 import com.brightspot.view.model.page.footer.FooterView;
 import com.brightspot.view.model.page.header.HeaderView;
+import com.brightspot.view.model.page.module.AboveView;
+import com.brightspot.view.model.page.module.AsideView;
+import com.brightspot.view.model.page.module.BelowView;
 import org.apache.commons.collections4.CollectionUtils;
 
 public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewModel<M> implements PageView {
@@ -76,23 +79,22 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
 
     @Override
     public Object getBody() {
-        ConcatenatedView.Builder body = new ConcatenatedView.Builder();
+        ConcatenatedView.Builder view = new ConcatenatedView.Builder();
 
-        body.addToItems(getHeader());
-        body.addToItems(getContent());
-        body.addToItems(getFooter());
+        view.addToItems(getHeader());
+        view.addToItems(createView(AboveView.class, model));
+        view.addToItems(createView(AsideView.class, model));
+        view.addToItems(createView(MAIN_CONTENT_VIEW, model));
+        view.addToItems(createView(BelowView.class, model));
+        view.addToItems(getFooter());
 
-        return body.build();
+        return view.build();
     }
 
     private Object getHeader() {
         return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getHeader))
             .map(header -> createView(HeaderView.class, header))
             .orElse(null);
-    }
-
-    private Object getContent() {
-        return createView(MAIN_CONTENT_VIEW, model);
     }
 
     private Object getFooter() {

@@ -38,6 +38,6 @@ public class PersonPageViewModel extends AbstractViewModel<Person> implements Pe
 
     @Override
     public Object getRelatedContent() {
-        return buildPromoListView(model.getMostRecentContent());
+        return buildListModuleView(model.getMostRecentContent());
     }
 }
