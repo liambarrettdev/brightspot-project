@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Optional;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,23 +16,23 @@ import com.brightspot.utils.DirectoryUtils;
 import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Site;
 import com.psddev.dari.util.JspUtils;
+import com.psddev.dari.util.RoutingFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @MultipartConfig
-@WebServlet(urlPatterns = LogoutServlet.PATH)
+@RoutingFilter.Path(LogoutServlet.SERVLET_PATH)
 public class LogoutServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LogoutServlet.class);
 
-    public static final String PATH = "/_auth/logout";
+    public static final String SERVLET_PATH = "/_auth/logout";
 
     // -- Overrides -- //
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Site site = PageFilter.Static.getSite(request);
 
         AuthenticationSettings settings = AuthenticationFilter.getAuthenticator(request);
@@ -57,8 +56,7 @@ public class LogoutServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.debug("rerouting request as GET");
         super.doGet(request, response);
     }
