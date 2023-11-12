@@ -1,7 +1,28 @@
 package com.brightspot.model.form.field.captcha;
 
-import com.psddev.cms.view.ViewModel;
+import java.util.Collection;
+import java.util.Collections;
 
-public class CaptchaFieldViewModel extends ViewModel<CaptchaField> {
+import com.brightspot.integration.IntegrationSiteSettings;
+import com.brightspot.model.AbstractViewModel;
+import com.brightspot.view.model.form.input.CaptchaInputView;
 
+public class CaptchaFieldViewModel extends AbstractViewModel<CaptchaField> implements CaptchaInputView {
+
+    @Override
+    protected boolean shouldCreate() {
+        return IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getCaptchaProvider) != null;
+    }
+
+    @Override
+    public Object getLabel() {
+        return model.getLabel();
+    }
+
+    @Override
+    public Collection<?> getCaptcha() {
+        CaptchaProvider provider = IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getCaptchaProvider);
+
+        return Collections.singleton(buildObjectView(provider));
+    }
 }

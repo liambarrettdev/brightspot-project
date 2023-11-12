@@ -6,7 +6,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import com.brightspot.integration.IntegrationSiteSettings;
-import com.brightspot.model.form.field.Field;
+import com.brightspot.model.form.field.FieldInput;
 import com.brightspot.model.form.field.SubmittableField;
 import com.brightspot.utils.CaptchaUtils;
 import com.brightspot.utils.LocalizationUtils;
@@ -17,7 +17,7 @@ import com.psddev.cms.view.ViewBinding;
 
 @ToolUi.NoteHtml("<span data-dynamic-html='${content.getNoteHtml()}'></span>")
 @ViewBinding(value = CaptchaFieldViewModel.class, types = CaptchaField.VIEW_TYPE)
-public class CaptchaField extends Field implements SubmittableField {
+public class CaptchaField extends FieldInput implements SubmittableField {
 
     protected static final String VIEW_TYPE = "captcha-field";
 

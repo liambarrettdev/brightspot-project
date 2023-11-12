@@ -7,7 +7,7 @@ import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Record;
 import com.psddev.dari.util.MailMessage;
 import com.psddev.dari.util.PageContextFilter;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

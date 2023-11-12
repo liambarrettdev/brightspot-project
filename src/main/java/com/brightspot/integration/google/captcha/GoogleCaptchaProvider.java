@@ -11,10 +11,12 @@ import com.brightspot.utils.LocalizationUtils;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Record;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
-@ViewBinding(value = GoogleCaptchaViewModel.class)
+@ViewBinding(value = GoogleCaptchaViewModel.class, types = GoogleCaptchaProvider.VIEW_TYPE)
 public class GoogleCaptchaProvider extends Record implements CaptchaProvider {
+
+    protected static final String VIEW_TYPE = "google-captcha";
 
     @ToolUi.Note("")
     private String clientKey;
@@ -58,5 +60,10 @@ public class GoogleCaptchaProvider extends Record implements CaptchaProvider {
         }
 
         return Collections.singletonList(LocalizationUtils.currentSiteText(this, "message.error.invalid"));
+    }
+
+    @Override
+    public String getViewType() {
+        return VIEW_TYPE;
     }
 }

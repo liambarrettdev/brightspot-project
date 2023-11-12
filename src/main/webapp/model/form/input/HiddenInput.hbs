@@ -1,9 +1,5 @@
 {{~#defineBlock "HiddenInput"~}}
-    {{~#defineBlockContainer~}}
-        {{#defineBlockBody}}
-            <div class="{{blockName}}">
-                <input type="hidden" name="{{name}}" value="{{value}}">
-            </div>
-        {{/defineBlockBody}}
-    {{~/defineBlockContainer~}}
+    <div class="{{blockName}}">
+        <input type="hidden" name="{{name}}" value="{{value}}">
+    </div>
 {{~/defineBlock~}}
