@@ -1,5 +1,5 @@
 {
-    "_template": "/model/event/Calendar",
+    "_template": "/model/event/CalendarModule",
     "title": "Example Calendar",
     "description": {
         "_template": "base/util/Concatenated",
@@ -23,7 +23,7 @@
     },
     "events": [
         {
-            "_dataUrl": "/model/promo/Promo.json",
+            "_dataUrl": "/model/promo/PromoModule.json",
             "_repeat": 3
         }
     ],

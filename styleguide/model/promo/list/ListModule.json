@@ -1,18 +1,18 @@
 {
-    "_template": "/model/gallery/Carousel",
-    "title": "Example Gallery",
+    "_template": "/model/promo/list/ListModule",
+    "title": "Example List",
     "description": {
         "_template": "base/util/Concatenated",
         "items": [
             {
                 "_template": "/base/util/RawHtml",
-                "html": "{{paragraphs([1, 3])}}"
+                "html": "{{paragraphs([1, 1])}}"
             }
         ]
     },
-    "slides": [
+    "items": [
         {
-            "_dataUrl": "/model/gallery/Slide.json",
+            "_dataUrl": "/model/promo/PromoModule.json",
             "_repeat": "4"
         }
     ]

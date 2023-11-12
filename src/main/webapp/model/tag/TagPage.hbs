@@ -1,9 +1,9 @@
-{{~#defineBlock "TagPage"~}}
+{{~#defineBlock "TagPage" extend="model/page/Main"~}}
     {{~#defineElement "name"~}}
         <div class="{{elementName}}">{{this}}</div>
     {{~/defineElement~}}
 
-    {{~#defineElement "relatedContent"~}}
+    {{~#defineElement "content"~}}
         <div class="{{elementName}}">{{this}}</div>
     {{~/defineElement~}}
 
@@ -11,7 +11,7 @@
         <div class="{{blockName}}" itemprop="author" itemscope itemtype="http://schema.org/Taxon"{{extraAttributes}}>
             {{#defineBlockBody}}
                 {{element "name"}}
-                {{element "relatedContent"}}
+                {{element "content"}}
                 {{element "sharebar"}}
                 {{element "comments"}}
             {{/defineBlockBody}}

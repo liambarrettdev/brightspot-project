@@ -3,10 +3,10 @@ package com.brightspot.model.iframe;
 import java.util.Optional;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.view.model.iframe.IframeContentView;
+import com.brightspot.view.model.iframe.IframeModuleView;
 import org.apache.commons.lang3.StringUtils;
 
-public class IframeModuleViewModel extends AbstractViewModel<IframeModule> implements IframeContentView {
+public class IframeModuleViewModel extends AbstractViewModel<IframeModule> implements IframeModuleView {
 
     private static final String HTTP_SECURE = "https:";
     private static final String HTTP = "http:";
