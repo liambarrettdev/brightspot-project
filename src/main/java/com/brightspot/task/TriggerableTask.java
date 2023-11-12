@@ -5,7 +5,7 @@ import com.psddev.dari.util.Task;
 
 public interface TriggerableTask {
 
-    default String getTaskParam() {
+    default String getTaskName() {
         return Utils.toNormalized(getTaskWidgetLabel());
     }
 

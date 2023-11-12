@@ -9,7 +9,7 @@ public class UserProfilePageViewModel extends AbstractViewModel<UserProfilePage>
     @Override
     protected void onCreate(ViewResponse response) {
         if (getUser() == null) {
-            response.redirectTemporarily(LoginServlet.PATH);
+            response.redirectTemporarily(LoginServlet.SERVLET_PATH);
         }
     }
 }
