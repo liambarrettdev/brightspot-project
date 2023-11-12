@@ -4,16 +4,16 @@ import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Modification;
 import com.psddev.dari.db.Recordable;
 
-public interface Categorizable extends Recordable {
+public interface HasCategory extends Recordable {
 
-    default Categorizable.Data asCategorizableData() {
-        return this.as(Categorizable.Data.class);
+    default HasCategory.Data asCategorizableData() {
+        return this.as(HasCategory.Data.class);
     }
 
     // -- Modification Data -- //
 
-    @FieldInternalNamePrefix(Categorizable.Data.FIELD_PREFIX)
-    class Data extends Modification<Categorizable> {
+    @FieldInternalNamePrefix(HasCategory.Data.FIELD_PREFIX)
+    class Data extends Modification<HasCategory> {
 
         public static final String FIELD_PREFIX = "categorizable.";
         public static final String CATEGORY_FIELD = FIELD_PREFIX + "category";
