@@ -1,5 +1,5 @@
 {
-    "_template": "/model/iframe/IframeContent",
+    "_template": "/model/iframe/IframeModule",
     "url": "#",
     "height": 600,
     "width": 720,

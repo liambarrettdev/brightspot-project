@@ -1,5 +1,5 @@
 {
-    "_template": "/model/quote/Quote",
+    "_template": "/model/quote/QuoteModule",
     "quote": "{{sentences(1)}}",
     "attribution": "{{name}}",
     "image": {

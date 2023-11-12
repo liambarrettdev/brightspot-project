@@ -2,9 +2,9 @@ package com.brightspot.model.quote;
 
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.view.base.util.ImageView;
-import com.brightspot.view.model.quote.QuoteView;
+import com.brightspot.view.model.quote.QuoteModuleView;
 
-public class QuoteModuleViewModel extends AbstractViewModel<QuoteModule> implements QuoteView {
+public class QuoteModuleViewModel extends AbstractViewModel<QuoteModule> implements QuoteModuleView {
 
     @Override
     public Object getQuote() {

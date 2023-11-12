@@ -1,5 +1,5 @@
 {
-    "_template": "/model/promo/Promo",
+    "_template": "/model/promo/PromoModule",
     "title": "Example Promo",
     "media": {
         "_dataUrl": "/model/image/Image.json"

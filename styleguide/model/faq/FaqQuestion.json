@@ -1,0 +1,13 @@
+{
+    "_template": "/model/faq/FaqQuestion",
+    "question": "{{sentences(1)}}",
+    "answer": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs([1, 3])}}"
+            }
+        ]
+    }
+}

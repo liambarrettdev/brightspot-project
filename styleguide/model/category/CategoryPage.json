@@ -14,9 +14,14 @@
             },
             {
                 "_template": "/model/category/CategoryPage",
-                "name": "{{words(2)}}",
-                "relatedContent": {
-                    "_dataUrl": "/model/promo/list/List.json"
+                "name": "Example Category",
+                "content": {
+                    "_template": "base/util/Concatenated",
+                    "items": [
+                        {
+                            "_dataUrl": "/model/promo/list/ListModule.json"
+                        }
+                    ]
                 }
             },
             {

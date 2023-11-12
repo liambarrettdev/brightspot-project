@@ -46,7 +46,7 @@ public class ArticlePageViewModel extends AbstractViewModel<Article> implements 
     @Override
     public Object getBody() {
         return Optional.ofNullable(model.getBody())
-            .map(this::buildWrappedObjectView)
+            .map(this::buildObjectView)
             .orElse(null);
     }
 

@@ -15,8 +15,13 @@
             {
                 "_template": "/model/tag/TagPage",
                 "name": "Example Tag Page",
-                "relatedContent": {
-                    "_dataUrl": "/model/promo/list/List.json"
+                "content": {
+                    "_template": "base/util/Concatenated",
+                    "items": [
+                        {
+                            "_dataUrl": "/model/promo/list/ListModule.json"
+                        }
+                    ]
                 }
             },
             {

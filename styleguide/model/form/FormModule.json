@@ -1,5 +1,5 @@
 {
-    "_template": "/model/form/Form",
+    "_template": "/model/form/FormModule",
     "title": "Example Form",
     "method": "POST",
     "action": "#",
