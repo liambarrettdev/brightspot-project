@@ -1,5 +1,5 @@
 {
-    "_template": "/model/rte/RichTextContent",
+    "_template": "/model/rte/RichTextModule",
     "body": {
         "_template": "base/util/Concatenated",
         "items": [

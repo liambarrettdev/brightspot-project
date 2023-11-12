@@ -4,10 +4,10 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.view.model.promo.PromoView;
-import com.brightspot.view.model.promo.list.ListView;
+import com.brightspot.view.model.promo.PromoModuleView;
+import com.brightspot.view.model.promo.list.ListModuleView;
 
-public class ListModuleViewModel extends AbstractViewModel<ListModule> implements ListView {
+public class ListModuleViewModel extends AbstractViewModel<ListModule> implements ListModuleView {
 
     @Override
     public Object getTitle() {
@@ -22,7 +22,7 @@ public class ListModuleViewModel extends AbstractViewModel<ListModule> implement
     @Override
     public Collection<?> getItems() {
         return model.getItems().stream()
-            .map(item -> createView(PromoView.class, item))
+            .map(item -> createView(PromoModuleView.class, item))
             .collect(Collectors.toList());
     }
 }

@@ -30,7 +30,7 @@
                     "_template": "base/util/Concatenated",
                     "items": [
                         {
-                            "_dataUrl": "/model/rte/RichTextContent.json"
+                            "_dataUrl": "/model/rte/RichTextModule.json"
                         }
                     ]
                 },

@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.view.base.util.ImageView;
-import com.brightspot.view.model.promo.PromoView;
+import com.brightspot.view.model.promo.PromoModuleView;
 
-public class PromoModuleViewModel extends AbstractViewModel<PromoModule> implements PromoView {
+public class PromoModuleViewModel extends AbstractViewModel<PromoModule> implements PromoModuleView {
 
     @Override
     public Object getTitle() {

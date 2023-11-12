@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.utils.Utils;
 import com.brightspot.view.base.util.LinkView;
-import com.brightspot.view.model.event.CalendarView;
-import com.brightspot.view.model.promo.PromoView;
+import com.brightspot.view.model.event.CalendarModuleView;
+import com.brightspot.view.model.promo.PromoModuleView;
 import com.psddev.cms.view.ViewResponse;
 import com.psddev.cms.view.servlet.HttpParameter;
 import com.psddev.dari.db.Query;
@@ -27,7 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> implements CalendarView {
+public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> implements CalendarModuleView {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CalendarModuleViewModel.class);
 
@@ -78,20 +78,20 @@ public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> i
     public Object getPrevMonth() {
         YearMonth previousMonth = selectedMonth.minusMonths(1);
 
-        return new LinkView.Builder()
-            .href(Utils.addQueryParameters("", MONTH_PARAM, previousMonth.toString()))
-            .body(previousMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()))
-            .build();
+        String url = Utils.addQueryParameters("", MONTH_PARAM, previousMonth.toString());
+        String text = previousMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
+
+        return buildLinkView(url, text);
     }
 
     @Override
     public Object getNextMonth() {
         YearMonth nextMonth = selectedMonth.plusMonths(1);
 
-        return new LinkView.Builder()
-            .href(Utils.addQueryParameters("", MONTH_PARAM, nextMonth.toString()))
-            .body(nextMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()))
-            .build();
+        String url = Utils.addQueryParameters("", MONTH_PARAM, nextMonth.toString());
+        String text = nextMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
+
+        return buildLinkView(url, text);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> i
             .getItems();
 
         return events.stream()
-            .map(event -> createView(PromoView.class, event))
+            .map(event -> createView(PromoModuleView.class, event))
             .collect(Collectors.toList());
     }
 

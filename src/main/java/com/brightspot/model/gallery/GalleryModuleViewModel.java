@@ -4,10 +4,10 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.view.model.gallery.CarouselView;
+import com.brightspot.view.model.gallery.GalleryModuleView;
 import com.brightspot.view.model.gallery.SlideView;
 
-public class GalleryModuleViewModel extends AbstractViewModel<GalleryModule> implements CarouselView {
+public class GalleryModuleViewModel extends AbstractViewModel<GalleryModule> implements GalleryModuleView {
 
     @Override
     public Object getTitle() {

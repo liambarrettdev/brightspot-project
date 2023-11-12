@@ -4,9 +4,9 @@ import com.brightspot.model.AbstractViewModel;
 import com.brightspot.utils.LocalizationUtils;
 import com.brightspot.utils.StateUtils;
 import com.brightspot.view.base.util.ImageView;
-import com.brightspot.view.model.promo.PromoView;
+import com.brightspot.view.model.promo.PromoModuleView;
 
-public class PromotableViewModel extends AbstractViewModel<Promotable> implements PromoView {
+public class PromotableViewModel extends AbstractViewModel<Promotable> implements PromoModuleView {
 
     private static final String DEFAULT_CTA_TEXT = "Read More";
 
