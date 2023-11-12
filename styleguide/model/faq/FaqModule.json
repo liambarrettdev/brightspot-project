@@ -1,0 +1,10 @@
+{
+    "_template": "/model/faq/FaqModule",
+    "title": "Example FAQ",
+    "description": "{{paragraphs(1)}}",
+    "sections": [
+        {
+            "_dataUrl": "/model/faq/FaqSection.json"
+        }
+    ]
+}
