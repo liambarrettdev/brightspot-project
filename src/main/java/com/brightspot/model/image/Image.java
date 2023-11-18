@@ -5,19 +5,15 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.brightspot.model.link.Link;
+import com.brightspot.model.media.AbstractMediaContent;
 import com.brightspot.tool.field.annotation.MimeTypes;
-import com.psddev.cms.db.Content;
-import com.psddev.cms.db.Directory;
-import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.util.StorageItem;
 
-@Content.PreviewField("file")
 @ToolUi.IconName(Image.ICON_NAME)
-@ToolUi.Publishable(false)
 @ViewBinding(value = ImageViewModel.class)
-public class Image extends Content implements Directory.Item {
+public class Image extends AbstractMediaContent {
 
     public static final String ICON_NAME = "photo";
 
@@ -93,11 +89,9 @@ public class Image extends Content implements Directory.Item {
         return getName();
     }
 
-    // Directory.Item
-
     @Override
-    public String createPermalink(Site site) {
-        return null;
+    public Image getPreviewImage() {
+        return this;
     }
 
     // -- Helper Methods -- //
@@ -106,5 +100,24 @@ public class Image extends Content implements Directory.Item {
         return Optional.ofNullable(getFile())
             .map(StorageItem::getMetadata)
             .orElse(new HashMap<>());
+    }
+
+    // -- Statics -- //
+
+    public static Image createImage(StorageItem file) {
+        return createImage(file, null);
+    }
+
+    public static Image createImage(StorageItem file, String altText) {
+        if (file == null) {
+            return null;
+        }
+
+        Image image = new Image();
+
+        image.setFile(file);
+        image.setAltText(altText);
+
+        return image;
     }
 }
