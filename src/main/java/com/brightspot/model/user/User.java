@@ -28,8 +28,8 @@ public class User extends Content implements
 
     @ToolUi.Heading("Basic Details")
 
-    @Required
     @Indexed(unique = true)
+    @Required
     private String email;
 
     @ToolUi.Placeholder("Pending")
