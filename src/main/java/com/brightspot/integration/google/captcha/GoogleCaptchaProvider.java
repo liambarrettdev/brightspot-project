@@ -18,11 +18,11 @@ public class GoogleCaptchaProvider extends Record implements CaptchaProvider {
 
     protected static final String VIEW_TYPE = "google-captcha";
 
-    @ToolUi.Note("")
+    @ToolUi.Note("") //TODO
     private String clientKey;
 
     @ToolUi.Secret
-    @ToolUi.Note("")
+    @ToolUi.Note("") //TODO
     private String secretKey;
 
     public String getClientKey() {
@@ -41,7 +41,7 @@ public class GoogleCaptchaProvider extends Record implements CaptchaProvider {
         this.secretKey = secretKey;
     }
 
-    // --- Overrides --- //
+    // -- Overrides -- //
 
     @Override
     public List<String> validate(HttpServletRequest request) {

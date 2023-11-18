@@ -37,7 +37,7 @@ public class FaqSection extends Record {
         this.questions = questions;
     }
 
-    // --- Overrides --- //
+    // -- Overrides -- //
 
     @Override
     public String getLabel() {

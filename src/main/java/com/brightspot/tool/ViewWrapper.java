@@ -2,7 +2,7 @@ package com.brightspot.tool;
 
 import com.psddev.dari.db.Recordable;
 
-public interface Wrapper extends Recordable {
+public interface ViewWrapper extends Recordable {
 
     String getViewType();
 

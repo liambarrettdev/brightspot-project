@@ -48,7 +48,7 @@ public class MetaElement extends HeadElement {
         return writer.toString();
     }
 
-    // --- Overrides --- //
+    // -- Overrides -- //
 
     @Override
     public String getViewType() {

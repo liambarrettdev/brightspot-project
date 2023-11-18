@@ -6,13 +6,13 @@ import com.psddev.dari.db.Recordable;
 
 public interface HasCategory extends Recordable {
 
-    default HasCategory.Data asCategorizableData() {
-        return this.as(HasCategory.Data.class);
+    default Data asCategorizableData() {
+        return this.as(Data.class);
     }
 
     // -- Modification Data -- //
 
-    @FieldInternalNamePrefix(HasCategory.Data.FIELD_PREFIX)
+    @FieldInternalNamePrefix(Data.FIELD_PREFIX)
     class Data extends Modification<HasCategory> {
 
         public static final String FIELD_PREFIX = "categorizable.";

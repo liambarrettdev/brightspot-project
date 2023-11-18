@@ -14,12 +14,12 @@ import com.psddev.dari.util.ObjectUtils;
 @Recordable.FieldInternalNamePrefix("settings.task.")
 public class TaskSettings extends Modification<CmsTool> {
 
-    public static final String TAB_TASK = "Tasks";
+    public static final String TAB_NAME = "Tasks";
 
-    @ToolUi.Tab(TAB_TASK)
+    @ToolUi.Tab(TAB_NAME)
     private String taskHost;
 
-    @ToolUi.Tab(TAB_TASK)
+    @ToolUi.Tab(TAB_NAME)
     private SessionPurgeTaskSettings sessionPurgeTask;
 
     public String getTaskHost() {

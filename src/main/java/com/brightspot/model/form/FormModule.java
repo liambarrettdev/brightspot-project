@@ -90,7 +90,7 @@ public class FormModule extends AbstractModule implements ShareableModule {
         return getName();
     }
 
-    // --- Helper Methods --- //
+    // -- Helper Methods -- //
 
     public Map<String, String> getSubmission(HttpServletRequest request) {
         if (!validateRequest(request)) {

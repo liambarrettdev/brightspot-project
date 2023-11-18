@@ -12,7 +12,7 @@ public class BelowViewModel extends AbstractViewModel<AbstractPage> implements B
 
     @Override
     public Object getContent() {
-        List<AbstractModule> siteModules = CustomSiteSettings.get(getSite(), CustomSiteSettings::getBelow);
+        List<AbstractModule> siteModules = CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getBelow);
         return buildModuleViews(siteModules.isEmpty() ? model.getBelow() : siteModules);
     }
 }

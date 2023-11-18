@@ -2,16 +2,17 @@ package com.brightspot.model.form;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
+import com.brightspot.model.form.action.Action;
 import com.brightspot.utils.LocalizationUtils;
 import com.brightspot.view.model.form.FormModuleView;
 import com.brightspot.view.model.form.input.HiddenInputView;
 import com.psddev.cms.view.ViewResponse;
 import com.psddev.cms.view.servlet.HttpMethod;
 import com.psddev.dari.db.State;
+import org.apache.commons.lang3.StringUtils;
 
 import static com.brightspot.integration.GenericHttpClient.Method.POST;
 
@@ -24,6 +25,8 @@ public class FormModuleViewModel extends AbstractViewModel<FormModule> implement
 
     private String errorMessage;
 
+    private String action;
+
     @Override
     protected void onCreate(ViewResponse response) {
         super.onCreate(response);
@@ -31,6 +34,12 @@ public class FormModuleViewModel extends AbstractViewModel<FormModule> implement
         if (POST.name().equalsIgnoreCase(method)) {
             processFormSubmission();
         }
+
+        action = model.getActions().stream()
+            .map(Action::getRedirectTarget)
+            .filter(StringUtils::isNotBlank)
+            .findAny()
+            .orElse(null);
     }
 
     @Override
@@ -72,12 +81,22 @@ public class FormModuleViewModel extends AbstractViewModel<FormModule> implement
         return POST.name();
     }
 
+    @Override
+    public Object getAction() {
+        return action;
+    }
+
     private void processFormSubmission() {
-        AtomicBoolean successful = new AtomicBoolean(false);
+        boolean succeeded = true;
 
-        model.getActions().forEach(action -> successful.set(successful.get() && action.onSubmit(model)));
+        for (Action action : model.getActions()) {
+            if (!action.onSubmit(model)) {
+                succeeded = false;
+                break;
+            }
+        }
 
-        if (successful.get()) {
+        if (succeeded) {
             successMessage = LocalizationUtils.currentSiteText(model, "successMessage");
         } else {
             errorMessage = LocalizationUtils.currentSiteText(model, "errorMessage");

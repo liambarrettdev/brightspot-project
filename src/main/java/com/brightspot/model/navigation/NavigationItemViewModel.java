@@ -10,7 +10,7 @@ public class NavigationItemViewModel extends AbstractViewModel<NavigationItem> i
 
     @Override
     public Object getCta() {
-        return model.getCtaUrl(getSite());
+        return model.getCtaUrl(getCurrentSite());
     }
 
     @Override

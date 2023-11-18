@@ -1632,14 +1632,14 @@ public class ObjectField extends Record {
             this.value = value;
         }
 
-        // --- Comparable support --
+        // -- Comparable support --
 
         @Override
         public int compareTo(Record value) {
             return getLabel().compareTo(value.getLabel());
         }
 
-        // --- Object support ---
+        // -- Object support ---
 
         @Override
         public boolean equals(Object other) {

@@ -11,7 +11,7 @@ public class CaptchaFieldViewModel extends AbstractViewModel<CaptchaField> imple
 
     @Override
     protected boolean shouldCreate() {
-        return IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getCaptchaProvider) != null;
+        return IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCaptchaProvider) != null;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class CaptchaFieldViewModel extends AbstractViewModel<CaptchaField> imple
 
     @Override
     public Collection<?> getCaptcha() {
-        CaptchaProvider provider = IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getCaptchaProvider);
+        CaptchaProvider provider = IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCaptchaProvider);
 
         return Collections.singleton(buildObjectView(provider));
     }

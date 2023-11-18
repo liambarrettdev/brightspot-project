@@ -52,17 +52,17 @@ public interface Promotable extends Linkable {
 
         public static final String FIELD_PREFIX = "promotable.";
 
-        public static final String TAB_PROMO = "Promo";
+        public static final String TAB_NAME = "Promo";
 
-        @ToolUi.Tab(TAB_PROMO)
+        @ToolUi.Tab(TAB_NAME)
         @ToolUi.Placeholder(dynamicText = "${content.getPromoTitleFallback()}", editable = true)
         private String promoTitle;
 
-        @ToolUi.Tab(TAB_PROMO)
+        @ToolUi.Tab(TAB_NAME)
         @ToolUi.Placeholder(dynamicText = "${content.getPromoDescriptionFallback()}", editable = true)
         private String promoDescription;
 
-        @ToolUi.Tab(TAB_PROMO)
+        @ToolUi.Tab(TAB_NAME)
         @ToolUi.NoteHtml("<span data-dynamic-html='${content.asPromotableData().getPromoImagePlaceholderHtml()}'></span>")
         private Image promoImage;
 

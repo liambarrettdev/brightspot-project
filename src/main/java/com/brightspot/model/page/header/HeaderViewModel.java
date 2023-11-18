@@ -31,7 +31,7 @@ public class HeaderViewModel extends AbstractViewModel<Header> implements Header
 
     @Override
     public Collection<?> getTagManager() {
-        return IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getExtraHeadItems).stream()
+        return IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getExtraHeadItems).stream()
             .filter(TagManager.class::isInstance)
             .map(tagManager -> buildObjectView(TagManager.BODY_VIEW_TYPE, tagManager.unwrap()))
             .collect(Collectors.toList());

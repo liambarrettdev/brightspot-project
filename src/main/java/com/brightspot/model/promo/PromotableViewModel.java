@@ -27,11 +27,11 @@ public class PromotableViewModel extends AbstractViewModel<Promotable> implement
 
     @Override
     public Object getCta() {
-        return model.getPromotableUrl(getSite());
+        return model.getPromotableUrl(getCurrentSite());
     }
 
     @Override
     public Object getCtaText() {
-        return LocalizationUtils.currentSiteText(model, getSite(), "ctaText", DEFAULT_CTA_TEXT);
+        return LocalizationUtils.currentSiteText(model, getCurrentSite(), "ctaText", DEFAULT_CTA_TEXT);
     }
 }

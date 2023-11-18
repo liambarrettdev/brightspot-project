@@ -49,7 +49,7 @@ public class FaqModule extends AbstractModule implements ShareableModule {
         this.sections = sections;
     }
 
-    // --- Overrides --- //
+    // -- Overrides -- //
 
     @Override
     public String getViewType() {

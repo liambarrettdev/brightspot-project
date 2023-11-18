@@ -24,7 +24,7 @@ public class CustomHeadElements extends Record {
         this.elements = elements;
     }
 
-    // --- Helper Methods --- //
+    // -- Helper Methods -- //
 
     public <T extends HeadElement> List<T> getElements(Class<T> elementClass) {
         return getElements().stream()

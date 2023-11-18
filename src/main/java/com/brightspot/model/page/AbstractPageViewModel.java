@@ -36,7 +36,7 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
 
     @Override
     public Object getLocale() {
-        Locale locale = CustomSiteSettings.get(getSite(), CustomSiteSettings::getLocale);
+        Locale locale = CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getLocale);
         return Optional.ofNullable(locale)
             .map(Locale::getLanguage)
             .orElse(null);
@@ -92,13 +92,13 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
     }
 
     private Object getHeader() {
-        return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getHeader))
+        return Optional.ofNullable(CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getHeader))
             .map(header -> createView(HeaderView.class, header))
             .orElse(null);
     }
 
     private Object getFooter() {
-        return Optional.ofNullable(CustomSiteSettings.get(getSite(), CustomSiteSettings::getFooter))
+        return Optional.ofNullable(CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getFooter))
             .map(footer -> createView(FooterView.class, footer))
             .orElse(null);
     }

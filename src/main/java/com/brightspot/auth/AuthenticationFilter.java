@@ -7,6 +7,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.brightspot.servlet.LoginServlet;
+import com.brightspot.servlet.LogoutServlet;
 import com.brightspot.tool.auth.AuthenticationSiteSettings;
 import com.psddev.cms.db.PageFilter;
 import com.psddev.dari.util.AbstractFilter;
@@ -23,10 +25,8 @@ public class AuthenticationFilter extends AbstractFilter implements AbstractFilt
     // -- Overrides -- //
 
     @Override
-    protected void doRequest(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-        throws Exception {
-        String requestUri = request.getRequestURI();
-        if (requestUri.startsWith("/cms") || requestUri.startsWith("/_")) {
+    protected void doRequest(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws Exception {
+        if (isAllAccessAllowed(request.getRequestURI())) {
             chain.doFilter(request, response);
             return;
         }
@@ -40,12 +40,19 @@ public class AuthenticationFilter extends AbstractFilter implements AbstractFilt
     }
 
     @Override
-    public void updateDependencies(
-        Class<? extends AbstractFilter> filterClass,
-        List<Class<? extends Filter>> dependencies) {
+    public void updateDependencies(Class<? extends AbstractFilter> filterClass, List<Class<? extends Filter>> dependencies) {
         if (PageFilter.class.isAssignableFrom(filterClass)) {
             dependencies.add(getClass());
         }
+    }
+
+    // -- Utility Methods -- //
+
+    private boolean isAllAccessAllowed(String requestUri) {
+        return requestUri.startsWith("/_")
+            || requestUri.startsWith("/cms")
+            || requestUri.startsWith(LoginServlet.SERVLET_PATH)
+            || requestUri.startsWith(LogoutServlet.SERVLET_PATH);
     }
 
     // -- Static Methods -- //

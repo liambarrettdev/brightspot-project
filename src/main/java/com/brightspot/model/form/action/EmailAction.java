@@ -62,6 +62,8 @@ public class EmailAction extends Record implements Action {
         this.body = body;
     }
 
+    // -- Overrides -- //
+
     @Override
     public boolean onSubmit(FormModule form) {
         try {

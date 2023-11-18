@@ -12,7 +12,7 @@ public class AboveViewModel extends AbstractViewModel<AbstractPage> implements A
 
     @Override
     public Object getContent() {
-        List<AbstractModule> siteModules = CustomSiteSettings.get(getSite(), CustomSiteSettings::getAbove);
+        List<AbstractModule> siteModules = CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getAbove);
         return buildModuleViews(siteModules.isEmpty() ? model.getAbove() : siteModules);
     }
 }

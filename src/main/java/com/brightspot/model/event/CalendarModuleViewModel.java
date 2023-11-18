@@ -120,7 +120,7 @@ public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> i
     }
 
     private Query<Event> getBaseQuery() {
-        Query<Event> query = Query.from(Event.class).where(getSite().itemsPredicate());
+        Query<Event> query = Query.from(Event.class).where(getCurrentSite().itemsPredicate());
         if (!ObjectUtils.isBlank(model.getEventType())) {
             query.where("type = ?", model.getEventType());
         }
