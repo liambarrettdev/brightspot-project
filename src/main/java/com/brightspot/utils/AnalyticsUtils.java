@@ -15,9 +15,12 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AnalyticsUtils {
+public final class AnalyticsUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AnalyticsUtils.class);
+
+    private AnalyticsUtils() {
+    }
 
     public static Integer getPageViews(UUID id, DateTime start, DateTime end) {
         State state = findPageState(id);
