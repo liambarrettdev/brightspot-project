@@ -34,13 +34,13 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
         List<Object> items = new ArrayList<>();
 
         // default links
-        String canonicalUrl = model.as(Directory.ObjectModification.class).getSitePermalink(getSite());
+        String canonicalUrl = model.as(Directory.ObjectModification.class).getSitePermalink(getCurrentSite());
         if (StringUtils.isNotBlank(canonicalUrl)) {
             items.add(buildLinkView(canonicalUrl, "canonical"));
         }
 
         // site-specific links
-        items.addAll(IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
+        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
             .map(item -> item.getElements(LinkElement.class))
             .flatMap(elements -> elements.stream().map(this::buildObjectView))
             .collect(Collectors.toList()));
@@ -70,7 +70,7 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
         }
 
         // site-specific meta tags
-        items.addAll(IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
+        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
             .map(item -> item.getElements(MetaElement.class))
             .flatMap(elements -> elements.stream().map(this::buildObjectView))
             .collect(Collectors.toList()));
@@ -93,7 +93,7 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
         }
 
         // site-specific scripts
-        items.addAll(IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
+        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
             .map(item -> item.getElements(ScriptElement.class))
             .flatMap(elements -> elements.stream().map(this::buildObjectView))
             .collect(Collectors.toList()));
@@ -117,7 +117,7 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
         }
 
         // site-specific stylesheets
-        items.addAll(IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
+        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
             .map(item -> item.getElements(StylesheetElement.class))
             .flatMap(elements -> elements.stream().map(this::buildObjectView))
             .collect(Collectors.toList()));
@@ -127,7 +127,7 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
 
     @Override
     public Collection<?> getExtraItems() {
-        return IntegrationSiteSettings.get(getSite(), IntegrationSiteSettings::getExtraHeadItems).stream()
+        return IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getExtraHeadItems).stream()
             .filter(item -> !item.asHeadItemData().isDisabled())
             .map(this::buildObjectView)
             .collect(Collectors.toList());

@@ -70,7 +70,7 @@ public class LinkElement extends HeadElement {
         return writer.toString();
     }
 
-    // --- Overrides --- //
+    // -- Overrides -- //
 
     @Override
     public String getViewType() {

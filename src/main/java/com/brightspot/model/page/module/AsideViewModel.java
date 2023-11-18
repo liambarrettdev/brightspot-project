@@ -12,7 +12,7 @@ public class AsideViewModel extends AbstractViewModel<AbstractPage> implements A
 
     @Override
     public Object getContent() {
-        List<AbstractModule> siteModules = CustomSiteSettings.get(getSite(), CustomSiteSettings::getAside);
+        List<AbstractModule> siteModules = CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getAside);
         return buildModuleViews(siteModules.isEmpty() ? model.getAside() : siteModules);
     }
 }

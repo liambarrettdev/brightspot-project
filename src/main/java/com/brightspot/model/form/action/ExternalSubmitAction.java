@@ -2,8 +2,6 @@ package com.brightspot.model.form.action;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import com.brightspot.integration.GenericHttpClient;
 import com.brightspot.model.form.FormModule;
@@ -21,7 +19,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +52,8 @@ public class ExternalSubmitAction extends Record implements Action {
         this.method = method;
     }
 
+    // -- Overrides -- //
+
     @Override
     public boolean onSubmit(FormModule form) {
         Map<String, String> submission = form.getSubmission(PageContextFilter.Static.getRequestOrNull());
@@ -84,6 +83,8 @@ public class ExternalSubmitAction extends Record implements Action {
         return true;
     }
 
+    // -- Utility Methods -- //
+
     private HttpRequestBase getHttpRequest(String endpoint, List<NameValuePair> params) {
         if (StringUtils.isBlank(endpoint)) {
             return null;
@@ -102,12 +103,5 @@ public class ExternalSubmitAction extends Record implements Action {
                 break;
         }
         return request;
-    }
-
-    private List<NameValuePair> getFormParams(Map<String, String> submission) {
-        return submission.entrySet().stream()
-            .filter(Objects::nonNull)
-            .map(entry -> new BasicNameValuePair(entry.getKey(), entry.getValue()))
-            .collect(Collectors.toList());
     }
 }

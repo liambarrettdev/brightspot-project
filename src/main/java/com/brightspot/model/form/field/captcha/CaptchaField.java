@@ -21,7 +21,7 @@ public class CaptchaField extends FieldInput implements SubmittableField {
 
     protected static final String VIEW_TYPE = "captcha-field";
 
-    // --- Overrides --- //
+    // -- Overrides -- //
 
     @Override
     public String getViewClass() {
@@ -37,7 +37,7 @@ public class CaptchaField extends FieldInput implements SubmittableField {
             .orElse(null);
     }
 
-    // --- Helper Methods --- //
+    // -- Helper Methods -- //
 
     public String getNoteHtml() {
         Site site = Utils.getCurrentSite();

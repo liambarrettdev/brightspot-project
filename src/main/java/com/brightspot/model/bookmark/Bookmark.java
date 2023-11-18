@@ -11,16 +11,16 @@ import com.psddev.dari.db.Record;
 @ToolUi.Hidden
 public class Bookmark extends Record {
 
-    @Required
     @Indexed(unique = true)
+    @Required
     private String bookmarkId;
 
-    @Required
     @Indexed
+    @Required
     private User user;
 
-    @Required
     @Indexed
+    @Required
     private Bookmarkable content;
 
     public String getBookmarkId() {

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.user.User;
-import com.brightspot.tool.Wrapper;
+import com.brightspot.tool.ViewWrapper;
 import com.brightspot.tool.field.annotation.CurrentUser;
 import com.brightspot.tool.rte.RichTextProcessor;
 import com.brightspot.view.base.util.ConcatenatedView;
@@ -28,30 +28,30 @@ import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractViewModel<M> extends ViewModel<M> {
 
-    @CurrentUser
-    protected User user;
-
-    @CurrentSite
-    protected Site site;
-
     @MainObject
     protected Content mainContent;
 
-    public User getUser() {
-        return user;
-    }
+    @CurrentSite
+    protected Site currentSite;
 
-    public Site getSite() {
-        return site;
-    }
+    @CurrentUser
+    protected User currentUser;
 
     public Content getMainContent() {
         return mainContent;
     }
 
+    public Site getCurrentSite() {
+        return currentSite;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
     // -- Helper Methods --//
 
-    protected Object buildObjectView(Wrapper wrapper) {
+    protected Object buildObjectView(ViewWrapper wrapper) {
         return Optional.ofNullable(wrapper)
             .map(o -> buildObjectView(o.getViewType(), o.unwrap()))
             .orElse(null);

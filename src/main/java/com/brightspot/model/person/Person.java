@@ -31,8 +31,8 @@ public class Person extends AbstractPage implements Linkable {
     @Embedded
     private Image avatar;
 
-    @ToolUi.Tab("Content")
     @Indexed
+    @ToolUi.Tab("Content")
     public List<HasAuthor> getMostRecentContent() {
         return Query.from(HasAuthor.class)
             .where(HasAuthor.Data.AUTHOR_FIELD + " = ?", this)

@@ -1,9 +1,9 @@
 package com.brightspot.model.page;
 
-import com.brightspot.tool.Wrapper;
+import com.brightspot.tool.ViewWrapper;
 import com.psddev.dari.db.Modification;
 
-public interface HeadItem extends Wrapper {
+public interface HeadItem extends ViewWrapper {
 
     default HeadItem.Data asHeadItemData() {
         return this.as(Data.class);
