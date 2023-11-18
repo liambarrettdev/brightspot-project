@@ -7,6 +7,7 @@ import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.page.module.AboveViewModel;
 import com.brightspot.model.page.module.AsideViewModel;
 import com.brightspot.model.page.module.BelowViewModel;
+import com.brightspot.model.restricted.Restrictable;
 import com.brightspot.tool.CustomSiteSettings;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Directory;
@@ -22,7 +23,9 @@ import com.psddev.dari.util.ObjectUtils;
 @ViewBinding(value = BelowViewModel.class)
 @ViewBinding(value = PageHeadViewModel.class)
 @ViewBinding(value = AbstractPageViewModel.class, types = { PageFilter.PAGE_VIEW_TYPE })
-public abstract class AbstractPage extends Content implements Directory.Item {
+public abstract class AbstractPage extends Content implements
+    Directory.Item,
+    Restrictable {
 
     @ToolUi.DisplayName("Internal Name")
     @ToolUi.Placeholder(dynamicText = "${content.getNameFallback()}", editable = true)
