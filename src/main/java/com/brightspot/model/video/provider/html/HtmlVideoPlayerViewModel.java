@@ -6,8 +6,7 @@ import com.brightspot.model.video.provider.AbstractVideoPlayerViewModel;
 import com.brightspot.view.model.video.html.HtmlVideoPlayerSourceView;
 import com.brightspot.view.model.video.html.HtmlVideoPlayerView;
 
-public class HtmlVideoPlayerViewModel extends AbstractVideoPlayerViewModel<HtmlVideoSource>
-    implements HtmlVideoPlayerView {
+public class HtmlVideoPlayerViewModel extends AbstractVideoPlayerViewModel<HtmlVideoSource> implements HtmlVideoPlayerView {
 
     @Override
     public Object getSource() {
