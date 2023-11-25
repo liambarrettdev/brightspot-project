@@ -46,7 +46,7 @@ public abstract class ExternalVideoSource extends VideoSource {
     }
 
     @Override
-    protected String getVideoTitleFallback() {
+    public String getVideoTitleFallback() {
         return OEmbedUtils.getTitle(getExternalMetadata());
     }
 

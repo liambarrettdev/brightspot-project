@@ -1,14 +1,14 @@
-package com.brightspot.model.video.provider.html;
+package com.brightspot.model.audio.provider.html;
 
 import java.util.Optional;
 
-import com.brightspot.model.video.provider.VideoSource;
+import com.brightspot.model.audio.provider.AudioSource;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Recordable;
 
 @Recordable.DisplayName("HTML5")
-@ViewBinding(value = HtmlVideoPlayerViewModel.class, types = HtmlVideoSource.VIEW_TYPE)
-public class HtmlVideoSource extends VideoSource {
+@ViewBinding(value = HtmlAudioPlayerViewModel.class, types = HtmlAudioSource.VIEW_TYPE)
+public class HtmlAudioSource extends AudioSource {
 
     protected static final String VIEW_TYPE = "html-video";
 
@@ -26,7 +26,7 @@ public class HtmlVideoSource extends VideoSource {
     // -- Overrides -- //
 
     @Override
-    public String getVideoId() {
+    public String getAudioId() {
         return Optional.ofNullable(getContent())
             .map(HtmlFileWrapper::getFile)
             .map(file -> file.getStorage() + ":" + file.getPath())
@@ -34,24 +34,10 @@ public class HtmlVideoSource extends VideoSource {
     }
 
     @Override
-    public Long getVideoDuration() {
+    public Long getAudioDuration() {
         return Optional.ofNullable(getContent())
             .map(HtmlFileWrapper::getDuration)
             .map(duration -> duration * 1_000)
-            .orElse(null);
-    }
-
-    @Override
-    public Integer getVideoHeight() {
-        return Optional.ofNullable(getContent())
-            .map(HtmlFileWrapper::getHeight)
-            .orElse(null);
-    }
-
-    @Override
-    public Integer getVideoWidth() {
-        return Optional.ofNullable(getContent())
-            .map(HtmlFileWrapper::getWidth)
             .orElse(null);
     }
 

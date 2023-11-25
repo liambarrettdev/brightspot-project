@@ -1,4 +1,4 @@
-package com.brightspot.model.video.provider.html;
+package com.brightspot.model.audio.provider.html;
 
 import java.util.Map;
 
@@ -12,12 +12,8 @@ import com.psddev.dari.util.StorageItem;
 public class HtmlFileWrapper extends Record {
 
     @Required
-    @MimeTypes("+video/")
+    @MimeTypes("+audio/")
     private StorageItem file;
-
-    private Integer width;
-
-    private Integer height;
 
     private Long duration;
 
@@ -27,22 +23,6 @@ public class HtmlFileWrapper extends Record {
 
     public void setFile(StorageItem file) {
         this.file = file;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
     }
 
     public Long getDuration() {
