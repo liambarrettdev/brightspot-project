@@ -52,11 +52,6 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
     }
 
     @Override
-    public Object getType() {
-        return model.getPageType();
-    }
-
-    @Override
     public Object getLocale() {
         Locale locale = CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getLocale);
         return Optional.ofNullable(locale)

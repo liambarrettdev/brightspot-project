@@ -12,14 +12,14 @@
     {{~/defineElement~}}
 
     {{~#defineElement "body"~}}
-        <body class="{{../type}}{{elementName}}">
+        <body class="{{elementName}}">
             {{this}}
         </body>
     {{~/defineElement~}}
 
     {{~#defineBlockContainer~}}
         <!DOCTYPE html>
-        <html class="{{type}}" lang="{{#with locale}}{{locale}}{{else}}en{{/with}}">
+        <html lang="{{#with locale}}{{locale}}{{else}}en{{/with}}">
         {{#defineBlockBody}}
             {{element "head"}}
             {{element "breadcrumbs"}}

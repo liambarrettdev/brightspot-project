@@ -1,4 +1,4 @@
-package com.brightspot.tool.crosslinker;
+package com.brightspot.model.crosslinker;
 
 import java.util.ArrayList;
 import java.util.HashSet;

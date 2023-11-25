@@ -1,6 +1,5 @@
 {
     "_template": "/model/page/Page",
-    "type": "Page",
     "locale": "en",
     "head": {
         "_dataUrl": "/model/page/Head.json"

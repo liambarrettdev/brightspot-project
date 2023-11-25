@@ -1,7 +1,6 @@
 {
     "_wrapper": false,
     "_template": "/model/page/Page",
-    "type": "Page",
     "locale": "en",
     "head": {
         "_dataUrl": "/model/page/Head.json"
@@ -14,8 +13,8 @@
             },
             {
                 "_template": "/model/article/ArticlePage",
-                "datePublished": "Wednesday, February 24, 2016",
-                "dateModified": "Wednesday, February 24, 2016",
+                "datePublished": "{{date()}}",
+                "dateModified": "{{date()}}",
                 "lead": {
                     "_dataUrl": "/model/image/Image.json"
                 },

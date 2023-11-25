@@ -14,6 +14,7 @@ import com.brightspot.model.page.element.ScriptElement;
 import com.brightspot.model.page.element.StylesheetElement;
 import com.brightspot.view.base.page.ExternalScriptView;
 import com.brightspot.view.base.page.ExternalStylesheetView;
+import com.brightspot.view.base.page.LinkView;
 import com.brightspot.view.base.page.MetaView;
 import com.brightspot.view.model.page.HeadView;
 import com.psddev.cms.db.Directory;
@@ -36,7 +37,10 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
         // default links
         String canonicalUrl = model.as(Directory.ObjectModification.class).getSitePermalink(getCurrentSite());
         if (StringUtils.isNotBlank(canonicalUrl)) {
-            items.add(buildLinkView(canonicalUrl, "canonical"));
+            items.add(new LinkView.Builder()
+                .href(canonicalUrl)
+                .rel("canonical")
+                .build());
         }
 
         // site-specific links
