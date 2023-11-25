@@ -1,40 +1,44 @@
-package com.brightspot.model.article;
+package com.brightspot.model.blog;
 
 import java.util.Optional;
 
 import com.brightspot.model.bookmark.Bookmarkable;
+import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.page.AbstractPageViewModel;
 import com.brightspot.model.page.creativework.AbstractCreativeWorkPage;
-import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.rte.RichTextModule;
-import com.brightspot.utils.LocalizationUtils;
-import com.brightspot.utils.RichTextUtils;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.crosslinker.db.Crosslinkable;
+import org.apache.commons.lang3.StringUtils;
 
 @ToolUi.FieldDisplayOrder({
     "name",
     "displayName",
+    "update",
     "sluggable.slug",
     "authorable.author",
     "leadImage",
     "headline",
     "subHeadline",
     "body",
+    "blog",
     "categorizable.category",
     "taggable.tags"
 })
 @Crosslinkable.SimulationName("Default")
-@ViewBinding(value = ArticlePageViewModel.class, types = { AbstractPageViewModel.MAIN_CONTENT_VIEW })
-public class Article extends AbstractCreativeWorkPage implements
+@ViewBinding(value = BlogPostPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
+public class BlogPost extends AbstractCreativeWorkPage implements
     Bookmarkable,
     Crosslinkable {
 
     @Required
     @Crosslinkable.Crosslinked
     private RichTextModule body = new RichTextModule();
+
+    @Required
+    private Blog blog;
 
     public RichTextModule getBody() {
         return body;
@@ -44,25 +48,34 @@ public class Article extends AbstractCreativeWorkPage implements
         this.body = body;
     }
 
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
+    }
+
     // -- Overrides -- //
 
-    @Override
-    public String getPromotableDuration(Site site) {
-        long length = Optional.ofNullable(getBody())
-            .map(RichTextModule::getRichText)
-            .map(RichTextUtils::stripRichTextElements)
-            .map(RichTextUtils::richTextToPlainText)
-            .map(String::length)
-            .map(Long::valueOf)
-            .orElse(0L);
+    // Directory.Item
 
-        long timeToRead = length / 1200;
-        if (timeToRead < 1) {
-            timeToRead = 1;
+    @Override
+    public String createPermalink(Site site) {
+        String slug = asSluggableData().getSlug();
+        if (StringUtils.isBlank(slug)) {
+            return null;
         }
 
-        String durationLabel = LocalizationUtils.currentSiteText(Promotable.class, site, "duration", null);
+        return StringUtils.appendIfMissing(StringUtils.prependIfMissing(Optional.ofNullable(getBlog())
+            .map(s -> s.createPermalink(site))
+            .orElse(""), "/"), "/") + slug;
+    }
 
-        return String.format(durationLabel, timeToRead);
+    // Hierarchical
+
+    @Override
+    public Hierarchical getHierarchicalParent() {
+        return getBlog();
     }
 }

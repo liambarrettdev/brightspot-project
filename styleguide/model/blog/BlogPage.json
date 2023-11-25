@@ -1,0 +1,28 @@
+{
+    "_wrapper": false,
+    "_template": "/model/page/Page",
+    "locale": "en",
+    "head": {
+        "_dataUrl": "/model/page/Head.json"
+    },
+    "body": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_dataUrl": "/model/page/header/Header.json"
+            },
+            {
+                "_template": "/model/blog/BlogPage",
+                "posts": [
+                    {
+                        "_dataUrl": "/model/promo/PromoModule.json",
+                        "_repeat": 9
+                    }
+                ]
+            },
+            {
+                "_dataUrl": "/model/page/footer/Footer.json"
+            }
+        ]
+    }
+}

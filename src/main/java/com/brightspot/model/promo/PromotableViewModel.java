@@ -21,6 +21,11 @@ public class PromotableViewModel extends AbstractViewModel<Promotable> implement
     }
 
     @Override
+    public Object getDuration() {
+        return model.getPromotableDuration(getCurrentSite());
+    }
+
+    @Override
     public Object getMedia() {
         return createView(ImageView.class, StateUtils.resolve(model.getPromoImage()));
     }

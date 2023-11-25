@@ -13,7 +13,6 @@ import com.ibm.icu.text.NumberFormat;
 import com.psddev.cms.db.Localization;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUser;
-import com.psddev.dari.db.Record;
 import com.psddev.dari.db.Recordable;
 
 public final class LocalizationUtils {
@@ -23,20 +22,20 @@ public final class LocalizationUtils {
     private LocalizationUtils() {
     }
 
-    public static String currentSiteText(Record record, String key) {
+    public static String currentSiteText(Recordable record, String key) {
         return currentSiteText(record, key, null);
     }
 
-    public static String currentSiteText(Record record, String key, String defaultValue) {
+    public static String currentSiteText(Recordable record, String key, String defaultValue) {
         Site site = record.as(Site.ObjectModification.class).getOwner();
 
         return currentSiteText(record, site, key, defaultValue);
     }
 
-    public static String currentSiteText(Recordable record, Site site, String key, String defaultValue) {
+    public static String currentSiteText(Object object, Site site, String key, String defaultValue) {
         Locale locale = CustomSiteSettings.get(site, CustomSiteSettings::getLocale);
 
-        return Localization.text(locale, record, key, defaultValue);
+        return Localization.text(locale, object, key, defaultValue);
     }
 
     public static String currentUserDate(Date date) {

@@ -33,6 +33,10 @@ public interface Promotable extends Linkable {
         return DirectoryUtils.getCanonicalUrl(site, this);
     }
 
+    default String getPromotableDuration(Site site) {
+        return null;
+    }
+
     default String getPromoTitleFallback() {
         return null;
     }
