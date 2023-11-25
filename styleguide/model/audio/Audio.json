@@ -1,0 +1,10 @@
+{
+    "_template": "/model/audio/Audio",
+    "name": "Example Audio",
+    "thumbnail": {
+        "_dataUrl": "/model/image/Image.json"
+    },
+    "audioPlayer": {
+        "_dataUrl": "/model/audio/html/HtmlAudioPlayer.json"
+    }
+}
