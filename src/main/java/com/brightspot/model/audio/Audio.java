@@ -1,30 +1,30 @@
-package com.brightspot.model.video;
+package com.brightspot.model.audio;
 
 import java.util.Optional;
 
+import com.brightspot.model.audio.metadata.AudioMetadata;
+import com.brightspot.model.audio.provider.AudioSource;
 import com.brightspot.model.image.Image;
 import com.brightspot.model.media.AbstractMediaContent;
-import com.brightspot.model.video.metadata.VideoMetadata;
-import com.brightspot.model.video.provider.VideoSource;
 import com.brightspot.tool.HasImagePreview;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.ObjectType;
 import com.psddev.dari.util.ObjectUtils;
 
-@ToolUi.IconName(Video.ICON_NAME)
-@ViewBinding(value = VideoViewModel.class)
-public class Video extends AbstractMediaContent implements
-    HasImagePreview,
-    VideoMetadata {
+@ToolUi.IconName(Audio.ICON_NAME)
+@ViewBinding(value = AudioViewModel.class)
+public class Audio extends AbstractMediaContent implements
+    AudioMetadata,
+    HasImagePreview {
 
-    public static final String ICON_NAME = "slideshow";
+    public static final String ICON_NAME = "music_note";
 
     private static final String TAB_OVERRIDES = "Overrides";
 
     private String name;
 
-    private VideoSource source;
+    private AudioSource source;
 
     @Embedded
     @ToolUi.Tab(TAB_OVERRIDES)
@@ -35,11 +35,11 @@ public class Video extends AbstractMediaContent implements
     @ToolUi.Hidden
     @ToolUi.Filterable
     @ToolUi.DropDown
-    @Where("groups = " + VideoSource.INTERNAL_NAME
-        + " && internalName != " + VideoSource.INTERNAL_NAME
+    @Where("groups = " + AudioSource.INTERNAL_NAME
+        + " && internalName != " + AudioSource.INTERNAL_NAME
         + " && (cms.ui.hidden = false || cms.ui.hidden = missing)"
         + " && isAbstract = false")
-    public ObjectType videoType;
+    public ObjectType audioType;
 
     public String getName() {
         return name;
@@ -49,11 +49,12 @@ public class Video extends AbstractMediaContent implements
         this.name = name;
     }
 
-    public VideoSource getSource() {
+    @Override
+    public AudioSource getSource() {
         return source;
     }
 
-    public void setSource(VideoSource source) {
+    public void setSource(AudioSource source) {
         this.source = source;
     }
 
@@ -72,8 +73,8 @@ public class Video extends AbstractMediaContent implements
         super.beforeSave();
 
         Optional.ofNullable(getSource()).ifPresent(source -> {
-            source.setVideoMetadata(this);
-            videoType = source.getState().getType();
+            source.setAudioMetadata(this);
+            audioType = source.getState().getType();
         });
     }
 
@@ -81,7 +82,7 @@ public class Video extends AbstractMediaContent implements
     public Image getPreviewImage() {
         if (thumbnail == null) {
             return Optional.ofNullable(getSource())
-                .map(VideoSource::getVideoThumbnailFallback)
+                .map(AudioSource::getAudioThumbnailFallback)
                 .map(Image::createImage)
                 .orElse(null);
         }
@@ -89,12 +90,12 @@ public class Video extends AbstractMediaContent implements
         return thumbnail;
     }
 
-    // VideoMetadata
+    // AudioMetadata
 
     @Override
     public Long getDuration() {
         return Optional.ofNullable(getSource())
-            .map(VideoSource::getVideoDuration)
+            .map(AudioSource::getAudioDuration)
             .orElse(null);
     }
 

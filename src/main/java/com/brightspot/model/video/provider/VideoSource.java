@@ -29,11 +29,11 @@ public abstract class VideoSource extends Record implements ViewWrapper {
         this.videoMetadata = videoMetadata;
     }
 
-    protected String getVideoTitleFallback() {
+    public String getVideoTitleFallback() {
         return null;
     }
 
-    protected String getVideoDescriptionFallback() {
+    public String getVideoDescriptionFallback() {
         return null;
     }
 

@@ -25,5 +25,4 @@ public abstract class AbstractVideoPlayerViewModel<M extends VideoSource> extend
     public Boolean getMuted() {
         return false;
     }
-
 }
