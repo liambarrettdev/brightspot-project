@@ -4,12 +4,12 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.brightspot.model.page.AbstractPageViewModel;
+import com.brightspot.model.AbstractViewModel;
 import com.brightspot.view.base.util.ImageView;
 import com.brightspot.view.base.util.LinkView;
 import com.brightspot.view.model.blog.BlogPostPageView;
 
-public class BlogPostPageViewModel extends AbstractPageViewModel<BlogPost> implements BlogPostPageView {
+public class BlogPostPageViewModel extends AbstractViewModel<BlogPost> implements BlogPostPageView {
 
     @Override
     public Object getLead() {

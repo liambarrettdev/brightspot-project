@@ -1,7 +1,0 @@
-{
-    "_template": "/model/form/input/Option",
-    "text": "Example Option",
-    "value": "option",
-    "selected": false,
-    "disabled": false
-}

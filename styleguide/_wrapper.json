@@ -4,7 +4,7 @@
     "head": {
         "_dataUrl": "/model/page/Head.json"
     },
-    "body": {
+    "main": {
         "_delegate": true
     }
 }

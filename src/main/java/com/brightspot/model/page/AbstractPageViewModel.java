@@ -2,6 +2,7 @@ package com.brightspot.model.page;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -18,7 +19,6 @@ import com.brightspot.model.restricted.Restrictable;
 import com.brightspot.tool.CustomSiteSettings;
 import com.brightspot.tool.auth.AuthenticationSiteSettings;
 import com.brightspot.utils.DirectoryUtils;
-import com.brightspot.view.base.util.ConcatenatedView;
 import com.brightspot.view.base.util.LinkView;
 import com.brightspot.view.model.page.HeadView;
 import com.brightspot.view.model.page.PageView;
@@ -65,6 +65,18 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
     }
 
     @Override
+    public Object getHeader() {
+        return Optional.ofNullable(CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getHeader))
+            .map(header -> createView(HeaderView.class, header))
+            .orElse(null);
+    }
+
+    @Override
+    public Object getAbove() {
+        return createView(AboveView.class, model);
+    }
+
+    @Override
     public Collection<?> getBreadcrumbs() {
         List<Link> breadcrumbs = new ArrayList<>(Optional.of(model)
             .filter(Hierarchical.class::isInstance)
@@ -95,26 +107,24 @@ public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewM
     }
 
     @Override
-    public Object getBody() {
-        ConcatenatedView.Builder view = new ConcatenatedView.Builder();
+    public Object getMain() {
+        Object item = createView(MAIN_CONTENT_VIEW, model);
 
-        view.addToItems(getHeader());
-        view.addToItems(createView(AboveView.class, model));
-        view.addToItems(createView(AsideView.class, model));
-        view.addToItems(createView(MAIN_CONTENT_VIEW, model));
-        view.addToItems(createView(BelowView.class, model));
-        view.addToItems(getFooter());
-
-        return view.build();
+        return buildConcatenatedView(Collections.singletonList(item));
     }
 
-    private Object getHeader() {
-        return Optional.ofNullable(CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getHeader))
-            .map(header -> createView(HeaderView.class, header))
-            .orElse(null);
+    @Override
+    public Object getAside() {
+        return createView(AsideView.class, model);
     }
 
-    private Object getFooter() {
+    @Override
+    public Object getBelow() {
+        return createView(BelowView.class, model);
+    }
+
+    @Override
+    public Object getFooter() {
         return Optional.ofNullable(CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getFooter))
             .map(footer -> createView(FooterView.class, footer))
             .orElse(null);

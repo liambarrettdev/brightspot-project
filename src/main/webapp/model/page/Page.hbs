@@ -1,29 +1,35 @@
 {{~#defineBlock "Page"~}}
-    {{~#defineElement "head"~}}
-        <head>
-            {{this}}
-        </head>
-    {{~/defineElement~}}
-
     {{~#defineElement "breadcrumbs"~}}
         <div class="{{elementName}}">
-            {{#each this}}{{this}}<div class="breadcrumbs-divider"><svg><use xlink:href="#icon-caret-right"></use></svg></div>{{/each}}
+            {{#each this}}{{this}}
+                <div class="breadcrumbs-divider">
+                    <svg>
+                        <use xlink:href="#icon-caret-right"></use>
+                    </svg>
+                </div>{{/each}}
         </div>
     {{~/defineElement~}}
 
-    {{~#defineElement "body"~}}
-        <body class="{{elementName}}">
+    {{~#defineElement "main"~}}
+        <main class="{{elementName}}">
             {{this}}
-        </body>
+        </main>
     {{~/defineElement~}}
 
     {{~#defineBlockContainer~}}
         <!DOCTYPE html>
         <html lang="{{#with locale}}{{locale}}{{else}}en{{/with}}">
         {{#defineBlockBody}}
-            {{element "head"}}
+            {{head}}
+            <body>
+            {{header}}
+            {{above}}
             {{element "breadcrumbs"}}
-            {{element "body"}}
+            {{element "main"}}
+            {{aside}}
+            {{below}}
+            {{footer}}
+            </body>
         {{/defineBlockBody}}
         </html>
     {{~/defineBlockContainer~}}

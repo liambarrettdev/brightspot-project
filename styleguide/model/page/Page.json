@@ -11,18 +11,15 @@
             "_repeat": 3
         }
     ],
-    "body": {
+    "header" : {
+        "_dataUrl": "/model/page/header/Header.json"
+    },
+    "above": {
+        "_dataUrl": "/model/page/module/Above.json"
+    },
+    "main": {
         "_template": "base/util/Concatenated",
         "items": [
-            {
-                "_dataUrl": "/model/page/header/Header.json"
-            },
-            {
-                "_dataUrl": "/model/page/module/Above.json"
-            },
-            {
-                "_dataUrl": "/model/page/module/Aside.json"
-            },
             {
                 "_template": "base/util/Concatenated",
                 "items": [
@@ -31,13 +28,16 @@
                         "html": "{{paragraphs([3, 10])}}"
                     }
                 ]
-            },
-            {
-                "_dataUrl": "/model/page/module/Below.json"
-            },
-            {
-                "_dataUrl": "/model/page/footer/Footer.json"
             }
         ]
+    },
+    "aside": {
+        "_dataUrl": "/model/page/module/Aside.json"
+    },
+    "below": {
+        "_dataUrl": "/model/page/module/Below.json"
+    },
+    "footer": {
+        "_dataUrl": "/model/page/footer/Footer.json"
     }
 }
