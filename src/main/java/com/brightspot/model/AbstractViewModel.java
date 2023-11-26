@@ -107,13 +107,19 @@ public abstract class AbstractViewModel<M> extends ViewModel<M> {
             return null;
         }
 
+        List<Object> richTextItems = RichTextProcessor
+            .createDefault(richText)
+            .renderUnhandledRichTextElements(false)
+            .htmlViewFunction((String html) -> new RawHtmlView.Builder().html(html).build())
+            .richTextElementViewFunction(rte -> createView(RichTextProcessor.RICH_TEXT_ELEMENT_VIEW_TYPE, rte))
+            .build();
+
+        return buildConcatenatedView(richTextItems);
+    }
+
+    protected ConcatenatedView buildConcatenatedView(List<Object> contents) {
         return new ConcatenatedView.Builder()
-            .addAllToItems(RichTextProcessor
-                .createDefault(richText)
-                .renderUnhandledRichTextElements(false)
-                .htmlViewFunction((String html) -> new RawHtmlView.Builder().html(html).build())
-                .richTextElementViewFunction(rte -> createView(RichTextProcessor.RICH_TEXT_ELEMENT_VIEW_TYPE, rte))
-                .build())
+            .addAllToItems(contents)
             .build();
     }
 }

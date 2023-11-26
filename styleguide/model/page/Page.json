@@ -28,7 +28,7 @@
                 "items": [
                     {
                         "_template": "/base/util/RawHtml",
-                        "html": "{{paragraphs([1, 20])}}"
+                        "html": "{{paragraphs([3, 10])}}"
                     }
                 ]
             },
