@@ -3,7 +3,7 @@ package com.brightspot.model.article;
 import java.util.Optional;
 
 import com.brightspot.model.bookmark.Bookmarkable;
-import com.brightspot.model.page.AbstractPageViewModel;
+import com.brightspot.model.page.PageMainViewModel;
 import com.brightspot.model.page.creativework.AbstractCreativeWorkPage;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.rte.RichTextModule;
@@ -27,10 +27,12 @@ import com.psddev.crosslinker.db.Crosslinkable;
     "taggable.tags"
 })
 @Crosslinkable.SimulationName("Default")
-@ViewBinding(value = ArticlePageViewModel.class, types = { AbstractPageViewModel.MAIN_CONTENT_VIEW })
+@ViewBinding(value = ArticlePageViewModel.class, types = { PageMainViewModel.MAIN_CONTENT_VIEW })
 public class Article extends AbstractCreativeWorkPage implements
     Bookmarkable,
     Crosslinkable {
+
+    private static final String PROMOTABLE_TYPE = "article";
 
     @Required
     @Crosslinkable.Crosslinked
@@ -64,5 +66,10 @@ public class Article extends AbstractCreativeWorkPage implements
         String durationLabel = LocalizationUtils.currentSiteText(Promotable.class, site, "duration", null);
 
         return String.format(durationLabel, timeToRead);
+    }
+
+    @Override
+    public String getPromotableType() {
+        return PROMOTABLE_TYPE;
     }
 }

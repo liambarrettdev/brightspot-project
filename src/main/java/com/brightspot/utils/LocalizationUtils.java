@@ -3,6 +3,7 @@ package com.brightspot.utils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Optional;
@@ -60,14 +61,42 @@ public final class LocalizationUtils {
         return formatter.format(date);
     }
 
+    public static String localizeDate(Date date, Site site, String format) {
+        Locale locale = CustomSiteSettings.get(site, CustomSiteSettings::getLocale);
+
+        return localizeDate(date, locale, format);
+    }
+
+    public static String localizeDate(Date date, Locale locale, String format) {
+        if (date == null) {
+            return null;
+        }
+
+        return DateTimeFormatter.ofPattern(format)
+            .withLocale(getLocaleOrDefault(locale))
+            .format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+    }
+
+    public static String localizeNumber(Number number, Site site) {
+        Locale locale = CustomSiteSettings.get(site, CustomSiteSettings::getLocale);
+
+        return localizeNumber(number, locale);
+    }
+
     public static String localizeNumber(Number number, Locale locale) {
         if (number == null) {
             return null;
         }
 
-        NumberFormat numberFormat = NumberFormat.getInstance(locale == null ? Locale.getDefault() : locale);
+        NumberFormat numberFormat = NumberFormat.getInstance(getLocaleOrDefault(locale));
 
         return numberFormat.format(number);
+    }
+
+    public static String localizeCurrency(Number number, Site site) {
+        Locale locale = CustomSiteSettings.get(site, CustomSiteSettings::getLocale);
+
+        return localizeCurrency(number, locale);
     }
 
     public static String localizeCurrency(Number number, Locale locale) {
@@ -75,7 +104,7 @@ public final class LocalizationUtils {
             return null;
         }
 
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale == null ? Locale.getDefault() : locale);
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(getLocaleOrDefault(locale));
         numberFormat.setMaximumFractionDigits(0);
         return numberFormat.format(number);
     }

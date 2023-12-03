@@ -13,8 +13,7 @@ public class ChoiceFieldDelegateViewModel extends ViewModel<ChoiceField> impleme
 
         if (model.getType() instanceof ChoiceFieldType.Dropdown) {
             return createView(SelectInputViewModel.class, model);
-        } else if (model.getType() instanceof ChoiceFieldType.Checkboxes
-            || model.getType() instanceof ChoiceFieldType.RadioButtons) {
+        } else if (model.getType() instanceof ChoiceFieldType.Checkboxes || model.getType() instanceof ChoiceFieldType.RadioButtons) {
             return createView(ChoiceInputViewModel.class, model);
         }
 

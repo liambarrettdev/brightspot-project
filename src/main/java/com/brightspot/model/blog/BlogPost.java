@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.brightspot.model.bookmark.Bookmarkable;
 import com.brightspot.model.hierarchy.Hierarchical;
-import com.brightspot.model.page.AbstractPageViewModel;
+import com.brightspot.model.page.PageMainViewModel;
 import com.brightspot.model.page.creativework.AbstractCreativeWorkPage;
 import com.brightspot.model.rte.RichTextModule;
 import com.psddev.cms.db.Site;
@@ -28,10 +28,12 @@ import org.apache.commons.lang3.StringUtils;
     "taggable.tags"
 })
 @Crosslinkable.SimulationName("Default")
-@ViewBinding(value = BlogPostPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = BlogPostPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
 public class BlogPost extends AbstractCreativeWorkPage implements
     Bookmarkable,
     Crosslinkable {
+
+    private static final String PROMOTABLE_TYPE = "blog-post";
 
     @Required
     @Crosslinkable.Crosslinked
@@ -77,5 +79,12 @@ public class BlogPost extends AbstractCreativeWorkPage implements
     @Override
     public Hierarchical getHierarchicalParent() {
         return getBlog();
+    }
+
+    // Promotable
+
+    @Override
+    public String getPromotableType() {
+        return PROMOTABLE_TYPE;
     }
 }

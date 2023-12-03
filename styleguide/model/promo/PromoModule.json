@@ -9,5 +9,6 @@
     "description": "{{sentences(1)}}",
     "duration": "2 mins",
     "cta": "#",
-    "ctaText": "Read More"
+    "ctaText": "Read More",
+    "type": "Article"
 }

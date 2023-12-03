@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.page.AbstractPageViewModel;
+import com.brightspot.model.page.PageMainViewModel;
 import com.brightspot.model.slug.Sluggable;
 import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Content;
@@ -30,7 +30,7 @@ import org.apache.commons.lang3.StringUtils;
     "contents",
     "parent"
 })
-@ViewBinding(value = TagPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = TagPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
 public class Tag extends AbstractPage implements
     Linkable,
     Sluggable,

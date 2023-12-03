@@ -31,7 +31,7 @@ import com.psddev.cms.db.Site;
 import com.psddev.cms.view.ViewResponse;
 import org.apache.commons.collections4.CollectionUtils;
 
-public class AbstractPageViewModel<M extends AbstractPage> extends AbstractViewModel<M> implements PageView {
+public class PageMainViewModel<M extends AbstractPage> extends AbstractViewModel<M> implements PageView {
 
     public static final String MAIN_CONTENT_VIEW = "main";
 

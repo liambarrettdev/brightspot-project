@@ -22,7 +22,7 @@ import com.psddev.dari.util.ObjectUtils;
 @ViewBinding(value = AsideViewModel.class)
 @ViewBinding(value = BelowViewModel.class)
 @ViewBinding(value = PageHeadViewModel.class)
-@ViewBinding(value = AbstractPageViewModel.class, types = { PageFilter.PAGE_VIEW_TYPE })
+@ViewBinding(value = PageMainViewModel.class, types = { PageFilter.PAGE_VIEW_TYPE })
 public abstract class AbstractPage extends Content implements
     Directory.Item,
     Restrictable {

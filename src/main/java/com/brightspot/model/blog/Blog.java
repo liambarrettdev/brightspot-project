@@ -2,31 +2,51 @@ package com.brightspot.model.blog;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 import com.brightspot.model.category.HasCategory;
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.image.Image;
 import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.page.AbstractPageViewModel;
+import com.brightspot.model.page.PageMainViewModel;
 import com.brightspot.model.promo.Promotable;
+import com.brightspot.model.slug.Sluggable;
 import com.brightspot.model.taxonomy.Taxonomy;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.brightspot.utils.RichTextUtils;
+import com.brightspot.utils.Utils;
+import com.psddev.cms.db.Directory;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.Taxon;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
+import com.psddev.dari.util.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
-@ViewBinding(value = BlogPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
+@ToolUi.FieldDisplayOrder({
+    "name",
+    "displayName",
+    "sluggable.slug",
+    "leadImage",
+    "description",
+    "postsPerPage",
+    "categorizable.category"
+})
+@ViewBinding(value = BlogPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
 public class Blog extends AbstractPage implements
     HasCategory,
     Promotable,
+    Sluggable,
     Taxonomy {
+
+    private static final String PROMOTABLE_TYPE = "blog";
 
     private Image leadImage;
 
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
     private String description;
+
+    private Integer postsPerPage;
 
     public Image getLeadImage() {
         return leadImage;
@@ -44,13 +64,31 @@ public class Blog extends AbstractPage implements
         this.description = description;
     }
 
+    public Integer getPostsPerPage() {
+        return ObjectUtils.firstNonBlank(postsPerPage, 0);
+    }
+
+    public void setPostsPerPage(Integer postsPerPage) {
+        this.postsPerPage = postsPerPage;
+    }
+
     // -- Overrides -- //
 
     // Directory.Item
 
     @Override
     public String createPermalink(Site site) {
-        return null;
+        if (StringUtils.isBlank(asSluggableData().getSlug())) {
+            return null;
+        }
+
+        return Optional.ofNullable(getHierarchicalParent())
+            .filter(Directory.Item.class::isInstance)
+            .map(Directory.Item.class::cast)
+            .map(parent -> parent.createPermalink(site))
+            .map(prefix -> StringUtils.appendIfMissing(prefix, "/"))
+            .map(prefix -> prefix + asSluggableData().getSlug())
+            .orElse(asSluggableData().getSlug());
     }
 
     // Hierarchical
@@ -77,6 +115,18 @@ public class Blog extends AbstractPage implements
     @Override
     public String getPromoDescriptionFallback() {
         return RichTextUtils.richTextToPlainText(getDescription());
+    }
+
+    @Override
+    public String getPromotableType() {
+        return PROMOTABLE_TYPE;
+    }
+
+    // Sluggable
+
+    @Override
+    public String getSlugFallback() {
+        return Utils.toNormalized(getDisplayName());
     }
 
     // Taxon
