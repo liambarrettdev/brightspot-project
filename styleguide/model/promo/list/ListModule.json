@@ -15,5 +15,8 @@
             "_dataUrl": "/model/promo/PromoModule.json",
             "_repeat": "4"
         }
-    ]
+    ],
+    "pagination": {
+        "_dataUrl": "/model/pagination/Pagination.json"
+    }
 }

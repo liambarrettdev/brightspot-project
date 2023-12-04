@@ -15,12 +15,19 @@
         </div>
     {{~/defineElement~}}
 
+    {{~#defineElement "pagination"~}}
+        <div class="{{elementName}}">
+            {{this}}
+        </div>
+    {{~/defineElement~}}
+
     <div class="{{blockName}}">
         <div class="{{blockName}}-media" style="background-image: url({{media.src}})">
             <div class="{{blockName}}-content">
                 {{element "title"}}
                 {{element "description"}}
                 {{element "items"}}
+                {{element "pagination"}}
             </div>
         </div>
     </div>

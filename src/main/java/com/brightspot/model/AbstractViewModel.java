@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.module.AbstractModule;
+import com.brightspot.model.pagination.Pagination;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.user.User;
 import com.brightspot.tool.ViewWrapper;
@@ -21,6 +22,8 @@ import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.view.ViewModel;
 import com.psddev.cms.view.servlet.CurrentSite;
+import com.psddev.cms.view.servlet.HttpParameter;
+import com.psddev.cms.view.servlet.HttpServletPath;
 import com.psddev.cms.view.servlet.MainObject;
 import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
@@ -38,6 +41,12 @@ public abstract class AbstractViewModel<M> extends ViewModel<M> {
 
     @CurrentUser
     protected User currentUser;
+
+    @HttpServletPath
+    protected String baseUrl;
+
+    @HttpParameter(Pagination.PARAM_PAGE)
+    protected int pageNumber;
 
     public Content getMainContent() {
         return mainContent;

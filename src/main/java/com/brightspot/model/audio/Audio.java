@@ -21,6 +21,10 @@ public class Audio extends AbstractMediaContent implements
     public static final String ICON_NAME = "music_note";
 
     private static final String TAB_OVERRIDES = "Overrides";
+    private static final String AUDIO_PREDICATE = "groups = " + AudioSource.INTERNAL_NAME
+        + " && internalName != " + AudioSource.INTERNAL_NAME
+        + " && (cms.ui.hidden = false || cms.ui.hidden = missing)"
+        + " && isAbstract = false";
 
     private String name;
 
@@ -32,13 +36,10 @@ public class Audio extends AbstractMediaContent implements
     private Image thumbnail;
 
     @Indexed
+    @Where(AUDIO_PREDICATE)
     @ToolUi.Hidden
-    @ToolUi.Filterable
     @ToolUi.DropDown
-    @Where("groups = " + AudioSource.INTERNAL_NAME
-        + " && internalName != " + AudioSource.INTERNAL_NAME
-        + " && (cms.ui.hidden = false || cms.ui.hidden = missing)"
-        + " && isAbstract = false")
+    @ToolUi.Filterable
     public ObjectType audioType;
 
     public String getName() {

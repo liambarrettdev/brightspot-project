@@ -17,6 +17,8 @@ import com.psddev.dari.util.ObjectUtils;
 @ViewBinding(value = PromotableViewModel.class)
 public interface Promotable extends Linkable {
 
+    String INTERNAL_NAME = "com.brightspot.model.promo.Promotable";
+
     String getPromotableType();
 
     default Data asPromotableData() {
@@ -75,6 +77,7 @@ public interface Promotable extends Linkable {
     class Data extends Modification<Promotable> implements HasImagePreview {
 
         public static final String FIELD_PREFIX = "promotable.";
+        public static final String EXCLUDE_FIELD = FIELD_PREFIX + "excludeFromDynamicResults";
 
         public static final String TAB_NAME = "Promo";
 
@@ -89,6 +92,11 @@ public interface Promotable extends Linkable {
         @ToolUi.Tab(TAB_NAME)
         @ToolUi.NoteHtml("<span data-dynamic-html='${content.asPromotableData().getPromoImagePlaceholderHtml()}'></span>")
         private Image promoImage;
+
+        @Indexed
+        @ToolUi.Tab(TAB_NAME)
+        @ToolUi.Heading("Advanced")
+        private Boolean excludeFromDynamicResults;
 
         public String getPromoTitle() {
             return ObjectUtils.firstNonBlank(promoTitle, getOriginalObject().getPromoTitleFallback());
@@ -112,6 +120,14 @@ public interface Promotable extends Linkable {
 
         public void setPromoImage(Image promoImage) {
             this.promoImage = promoImage;
+        }
+
+        public Boolean isExcludeFromDynamicResults() {
+            return Boolean.TRUE.equals(excludeFromDynamicResults);
+        }
+
+        public void setExcludeFromDynamicResults(Boolean excludeFromDynamicResults) {
+            this.excludeFromDynamicResults = excludeFromDynamicResults;
         }
 
         // -- Helper Methods -- //
