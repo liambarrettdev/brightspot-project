@@ -4,14 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
         http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dari.version>3.2.2466-9f28f3</dari.version>
-        <brightspot.version>3.2.7262-cf4a82</brightspot.version>
-        <styleguide.version>1.1.350-86f868</styleguide.version>
-        <slf4j.version>2.0.3</slf4j.version>
-    </properties>
-
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -19,6 +11,14 @@
         <artifactId>dari-parent</artifactId>
         <version>3.2.2466-9f28f3</version>
     </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dari.version>3.2.2466-9f28f3</dari.version>
+        <brightspot.version>3.2.7262-cf4a82</brightspot.version>
+        <styleguide.version>1.1.350-86f868</styleguide.version>
+        <slf4j.version>2.0.3</slf4j.version>
+    </properties>
 
     <groupId>com.brightspot</groupId>
     <artifactId>brightspot-project</artifactId>

@@ -21,7 +21,7 @@ import com.psddev.dari.db.Query;
     "contents",
     "categorizable.category"
 })
-@ViewBinding(value = PageViewModel.class, types = { AbstractPageViewModel.MAIN_CONTENT_VIEW })
+@ViewBinding(value = PageViewModel.class, types = { PageMainViewModel.MAIN_CONTENT_VIEW })
 public class Page extends AbstractPage implements
     Linkable,
     Taxonomy {

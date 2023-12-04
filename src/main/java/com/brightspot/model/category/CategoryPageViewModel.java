@@ -1,10 +1,9 @@
 package com.brightspot.model.category;
 
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import com.brightspot.model.AbstractViewModel;
-import com.brightspot.view.base.util.ConcatenatedView;
 import com.brightspot.view.model.category.CategoryPageView;
 
 public class CategoryPageViewModel extends AbstractViewModel<Category> implements CategoryPageView {
@@ -16,12 +15,14 @@ public class CategoryPageViewModel extends AbstractViewModel<Category> implement
 
     @Override
     public Object getContent() {
-        return new ConcatenatedView.Builder()
-            .addAllToItems(model.getContents().isEmpty() ? getDefaultContent() : buildModuleViews(model.getContents()))
-            .build();
+        List<Object> items = model.getContents().isEmpty()
+            ? getDefaultContent()
+            : buildModuleViews(model.getContents());
+
+        return buildConcatenatedView(items);
     }
 
-    private Collection<?> getDefaultContent() {
-        return Collections.singleton(buildListModuleView(model.getMostRecentContent()));
+    private List<Object> getDefaultContent() {
+        return Collections.singletonList(buildListModuleView(model.getMostRecentContent()));
     }
 }

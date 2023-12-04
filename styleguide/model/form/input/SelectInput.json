@@ -7,7 +7,11 @@
     "multiple": true,
     "options": [
         {
-            "_dataUrl": "/model/form/input/Option.json",
+            "_template": "/model/form/input/option/Option",
+            "text": "Example Option",
+            "value": "option",
+            "selected": false,
+            "disabled": false,
             "_repeat": "4"
         }
     ]

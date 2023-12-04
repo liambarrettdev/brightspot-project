@@ -1,4 +1,4 @@
-{{~#defineBlock "Promo"~}}
+{{~#defineBlock "PromoModule"~}}
     {{~#defineElement "title"~}}
         <div class="{{elementName}}"><h3>{{this}}</h3></div>
     {{~/defineElement~}}
@@ -11,7 +11,7 @@
         <div class="{{elementName}}"><a class="btn" href="{{this}}">{{../ctaText}}</a></div>
     {{~/defineElement~}}
 
-    <div class="{{blockName}}">
+    <div class="{{blockName}} {{type}}-promo">
         <div class="{{blockName}}-media" style="background-image: url({{media.src}})">
             <div class="{{blockName}}-content">
                 {{element "title"}}

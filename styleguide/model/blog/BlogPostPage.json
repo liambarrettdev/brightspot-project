@@ -1,0 +1,49 @@
+{
+    "_wrapper": false,
+    "_template": "/model/page/Page",
+    "locale": "en",
+    "head": {
+        "_dataUrl": "/model/page/Head.json"
+    },
+    "header" : {
+        "_dataUrl": "/model/page/header/Header.json"
+    },
+    "main": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/model/blog/BlogPostPage",
+                "datePublished": "{{date()}}",
+                "dateModified": "{{date()}}",
+                "lead": {
+                    "_dataUrl": "/model/image/Image.json"
+                },
+                "byline": {
+                    "_template": "/base/util/Link",
+                    "href": "#",
+                    "body": "{{name}}"
+                },
+                "headline": "{{words(5)}}",
+                "subHeadline": "{{sentences(1)}}",
+                "body": {
+                    "_template": "base/util/Concatenated",
+                    "items": [
+                        {
+                            "_dataUrl": "/model/rte/RichTextModule.json"
+                        }
+                    ]
+                },
+                "tags": [
+                    {
+                        "_template": "/base/util/Link",
+                        "href": "#",
+                        "body": "Tag"
+                    }
+                ]
+            }
+        ]
+    },
+    "footer": {
+        "_dataUrl": "/model/page/footer/Footer.json"
+    }
+}
