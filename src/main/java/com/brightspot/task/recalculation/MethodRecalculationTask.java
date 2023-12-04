@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.brightspot.tool.recalculation.MethodRecalculation;
 import com.brightspot.utils.TaskUtils;
@@ -13,6 +14,7 @@ import com.psddev.dari.db.Query;
 import com.psddev.dari.db.Recordable;
 import com.psddev.dari.db.State;
 import com.psddev.dari.util.RepeatingTask;
+import com.psddev.dari.util.Settings;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,19 +26,38 @@ public class MethodRecalculationTask extends RepeatingTask {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodRecalculationTask.class);
 
+    private static final AtomicBoolean FORCE_UPDATE = new AtomicBoolean(false);
+
+    public MethodRecalculationTask() {
+        super("Scheduled Tasks", MethodRecalculationTask.class.getName());
+    }
     // -- Overrides -- //
 
     @Override
     protected DateTime calculateRunTime(DateTime currentTime) {
-        if (TaskUtils.isRunningOnTaskHost()) {
+        if (FORCE_UPDATE.compareAndSet(true, false)) {
+            return new DateTime();
+        } else if (TaskUtils.isRunningOnTaskHost()) {
             return everyMinute(currentTime);
+        } else {
+            // Never runs because it will never get there.
+            return new DateTime().plusHours(1);
         }
-        // Never runs because it will never get there.
-        return new DateTime().plusHours(1);
     }
 
     @Override
     protected void doRepeatingTask(DateTime runTime) throws Exception {
+        if (!TaskUtils.isRunningOnTaskHost()) {
+            return;
+        }
+
+        execute();
+    }
+
+    private void execute() {
+        if (!Settings.isProduction()) {
+            setSafeToStop(true);
+        }
 
         Set<UUID> processed = new HashSet<>();
         Set<UUID> recalculated = new HashSet<>();
@@ -90,5 +111,11 @@ public class MethodRecalculationTask extends RepeatingTask {
                 }
             });
         }
+    }
+
+    // -- Statics -- //
+
+    public static void forceUpdate() {
+        FORCE_UPDATE.set(true);
     }
 }
