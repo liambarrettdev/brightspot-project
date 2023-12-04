@@ -1,9 +1,13 @@
 package com.brightspot.model.promo;
 
+import java.util.Date;
+import java.util.Optional;
+
 import com.brightspot.model.image.Image;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.tool.HasImagePreview;
 import com.brightspot.utils.DirectoryUtils;
+import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
@@ -13,9 +17,13 @@ import com.psddev.dari.util.ObjectUtils;
 @ViewBinding(value = PromotableViewModel.class)
 public interface Promotable extends Linkable {
 
+    String getPromotableType();
+
     default Data asPromotableData() {
         return this.as(Data.class);
     }
+
+    // defaults
 
     default String getPromoTitle() {
         return asPromotableData().getPromoTitle();
@@ -29,9 +37,25 @@ public interface Promotable extends Linkable {
         return asPromotableData().getPromoImage();
     }
 
+    default Date getPromotableDate() {
+        return Optional.ofNullable(this.as(Content.ObjectModification.class))
+            .map(Content.ObjectModification::getPublishDate)
+            .orElse(null);
+    }
+
+    default String getPromotableAuthor() {
+        return null;
+    }
+
+    default String getPromotableDuration(Site site) {
+        return null;
+    }
+
     default String getPromotableUrl(Site site) {
         return DirectoryUtils.getCanonicalUrl(site, this);
     }
+
+    // fallbacks
 
     default String getPromoTitleFallback() {
         return null;

@@ -10,7 +10,7 @@ import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.page.AbstractPageViewModel;
+import com.brightspot.model.page.PageMainViewModel;
 import com.brightspot.model.page.Page;
 import com.brightspot.model.slug.Sluggable;
 import com.brightspot.model.taxonomy.Taxonomy;
@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
     "contents",
     "parent"
 })
-@ViewBinding(value = CategoryPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = CategoryPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
 public class Category extends AbstractPage implements
     Linkable,
     Sluggable,
@@ -77,7 +77,7 @@ public class Category extends AbstractPage implements
             return null;
         }
 
-        return Optional.ofNullable(getParent())
+        return Optional.ofNullable(getHierarchicalParent())
             .filter(Directory.Item.class::isInstance)
             .map(Directory.Item.class::cast)
             .map(parent -> parent.createPermalink(site))

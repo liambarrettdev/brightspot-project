@@ -4,7 +4,8 @@
         "_template": "base/util/Concatenated",
         "items": [
             {
-                "_dataUrl": "/model/promo/list/ListModule.json"
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs([1, 5])}}"
             }
         ]
     }

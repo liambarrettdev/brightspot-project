@@ -1,0 +1,31 @@
+{{~#defineBlock "BlogPage" extend="model/page/Main"~}}
+    {{~#defineElement "name"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "posts"~}}
+        <div class="{{elementName}}">
+            {{#each this}}
+                <div class="{{elementName}}-post">{{this}}</div>
+            {{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "pagination"~}}
+        <div class="{{elementName}}">
+            {{this}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        <div class="{{blockName}}">
+            {{#defineBlockBody}}
+                {{element "name"}}
+                {{element "posts"}}
+                {{element "pagination"}}
+                {{element "sharebar"}}
+                {{element "comments"}}
+            {{/defineBlockBody}}
+        </div>
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

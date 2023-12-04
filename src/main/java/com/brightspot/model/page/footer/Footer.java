@@ -45,7 +45,7 @@ public class Footer extends Record {
 
     private String replaceDateToken(String text) {
         if (StringUtils.isNotBlank(text) && text.contains(YEAR_TOKEN)) {
-            Instant instant = (new Date()).toInstant();
+            Instant instant = new Date().toInstant();
             LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
             return text.replace(YEAR_TOKEN, DateTimeFormatter.ofPattern("yyyy").format(localDateTime));
         }

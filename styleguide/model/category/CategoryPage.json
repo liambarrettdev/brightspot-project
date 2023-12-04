@@ -5,12 +5,12 @@
     "head": {
         "_dataUrl": "/model/page/Head.json"
     },
-    "body": {
+    "header" : {
+        "_dataUrl": "/model/page/header/Header.json"
+    },
+    "main": {
         "_template": "base/util/Concatenated",
         "items": [
-            {
-                "_dataUrl": "/model/page/header/Header.json"
-            },
             {
                 "_template": "/model/category/CategoryPage",
                 "name": "Example Category",
@@ -22,10 +22,10 @@
                         }
                     ]
                 }
-            },
-            {
-                "_dataUrl": "/model/page/footer/Footer.json"
             }
         ]
+    },
+    "footer": {
+        "_dataUrl": "/model/page/footer/Footer.json"
     }
 }

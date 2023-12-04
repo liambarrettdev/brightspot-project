@@ -8,6 +8,8 @@ import java.util.Set;
 
 import com.brightspot.utils.StateUtils;
 import com.google.common.collect.Lists;
+import com.psddev.cms.db.ToolUi;
+import com.psddev.dari.db.Modification;
 import com.psddev.dari.db.Recordable;
 
 public interface Hierarchical extends Recordable {
@@ -36,5 +38,18 @@ public interface Hierarchical extends Recordable {
             });
 
         return hierarchy;
+    }
+
+    @FieldInternalNamePrefix(Data.FIELD_PREFIX)
+    class Data extends Modification<Hierarchical> {
+
+        public static final String FIELD_PREFIX = "hierarchical.";
+        public static final String PARENT_FIELD = FIELD_PREFIX + "getParent";
+
+        @Indexed
+        @ToolUi.Hidden
+        public Hierarchical getParent() {
+            return getOriginalObject().getHierarchicalParent();
+        }
     }
 }

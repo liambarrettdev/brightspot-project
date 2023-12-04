@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.brightspot.model.expiry.Expirable;
 import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.page.AbstractPageViewModel;
+import com.brightspot.model.page.PageMainViewModel;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.Sluggable;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
@@ -23,11 +23,13 @@ import org.apache.commons.lang3.StringUtils;
     "displayName",
     "sluggable.slug"
 })
-@ViewBinding(value = EventPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = EventPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
 public class Event extends AbstractPage implements
     Expirable,
     Promotable,
     Sluggable {
+
+    private static final String PROMOTABLE_TYPE = "event";
 
     @Required
     @ToolUi.CssClass("is-half")
@@ -142,6 +144,11 @@ public class Event extends AbstractPage implements
             .map(RichTextUtils::getFirstBodyParagraph)
             .map(RichTextUtils::richTextToPlainText)
             .orElse(null);
+    }
+
+    @Override
+    public String getPromotableType() {
+        return PROMOTABLE_TYPE;
     }
 
     // Sluggable

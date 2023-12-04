@@ -1,0 +1,31 @@
+{
+    "_wrapper": false,
+    "_template": "/model/page/Page",
+    "locale": "en",
+    "head": {
+        "_dataUrl": "/model/page/Head.json"
+    },
+    "header" : {
+        "_dataUrl": "/model/page/header/Header.json"
+    },
+    "main": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/model/blog/BlogPage",
+                "posts": [
+                    {
+                        "_dataUrl": "/model/promo/PromoModule.json",
+                        "_repeat": 9
+                    }
+                ],
+                "pagination": {
+                    "_dataUrl": "/model/pagination/Pagination.json"
+                }
+            }
+        ]
+    },
+    "footer": {
+        "_dataUrl": "/model/page/footer/Footer.json"
+    }
+}

@@ -6,7 +6,7 @@
                 <option value="" disabled selected>{{this}}</option>
             {{/with}}
             {{#each options}}
-                <option value="{{value}}"{{#if disabled}} disabled{{/if}}{{#if selected}} selected{{/if}}>{{text}}</option>
+                {{this}}
             {{/each}}
         </select>
     </div>
