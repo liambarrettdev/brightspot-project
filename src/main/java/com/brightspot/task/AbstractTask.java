@@ -15,7 +15,7 @@ public abstract class AbstractTask extends RepeatingTask {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractTask.class);
 
-    protected static final String EXECUTOR_NAME = "Custom Tasks";
+    protected static final String CUSTOM_EXECUTOR_NAME = "Schedulable Tasks";
 
     protected abstract AbstractTaskSettings getSettings();
 

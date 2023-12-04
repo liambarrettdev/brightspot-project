@@ -1,5 +1,6 @@
 package com.brightspot.task.expiration;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
 import com.brightspot.model.event.Event;
@@ -16,22 +17,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Resave {@link Expirable} objects whose expired flag needs to be updated in the database.
+ * Re-save {@link Expirable} objects whose expired flag needs to be updated in the database.
  */
 public class ExpirationUpdateTask extends RepeatingTask {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExpirationUpdateTask.class);
 
-    /**
-     * Run this task immediately, for the purpose of debugging and testing.
-     */
-    public static void runImmediately() {
-        new ExpirationUpdateTask().execute();
+    private static final AtomicBoolean FORCE_UPDATE = new AtomicBoolean(false);
+
+    public ExpirationUpdateTask() {
+        super("Scheduled Tasks", ExpirationUpdateTask.class.getName());
     }
 
+    // -- Overrides -- //
+
     @Override
-    protected DateTime calculateRunTime(DateTime dateTime) {
-        return everyHour(dateTime);
+    protected DateTime calculateRunTime(DateTime currentTime) {
+        if (FORCE_UPDATE.compareAndSet(true, false)) {
+            return new DateTime();
+        } else if (TaskUtils.isRunningOnTaskHost()) {
+            return everyHour(currentTime);
+        } else {
+            // Never runs because it will never get there.
+            return new DateTime().plusHours(1);
+        }
     }
 
     @Override
@@ -54,7 +63,6 @@ public class ExpirationUpdateTask extends RepeatingTask {
     }
 
     private <T extends Recordable> Runnable createRunnable(Class<T> expirableClass) {
-
         // only save records whose calculated value is not equal to the saved value.
         Function<T, Boolean> processor = (obj) -> {
             Expirable expirable = obj.as(Expirable.class);
@@ -89,5 +97,11 @@ public class ExpirationUpdateTask extends RepeatingTask {
                 200,
                 true,
                 null);
+    }
+
+    // -- Statics -- //
+
+    public static void forceUpdate() {
+        FORCE_UPDATE.set(true);
     }
 }

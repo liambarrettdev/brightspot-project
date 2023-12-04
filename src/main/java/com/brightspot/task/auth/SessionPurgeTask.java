@@ -17,7 +17,7 @@ public class SessionPurgeTask extends AbstractTask implements MutuallyExclusiveT
     protected static final AtomicBoolean FORCE_RUN = new AtomicBoolean(false);
 
     public SessionPurgeTask() {
-        super(EXECUTOR_NAME, getTaskName());
+        super(CUSTOM_EXECUTOR_NAME, SessionPurgeTask.class.getName());
     }
 
     // -- Overrides -- //
@@ -33,7 +33,7 @@ public class SessionPurgeTask extends AbstractTask implements MutuallyExclusiveT
 
     @Override
     public Boolean isBlocked() {
-        return TaskUtils.isOtherTaskRunning(EXECUTOR_NAME, getTaskName());
+        return TaskUtils.isOtherTaskRunning(CUSTOM_EXECUTOR_NAME, getTaskName());
     }
 
     @Override
