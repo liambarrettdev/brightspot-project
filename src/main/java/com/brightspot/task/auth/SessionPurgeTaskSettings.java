@@ -29,6 +29,6 @@ public class SessionPurgeTaskSettings extends AbstractTaskSettings implements Tr
 
     @Override
     public void triggerTask() {
-        SessionPurgeTask.FORCE_RUN.set(true);
+        SessionPurgeTask.forceUpdate();
     }
 }
