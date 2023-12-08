@@ -4,23 +4,49 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.brightspot.auth.Session;
-import com.brightspot.task.AbstractTask;
+import com.brightspot.task.AbstractCronTask;
 import com.brightspot.task.AbstractTaskSettings;
 import com.brightspot.task.MutuallyExclusiveTask;
 import com.brightspot.tool.task.TaskSettings;
-import com.brightspot.utils.TaskUtils;
-import com.brightspot.utils.Utils;
 import com.psddev.dari.db.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class SessionPurgeTask extends AbstractTask implements MutuallyExclusiveTask {
+public class SessionPurgeTask extends AbstractCronTask implements MutuallyExclusiveTask {
 
-    protected static final AtomicBoolean FORCE_RUN = new AtomicBoolean(false);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SessionPurgeTask.class);
+
+    private static final AtomicBoolean FORCE_UPDATE = new AtomicBoolean(false);
 
     public SessionPurgeTask() {
-        super(CUSTOM_EXECUTOR_NAME, SessionPurgeTask.class.getName());
+        super(AbstractCronTask.EXECUTOR_NAME, SessionPurgeTask.class.getName());
     }
 
     // -- Overrides -- //
+
+    @Override
+    protected Logger logger() {
+        return LOGGER;
+    }
+
+    @Override
+    protected boolean runImmediately() {
+        return FORCE_UPDATE.compareAndSet(true, false);
+    }
+
+    @Override
+    protected void execute() {
+        Query<Session> query = Query.from(Session.class).where("end < ?", new Date());
+
+        logger().debug("Found {} sessions", query.count());
+
+        query.deleteAll();
+    }
+
+    @Override
+    protected AbstractTaskSettings getSettings() {
+        return TaskSettings.getInstance().getSessionPurgeTask();
+    }
 
     @Override
     protected boolean shouldContinue() {
@@ -31,33 +57,9 @@ public class SessionPurgeTask extends AbstractTask implements MutuallyExclusiveT
         return super.shouldContinue();
     }
 
-    @Override
-    public Boolean isBlocked() {
-        return TaskUtils.isOtherTaskRunning(CUSTOM_EXECUTOR_NAME, getTaskName());
-    }
+    // -- Statics -- //
 
-    @Override
-    protected AbstractTaskSettings getSettings() {
-        return TaskSettings.getInstance().getSessionPurgeTask();
-    }
-
-    @Override
-    protected AtomicBoolean executeImmediately() {
-        return FORCE_RUN;
-    }
-
-    @Override
-    protected void execute() {
-        Utils.sleep(30000);
-
-        Query<Session> query = Query.from(Session.class).where("end < ?", new Date());
-
-        LOGGER.debug("Found {} sessions", query.count());
-
-        query.deleteAll();
-    }
-
-    protected static String getTaskName() {
-        return SessionPurgeTask.class.getName();
+    public static void forceUpdate() {
+        FORCE_UPDATE.set(true);
     }
 }

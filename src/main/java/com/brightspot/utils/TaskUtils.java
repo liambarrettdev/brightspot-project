@@ -153,7 +153,7 @@ public final class TaskUtils {
 
         queue.closeAutomatically();
 
-        logger.accept("Started " + taskName + " tasks.");
+        logger.accept("Started " + taskName + " task");
     }
 
     public static boolean isRunningOnTaskHost() {
