@@ -1,5 +1,6 @@
 package com.brightspot.model.expiry;
 
+import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Modification;
 import com.psddev.dari.db.Recordable;
 
@@ -21,6 +22,7 @@ public interface Expirable extends Recordable {
         public static final String EXPIRED_PREDICATE = String.format("(%1$s = missing or %1$s = true)", EXPIRED_FIELD);
 
         @Indexed(visibility = true)
+        @ToolUi.ReadOnly
         private Boolean expired;
 
         public boolean isExpired() {

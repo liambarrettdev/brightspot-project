@@ -3,8 +3,8 @@ package com.brightspot.model.category;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.brightspot.model.list.DynamicListModifiable;
-import com.brightspot.model.list.DynamicListModifier;
+import com.brightspot.model.list.modifier.DynamicListModifiable;
+import com.brightspot.model.list.modifier.DynamicListModifier;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Modification;
 import com.psddev.dari.db.Query;

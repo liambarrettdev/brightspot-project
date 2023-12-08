@@ -1,4 +1,4 @@
-package com.brightspot.model.list;
+package com.brightspot.model.list.modifier;
 
 import java.util.ArrayList;
 import java.util.Collection;

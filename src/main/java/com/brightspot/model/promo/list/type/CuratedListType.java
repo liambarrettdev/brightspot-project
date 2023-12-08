@@ -3,13 +3,13 @@ package com.brightspot.model.promo.list.type;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.brightspot.model.list.ListSupplier;
+import com.brightspot.model.list.ListType;
 import com.brightspot.model.promo.Promotable;
 import com.psddev.cms.db.Site;
 import com.psddev.dari.db.Recordable;
 
-@Recordable.DisplayName("Default")
-public class DefaultListSupplier extends ListSupplier {
+@Recordable.DisplayName("Curated")
+public class CuratedListType extends ListType {
 
     private List<Promotable> items;
 

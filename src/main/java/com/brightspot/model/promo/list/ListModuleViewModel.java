@@ -20,17 +20,17 @@ public class ListModuleViewModel extends AbstractViewModel<ListModule> implement
 
     @Override
     protected boolean shouldCreate() {
-        return model.getSupplier() != null && !model.getSupplier().getItems(getCurrentSite()).isEmpty();
+        return model.getType() != null && !model.getType().getItems(getCurrentSite()).isEmpty();
     }
 
     @Override
     protected void onCreate(ViewResponse response) {
         super.onCreate(response);
 
-        List<?> totalItems = model.getSupplier().getItems(getCurrentSite());
+        List<?> totalItems = model.getType().getItems(getCurrentSite());
 
         long totalCount = totalItems.size();
-        int limit = model.getSupplier().getItemsPerPage();
+        int limit = model.getType().getItemsPerPage();
 
         int pageCount = (int) Math.ceil((double) totalCount / limit);
         int currentPageNumber = pageNumber < 1 ? 1 : (pageNumber < pageCount ? pageNumber : pageCount);

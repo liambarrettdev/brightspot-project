@@ -4,9 +4,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.brightspot.model.list.DynamicListModifiable;
-import com.brightspot.model.list.DynamicListModifier;
-import com.brightspot.model.list.ListSupplier;
+import com.brightspot.model.list.ListType;
+import com.brightspot.model.list.modifier.DynamicListModifiable;
+import com.brightspot.model.list.modifier.DynamicListModifier;
+import com.brightspot.model.list.sort.DynamicListSort;
+import com.brightspot.model.list.sort.age.AgeDynamicLostSort;
 import com.brightspot.model.promo.Promotable;
 import com.psddev.cms.db.Directory;
 import com.psddev.cms.db.Site;
@@ -17,7 +19,7 @@ import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 
 @Recordable.DisplayName("Dynamic")
-public class DynamicListSupplier extends ListSupplier implements DynamicListModifiable {
+public class DynamicListType extends ListType implements DynamicListModifiable {
 
     private static final String DEFAULT_ITEMS_PER_PAGE = "10";
     private static final String PROMOTABLE_PREDICATE = "groups = " + Promotable.INTERNAL_NAME
@@ -31,6 +33,9 @@ public class DynamicListSupplier extends ListSupplier implements DynamicListModi
 
     @ToolUi.Placeholder(DEFAULT_ITEMS_PER_PAGE)
     private Integer itemsPerPage = Integer.parseInt(DEFAULT_ITEMS_PER_PAGE);
+
+    @Required
+    private DynamicListSort sort = new AgeDynamicLostSort();
 
     public Set<ObjectType> getTypes() {
         if (types == null) {
@@ -49,6 +54,14 @@ public class DynamicListSupplier extends ListSupplier implements DynamicListModi
 
     public void setItemsPerPage(Integer itemsPerPage) {
         this.itemsPerPage = itemsPerPage;
+    }
+
+    public DynamicListSort getSort() {
+        return sort;
+    }
+
+    public void setSort(DynamicListSort sort) {
+        this.sort = sort;
     }
 
     @Override
@@ -75,7 +88,8 @@ public class DynamicListSupplier extends ListSupplier implements DynamicListModi
         // apply extra query modifiers
         DynamicListModifier.updateQueryWithModifications(this, query);
 
-        //TODO add sorting
+        // apply sorting
+        getSort().updateQuery(query);
 
         return query.selectAll();
     }

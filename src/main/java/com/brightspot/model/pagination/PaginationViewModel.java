@@ -7,6 +7,11 @@ import com.psddev.dari.util.StringUtils;
 public class PaginationViewModel extends AbstractViewModel<Pagination> implements PaginationView {
 
     @Override
+    protected boolean shouldCreate() {
+        return model.getPageCount() > 1;
+    }
+
+    @Override
     public Number getPageNumber() {
         return getAdjustedPageNumber();
     }
