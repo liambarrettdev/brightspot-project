@@ -16,7 +16,7 @@ public abstract class RepeatingTask extends Task {
 
     private static final AtomicReference<DateTime> LAST_ERROR = new AtomicReference<>(new DateTime(0L));
 
-    private final AtomicReference<DateTime> previousRunTime = new AtomicReference<>(new DateTime(0L));
+    private final AtomicReference<DateTime> cachedPreviousRunTime = new AtomicReference<>(new DateTime(0L));
 
     protected RepeatingTask(String executor, String name) {
         super(executor, name);
@@ -60,33 +60,33 @@ public abstract class RepeatingTask extends Task {
     @Override
     protected final void doTask() throws Exception {
         DateTime now = new DateTime();
-        DateTime oldPrevious;
-        DateTime newPrevious;
+        DateTime previousRunTime;
+        DateTime nextRunTime;
 
         try {
-            oldPrevious = previousRunTime.get();
-            newPrevious = calculateRunTime(now);
-
+            previousRunTime = cachedPreviousRunTime.get();
+            nextRunTime = calculateRunTime(now);
         } catch (RuntimeException e) {
-            oldPrevious = null;
-            newPrevious = null;
+            previousRunTime = null;
+            nextRunTime = null;
 
-            // Only log every hour.
+            // only log errors once an hour
             if (LAST_ERROR.get().isBefore(now.minusHours(1))) {
                 LOGGER.error(String.format("Can't calculate run time for [%s]!", getClass().getName()), e);
                 LAST_ERROR.set(now);
             }
         }
 
-        if (oldPrevious != null && newPrevious != null
-            && !now.isBefore(newPrevious)
-            && oldPrevious.isBefore(newPrevious)
-            && previousRunTime.compareAndSet(oldPrevious, newPrevious)) {
-
-            doRepeatingTask(newPrevious);
-
+        if (shouldRun(now, nextRunTime, previousRunTime)) {
+            doRepeatingTask(nextRunTime);
         } else {
             skipRunCount();
         }
+    }
+
+    private boolean shouldRun(DateTime now, DateTime nextRunTime, DateTime previousRunTime) {
+        return previousRunTime != null && nextRunTime != null
+            && !now.isBefore(nextRunTime) && previousRunTime.isBefore(nextRunTime)
+            && cachedPreviousRunTime.compareAndSet(previousRunTime, nextRunTime);
     }
 }
