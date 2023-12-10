@@ -22,7 +22,7 @@ public final class AnalyticsUtils {
     private AnalyticsUtils() {
     }
 
-    public static Integer getPageViews(UUID id, DateTime start, DateTime end) {
+    public static Long getPageViews(UUID id, DateTime start, DateTime end) {
         State state = findPageState(id);
         if (state == null) {
             return null;
@@ -42,11 +42,11 @@ public final class AnalyticsUtils {
         return Optional.ofNullable(state.get(viewsField.field.getInternalName()))
             .map(Metric.class::cast)
             .map(m -> m.getSumBetween(start, end))
-            .map(Double::intValue)
-            .orElse(0);
+            .map(Double::longValue)
+            .orElse(0L);
     }
 
-    public static Integer getPageClicks(UUID pageId, DateTime start, DateTime end) {
+    public static Long getPageClicks(UUID pageId, DateTime start, DateTime end) {
         State state = findPageState(pageId);
         if (state == null) {
             return null;
@@ -66,8 +66,8 @@ public final class AnalyticsUtils {
         return Optional.ofNullable(state.get(viewsField.field.getInternalName()))
             .map(Metric.class::cast)
             .map(m -> m.getSumBetween(start, end))
-            .map(Double::intValue)
-            .orElse(0);
+            .map(Double::longValue)
+            .orElse(0L);
     }
 
     private static State findPageState(UUID id) {

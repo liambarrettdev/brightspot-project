@@ -21,6 +21,10 @@ public class Video extends AbstractMediaContent implements
     public static final String ICON_NAME = "slideshow";
 
     private static final String TAB_OVERRIDES = "Overrides";
+    private static final String VIDEO_PREDICATE = "groups = " + VideoSource.INTERNAL_NAME
+        + " && internalName != " + VideoSource.INTERNAL_NAME
+        + " && (cms.ui.hidden = false || cms.ui.hidden = missing)"
+        + " && isAbstract = false";
 
     private String name;
 
@@ -32,13 +36,10 @@ public class Video extends AbstractMediaContent implements
     private Image thumbnail;
 
     @Indexed
+    @Where(VIDEO_PREDICATE)
     @ToolUi.Hidden
-    @ToolUi.Filterable
     @ToolUi.DropDown
-    @Where("groups = " + VideoSource.INTERNAL_NAME
-        + " && internalName != " + VideoSource.INTERNAL_NAME
-        + " && (cms.ui.hidden = false || cms.ui.hidden = missing)"
-        + " && isAbstract = false")
+    @ToolUi.Filterable
     public ObjectType videoType;
 
     public String getName() {

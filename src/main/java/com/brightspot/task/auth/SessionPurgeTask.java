@@ -30,7 +30,7 @@ public class SessionPurgeTask extends AbstractCronTask implements MutuallyExclus
     }
 
     @Override
-    protected boolean runImmediately() {
+    protected Boolean runImmediately() {
         return FORCE_UPDATE.compareAndSet(true, false);
     }
 

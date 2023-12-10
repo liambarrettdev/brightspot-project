@@ -3,6 +3,8 @@ package com.brightspot.model.page.creativework;
 import com.brightspot.model.category.HasCategory;
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.image.Image;
+import com.brightspot.model.list.sort.alphabetical.AlphabeticalSortable;
+import com.brightspot.model.list.sort.analytics.PageViewsSortable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.person.HasAuthor;
 import com.brightspot.model.promo.Promotable;
@@ -17,13 +19,15 @@ import com.psddev.dari.util.ObjectUtils;
 
 @Seo.DescriptionFields("subHeadline")
 public abstract class AbstractCreativeWorkPage extends AbstractPage implements
+    AlphabeticalSortable,
     HasAuthor,
     HasCategory,
     HasImagePreview,
+    HasTag,
     Hierarchical,
+    PageViewsSortable,
     Promotable,
-    Sluggable,
-    HasTag {
+    Sluggable {
 
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.getLeadImagePlaceholderHtml()}'></span>")
     private Image leadImage;

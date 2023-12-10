@@ -17,6 +17,7 @@ public interface HasCategory extends Recordable {
 
         public static final String FIELD_PREFIX = "categorizable.";
         public static final String CATEGORY_FIELD = FIELD_PREFIX + "category";
+        public static final String CATEGORY_FILED_INDEX = Data.class.getName() + "/" + CATEGORY_FIELD;
 
         @ToolUi.Heading("Category")
 

@@ -7,27 +7,17 @@ import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.model.hierarchy.Hierarchical;
+import com.brightspot.model.pagination.Pagination;
 import com.brightspot.view.model.blog.BlogPageView;
 import com.brightspot.view.model.pagination.PaginationView;
 import com.brightspot.view.model.promo.PromoModuleView;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.view.ViewResponse;
-import com.psddev.cms.view.servlet.HttpParameter;
-import com.psddev.cms.view.servlet.HttpServletPath;
 import com.psddev.dari.db.Query;
-import com.psddev.dari.util.StringUtils;
 
 public class BlogPageViewModel extends AbstractViewModel<Blog> implements BlogPageView {
 
-    protected static final String PARAM_PAGE = "p";
-
-    @HttpServletPath
-    protected String baseUrl;
-
-    @HttpParameter(PARAM_PAGE)
-    private long pageNumber;
-
-    private transient long pageCount;
+    private transient Pagination pagination;
     private transient List<BlogPost> posts = new ArrayList<>();
 
     @Override
@@ -41,11 +31,12 @@ public class BlogPageViewModel extends AbstractViewModel<Blog> implements BlogPa
         long totalCount = query.count();
         int limit = model.getPostsPerPage();
 
-        pageCount = (long) Math.ceil((double) totalCount / limit);
-        pageNumber = pageNumber < 1 ? 1 : (pageNumber < pageCount ? pageNumber : pageCount);
+        int pageCount = (int) Math.ceil((double) totalCount / limit);
+        long currentPageNumber = pageNumber < 1 ? 1 : (pageNumber < pageCount ? pageNumber : pageCount);
 
+        pagination = new Pagination(totalCount, limit);
         posts = query.sortDescending(Content.PUBLISH_DATE_FIELD)
-            .select((pageNumber - 1) * limit, limit)
+            .select((currentPageNumber - 1) * limit, limit)
             .getItems();
     }
 
@@ -58,27 +49,6 @@ public class BlogPageViewModel extends AbstractViewModel<Blog> implements BlogPa
 
     @Override
     public Object getPagination() {
-        return new PaginationView.Builder()
-            .pageNumber(pageNumber)
-            .pageCount(pageCount)
-            .nextPage(getNextPage())
-            .previousPage(getPreviousPage())
-            .build();
-    }
-
-    private String getNextPage() {
-        long nextPageNumber = pageNumber + 1;
-
-        return nextPageNumber <= pageCount
-            ? StringUtils.addQueryParameters(baseUrl, PARAM_PAGE, nextPageNumber)
-            : null;
-    }
-
-    private String getPreviousPage() {
-        long previousPageNumber = pageNumber - 1;
-
-        return previousPageNumber > 0
-            ? StringUtils.addQueryParameters(baseUrl, PARAM_PAGE, previousPageNumber)
-            : null;
+        return createView(PaginationView.class, pagination);
     }
 }

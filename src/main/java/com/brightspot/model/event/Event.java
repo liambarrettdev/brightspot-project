@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.brightspot.model.expiry.Expirable;
+import com.brightspot.model.list.sort.alphabetical.AlphabeticalSortable;
+import com.brightspot.model.list.sort.analytics.PageViewsSortable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.PageMainViewModel;
 import com.brightspot.model.promo.Promotable;
@@ -25,7 +27,9 @@ import org.apache.commons.lang3.StringUtils;
 })
 @ViewBinding(value = EventPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
 public class Event extends AbstractPage implements
+    AlphabeticalSortable,
     Expirable,
+    PageViewsSortable,
     Promotable,
     Sluggable {
 
