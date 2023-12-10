@@ -1,9 +1,10 @@
 package com.brightspot.model.promo.list;
 
-import com.brightspot.model.list.ListType;
+import com.brightspot.model.list.ListContent;
 import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.module.ShareableModule;
-import com.brightspot.model.promo.list.type.CuratedListType;
+import com.brightspot.model.promo.list.type.CuratedListContent;
+import com.brightspot.model.promo.list.type.DynamicListContent;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
@@ -20,7 +21,8 @@ public class ListModule extends AbstractModule implements ShareableModule {
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
     private String description;
 
-    private ListType type = new CuratedListType();
+    @Types({ CuratedListContent.class, DynamicListContent.class })
+    private ListContent content = new CuratedListContent();
 
     public String getTitle() {
         return title;
@@ -38,12 +40,12 @@ public class ListModule extends AbstractModule implements ShareableModule {
         this.description = description;
     }
 
-    public ListType getType() {
-        return type;
+    public ListContent getContent() {
+        return content;
     }
 
-    public void setType(ListType type) {
-        this.type = type;
+    public void setContent(ListContent content) {
+        this.content = content;
     }
 
     // -- Overrides -- //

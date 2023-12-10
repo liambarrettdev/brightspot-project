@@ -7,10 +7,10 @@ import com.psddev.dari.db.Recordable;
 
 @Recordable.Embedded
 @Recordable.DisplayName("Alphabetical")
-public class AlphabeticalDynamicLostSort extends Record implements DynamicListSort {
+public class AlphabeticalDynamicListSort extends Record implements DynamicListSort {
 
     @Required
-    private Direction direction = Direction.DESCENDING;
+    private Direction direction = Direction.ASCENDING;
 
     public Direction getDirection() {
         return direction;

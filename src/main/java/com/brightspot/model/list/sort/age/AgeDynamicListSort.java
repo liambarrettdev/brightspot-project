@@ -8,7 +8,7 @@ import com.psddev.dari.db.Recordable;
 
 @Recordable.Embedded
 @Recordable.DisplayName("Age")
-public class AgeDynamicLostSort extends Record implements DynamicListSort {
+public class AgeDynamicListSort extends Record implements DynamicListSort {
 
     @Required
     private Direction direction = Direction.DESCENDING;

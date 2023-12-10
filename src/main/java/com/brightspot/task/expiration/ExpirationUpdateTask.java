@@ -34,13 +34,13 @@ public class ExpirationUpdateTask extends AbstractTask {
     }
 
     @Override
-    protected DateTime calculateNextRunTime(DateTime currentTime) {
-        return everyHour(currentTime);
+    protected Boolean runImmediately() {
+        return FORCE_UPDATE.compareAndSet(true, false);
     }
 
     @Override
-    protected boolean runImmediately() {
-        return FORCE_UPDATE.compareAndSet(true, false);
+    protected DateTime calculateNextRunTime(DateTime currentTime) {
+        return everyHour(currentTime);
     }
 
     @Override

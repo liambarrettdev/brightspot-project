@@ -4,7 +4,7 @@ import com.brightspot.model.category.HasCategory;
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.image.Image;
 import com.brightspot.model.list.sort.alphabetical.AlphabeticalSortable;
-import com.brightspot.model.list.sort.views.ViewsSortable;
+import com.brightspot.model.list.sort.analytics.PageViewsSortable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.person.HasAuthor;
 import com.brightspot.model.promo.Promotable;
@@ -25,9 +25,9 @@ public abstract class AbstractCreativeWorkPage extends AbstractPage implements
     HasImagePreview,
     HasTag,
     Hierarchical,
+    PageViewsSortable,
     Promotable,
-    Sluggable,
-    ViewsSortable {
+    Sluggable {
 
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.getLeadImagePlaceholderHtml()}'></span>")
     private Image leadImage;

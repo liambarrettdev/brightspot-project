@@ -7,7 +7,7 @@ import com.psddev.dari.db.Record;
 import com.psddev.dari.db.Recordable;
 
 @Recordable.Embedded
-public abstract class ListType extends Record {
+public abstract class ListContent extends Record {
 
     public abstract List<?> getItems(Site site);
 

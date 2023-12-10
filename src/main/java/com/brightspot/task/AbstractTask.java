@@ -12,9 +12,9 @@ public abstract class AbstractTask extends RepeatingTask {
 
     protected abstract Logger logger();
 
-    protected abstract DateTime calculateNextRunTime(DateTime currentTime);
+    protected abstract Boolean runImmediately();
 
-    protected abstract boolean runImmediately();
+    protected abstract DateTime calculateNextRunTime(DateTime currentTime);
 
     protected abstract void execute();
 

@@ -1,4 +1,4 @@
-package com.brightspot.model.list.sort.views;
+package com.brightspot.model.list.sort.analytics;
 
 import com.brightspot.model.list.sort.DynamicListSort;
 import com.psddev.dari.db.Query;
@@ -7,7 +7,7 @@ import com.psddev.dari.db.Recordable;
 
 @Recordable.Embedded
 @Recordable.DisplayName("Page Views")
-public class ViewsDynamicLostSort extends Record implements DynamicListSort {
+public class PageViewsDynamicListSort extends Record implements DynamicListSort {
 
     @Required
     private Direction direction = Direction.DESCENDING;
@@ -33,13 +33,13 @@ public class ViewsDynamicLostSort extends Record implements DynamicListSort {
         ASCENDING("Least") {
             @Override
             public void updateQuery(Query<?> query) {
-                query.sortAscending(ViewsSortable.Data.SORT_FIELD_INDEX);
+                query.sortAscending(PageViewsSortable.Data.SORT_FIELD_INDEX);
             }
         },
         DESCENDING("Most") {
             @Override
             public void updateQuery(Query<?> query) {
-                query.sortDescending(ViewsSortable.Data.SORT_FIELD_INDEX);
+                query.sortDescending(PageViewsSortable.Data.SORT_FIELD_INDEX);
             }
         };
 

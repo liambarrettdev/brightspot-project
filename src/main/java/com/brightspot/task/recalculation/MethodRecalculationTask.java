@@ -38,13 +38,13 @@ public class MethodRecalculationTask extends AbstractTask {
     }
 
     @Override
-    protected DateTime calculateNextRunTime(DateTime currentTime) {
-        return everyMinute(currentTime);
+    protected Boolean runImmediately() {
+        return FORCE_UPDATE.compareAndSet(true, false);
     }
 
     @Override
-    protected boolean runImmediately() {
-        return FORCE_UPDATE.compareAndSet(true, false);
+    protected DateTime calculateNextRunTime(DateTime currentTime) {
+        return everyMinute(currentTime);
     }
 
     @Override

@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.brightspot.model.list.ListType;
+import com.brightspot.model.list.ListContent;
 import com.brightspot.model.list.modifier.DynamicListModifiable;
 import com.brightspot.model.list.modifier.DynamicListModifier;
 import com.brightspot.model.list.sort.DynamicListSort;
-import com.brightspot.model.list.sort.age.AgeDynamicLostSort;
+import com.brightspot.model.list.sort.age.AgeDynamicListSort;
 import com.brightspot.model.promo.Promotable;
 import com.psddev.cms.db.Directory;
 import com.psddev.cms.db.Site;
@@ -19,7 +19,7 @@ import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 
 @Recordable.DisplayName("Dynamic")
-public class DynamicListType extends ListType implements DynamicListModifiable {
+public class DynamicListContent extends ListContent implements DynamicListModifiable {
 
     private static final String DEFAULT_ITEMS_PER_PAGE = "10";
     private static final String PROMOTABLE_PREDICATE = "groups = " + Promotable.INTERNAL_NAME
@@ -35,7 +35,7 @@ public class DynamicListType extends ListType implements DynamicListModifiable {
     private Integer itemsPerPage = Integer.parseInt(DEFAULT_ITEMS_PER_PAGE);
 
     @Required
-    private DynamicListSort sort = new AgeDynamicLostSort();
+    private DynamicListSort sort = new AgeDynamicListSort();
 
     public Set<ObjectType> getTypes() {
         if (types == null) {
