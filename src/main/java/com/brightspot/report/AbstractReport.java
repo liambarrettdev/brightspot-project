@@ -17,10 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.brightspot.report.filter.ReportFilter;
 import com.brightspot.servlet.ReportDataServlet;
 import com.brightspot.tool.CustomGlobalSettings;
+import com.brightspot.tool.DefaultGlobal;
 import com.brightspot.tool.email.CustomMailMessage;
 import com.brightspot.tool.email.attachment.UrlAttachment;
 import com.brightspot.utils.LocalizationUtils;
 import com.brightspot.utils.Utils;
+import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.db.ToolUser;
@@ -47,11 +49,13 @@ import org.slf4j.Logger;
     "numberOfRows",
     "defaultQueryTimeout"
 })
-public abstract class AbstractReport extends Record implements Singleton {
+public abstract class AbstractReport extends Record implements
+    DefaultGlobal,
+    Singleton {
 
-    public static final String FILTER_BY_SITE = "cms.site.owner";
-    public static final String FILTER_BY_PUBLISH_DATE = "cms.content.publishDate";
-    public static final String FILTER_BY_DATE_VALUE = "getDateCreated";
+    public static final String FILTER_BY_SITE = Site.OWNER_FIELD;
+    public static final String FILTER_BY_PUBLISH_DATE = Content.PUBLISH_DATE_FIELD;
+
     public static final String SORT_BY_COLUMN = "order[0][column]";
     public static final String SORT_BY_DIRECTION = "order[0][dir]";
     public static final String SORT_BY_ASCENDING = "asc";
@@ -150,6 +154,8 @@ public abstract class AbstractReport extends Record implements Singleton {
     public void setNumberOfRows(String numberOfRows) {
         this.numberOfRows = numberOfRows;
     }
+
+    // -- Helper Methods -- //
 
     public void buildFilters(HttpServletRequest request, HttpServletResponse response, String output)
         throws IOException {
@@ -484,6 +490,8 @@ public abstract class AbstractReport extends Record implements Singleton {
         return null;
     }
 
+    // -- Utility Methods -- //
+
     private String getEmailAttachmentUrl(HttpServletRequest request) {
         StringBuffer url = request.getRequestURL();
 
@@ -521,7 +529,7 @@ public abstract class AbstractReport extends Record implements Singleton {
         return ObjectType.getInstance(getClass()).getDisplayName();
     }
 
-    // static methods
+    // -- Statics -- //
 
     public static String formatDate(Date date, Site site) {
         return LocalizationUtils.localizeDate(date, site, DEFAULT_DATE_FORMAT);

@@ -50,8 +50,8 @@ public class PublishedContentReport extends AbstractReport {
     private static final String SORT_BY_PAGE_VIEWS = PageViewsSortable.Data.SORT_FIELD;
     private static final Integer SORT_BY_DATE_INDEX = 0;
 
-    /**
-     *
+    /*
+     * general constants
      */
     private static final String CONTENT_PREDICATE = "groups = " + AbstractCreativeWorkPage.INTERNAL_NAME
         + " && internalName != " + AbstractCreativeWorkPage.INTERNAL_NAME
@@ -236,6 +236,8 @@ public class PublishedContentReport extends AbstractReport {
     public Logger getLogger() {
         return LOGGER;
     }
+
+    // -- Utility Methods -- //
 
     private List<String> createTableRowData(AbstractCreativeWorkPage content) {
         List<String> columnData = new ArrayList<>();

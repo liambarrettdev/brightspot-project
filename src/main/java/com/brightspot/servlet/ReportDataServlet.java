@@ -21,7 +21,7 @@ import com.brightspot.report.filter.DropdownOption;
 import com.brightspot.report.filter.GenericFilter;
 import com.brightspot.report.filter.ReportFilter;
 import com.brightspot.report.filter.TypedFilter;
-import com.brightspot.tool.report.ReportSettings;
+import com.brightspot.tool.report.ReportTool;
 import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUser;
@@ -123,7 +123,7 @@ public class ReportDataServlet extends HttpServlet {
                 {
                     page.writeStart("div", "id", "reports");
                     {
-                        List<AbstractReport> reports = ReportSettings.get(ReportSettings::getReports);
+                        List<AbstractReport> reports = ReportTool.get(ReportTool::getReports);
                         if (CollectionUtils.isNullOrEmpty(reports)) {
                             page.writeStart("span", "class", "error");
                             page.writeHtml("No reports configured in global settings");
