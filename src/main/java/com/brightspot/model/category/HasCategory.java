@@ -6,7 +6,7 @@ import com.psddev.dari.db.Recordable;
 
 public interface HasCategory extends Recordable {
 
-    default Data asCategorizableData() {
+    default Data asCategoryData() {
         return this.as(Data.class);
     }
 

@@ -9,7 +9,7 @@ import com.brightspot.model.list.sort.analytics.PageViewsSortable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.PageMainViewModel;
 import com.brightspot.model.promo.Promotable;
-import com.brightspot.model.slug.Sluggable;
+import com.brightspot.model.slug.HasSlug;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.brightspot.utils.RichTextUtils;
 import com.brightspot.utils.Utils;
@@ -29,9 +29,9 @@ import org.apache.commons.lang3.StringUtils;
 public class Event extends AbstractPage implements
     AlphabeticalSortable,
     Expirable,
+    HasSlug,
     PageViewsSortable,
-    Promotable,
-    Sluggable {
+    Promotable {
 
     private static final String PROMOTABLE_TYPE = "event";
 
@@ -105,7 +105,7 @@ public class Event extends AbstractPage implements
 
     @Override
     public String createPermalink(Site site) {
-        if (StringUtils.isBlank(asSluggableData().getSlug())) {
+        if (StringUtils.isBlank(asSlugData().getSlug())) {
             return null;
         }
 
@@ -113,8 +113,8 @@ public class Event extends AbstractPage implements
             .map(Type::toString)
             .map(Utils::toNormalized)
             .map(prefix -> StringUtils.appendIfMissing(prefix, "/"))
-            .map(prefix -> prefix + asSluggableData().getSlug())
-            .orElse(asSluggableData().getSlug());
+            .map(prefix -> prefix + asSlugData().getSlug())
+            .orElse(asSlugData().getSlug());
     }
 
     // Expirable

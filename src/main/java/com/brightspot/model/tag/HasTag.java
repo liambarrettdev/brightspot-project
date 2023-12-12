@@ -9,7 +9,7 @@ import com.psddev.dari.db.Recordable;
 
 public interface HasTag extends Recordable {
 
-    default Data asTaggableData() {
+    default Data asTagData() {
         return this.as(Data.class);
     }
 

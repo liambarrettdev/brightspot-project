@@ -35,7 +35,10 @@ public final class Utils {
     }
 
     public static ToolUser getCurrentToolUser() {
-        HttpServletRequest request = PageContextFilter.Static.getRequestOrNull();
+        return getCurrentToolUser(PageContextFilter.Static.getRequestOrNull());
+    }
+
+    public static ToolUser getCurrentToolUser(HttpServletRequest request) {
         return request != null ? AuthenticationFilter.Static.getUser(request) : null;
     }
 

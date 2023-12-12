@@ -13,6 +13,7 @@ import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Directory;
 import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Seo;
+import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.util.ObjectUtils;
@@ -95,6 +96,7 @@ public abstract class AbstractPage extends Content implements
     public void setBelow(List<AbstractModule> below) {
         this.below = below;
     }
+
     // -- Overrides -- //
 
     @Override
@@ -104,8 +106,8 @@ public abstract class AbstractPage extends Content implements
 
     // -- Helper Methods -- //
 
-    public String getPageType() {
-        return this.getClass().getSimpleName();
+    public Site getSiteOwner() {
+        return as(Site.ObjectModification.class).getOwner();
     }
 
     public String getNameFallback() {

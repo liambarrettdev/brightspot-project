@@ -10,7 +10,7 @@ import com.brightspot.model.image.Image;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.PageMainViewModel;
 import com.brightspot.model.promo.Promotable;
-import com.brightspot.model.slug.Sluggable;
+import com.brightspot.model.slug.HasSlug;
 import com.brightspot.model.taxonomy.Taxonomy;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.brightspot.utils.RichTextUtils;
@@ -35,8 +35,8 @@ import org.apache.commons.lang3.StringUtils;
 @ViewBinding(value = BlogPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
 public class Blog extends AbstractPage implements
     HasCategory,
+    HasSlug,
     Promotable,
-    Sluggable,
     Taxonomy {
 
     private static final String PROMOTABLE_TYPE = "blog";
@@ -78,7 +78,7 @@ public class Blog extends AbstractPage implements
 
     @Override
     public String createPermalink(Site site) {
-        if (StringUtils.isBlank(asSluggableData().getSlug())) {
+        if (StringUtils.isBlank(asSlugData().getSlug())) {
             return null;
         }
 
@@ -87,15 +87,15 @@ public class Blog extends AbstractPage implements
             .map(Directory.Item.class::cast)
             .map(parent -> parent.createPermalink(site))
             .map(prefix -> StringUtils.appendIfMissing(prefix, "/"))
-            .map(prefix -> prefix + asSluggableData().getSlug())
-            .orElse(asSluggableData().getSlug());
+            .map(prefix -> prefix + asSlugData().getSlug())
+            .orElse(asSlugData().getSlug());
     }
 
     // Hierarchical
 
     @Override
     public Hierarchical getHierarchicalParent() {
-        return asCategorizableData().getCategory();
+        return asCategoryData().getCategory();
     }
 
     // Linkable

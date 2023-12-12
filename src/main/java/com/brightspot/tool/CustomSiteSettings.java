@@ -12,12 +12,16 @@ import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Modification;
 import com.psddev.dari.db.Recordable;
+import com.psddev.dari.util.ObjectUtils;
 
 @Recordable.BeanProperty("site")
 @Recordable.FieldInternalNamePrefix("settings.site.")
 public class CustomSiteSettings extends Modification<Site> {
 
     public static final String TAB_LAYOUT = "Layout";
+
+    @ToolUi.Placeholder(dynamicText = "${content.site.getSiteEmailFallback()}")
+    private String siteEmail;
 
     private Locale locale;
 
@@ -35,6 +39,14 @@ public class CustomSiteSettings extends Modification<Site> {
 
     @ToolUi.Tab(TAB_LAYOUT)
     private List<AbstractModule> below;
+
+    public String getSiteEmail() {
+        return ObjectUtils.firstNonBlank(siteEmail, getSiteEmailFallback());
+    }
+
+    public void setSiteEmail(String siteEmail) {
+        this.siteEmail = siteEmail;
+    }
 
     public Locale getLocale() {
         return locale;
@@ -92,6 +104,13 @@ public class CustomSiteSettings extends Modification<Site> {
     public void setBelow(List<AbstractModule> below) {
         this.below = below;
     }
+
+    // -- Helper Methods -- //
+
+    public String getSiteEmailFallback() {
+        return CustomGlobalSettings.get(CustomGlobalSettings::getDefaultEmail);
+    }
+
     // -- Static Methods --//
 
     public static <T> T get(Site site, Function<CustomSiteSettings, T> getter) {

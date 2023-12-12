@@ -1,5 +1,7 @@
 package com.brightspot.model.list.sort.analytics;
 
+import java.util.Optional;
+
 import com.brightspot.utils.AnalyticsUtils;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Modification;
@@ -9,10 +11,14 @@ import com.psddev.dari.db.State;
 
 public interface PageViewsSortable extends Recordable {
 
-    static void recalculateValues(State state) {
-        ObjectType type = ObjectType.getInstance(Data.class);
+    default Long getPageViews() {
+        return AnalyticsUtils.getPageViews(getState().getId(), null, null);
+    }
 
-        type.getMethod(Data.SORT_FIELD).recalculate(state);
+    static void recalculateValues(State state) {
+        Optional.ofNullable(ObjectType.getInstance(Data.class))
+            .map(o -> o.getMethod(Data.SORT_FIELD))
+            .ifPresent(m -> m.recalculate(state));
     }
 
     @FieldInternalNamePrefix(Data.FIELD_PREFIX)
@@ -26,7 +32,7 @@ public interface PageViewsSortable extends Recordable {
         @ToolUi.Hidden
         @ToolUi.Sortable
         public Long getSortValue() {
-            return AnalyticsUtils.getPageViews(getId(), null, null);
+            return getOriginalObject().getPageViews();
         }
     }
 }

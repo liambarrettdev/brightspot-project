@@ -19,7 +19,7 @@ public class CustomGlobalSettings extends Modification<CmsTool> {
     public static final String TAB_DEFAULTS = "Defaults";
     public static final String TAB_DEBUG = "Debug";
 
-    private static final String DEFAULT_EMAIL = "noreply@brightspot.com";
+    protected static final String DEFAULT_EMAIL = "noreply@brightspot.com";
 
     @ToolUi.Tab(TAB_DEFAULTS)
     @ToolUi.DisplayFirst
