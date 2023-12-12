@@ -5,18 +5,18 @@ import com.psddev.dari.db.Modification;
 import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 
-public interface Sluggable extends Recordable {
+public interface HasSlug extends Recordable {
 
     String getSlugFallback();
 
-    default Data asSluggableData() {
+    default Data asSlugData() {
         return this.as(Data.class);
     }
 
     // -- Modification Data -- //
 
     @FieldInternalNamePrefix(Data.FIELD_PREFIX)
-    class Data extends Modification<Sluggable> {
+    class Data extends Modification<HasSlug> {
 
         public static final String FIELD_PREFIX = "sluggable.";
 

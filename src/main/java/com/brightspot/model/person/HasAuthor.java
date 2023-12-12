@@ -6,7 +6,7 @@ import com.psddev.dari.db.Recordable;
 
 public interface HasAuthor extends Recordable {
 
-    default Data asAuthorableData() {
+    default Data asAuthorData() {
         return this.as(Data.class);
     }
 

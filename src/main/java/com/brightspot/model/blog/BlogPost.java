@@ -64,7 +64,7 @@ public class BlogPost extends AbstractCreativeWorkPage implements
 
     @Override
     public String createPermalink(Site site) {
-        String slug = asSluggableData().getSlug();
+        String slug = asSlugData().getSlug();
         if (StringUtils.isBlank(slug)) {
             return null;
         }

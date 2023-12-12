@@ -28,7 +28,7 @@ public class ArticlePageViewModel extends AbstractViewModel<Article> implements 
 
     @Override
     public Object getByline() {
-        return Optional.ofNullable(model.asAuthorableData().getAuthor())
+        return Optional.ofNullable(model.asAuthorData().getAuthor())
             .map(author -> createView(LinkView.class, author))
             .orElse(null);
     }
@@ -52,7 +52,7 @@ public class ArticlePageViewModel extends AbstractViewModel<Article> implements 
 
     @Override
     public Collection<?> getTags() {
-        return model.asTaggableData().getTags().stream()
+        return model.asTagData().getTags().stream()
             .map(tag -> createView(LinkView.class, tag))
             .collect(Collectors.toList());
     }

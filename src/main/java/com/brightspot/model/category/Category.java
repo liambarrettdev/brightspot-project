@@ -12,7 +12,7 @@ import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.Page;
 import com.brightspot.model.page.PageMainViewModel;
-import com.brightspot.model.slug.Sluggable;
+import com.brightspot.model.slug.HasSlug;
 import com.brightspot.model.taxonomy.Taxonomy;
 import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Content;
@@ -35,8 +35,8 @@ import org.apache.commons.lang3.StringUtils;
 })
 @ViewBinding(value = CategoryPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
 public class Category extends AbstractPage implements
+    HasSlug,
     Linkable,
-    Sluggable,
     Taxonomy {
 
     @ToolUi.Note("This will override the default page content")
@@ -73,7 +73,7 @@ public class Category extends AbstractPage implements
 
     @Override
     public String createPermalink(Site site) {
-        if (StringUtils.isBlank(asSluggableData().getSlug())) {
+        if (StringUtils.isBlank(asSlugData().getSlug())) {
             return null;
         }
 
@@ -82,8 +82,8 @@ public class Category extends AbstractPage implements
             .map(Directory.Item.class::cast)
             .map(parent -> parent.createPermalink(site))
             .map(prefix -> StringUtils.appendIfMissing(prefix, "/"))
-            .map(prefix -> prefix + asSluggableData().getSlug())
-            .orElse(asSluggableData().getSlug());
+            .map(prefix -> prefix + asSlugData().getSlug())
+            .orElse(asSlugData().getSlug());
     }
 
     // Hierarchical

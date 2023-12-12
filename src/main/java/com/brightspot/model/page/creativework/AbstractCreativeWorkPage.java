@@ -8,7 +8,7 @@ import com.brightspot.model.list.sort.analytics.PageViewsSortable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.person.HasAuthor;
 import com.brightspot.model.promo.Promotable;
-import com.brightspot.model.slug.Sluggable;
+import com.brightspot.model.slug.HasSlug;
 import com.brightspot.model.tag.HasTag;
 import com.brightspot.tool.HasImagePreview;
 import com.brightspot.utils.Utils;
@@ -23,11 +23,13 @@ public abstract class AbstractCreativeWorkPage extends AbstractPage implements
     HasAuthor,
     HasCategory,
     HasImagePreview,
+    HasSlug,
     HasTag,
     Hierarchical,
     PageViewsSortable,
-    Promotable,
-    Sluggable {
+    Promotable {
+
+    public static final String INTERNAL_NAME = "com.brightspot.model.page.creativework.AbstractCreativeWorkPage";
 
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.getLeadImagePlaceholderHtml()}'></span>")
     private Image leadImage;
@@ -66,14 +68,14 @@ public abstract class AbstractCreativeWorkPage extends AbstractPage implements
 
     @Override
     public String createPermalink(Site site) {
-        return asSluggableData().getSlug();
+        return asSlugData().getSlug();
     }
 
     // Hierarchical
 
     @Override
     public Hierarchical getHierarchicalParent() {
-        return asCategorizableData().getCategory();
+        return asCategoryData().getCategory();
     }
 
     // Linkable

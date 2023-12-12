@@ -2,16 +2,16 @@ package com.brightspot.model.form.field;
 
 import com.psddev.dari.db.Modification;
 
-public interface Placeholderable extends Requireable {
+public interface HasPlaceholder extends Requireable {
 
-    default Data asPlaceholderableData() {
+    default Data asPlaceholderData() {
         return this.as(Data.class);
     }
 
     // -- Modification Data -- //
 
     @FieldInternalNamePrefix(Data.FIELD_PREFIX)
-    class Data extends Modification<Placeholderable> {
+    class Data extends Modification<HasPlaceholder> {
 
         public static final String FIELD_PREFIX = "placeholderable.";
 

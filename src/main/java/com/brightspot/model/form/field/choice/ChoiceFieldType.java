@@ -1,7 +1,7 @@
 package com.brightspot.model.form.field.choice;
 
 import com.brightspot.model.form.field.FieldType;
-import com.brightspot.model.form.field.Placeholderable;
+import com.brightspot.model.form.field.HasPlaceholder;
 import com.psddev.cms.db.ToolUi;
 
 @ToolUi.FieldDisplayOrder({
@@ -28,7 +28,7 @@ public abstract class ChoiceFieldType extends FieldType {
         }
     }
 
-    public static class Dropdown extends ChoiceFieldType implements Placeholderable {
+    public static class Dropdown extends ChoiceFieldType implements HasPlaceholder {
 
         private Boolean allowMultiSelect;
 
@@ -54,7 +54,7 @@ public abstract class ChoiceFieldType extends FieldType {
 
         @Override
         public String getPlaceholder() {
-            return asPlaceholderableData().getPlaceholder();
+            return asPlaceholderData().getPlaceholder();
         }
     }
 
