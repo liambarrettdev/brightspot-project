@@ -20,16 +20,16 @@ public class Image extends AbstractMediaContent {
     @MimeTypes("+image/")
     private StorageItem file;
 
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private String name;
 
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private String altText;
 
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private String caption;
 
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private String credit;
 
     private Link link;

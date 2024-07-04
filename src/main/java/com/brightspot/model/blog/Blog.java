@@ -8,7 +8,7 @@ import com.brightspot.model.category.HasCategory;
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.image.Image;
 import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.page.PageMainViewModel;
+import com.brightspot.model.page.PageViewModel;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.HasSlug;
 import com.brightspot.model.taxonomy.Taxonomy;
@@ -32,7 +32,7 @@ import org.apache.commons.lang3.StringUtils;
     "postsPerPage",
     "categorizable.category"
 })
-@ViewBinding(value = BlogPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = BlogPageViewModel.class, types = PageViewModel.MAIN_CONTENT_VIEW)
 public class Blog extends AbstractPage implements
     HasCategory,
     HasSlug,

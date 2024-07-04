@@ -20,7 +20,8 @@ public abstract class AbstractCronTask extends AbstractTask {
 
     @Override
     protected DateTime calculateNextRunTime(DateTime currentTime) {
-        return Optional.ofNullable(getSettings().getCronExpression())
+        return Optional.ofNullable(getSettings())
+            .map(AbstractTaskSettings::getCronExpression)
             .map(CronUtils::getNextExecutionTime)
             .map(nextRunTime -> nextRunTime.minus(1000))
             .orElse(null);

@@ -7,7 +7,7 @@ import com.brightspot.model.expiry.Expirable;
 import com.brightspot.model.list.sort.alphabetical.AlphabeticalSortable;
 import com.brightspot.model.list.sort.analytics.PageViewsSortable;
 import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.page.PageMainViewModel;
+import com.brightspot.model.page.PageViewModel;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.HasSlug;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
@@ -25,7 +25,7 @@ import org.apache.commons.lang3.StringUtils;
     "displayName",
     "sluggable.slug"
 })
-@ViewBinding(value = EventPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = EventPageViewModel.class, types = PageViewModel.MAIN_CONTENT_VIEW)
 public class Event extends AbstractPage implements
     AlphabeticalSortable,
     Expirable,
@@ -36,24 +36,24 @@ public class Event extends AbstractPage implements
     private static final String PROMOTABLE_TYPE = "event";
 
     @Required
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private String location;
 
     @Indexed
     @Required
     @ToolUi.Filterable
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private Type type = Type.ONLINE;
 
     @Indexed
     @Required
     @ToolUi.Filterable
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private Date startDate;
 
     @Indexed
     @ToolUi.Filterable
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private Date endDate;
 
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)

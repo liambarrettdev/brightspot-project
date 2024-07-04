@@ -17,12 +17,12 @@ public class IframeModule extends AbstractModule implements ShareableModule {
     private static final String DEFAULT_HEIGHT = "600";
     private static final String TAB_OVERRIDES = "Overrides";
 
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     @ToolUi.Placeholder(DEFAULT_HEIGHT)
     @Minimum(1)
     private Integer height;
 
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private Integer width;
 
     @Url

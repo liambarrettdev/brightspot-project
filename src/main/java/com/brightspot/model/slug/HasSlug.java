@@ -20,7 +20,7 @@ public interface HasSlug extends Recordable {
 
         public static final String FIELD_PREFIX = "sluggable.";
 
-        @ToolUi.Placeholder(dynamicText = "${content.getSlugFallback()}")
+        @ToolUi.Placeholder(dynamicText = "${content.getSlugFallback()}", editable = true)
         private String slug;
 
         public String getSlug() {

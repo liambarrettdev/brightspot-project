@@ -42,19 +42,21 @@ import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RoutingFilter.Path(ReportDataServlet.SERVLET_PATH)
-public class ReportDataServlet extends HttpServlet {
+@RoutingFilter.Path(ReportServlet.SERVLET_PATH)
+public class ReportServlet extends HttpServlet {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ReportDataServlet.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReportServlet.class);
 
     public static final String SERVLET_PATH = "/_api/report/data/";
 
     public static final String PARAM_ID = "id";
     public static final String PARAM_ACTION = "action";
     public static final String PARAM_OUTPUT = "output";
+
     public static final String ACTION_INIT = "init";
     public static final String ACTION_FILTERS = "filters";
     public static final String ACTION_REPORT = "report";
+
     public static final String OUTPUT_EMAIL = "email";
     public static final String OUTPUT_HTML = "html";
     public static final String OUTPUT_JSON = "json";

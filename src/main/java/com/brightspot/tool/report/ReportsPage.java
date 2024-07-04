@@ -3,7 +3,7 @@ package com.brightspot.tool.report;
 import java.io.IOException;
 import javax.servlet.ServletException;
 
-import com.brightspot.servlet.ReportDataServlet;
+import com.brightspot.servlet.ReportServlet;
 import com.brightspot.utils.Utils;
 import com.psddev.cms.tool.PageServlet;
 import com.psddev.cms.tool.ToolPageContext;
@@ -29,7 +29,7 @@ public class ReportsPage extends PageServlet {
             // load reports dashboard into an iframe
             page.writeStart("iframe",
                 "id", "iframe",
-                "src", Utils.addQueryParameters(ReportDataServlet.SERVLET_PATH, ReportDataServlet.PARAM_ACTION, ReportDataServlet.ACTION_INIT),
+                "src", Utils.addQueryParameters(ReportServlet.SERVLET_PATH, ReportServlet.PARAM_ACTION, ReportServlet.ACTION_INIT),
                 "style", "background: #FFFFFF; border: 0; margin: 0; padding: 0;",
                 "width", "100%",
                 "height", "900px",

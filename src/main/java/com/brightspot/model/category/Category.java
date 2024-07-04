@@ -11,7 +11,7 @@ import com.brightspot.model.link.Linkable;
 import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.page.Page;
-import com.brightspot.model.page.PageMainViewModel;
+import com.brightspot.model.page.PageViewModel;
 import com.brightspot.model.slug.HasSlug;
 import com.brightspot.model.taxonomy.Taxonomy;
 import com.brightspot.utils.Utils;
@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
     "contents",
     "parent"
 })
-@ViewBinding(value = CategoryPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = CategoryPageViewModel.class, types = PageViewModel.MAIN_CONTENT_VIEW)
 public class Category extends AbstractPage implements
     HasSlug,
     Linkable,

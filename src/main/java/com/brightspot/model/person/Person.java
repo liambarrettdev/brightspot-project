@@ -5,7 +5,7 @@ import java.util.List;
 import com.brightspot.model.image.Image;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.page.PageMainViewModel;
+import com.brightspot.model.page.PageViewModel;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Content;
@@ -15,7 +15,7 @@ import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Query;
 
 @Content.PreviewField("avatar")
-@ViewBinding(value = PersonPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = PersonPageViewModel.class, types = PageViewModel.MAIN_CONTENT_VIEW)
 public class Person extends AbstractPage implements Linkable {
 
     @Indexed(unique = true)

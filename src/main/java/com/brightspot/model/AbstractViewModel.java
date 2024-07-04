@@ -1,6 +1,5 @@
 package com.brightspot.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -105,12 +104,14 @@ public abstract class AbstractViewModel<M> extends ViewModel<M> {
     }
 
     protected List<Object> buildModuleViews(List<AbstractModule> modules) {
-        return Optional.ofNullable(modules)
-            .map(List::stream)
-            .map(stream -> stream.map(this::buildObjectView)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList()))
-            .orElse(new ArrayList<>());
+        if (ObjectUtils.isBlank(modules)) {
+            return null;
+        }
+
+        return modules.stream()
+            .map(this::buildObjectView)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
     }
 
     protected ConcatenatedView buildRichTextView(String richText) {
@@ -129,6 +130,10 @@ public abstract class AbstractViewModel<M> extends ViewModel<M> {
     }
 
     protected ConcatenatedView buildConcatenatedView(List<Object> contents) {
+        if (ObjectUtils.isBlank(contents)) {
+            return null;
+        }
+
         return new ConcatenatedView.Builder()
             .addAllToItems(contents)
             .build();

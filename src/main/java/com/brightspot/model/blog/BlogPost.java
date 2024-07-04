@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.brightspot.model.bookmark.Bookmarkable;
 import com.brightspot.model.hierarchy.Hierarchical;
-import com.brightspot.model.page.PageMainViewModel;
+import com.brightspot.model.page.PageViewModel;
 import com.brightspot.model.page.creativework.AbstractCreativeWorkPage;
 import com.brightspot.model.rte.RichTextModule;
 import com.psddev.cms.db.Site;
@@ -28,7 +28,7 @@ import org.apache.commons.lang3.StringUtils;
     "taggable.tags"
 })
 @Crosslinkable.SimulationName("Default")
-@ViewBinding(value = BlogPostPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = BlogPostPageViewModel.class, types = PageViewModel.MAIN_CONTENT_VIEW)
 public class BlogPost extends AbstractCreativeWorkPage implements
     Bookmarkable,
     Crosslinkable {

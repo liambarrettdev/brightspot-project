@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import com.brightspot.integration.stripe.StripeSettings;
 import com.brightspot.model.form.field.captcha.CaptchaProvider;
 import com.brightspot.model.page.HeadItem;
 import com.brightspot.model.page.element.CustomHeadElements;
@@ -34,6 +35,12 @@ public class IntegrationSiteSettings extends Modification<Site> {
     @Embedded
     private CaptchaProvider captchaProvider;
 
+    @ToolUi.Heading("Stripe")
+
+    @ToolUi.Tab(TAB_INTEGRATIONS)
+    @Embedded
+    private StripeSettings stripeSettings;
+
     public List<CustomHeadElements> getCustomHeadElements() {
         if (customHeadElements == null) {
             customHeadElements = new ArrayList<>();
@@ -62,6 +69,14 @@ public class IntegrationSiteSettings extends Modification<Site> {
 
     public void setCaptchaProvider(CaptchaProvider captchaProvider) {
         this.captchaProvider = captchaProvider;
+    }
+
+    public StripeSettings getStripeSettings() {
+        return stripeSettings;
+    }
+
+    public void setStripeSettings(StripeSettings stripeSettings) {
+        this.stripeSettings = stripeSettings;
     }
 
     // -- Static Methods --//

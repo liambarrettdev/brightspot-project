@@ -10,8 +10,9 @@ import java.util.stream.Collectors;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.page.PageMainViewModel;
+import com.brightspot.model.page.PageViewModel;
 import com.brightspot.model.slug.HasSlug;
+import com.brightspot.utils.StateUtils;
 import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Site;
@@ -30,7 +31,7 @@ import org.apache.commons.lang3.StringUtils;
     "contents",
     "parent"
 })
-@ViewBinding(value = TagPageViewModel.class, types = PageMainViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = TagPageViewModel.class, types = PageViewModel.MAIN_CONTENT_VIEW)
 public class Tag extends AbstractPage implements
     HasSlug,
     Linkable,
@@ -69,7 +70,7 @@ public class Tag extends AbstractPage implements
     public String getLabel() {
         return isRoot()
             ? getName()
-            : getAncestry().stream().map(Tag::getName).collect(Collectors.joining(" :: "));
+            : getAncestry().stream().map(StateUtils::resolve).map(Tag::getName).collect(Collectors.joining(" :: "));
     }
 
     // Directory.Item

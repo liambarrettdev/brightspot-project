@@ -29,6 +29,7 @@ public class BookmarkServlet extends HttpServlet {
 
     public static final String PARAM_CONTENT_ID = "id";
     public static final String PARAM_ACTION = "action";
+
     public static final String ACTION_ADD = "add";
     public static final String ACTION_REMOVE = "remove";
 

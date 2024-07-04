@@ -41,11 +41,11 @@ public class User extends Content implements
     private Image avatar;
 
     @Indexed
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private String firstName;
 
     @Indexed
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private String lastName;
 
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class, inline = false)

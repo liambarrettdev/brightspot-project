@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.brightspot.report.filter.ReportFilter;
-import com.brightspot.servlet.ReportDataServlet;
+import com.brightspot.servlet.ReportServlet;
 import com.brightspot.tool.CustomGlobalSettings;
 import com.brightspot.tool.DefaultGlobal;
 import com.brightspot.tool.email.CustomMailMessage;
@@ -164,10 +164,10 @@ public abstract class AbstractReport extends Record implements
         }
 
         switch (output) {
-            case ReportDataServlet.OUTPUT_JSON:
+            case ReportServlet.OUTPUT_JSON:
                 renderFiltersJson(request, response);
                 break;
-            case ReportDataServlet.OUTPUT_HTML:
+            case ReportServlet.OUTPUT_HTML:
                 renderFiltersHtml(request, response);
                 break;
             default:
@@ -182,15 +182,15 @@ public abstract class AbstractReport extends Record implements
         }
 
         switch (output) {
-            case ReportDataServlet.OUTPUT_JSON:
+            case ReportServlet.OUTPUT_JSON:
                 // create display of the results of the report on the dashboard
                 displayReport(request, response, buildQuery(request, true));
                 break;
-            case ReportDataServlet.OUTPUT_FILE:
+            case ReportServlet.OUTPUT_FILE:
                 // create download of the results of the report
                 downloadReport(request, response, buildQuery(request, true));
                 break;
-            case ReportDataServlet.OUTPUT_EMAIL:
+            case ReportServlet.OUTPUT_EMAIL:
                 ToolUser currentUser = Utils.getCurrentToolUser(request);
                 emailReport(getEmailAttachmentUrl(request), currentUser);
                 break;
@@ -220,10 +220,11 @@ public abstract class AbstractReport extends Record implements
     }
 
     public String generateReportDataEndpoint(HttpServletRequest request, String output) {
-        String url = Utils.addQueryParameters(ReportDataServlet.SERVLET_PATH,
-            ReportDataServlet.PARAM_ID, getId(),
-            ReportDataServlet.PARAM_ACTION, ReportDataServlet.ACTION_REPORT,
-            ReportDataServlet.PARAM_OUTPUT, output);
+        String url = Utils.addQueryParameters(
+            ReportServlet.SERVLET_PATH,
+            ReportServlet.PARAM_ID, getId(),
+            ReportServlet.PARAM_ACTION, ReportServlet.ACTION_REPORT,
+            ReportServlet.PARAM_OUTPUT, output);
 
         for (ReportFilter filter : getFilterFields(request)) {
             if (!ObjectUtils.isBlank(request.getParameter(filter.getName()))) {
@@ -252,9 +253,9 @@ public abstract class AbstractReport extends Record implements
         jsonMap.put("ajax", buildAjaxOptions(page));
 
         // Download url for button
-        jsonMap.put("downloadUrl", generateReportDataEndpoint(page.getRequest(), ReportDataServlet.OUTPUT_FILE));
+        jsonMap.put("downloadUrl", generateReportDataEndpoint(page.getRequest(), ReportServlet.OUTPUT_FILE));
         // Email url for button
-        jsonMap.put("emailUrl", generateReportDataEndpoint(page.getRequest(), ReportDataServlet.OUTPUT_EMAIL));
+        jsonMap.put("emailUrl", generateReportDataEndpoint(page.getRequest(), ReportServlet.OUTPUT_EMAIL));
         // Default sort column
         jsonMap.put("order", buildDefaultSortColumn());
         // Column Headings
@@ -295,7 +296,7 @@ public abstract class AbstractReport extends Record implements
         List<? extends ReportFilter> filters = getFilterFields(page.getRequest());
         if (!ObjectUtils.isBlank(filters)) {
             for (ReportFilter filter : filters) {
-                ReportDataServlet.writeFilter(page, filter, buildQuery(page.getRequest(), false));
+                ReportServlet.writeFilter(page, filter, buildQuery(page.getRequest(), false));
             }
         }
 
@@ -498,7 +499,7 @@ public abstract class AbstractReport extends Record implements
         String queryString = request.getQueryString();
         if (queryString != null) {
             url.append('?');
-            url.append(queryString.replace(ReportDataServlet.OUTPUT_EMAIL, ReportDataServlet.OUTPUT_FILE));
+            url.append(queryString.replace(ReportServlet.OUTPUT_EMAIL, ReportServlet.OUTPUT_FILE));
         }
 
         return url.toString();
@@ -520,7 +521,7 @@ public abstract class AbstractReport extends Record implements
 
     private Map<String, Object> buildAjaxOptions(ToolPageContext page) {
         Map<String, Object> ajaxMap = new HashMap<>();
-        ajaxMap.put("url", generateReportDataEndpoint(page.getRequest(), ReportDataServlet.OUTPUT_JSON));
+        ajaxMap.put("url", generateReportDataEndpoint(page.getRequest(), ReportServlet.OUTPUT_JSON));
         ajaxMap.put("type", "POST");
         return ajaxMap;
     }

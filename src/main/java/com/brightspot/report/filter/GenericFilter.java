@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.brightspot.report.AbstractReport;
-import com.brightspot.servlet.ReportDataServlet;
+import com.brightspot.servlet.ReportServlet;
 import com.psddev.cms.db.Site;
 import com.psddev.dari.db.ObjectField;
 import com.psddev.dari.db.ObjectType;
@@ -91,9 +91,9 @@ public class GenericFilter extends ReportFilter {
             options.add(getDefaultValue());
         }
 
-        options.addAll(ReportDataServlet.getAllValuesForField(query, getName()));
+        options.addAll(ReportServlet.getAllValuesForField(query, getName()));
 
-        ReportDataServlet.sort(options);
+        ReportServlet.sort(options);
 
         return options;
     }

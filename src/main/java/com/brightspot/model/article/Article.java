@@ -3,7 +3,7 @@ package com.brightspot.model.article;
 import java.util.Optional;
 
 import com.brightspot.model.bookmark.Bookmarkable;
-import com.brightspot.model.page.PageMainViewModel;
+import com.brightspot.model.page.PageViewModel;
 import com.brightspot.model.page.creativework.AbstractCreativeWorkPage;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.rte.RichTextModule;
@@ -27,7 +27,7 @@ import com.psddev.crosslinker.db.Crosslinkable;
     "taggable.tags"
 })
 @Crosslinkable.SimulationName("Default")
-@ViewBinding(value = ArticlePageViewModel.class, types = { PageMainViewModel.MAIN_CONTENT_VIEW })
+@ViewBinding(value = ArticlePageViewModel.class, types = { PageViewModel.MAIN_CONTENT_VIEW })
 public class Article extends AbstractCreativeWorkPage implements
     Bookmarkable,
     Crosslinkable {
