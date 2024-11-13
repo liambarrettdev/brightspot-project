@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.brightspot.model.hierarchy.Hierarchical;
+import com.brightspot.model.image.Image;
 import com.brightspot.model.link.Linkable;
 import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.page.AbstractPage;
@@ -39,6 +40,8 @@ public class Category extends AbstractPage implements
     Linkable,
     Taxonomy {
 
+    private Image image;
+
     @ToolUi.Note("This will override the default page content")
     private List<AbstractModule> contents;
 
@@ -47,6 +50,14 @@ public class Category extends AbstractPage implements
     @Types({ Category.class, Page.class })
     @ToolUi.Filterable
     private Hierarchical parent;
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
     public List<AbstractModule> getContents() {
         if (contents == null) {

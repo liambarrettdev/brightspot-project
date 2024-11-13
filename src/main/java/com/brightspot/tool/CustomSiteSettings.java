@@ -1,11 +1,15 @@
 package com.brightspot.tool;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.function.Function;
 
+import com.brightspot.model.error.handler.ErrorHandler;
 import com.brightspot.model.module.AbstractModule;
+import com.brightspot.model.page.Page;
 import com.brightspot.model.page.footer.Footer;
 import com.brightspot.model.page.header.Header;
 import com.psddev.cms.db.Site;
@@ -18,12 +22,19 @@ import com.psddev.dari.util.ObjectUtils;
 @Recordable.FieldInternalNamePrefix("settings.site.")
 public class CustomSiteSettings extends Modification<Site> {
 
+    public static final String TAB_ADVANCED = "Advanced";
     public static final String TAB_LAYOUT = "Layout";
 
     @ToolUi.Placeholder(dynamicText = "${content.site.getSiteEmailFallback()}")
     private String siteEmail;
 
     private Locale locale;
+
+    private Page homepage;
+
+    @ToolUi.Heading("Error Handling")
+    @ToolUi.Tab(TAB_ADVANCED)
+    private Set<ErrorHandler> errorHandlers;
 
     @ToolUi.Tab(TAB_LAYOUT)
     private Header header;
@@ -54,6 +65,25 @@ public class CustomSiteSettings extends Modification<Site> {
 
     public void setLocale(Locale locale) {
         this.locale = locale;
+    }
+
+    public Page getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(Page homepage) {
+        this.homepage = homepage;
+    }
+
+    public Set<ErrorHandler> getErrorHandlers() {
+        if (errorHandlers == null) {
+            errorHandlers = new HashSet<>();
+        }
+        return errorHandlers;
+    }
+
+    public void setErrorHandlers(Set<ErrorHandler> errorHandlers) {
+        this.errorHandlers = errorHandlers;
     }
 
     public Header getHeader() {

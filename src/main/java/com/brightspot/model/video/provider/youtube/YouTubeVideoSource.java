@@ -22,6 +22,8 @@ public class YouTubeVideoSource extends ExternalVideoSource {
     private static final String DEFAULT_URL_FORMAT = "https://www.youtube.com/watch?v=%s";
     private static final List<String> YOU_TUBE_SHORT_URL_HOSTS = Arrays.asList("www.youtu.be", "youtu.be");
 
+    // -- Overrides -- //
+
     @Override
     protected String getVideoUrlFormat() {
         return DEFAULT_URL_FORMAT;
@@ -35,8 +37,8 @@ public class YouTubeVideoSource extends ExternalVideoSource {
     @Override
     public Long getVideoDuration() {
         return Optional.ofNullable(getExternalMetadata())
-            .map(metadata -> ObjectUtils.to(Integer.class, CollectionUtils.getByPath(metadata, KEY_DURATION)))
-            .map(seconds -> seconds * 1000L)
+            .map(metadata -> CollectionUtils.getByPath(metadata, KEY_DURATION))
+            .map(duration -> ObjectUtils.to(Long.class, duration))
             .orElse(null);
     }
 

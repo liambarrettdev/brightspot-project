@@ -28,6 +28,7 @@ public class Video extends AbstractMediaContent implements
 
     private String name;
 
+    @ToolUi.NoteHtml("<span data-dynamic-html='${content.asTimedContentData().getDurationLabel()}'></span>")
     private VideoSource source;
 
     @Embedded
@@ -69,7 +70,7 @@ public class Video extends AbstractMediaContent implements
     // -- Overrides -- //
 
     @Override
-    protected void beforeSave() {
+    public void beforeSave() {
         super.beforeSave();
 
         Optional.ofNullable(getSource()).ifPresent(source -> {

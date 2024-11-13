@@ -8,14 +8,15 @@ import java.util.stream.Collectors;
 import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.pagination.Pagination;
 import com.brightspot.model.promo.Promotable;
+import com.brightspot.model.promo.PromotableDelegateViewModel;
 import com.brightspot.model.user.User;
 import com.brightspot.tool.ViewWrapper;
 import com.brightspot.tool.field.annotation.CurrentUser;
 import com.brightspot.tool.rte.RichTextProcessor;
+import com.brightspot.utils.LocalizationUtils;
 import com.brightspot.view.base.util.ConcatenatedView;
 import com.brightspot.view.base.util.LinkView;
 import com.brightspot.view.base.util.RawHtmlView;
-import com.brightspot.view.model.promo.PromoModuleView;
 import com.brightspot.view.model.promo.list.ListModuleView;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Site;
@@ -30,7 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractViewModel<M> extends ViewModel<M> {
 
-    public static final String DEFAULT_DATE_FORMAT = "MMMM d, yyyy hh:mm a";
+    private static final String DEFAULT_DATE_FORMAT = "MMMM d, yyyy";
 
     @MainObject
     protected Content mainContent;
@@ -57,6 +58,26 @@ public abstract class AbstractViewModel<M> extends ViewModel<M> {
 
     public User getCurrentUser() {
         return currentUser;
+    }
+
+    // -- Overrides --//
+
+    public Object getDatePublished() {
+        return Optional.ofNullable(model)
+            .filter(Content.class::isInstance)
+            .map(Content.class::cast)
+            .map(Content::getPublishDate)
+            .map(date -> LocalizationUtils.localizeDate(date, getCurrentSite(), DEFAULT_DATE_FORMAT))
+            .orElse(null);
+    }
+
+    public Object getDateModified() {
+        return Optional.ofNullable(model)
+            .filter(Content.class::isInstance)
+            .map(Content.class::cast)
+            .map(Content::getUpdateDate)
+            .map(date -> LocalizationUtils.localizeDate(date, getCurrentSite(), DEFAULT_DATE_FORMAT))
+            .orElse(null);
     }
 
     // -- Helper Methods --//
@@ -98,7 +119,7 @@ public abstract class AbstractViewModel<M> extends ViewModel<M> {
             .description(description)
             .items(items.stream()
                 .filter(Promotable.class::isInstance)
-                .map(item -> createView(PromoModuleView.class, item))
+                .map(item -> createView(PromotableDelegateViewModel.class, item))
                 .collect(Collectors.toList()))
             .build();
     }

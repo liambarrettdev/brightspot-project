@@ -11,6 +11,11 @@ public class MetaElementViewModel extends ViewModel<MetaElement> implements Meta
     }
 
     @Override
+    public Object getHttpEquiv() {
+        return model.getHttpEquiv();
+    }
+
+    @Override
     public Object getContent() {
         return model.getContent();
     }

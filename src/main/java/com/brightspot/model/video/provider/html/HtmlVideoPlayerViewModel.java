@@ -11,7 +11,7 @@ public class HtmlVideoPlayerViewModel extends AbstractVideoPlayerViewModel<HtmlV
     @Override
     public Object getSource() {
         return Optional.ofNullable(model.getContent())
-            .map(HtmlFileWrapper::getFile)
+            .map(HtmlVideoFileWrapper::getFile)
             .map(file -> new HtmlVideoPlayerSourceView.Builder()
                 .src(file.getPublicUrl())
                 .type(file.getContentType())

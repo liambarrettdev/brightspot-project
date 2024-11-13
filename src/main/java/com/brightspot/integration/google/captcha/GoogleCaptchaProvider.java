@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.brightspot.model.form.field.captcha.CaptchaProvider;
+import com.brightspot.tool.field.processor.EncryptedFieldProcessor;
 import com.brightspot.utils.CaptchaUtils;
 import com.brightspot.utils.LocalizationUtils;
 import com.psddev.cms.db.ToolUi;
@@ -23,6 +24,7 @@ public class GoogleCaptchaProvider extends Record implements CaptchaProvider {
 
     @ToolUi.Secret
     @ToolUi.Note("") //TODO
+    @ToolUi.InputProcessorPath(EncryptedFieldProcessor.PATH)
     private String secretKey;
 
     public String getClientKey() {

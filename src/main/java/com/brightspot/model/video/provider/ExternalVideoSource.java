@@ -15,6 +15,8 @@ public abstract class ExternalVideoSource extends VideoSource {
 
     protected abstract String getVideoUrlFormat();
 
+    @Required
+    @DisplayName("Video ID or URL")
     private String videoId;
 
     @Embedded
@@ -39,7 +41,7 @@ public abstract class ExternalVideoSource extends VideoSource {
     }
 
     @Override
-    protected void beforeSave() {
+    public void beforeSave() {
         super.beforeSave();
 
         updateExternalContent();
@@ -51,16 +53,13 @@ public abstract class ExternalVideoSource extends VideoSource {
     }
 
     @Override
-    public StorageItem getVideoThumbnailFallback() {
-        return OEmbedUtils.getThumbnail(getExternalMetadata());
+    public String getVideoDescriptionFallback() {
+        return OEmbedUtils.getDescription(getExternalMetadata());
     }
 
     @Override
-    public Long getVideoDuration() {
-        return Optional.ofNullable(getExternalMetadata())
-            .map(OEmbedUtils::getDuration)
-            .map(seconds -> seconds * 1000L)
-            .orElse(null);
+    public StorageItem getVideoThumbnailFallback() {
+        return OEmbedUtils.getThumbnail(getExternalMetadata());
     }
 
     @Override

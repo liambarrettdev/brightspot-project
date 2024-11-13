@@ -3,10 +3,10 @@ package com.brightspot.model.form.field.choice;
 import com.psddev.cms.view.DelegateView;
 import com.psddev.cms.view.ViewModel;
 
-public class ChoiceFieldDelegateViewModel extends ViewModel<ChoiceField> implements DelegateView {
+public class ChoiceFieldDelegateViewModel extends ViewModel<ChoiceField> implements DelegateView<ChoiceFieldViewModel> {
 
     @Override
-    public Object getDelegate() {
+    public ChoiceFieldViewModel getDelegate() {
         if (model.getType() == null) {
             return null;
         }

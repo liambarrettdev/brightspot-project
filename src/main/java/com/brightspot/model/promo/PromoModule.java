@@ -13,7 +13,7 @@ import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 
 @Recordable.DisplayName("Promo")
-@ViewBinding(value = PromoModuleViewModel.class, types = PromoModule.VIEW_CLASS)
+@ViewBinding(value = PromoModuleDelegateViewModel.class, types = PromoModule.VIEW_CLASS)
 public class PromoModule extends AbstractModule implements
     HasImagePreview,
     ShareableModule {

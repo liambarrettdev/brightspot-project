@@ -67,8 +67,6 @@ public final class OEmbedUtils {
     public static StorageItem getThumbnail(Object metadata) {
         String thumbnailUrl = getValue(String.class, metadata, THUMBNAIL_URL);
         if (StringUtils.isNotBlank(thumbnailUrl)) {
-            StorageItem thumbnail = StorageItem.Static.createUrl(thumbnailUrl);
-
             Map<String, Object> imageMetadata = new LinkedHashMap<>();
             imageMetadata.put("width", getValue(Integer.class, metadata, THUMBNAIL_WIDTH));
             imageMetadata.put("height", getValue(Integer.class, metadata, THUMBNAIL_HEIGHT));
@@ -76,11 +74,12 @@ public final class OEmbedUtils {
             imageMetadata.put("cms.crops", new LinkedHashMap<>());
             imageMetadata.put("cms.focus", new LinkedHashMap<>());
 
+            StorageItem thumbnail = StorageItem.Static.createUrl(thumbnailUrl);
+
             thumbnail.setMetadata(imageMetadata);
 
             return thumbnail;
         }
-
         return null;
     }
 
@@ -88,7 +87,6 @@ public final class OEmbedUtils {
         if (ObjectUtils.isBlank(data)) {
             return null;
         }
-
         return ObjectUtils.to(type, CollectionUtils.getByPath(data, key));
     }
 }

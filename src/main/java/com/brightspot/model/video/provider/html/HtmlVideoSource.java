@@ -13,13 +13,13 @@ public class HtmlVideoSource extends VideoSource {
     protected static final String VIEW_TYPE = "html-video";
 
     @Required
-    private HtmlFileWrapper content;
+    private HtmlVideoFileWrapper content;
 
-    public HtmlFileWrapper getContent() {
+    public HtmlVideoFileWrapper getContent() {
         return content;
     }
 
-    public void setContent(HtmlFileWrapper content) {
+    public void setContent(HtmlVideoFileWrapper content) {
         this.content = content;
     }
 
@@ -28,7 +28,7 @@ public class HtmlVideoSource extends VideoSource {
     @Override
     public String getVideoId() {
         return Optional.ofNullable(getContent())
-            .map(HtmlFileWrapper::getFile)
+            .map(HtmlVideoFileWrapper::getFile)
             .map(file -> file.getStorage() + ":" + file.getPath())
             .orElse(null);
     }
@@ -36,22 +36,21 @@ public class HtmlVideoSource extends VideoSource {
     @Override
     public Long getVideoDuration() {
         return Optional.ofNullable(getContent())
-            .map(HtmlFileWrapper::getDuration)
-            .map(duration -> duration * 1_000)
+            .map(HtmlVideoFileWrapper::getDuration)
             .orElse(null);
     }
 
     @Override
     public Integer getVideoHeight() {
         return Optional.ofNullable(getContent())
-            .map(HtmlFileWrapper::getHeight)
+            .map(HtmlVideoFileWrapper::getHeight)
             .orElse(null);
     }
 
     @Override
     public Integer getVideoWidth() {
         return Optional.ofNullable(getContent())
-            .map(HtmlFileWrapper::getWidth)
+            .map(HtmlVideoFileWrapper::getWidth)
             .orElse(null);
     }
 

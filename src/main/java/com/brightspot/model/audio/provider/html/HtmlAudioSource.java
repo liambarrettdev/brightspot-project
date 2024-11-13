@@ -10,16 +10,16 @@ import com.psddev.dari.db.Recordable;
 @ViewBinding(value = HtmlAudioPlayerViewModel.class, types = HtmlAudioSource.VIEW_TYPE)
 public class HtmlAudioSource extends AudioSource {
 
-    protected static final String VIEW_TYPE = "html-video";
+    protected static final String VIEW_TYPE = "html-audio";
 
     @Required
-    private HtmlFileWrapper content;
+    private HtmlAudioFileWrapper content;
 
-    public HtmlFileWrapper getContent() {
+    public HtmlAudioFileWrapper getContent() {
         return content;
     }
 
-    public void setContent(HtmlFileWrapper content) {
+    public void setContent(HtmlAudioFileWrapper content) {
         this.content = content;
     }
 
@@ -28,7 +28,7 @@ public class HtmlAudioSource extends AudioSource {
     @Override
     public String getAudioId() {
         return Optional.ofNullable(getContent())
-            .map(HtmlFileWrapper::getFile)
+            .map(HtmlAudioFileWrapper::getFile)
             .map(file -> file.getStorage() + ":" + file.getPath())
             .orElse(null);
     }
@@ -36,8 +36,7 @@ public class HtmlAudioSource extends AudioSource {
     @Override
     public Long getAudioDuration() {
         return Optional.ofNullable(getContent())
-            .map(HtmlFileWrapper::getDuration)
-            .map(duration -> duration * 1_000)
+            .map(HtmlAudioFileWrapper::getDuration)
             .orElse(null);
     }
 

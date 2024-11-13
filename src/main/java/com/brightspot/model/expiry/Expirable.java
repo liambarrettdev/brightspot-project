@@ -34,7 +34,7 @@ public interface Expirable extends Recordable {
         }
 
         @Override
-        protected void beforeCommit() {
+        public void beforeCommit() {
             this.setExpired(Boolean.TRUE.equals(getOriginalObject().isExpired()));
 
             super.beforeCommit();

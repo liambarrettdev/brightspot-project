@@ -67,9 +67,14 @@ public class InternalLink extends Link {
 
     // -- Static Methods -- //
 
-    public static InternalLink create(Linkable linkable) {
+    public static InternalLink create(String text, Linkable linkable) {
         InternalLink instance = new InternalLink();
+        instance.setText(text);
         instance.setItem(linkable);
         return instance;
+    }
+
+    public static InternalLink create(Linkable linkable) {
+        return create(null, linkable);
     }
 }

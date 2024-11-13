@@ -2,7 +2,6 @@ package com.brightspot.model.page;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -29,7 +28,6 @@ import com.brightspot.view.model.page.module.AsideView;
 import com.brightspot.view.model.page.module.BelowView;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.view.ViewResponse;
-import org.apache.commons.collections4.CollectionUtils;
 
 public class PageViewModel<M extends AbstractPage> extends AbstractViewModel<M> implements PageView {
 
@@ -40,7 +38,9 @@ public class PageViewModel<M extends AbstractPage> extends AbstractViewModel<M> 
         if (Restrictable.isRestricted(getMainContent()) && getCurrentUser() == null) {
             Site site = getCurrentSite();
 
-            String redirect = Optional.ofNullable(AuthenticationSiteSettings.get(site, AuthenticationSiteSettings::getSettings))
+            String redirect = Optional.ofNullable(AuthenticationSiteSettings.get(
+                    site,
+                    AuthenticationSiteSettings::getSettings))
                 .map(AuthenticationSettings::getUnauthenticatedLandingPage)
                 .map(page -> DirectoryUtils.getCanonicalUrl(site, page))
                 .orElse("/");
@@ -78,7 +78,17 @@ public class PageViewModel<M extends AbstractPage> extends AbstractViewModel<M> 
 
     @Override
     public Collection<?> getBreadcrumbs() {
-        List<Link> breadcrumbs = new ArrayList<>(Optional.of(model)
+        List<Link> breadcrumbs = new ArrayList<>();
+
+        // add root node
+        Optional.ofNullable(CustomSiteSettings.get(getCurrentSite(), CustomSiteSettings::getHomepage))
+            .filter(homepage -> !homepage.equals(model))
+            .map(Linkable.class::cast)
+            .map(InternalLink::create)
+            .ifPresent(breadcrumbs::add);
+
+        // add page ancestors
+        Optional.of(model)
             .filter(Hierarchical.class::isInstance)
             .map(Hierarchical.class::cast)
             .map(hierarchy -> hierarchy.getBreadcrumbs().stream()
@@ -86,15 +96,10 @@ public class PageViewModel<M extends AbstractPage> extends AbstractViewModel<M> 
                 .map(Linkable.class::cast)
                 .map(InternalLink::create)
                 .collect(Collectors.toList()))
-            .orElse(new ArrayList<>()));
-
-        // check if breadcrumbs configured for this content type
-        if (CollectionUtils.isEmpty(breadcrumbs)) {
-            return null;
-        }
+            .ifPresent(breadcrumbs::addAll);
 
         // add current page as read-only node
-        Optional.of(getMainContent())
+        Optional.ofNullable(getMainContent())
             .filter(Linkable.class::isInstance)
             .map(Linkable.class::cast)
             .map(Linkable::getLinkableText)
@@ -110,7 +115,7 @@ public class PageViewModel<M extends AbstractPage> extends AbstractViewModel<M> 
     public Object getMain() {
         Object item = createView(MAIN_CONTENT_VIEW, model);
 
-        return buildConcatenatedView(Collections.singletonList(item));
+        return createView(MAIN_CONTENT_VIEW, model);
     }
 
     @Override

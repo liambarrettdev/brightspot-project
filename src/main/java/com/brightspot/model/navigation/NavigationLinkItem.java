@@ -38,6 +38,11 @@ public class NavigationLinkItem extends Record implements NavigationItem {
     // -- Overrides -- //
 
     @Override
+    public String getLabel() {
+        return getCtaText();
+    }
+
+    @Override
     public String getCtaText() {
         return getText();
     }
@@ -47,11 +52,6 @@ public class NavigationLinkItem extends Record implements NavigationItem {
         return Optional.ofNullable(link)
             .map(link -> link.getLinkUrl(site))
             .orElse(null);
-    }
-
-    @Override
-    public String getLabel() {
-        return getCtaText();
     }
 
     // -- Helper Methods -- //

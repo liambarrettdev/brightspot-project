@@ -1,1 +1,8 @@
-{{#with source}}<audio>{{this}}</audio>{{/with}}
+<div class="HtmlAudioPlayer-player">
+{{#with source}}
+    <audio controls>
+        {{this}}
+        Your browser does not support the audio element.
+    </audio>
+{{/with}}
+</div>

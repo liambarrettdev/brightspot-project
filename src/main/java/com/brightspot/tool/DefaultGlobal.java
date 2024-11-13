@@ -14,7 +14,7 @@ public interface DefaultGlobal extends Recordable {
         public static final String FIELD_PREFIX = "default.global.";
 
         @Override
-        protected void beforeCommit() {
+        public void beforeCommit() {
             if (getState().isNew()) {
                 as(Site.ObjectModification.class).setGlobal(true);
                 as(Site.ObjectModification.class).setOwner(null);

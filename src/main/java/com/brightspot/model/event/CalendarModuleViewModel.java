@@ -15,10 +15,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
+import com.brightspot.model.promo.PromotableDelegateViewModel;
 import com.brightspot.utils.Utils;
 import com.brightspot.view.base.util.LinkView;
 import com.brightspot.view.model.event.CalendarModuleView;
-import com.brightspot.view.model.promo.PromoModuleView;
 import com.psddev.cms.view.ViewResponse;
 import com.psddev.cms.view.servlet.HttpParameter;
 import com.psddev.dari.db.Query;
@@ -110,7 +110,7 @@ public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> i
             .getItems();
 
         return events.stream()
-            .map(event -> createView(PromoModuleView.class, event))
+            .map(event -> createView(PromotableDelegateViewModel.class, event))
             .collect(Collectors.toList());
     }
 

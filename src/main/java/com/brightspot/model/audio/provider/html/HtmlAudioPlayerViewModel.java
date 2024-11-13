@@ -11,7 +11,7 @@ public class HtmlAudioPlayerViewModel extends AbstractAudioPlayerViewModel<HtmlA
     @Override
     public Object getSource() {
         return Optional.ofNullable(model.getContent())
-            .map(HtmlFileWrapper::getFile)
+            .map(HtmlAudioFileWrapper::getFile)
             .map(file -> new HtmlAudioPlayerSourceView.Builder()
                 .src(file.getPublicUrl())
                 .type(file.getContentType())

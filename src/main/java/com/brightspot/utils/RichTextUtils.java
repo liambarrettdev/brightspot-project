@@ -80,7 +80,7 @@ public final class RichTextUtils {
 
         Map<String, ObjectType> concreteTagTypes = RichTextElement.getConcreteTagTypes();
 
-        // Find all defined RichTextElements as a comma delimited list
+        // Find all defined RichTextElements as a comma-delimited list
         String cssQuery = String.join(",", concreteTagTypes.keySet());
 
         // Completely remove all tags

@@ -1,5 +1,7 @@
 package com.brightspot.model.video.provider.vimeo;
 
+import java.util.Optional;
+
 import com.brightspot.model.video.provider.ExternalVideoSource;
 import com.brightspot.utils.OEmbedUtils;
 import com.psddev.cms.view.ViewBinding;
@@ -13,9 +15,14 @@ public class VimeoVideoSource extends ExternalVideoSource {
 
     private static final String DEFAULT_URL_FORMAT = "https://vimeo.com/%s";
 
+    // -- Overrides -- //
+
     @Override
-    public String getVideoDescriptionFallback() {
-        return OEmbedUtils.getDescription(getExternalMetadata());
+    public Long getVideoDuration() {
+        return Optional.ofNullable(getExternalMetadata())
+            .map(OEmbedUtils::getDuration)
+            .map(Integer::longValue)
+            .orElse(null);
     }
 
     @Override

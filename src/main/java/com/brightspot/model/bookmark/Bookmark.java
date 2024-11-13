@@ -48,7 +48,7 @@ public class Bookmark extends Record {
     }
 
     @Override
-    protected void beforeSave() {
+    public void beforeSave() {
         setBookmarkId(getUser().getId() + "_" + getContent().getBookmarkableId());
     }
 

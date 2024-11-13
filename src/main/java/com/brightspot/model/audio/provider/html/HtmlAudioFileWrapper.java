@@ -1,24 +1,22 @@
-package com.brightspot.model.video.provider.html;
+package com.brightspot.model.audio.provider.html;
 
 import java.util.Map;
 
 import com.brightspot.tool.field.annotation.MimeTypes;
+import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Record;
 import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 import com.psddev.dari.util.StorageItem;
 
 @Recordable.Embedded
-public class HtmlFileWrapper extends Record {
+public class HtmlAudioFileWrapper extends Record {
 
     @Required
-    @MimeTypes("+video/")
+    @MimeTypes("+audio/")
     private StorageItem file;
 
-    private Integer width;
-
-    private Integer height;
-
+    @ToolUi.Note("Time is seconds")
     private Long duration;
 
     public StorageItem getFile() {
@@ -27,22 +25,6 @@ public class HtmlFileWrapper extends Record {
 
     public void setFile(StorageItem file) {
         this.file = file;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
     }
 
     public Long getDuration() {

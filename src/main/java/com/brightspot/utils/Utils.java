@@ -63,6 +63,10 @@ public final class Utils {
         return t -> seen.add(keyExtractor.apply(t));
     }
 
+    public static String convertTime(long seconds) {
+        return String.format("%02d mins %02d secs", seconds / 60, seconds % 60);
+    }
+
     /**
      * Appends one or more parameter-value pairs to a provided {@code uri}. Removes a query parameter if the
      * corresponding value is {@code null}. Use this method to build a custom query string for a given URI.

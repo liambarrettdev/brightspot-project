@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.model.pagination.Pagination;
+import com.brightspot.model.promo.PromotableDelegateViewModel;
 import com.brightspot.view.model.pagination.PaginationView;
-import com.brightspot.view.model.promo.PromoModuleView;
 import com.brightspot.view.model.promo.list.ListModuleView;
 import com.psddev.cms.view.ViewResponse;
 import org.apache.commons.collections4.ListUtils;
@@ -52,7 +52,7 @@ public class ListModuleViewModel extends AbstractViewModel<ListModule> implement
     @Override
     public Collection<?> getItems() {
         return items.stream()
-            .map(item -> createView(PromoModuleView.class, item))
+            .map(item -> createView(PromotableDelegateViewModel.class, item))
             .collect(Collectors.toList());
     }
 

@@ -2,6 +2,7 @@ package com.psddev.cms.view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -30,8 +31,8 @@ public abstract class ViewModel<M> {
 
     /**
      * Called during creation of this view model before {@link #onCreate(ViewResponse)}. The object is fully initialized
-     * at this point so it is safe to utilize full functionality. The default implementation always returns {@code
-     * true}. Sub-classes may override this method to return {@code false} if the ViewModel creation should not be
+     * at this point so it is safe to utilize full functionality. The default implementation always returns
+     * {@code true}. Subclasses may override this method to return {@code false} if the ViewModel creation should not be
      * completed, causing {@code null} to be returned from the upstream caller.
      */
     protected boolean shouldCreate() {
@@ -39,8 +40,8 @@ public abstract class ViewModel<M> {
     }
 
     /**
-     * Called during creation of this view model. The object is fully initialized
-     * at this point so it is safe to utilize full functionality.
+     * Called during creation of this view model. The object is fully initialized at this point so it is safe to utilize
+     * full functionality.
      *
      * @param response the current view response.
      */
@@ -49,8 +50,7 @@ public abstract class ViewModel<M> {
     }
 
     /**
-     * Creates a view of type {@code viewClass} that is bound to the given
-     * {@code model}.
+     * Creates a view of type {@code viewClass} that is bound to the given {@code model}.
      *
      * @param viewClass the type of view to create.
      * @param model the model used to create the view.
@@ -78,8 +78,7 @@ public abstract class ViewModel<M> {
     }
 
     /**
-     * Creates a view that is bound to the given {@code viewType} and
-     * {@code model}.
+     * Creates a view that is bound to the given {@code viewType} and {@code model}.
      *
      * @param viewType the view type key bound to the view and model.
      * @param model the model used to create the view.
@@ -103,7 +102,10 @@ public abstract class ViewModel<M> {
     public static class DefaultCreator implements ViewModelCreator {
 
         @Override
-        public final <M, VM extends ViewModel<? super M>> VM createViewModel(Class<VM> viewModelClass, M model, ViewResponse viewResponse) {
+        public final <M, VM extends ViewModel<? super M>> VM createViewModel(
+            Class<VM> viewModelClass,
+            M model,
+            ViewResponse viewResponse) {
 
             if (findViewModelClass(viewModelClass, null, model) != null) {
 
@@ -129,9 +131,8 @@ public abstract class ViewModel<M> {
         }
 
         /**
-         * Called immediately before {@link com.psddev.cms.view.ViewModel#onCreate(ViewResponse)}
-         * is invoked. Sub-classes may override this method to further
-         * initialize the {@link com.psddev.cms.view.ViewModel}.
+         * Called immediately before {@link com.psddev.cms.view.ViewModel#onCreate(ViewResponse)} is invoked. Subclasses
+         * may override this method to further initialize the {@link com.psddev.cms.view.ViewModel}.
          *
          * @param viewModel the viewModel to modify.
          * @param <M> the model type for the ViewModel.
@@ -143,18 +144,21 @@ public abstract class ViewModel<M> {
     }
 
     /**
-     * Finds an appropriate ViewModel class based on the given view class, view
-     * view type, and model. If more than one class is found, the result is
-     * ambiguous and null is returned.
+     * Finds an appropriate ViewModel class based on the given view class, view type, and model. If more than one class
+     * is found, the result is ambiguous and null is returned.
      *
      * @param viewClass the desired compatible class of the returned view model.
      * @param viewType the desired view type that is bound to the returned view model.
-     * @param model the model used to look up available view model classes, that is also compatible with the returned view model class.
+     * @param model the model used to look up available view model classes, that is also compatible with the returned
+     * view model class.
      * @param <M> the model type
      * @param <V> the view type
      * @return the view model class that matches the bounds of the arguments.
      */
-    public static <M, V> Class<? extends ViewModel<? super M>> findViewModelClass(Class<V> viewClass, String viewType, M model) {
+    public static <M, V> Class<? extends ViewModel<? super M>> findViewModelClass(
+        Class<V> viewClass,
+        String viewType,
+        M model) {
 
         if (model == null) {
             return null;
@@ -164,9 +168,10 @@ public abstract class ViewModel<M> {
 
         // if it's a view model class, with no type specified, then just verify that the model types match.
         if (viewClass != null && viewType == null
-                && ViewModel.class.isAssignableFrom(viewClass)) {
+            && ViewModel.class.isAssignableFrom(viewClass)) {
 
-            Class<?> declaredModelClass = TypeDefinition.getInstance(viewClass).getInferredGenericTypeArgumentClass(ViewModel.class, 0);
+            Class<?> declaredModelClass = TypeDefinition.getInstance(viewClass)
+                .getInferredGenericTypeArgumentClass(ViewModel.class, 0);
 
             if (declaredModelClass != null && declaredModelClass.isAssignableFrom(modelClass)) {
 
@@ -189,13 +194,13 @@ public abstract class ViewModel<M> {
 
                 allViewModelClasses.addAll(Arrays.stream(annotatableClass.getAnnotationsByType(ViewBinding.class))
 
-                        // check that it matches the view type if it exists
-                        .filter(viewBinding -> viewType == null || Arrays.asList(viewBinding.types()).contains(viewType))
+                    // check that it matches the view type if it exists
+                    .filter(viewBinding -> viewType == null || Arrays.asList(viewBinding.types()).contains(viewType))
 
-                        // get the annotation's view model class
-                        .map(ViewBinding::value)
+                    // get the annotation's view model class
+                    .map(ViewBinding::value)
 
-                        .collect(Collectors.toList()));
+                    .collect(Collectors.toList()));
             }
 
             allViewModelClasses.forEach(viewModelClass -> {
@@ -205,53 +210,55 @@ public abstract class ViewModel<M> {
                 Class<?> declaredModelClass = typeDef.getInferredGenericTypeArgumentClass(ViewModel.class, 0);
 
                 if (declaredModelClass != null && declaredModelClass.isAssignableFrom(modelClass)
-                        && (viewClass == null || viewClass.isAssignableFrom(viewModelClass))) {
+                    && (viewClass == null || viewClass.isAssignableFrom(viewModelClass))) {
 
-                    List<Class<? extends ViewModel>> viewModelClasses = modelToViewModelClassMap.get(declaredModelClass);
-                    if (viewModelClasses == null) {
-                        viewModelClasses = new ArrayList<>();
-                        modelToViewModelClassMap.put(declaredModelClass, viewModelClasses);
-                    }
+                    List<Class<? extends ViewModel>> viewModelClasses = modelToViewModelClassMap.computeIfAbsent(
+                        declaredModelClass,
+                        k -> new ArrayList<>());
                     viewModelClasses.add(viewModelClass);
                 }
             });
 
             if (!modelToViewModelClassMap.isEmpty()) {
 
-                Set<Class<?>> nearestModelClasses = ViewUtils.getNearestSuperClassesInSet(model.getClass(), modelToViewModelClassMap.keySet());
+                Set<Class<?>> nearestModelClasses = ViewUtils.getNearestSuperClassesInSet(
+                    model.getClass(),
+                    modelToViewModelClassMap.keySet());
                 if (nearestModelClasses.size() == 1) {
 
-                    List<Class<? extends ViewModel>> viewModelClasses = modelToViewModelClassMap.get(nearestModelClasses.iterator().next());
+                    List<Class<? extends ViewModel>> viewModelClasses = modelToViewModelClassMap.get(nearestModelClasses.iterator()
+                        .next());
                     if (viewModelClasses.size() == 1) {
                         @SuppressWarnings("unchecked")
-                        Class<? extends ViewModel<? super M>> viewModelClass = (Class<? extends ViewModel<? super M>>) (Object) viewModelClasses.get(0);
+                        Class<? extends ViewModel<? super M>> viewModelClass = (Class<? extends ViewModel<? super M>>) viewModelClasses.get(
+                            0);
 
                         return viewModelClass;
                     } else {
-                        LOGGER.warn("Found [{}] conflicting view model bindings for model type [{}] and view type [{}]: [{}]",
-                                new Object[] {
-                                        viewModelClasses.size(),
-                                        model.getClass(),
-                                        viewClass != null ? viewClass.getName() : null,
-                                        viewModelClasses.stream().map(Class::getName).collect(Collectors.joining(", "))
-                                });
+                        logConflictingViewModelError(viewClass, model, viewModelClasses);
                     }
                 } else {
                     Set<Class<? extends ViewModel>> conflictingViewModelClasses = new LinkedHashSet<>();
                     for (Class<?> nearestModelClass : nearestModelClasses) {
                         conflictingViewModelClasses.addAll(modelToViewModelClassMap.get(nearestModelClass));
                     }
-                    LOGGER.warn("Found [{}] conflicting view model bindings for model type [{}] and view type [{}]: [{}]",
-                            new Object[] {
-                                    conflictingViewModelClasses.size(),
-                                    model.getClass().getName(),
-                                    viewClass != null ? viewClass.getName() : null,
-                                    conflictingViewModelClasses.stream().map(Class::getName).collect(Collectors.joining(", "))
-                            });
+                    logConflictingViewModelError(viewClass, model, conflictingViewModelClasses);
                 }
             }
         }
 
         return null;
+    }
+
+    private static <M, V> void logConflictingViewModelError(
+        Class<V> viewClass,
+        M model,
+        Collection<Class<? extends ViewModel>> viewModelClasses) {
+        LOGGER.warn(
+            "Found [{}] conflicting view model bindings for model type [{}] and view type [{}]: [{}]",
+            viewModelClasses.size(),
+            model.getClass(),
+            viewClass != null ? viewClass.getName() : null,
+            viewModelClasses.stream().map(Class::getName).collect(Collectors.joining(", ")));
     }
 }

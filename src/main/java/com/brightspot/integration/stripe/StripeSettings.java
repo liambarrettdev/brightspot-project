@@ -1,5 +1,6 @@
 package com.brightspot.integration.stripe;
 
+import com.brightspot.tool.field.processor.EncryptedFieldProcessor;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Record;
 import com.psddev.dari.db.Recordable;
@@ -13,6 +14,7 @@ public class StripeSettings extends Record {
 
     @ToolUi.Secret
     @ToolUi.DisplayName("API Secret")
+    @ToolUi.InputProcessorPath(EncryptedFieldProcessor.PATH)
     private String apiSecret;
 
     public String getApiKey() {

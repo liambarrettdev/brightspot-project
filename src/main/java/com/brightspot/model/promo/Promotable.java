@@ -14,10 +14,11 @@ import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Modification;
 import com.psddev.dari.util.ObjectUtils;
 
-@ViewBinding(value = PromotableViewModel.class)
+@ViewBinding(value = PromotableDelegateViewModel.class)
 public interface Promotable extends Linkable {
 
     String INTERNAL_NAME = "com.brightspot.model.promo.Promotable";
+    String DEFAULT_DATE_FORMAT = "MMMM d, yyyy hh:mm a";
 
     String getPromotableType();
 
@@ -43,6 +44,10 @@ public interface Promotable extends Linkable {
         return Optional.ofNullable(this.as(Content.ObjectModification.class))
             .map(Content.ObjectModification::getPublishDate)
             .orElse(null);
+    }
+
+    default String getPromotableDateFormat() {
+        return DEFAULT_DATE_FORMAT;
     }
 
     default String getPromotableAuthor() {

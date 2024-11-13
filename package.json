@@ -10,6 +10,7 @@
   },
   "scripts": {
     "grunt": "grunt",
-    "styleguide": "styleguide"
+    "watch": "grunt watch",
+    "styleguide": "sh styleguide.sh"
   }
 }
