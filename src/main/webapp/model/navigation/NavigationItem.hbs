@@ -1,16 +1,16 @@
-{{~#defineBlock "NavigationItem"~}}
+{{~#defineBlock "PageNavigation"~}}
 
     {{~#defineElement "items"~}}
-        <ul class="{{elementName}}">
+        <ul class="{{elementName}} {{#if ../dropdown}}dropdownContent{{/if}}">
             {{#each this}}
-                <li>{{this}}</li>
+                <li class="{{elementName}}-item {{#if dropdown}}dropdown{{/if}} {{#if active}}active{{/if}}">{{this}}</li>
             {{/each}}
         </ul>
     {{~/defineElement~}}
 
     {{~#defineBlockContainer~}}
         {{#defineBlockBody}}
-            {{#if cta}}<a href="{{cta}}">{{ctaText}}</a>{{else}}<span>{{ctaText}}</span>{{/if}}
+            {{#if ctaUrl}}<a href="{{ctaUrl}}">{{ctaText}}</a>{{else}}<span>{{ctaText}}</span>{{/if}}
             {{element "items"}}
         {{/defineBlockBody}}
     {{~/defineBlockContainer~}}

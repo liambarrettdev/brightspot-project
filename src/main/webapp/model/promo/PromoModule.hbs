@@ -1,23 +1,31 @@
 {{~#defineBlock "PromoModule"~}}
     {{~#defineElement "title"~}}
-        <div class="{{elementName}}"><h3>{{this}}</h3></div>
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "media"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "date"~}}
+        <div class="{{elementName}}">{{this}}</div>
     {{~/defineElement~}}
 
     {{~#defineElement "description"~}}
         <div class="{{elementName}}">{{this}}</div>
     {{~/defineElement~}}
 
-    {{~#defineElement "cta"~}}
-        <div class="{{elementName}}"><a class="btn" href="{{this}}">{{../ctaText}}</a></div>
+    {{~#defineElement "cta" noWith=true~}}
+        <div class="{{elementName}}"><a class="btn" href="{{ctaUrl}}">{{ctaText}}</a></div>
     {{~/defineElement~}}
 
-    <div class="{{blockName}} {{type}}-promo">
-        <div class="{{blockName}}-media" style="background-image: url({{media.src}})">
-            <div class="{{blockName}}-content">
-                {{element "title"}}
-                {{element "description"}}
-                {{element "cta"}}
-            </div>
+    <div class="{{blockName}}">
+        <div class="{{blockName}}-content">
+            {{element "title"}}
+            {{element "media"}}
+            {{element "date"}}
+            {{element "description"}}
+            {{element "cta"}}
         </div>
     </div>
 {{~/defineBlock~}}

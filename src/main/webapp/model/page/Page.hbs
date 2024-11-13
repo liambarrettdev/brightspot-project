@@ -1,19 +1,23 @@
 {{~#defineBlock "Page"~}}
     {{~#defineElement "breadcrumbs"~}}
         <div class="{{elementName}}">
-            {{#each this}}{{this}}
-                <div class="breadcrumbs-divider">
-                    <svg>
-                        <use xlink:href="#icon-caret-right"></use>
-                    </svg>
-                </div>{{/each}}
+            <ul class="{{elementName}}-breadcrumb">
+                {{#each this}}
+                    <li class="{{elementName}}-breadcrumb-item">
+                        {{this}}
+                    </li>
+                {{/each}}
+            </ul>
         </div>
     {{~/defineElement~}}
 
-    {{~#defineElement "main"~}}
+    {{~#defineElement "main" noWith=true~}}
+        {{above}}
         <main class="{{elementName}}">
-            {{this}}
+            {{main}}
+            {{aside}}
         </main>
+        {{below}}
     {{~/defineElement~}}
 
     {{~#defineBlockContainer~}}
@@ -23,11 +27,8 @@
             {{head}}
             <body>
             {{header}}
-            {{above}}
             {{element "breadcrumbs"}}
             {{element "main"}}
-            {{aside}}
-            {{below}}
             {{footer}}
             </body>
         {{/defineBlockBody}}

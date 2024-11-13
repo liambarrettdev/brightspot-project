@@ -187,12 +187,12 @@ public class PublishedContentReport extends AbstractReport {
     public List<Map<String, Object>> buildTableHeadings(HttpServletRequest request) {
         List<Map<String, Object>> columns = new ArrayList<>();
 
-        addColumnHeading(columns, "", "Published Date", null, SORT_BY_DATE);
-        addColumnHeading(columns, "", "Site", null, SORT_BY_SITE);
-        addColumnHeading(columns, "", "Title", null, null);
-        addColumnHeading(columns, "", "Type", null, null);
-        addColumnHeading(columns, "", "Author", null, null);
-        addColumnHeading(columns, "", "Page Views", null, SORT_BY_PAGE_VIEWS);
+        addColumnHeading(columns, "date", "Published Date", null, SORT_BY_DATE);
+        addColumnHeading(columns, "site", "Site", null, SORT_BY_SITE);
+        addColumnHeading(columns, "title", "Title", null, null);
+        addColumnHeading(columns, "type", "Type", null, null);
+        addColumnHeading(columns, "author", "Author", null, null);
+        addColumnHeading(columns, "views", "Page Views", null, SORT_BY_PAGE_VIEWS);
 
         return columns;
     }

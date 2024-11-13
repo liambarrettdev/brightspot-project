@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import com.brightspot.model.AbstractViewModel;
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.pagination.Pagination;
+import com.brightspot.model.promo.PromotableDelegateViewModel;
 import com.brightspot.view.model.blog.BlogPageView;
 import com.brightspot.view.model.pagination.PaginationView;
-import com.brightspot.view.model.promo.PromoModuleView;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.view.ViewResponse;
 import com.psddev.dari.db.Query;
@@ -43,7 +43,7 @@ public class BlogPageViewModel extends AbstractViewModel<Blog> implements BlogPa
     @Override
     public Collection<?> getPosts() {
         return posts.stream()
-            .map(post -> createView(PromoModuleView.class, post))
+            .map(post -> createView(PromotableDelegateViewModel.class, post))
             .collect(Collectors.toList());
     }
 

@@ -8,6 +8,18 @@
     "header" : {
         "_dataUrl": "/model/page/header/Header.json"
     },
+    "breadcrumbs": [
+        {
+            "_template": "/base/util/Link",
+            "href": "#",
+            "body": "{{words(1)}}",
+            "_repeat": 3
+        },
+        {
+            "_template": "/base/util/Link",
+            "body": "{{words(1)}}"
+        }
+    ],
     "main": {
         "_template": "base/util/Concatenated",
         "items": [
@@ -15,16 +27,16 @@
                 "_template": "/model/blog/BlogPostPage",
                 "datePublished": "{{date()}}",
                 "dateModified": "{{date()}}",
-                "lead": {
-                    "_dataUrl": "/model/image/Image.json"
-                },
+                "headline": "{{words(10)}}",
+                "subHeadline": "{{sentences(1, 15)}}",
                 "byline": {
                     "_template": "/base/util/Link",
                     "href": "#",
                     "body": "{{name}}"
                 },
-                "headline": "{{words(5)}}",
-                "subHeadline": "{{sentences(1)}}",
+                "lead": {
+                    "_dataUrl": "/model/image/Image.json"
+                },
                 "body": {
                     "_template": "base/util/Concatenated",
                     "items": [
@@ -37,9 +49,13 @@
                     {
                         "_template": "/base/util/Link",
                         "href": "#",
-                        "body": "Tag"
+                        "body": "{{words(1)}}",
+                        "_repeat": 2
                     }
-                ]
+                ],
+                "author": {
+                    "_dataUrl": "/model/person/promo/PersonPromoModule.json"
+                }
             }
         ]
     },

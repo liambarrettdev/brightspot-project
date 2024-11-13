@@ -1,71 +1,56 @@
 .PromoModule {
-    height: 200px;
+    height: 350px;
     width: 300px;
     overflow: hidden;
 
-    &-media {
-        z-index: 0;
-        height: 100%;
-        width: 100%;
-        position: relative;
-        background-size: 120%;
-        background-color: antiquewhite;
-        background-position: center;
-        background-repeat: no-repeat;
-        transition: background-size 0.5s ease-in-out;
-    }
-
-    &-media::before{
-        z-index: -1;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        left: 0;
-        top: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0.8));
-
-        content: "";
-    }
-
-    &-content {
-        z-index: 2;
-        width: 90%;
-        padding-top: 5px;
-
-        .btn {
-            width: 200px;
-            padding: 6px 20px;
-            color: #ffffff;
-            background-color: #b12323;
-            text-decoration: none;
-        }
-    }
-
     &-title {
-        color: #ffffff;
+        font-size: larger;
+        font-weight: bold;
+    }
+
+    &-date {
+        font-style: italic;
     }
 
     &-description {
         overflow: hidden;
-        text-align: justify;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
+        position: relative;
+        height: 3.6em;
 
-        p {
-            margin: 5px 0;
-            color: #ffffff;
-            margin-bottom: 20px;
-            margin-block-end: 0;
+        @media @mq-max-md {
+            display: none;
         }
     }
 
-    &-cta {
-        padding-top: 1.5em;
+    &-description::after {
+        content: "";
+        text-align: right;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 70%;
+        height: 1.2em;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 80%);
     }
 
-    &:hover .promo-media {
-        background-size: 140%;
+    &-media {
+        img {
+            max-width: 100%;
+        }
+    }
+
+    @media @mq-max-lg {
+        height: 300px;
+        width: 250px;
+    }
+
+    @media @mq-max-md {
+        height: 250px;
+        width: 200px;
+    }
+
+    @media @mq-max-sm {
+        height: 200px;
+        width: 150px;
     }
 }

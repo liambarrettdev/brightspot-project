@@ -4,24 +4,25 @@
     {{~/defineElement~}}
 
     {{~#defineElement "body"~}}
-        <div class="{{elementName}}" itemprop="articleBody">{{this}}</div>
+        <div class="{{elementName}} PageContentModule" itemprop="articleBody">{{this}}</div>
     {{~/defineElement~}}
 
     {{~#defineBlockContainer~}}
         <article class="{{blockName}}" itemprop="mainEntity" itemscope itemtype="http://schema.org/Article"{{extraAttributes}}>
             {{element "meta"}}
-
-            {{#defineBlockBody}}
-                {{element "preHeadline"}}
-                {{element "headline"}}
-                {{element "subHeadline"}}
-                {{element "byline"}}
-                {{element "lead"}}
-                {{element "body"}}
-                {{element "tags"}}
-                {{element "sharebar"}}
-                {{element "comments"}}
-            {{/defineBlockBody}}
+            <div class="{{blockName}}-content">
+                {{#defineBlockBody}}
+                    {{element "headline"}}
+                    {{element "subHeadline"}}
+                    {{element "byline"}}
+                    {{element "lead"}}
+                    {{element "body"}}
+                    {{element "tags"}}
+                    {{element "author"}}
+                    {{element "sharebar"}}
+                    {{element "comments"}}
+                {{/defineBlockBody}}
+            </div>
         </article>
     {{~/defineBlockContainer~}}
 {{~/defineBlock~}}

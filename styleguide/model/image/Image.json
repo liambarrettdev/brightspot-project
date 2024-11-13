@@ -1,6 +1,6 @@
 {
     "_template": "/base/util/Image",
-    "src": "{{image(278,174)}}",
+    "src": "{{image(1200,800)}}",
     "alt": "alt text",
     "caption": "example caption",
     "credit": "{{name}}",

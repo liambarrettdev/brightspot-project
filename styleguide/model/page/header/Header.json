@@ -9,7 +9,11 @@
         "items": [
             {
                 "_dataUrl": "/model/navigation/NavigationItem.json",
-                "_repeat": 3
+                "active": true
+            },
+            {
+                "_dataUrl": "/model/navigation/NavigationItem.json",
+                "_repeat": 2
             }
         ]
     },

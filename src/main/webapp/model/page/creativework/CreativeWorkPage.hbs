@@ -8,19 +8,19 @@
         {{/with}}
     {{~/defineElement~}}
 
-    {{~#defineElement "preHeadline"~}}
-        <div class="{{elementName}}">{{this}}</div>
-    {{~/defineElement~}}
-
     {{~#defineElement "headline"~}}
-        <div class="{{elementName}}" itemprop="headline">{{this}}</div>
+        <h1 class="{{elementName}}" itemprop="headline">{{this}}</h1>
     {{~/defineElement~}}
 
     {{~#defineElement "subHeadline"~}}
-        <div class="{{elementName}}" itemprop="alternativeHeadline">{{this}}</div>
+        <h2 class="{{elementName}}" itemprop="alternativeHeadline">{{this}}</h2>
     {{~/defineElement~}}
 
-    {{~#defineElement "byline"~}}
-        <div class="{{elementName}}">{{this}}</div>
+    {{~#defineElement "byline" noWith=true~}}
+        <div class="{{elementName}}"><span>{{#with byline}}{{this}} | {{/with}}{{#with datePublished}}{{this}}{{/with}}</span></div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "author"~}}
+        <div class="{{elementName}} PageContentModule">{{this}}</div>
     {{~/defineElement~}}
 {{~/defineBlock~}}

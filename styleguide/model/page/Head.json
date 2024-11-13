@@ -1,6 +1,6 @@
 {
     "_template": "/model/page/Head",
-    "title": "{{words(5)}",
+    "title": "{{words(5)}}",
     "linkElements": [
         {
             "_template": "/base/page/Link",

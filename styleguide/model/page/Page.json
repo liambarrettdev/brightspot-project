@@ -8,7 +8,11 @@
     "breadcrumbs": [
         {
             "_dataUrl": "/model/link/Link.json",
-            "_repeat": 3
+            "_repeat": 2
+        },
+        {
+            "_template": "/base/util/Link",
+            "body": "Current Page"
         }
     ],
     "header" : {

@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.brightspot.model.AbstractViewModel;
+import com.brightspot.model.promo.PromotableDelegateViewModel;
 import com.brightspot.view.base.util.ImageView;
 import com.brightspot.view.base.util.LinkView;
 import com.brightspot.view.model.blog.BlogPostPageView;
@@ -34,16 +35,6 @@ public class BlogPostPageViewModel extends AbstractViewModel<BlogPost> implement
     }
 
     @Override
-    public Object getDatePublished() {
-        return model.getPublishDate().toString();
-    }
-
-    @Override
-    public Object getDateModified() {
-        return BlogPostPageView.super.getDateModified();
-    }
-
-    @Override
     public Object getBody() {
         return Optional.ofNullable(model.getBody())
             .map(this::buildObjectView)
@@ -55,5 +46,12 @@ public class BlogPostPageViewModel extends AbstractViewModel<BlogPost> implement
         return model.asTagData().getTags().stream()
             .map(tag -> createView(LinkView.class, tag))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public Object getAuthor() {
+        return Optional.ofNullable(model.asAuthorData().getAuthor())
+            .map(author -> createView(PromotableDelegateViewModel.class, author))
+            .orElse(null);
     }
 }

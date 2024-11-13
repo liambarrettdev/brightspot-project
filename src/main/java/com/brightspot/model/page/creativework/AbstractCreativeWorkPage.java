@@ -1,5 +1,7 @@
 package com.brightspot.model.page.creativework;
 
+import java.util.Optional;
+
 import com.brightspot.model.category.HasCategory;
 import com.brightspot.model.hierarchy.Hierarchical;
 import com.brightspot.model.image.Image;
@@ -7,6 +9,7 @@ import com.brightspot.model.list.sort.alphabetical.AlphabeticalSortable;
 import com.brightspot.model.list.sort.analytics.PageViewsSortable;
 import com.brightspot.model.page.AbstractPage;
 import com.brightspot.model.person.HasAuthor;
+import com.brightspot.model.person.Person;
 import com.brightspot.model.promo.Promotable;
 import com.brightspot.model.slug.HasSlug;
 import com.brightspot.model.tag.HasTag;
@@ -86,6 +89,13 @@ public abstract class AbstractCreativeWorkPage extends AbstractPage implements
     }
 
     // Promotable
+
+    @Override
+    public String getPromotableAuthor() {
+        return Optional.ofNullable(asAuthorData().getAuthor())
+            .map(Person::getDisplayName)
+            .orElse(null);
+    }
 
     @Override
     public String getPromoTitleFallback() {

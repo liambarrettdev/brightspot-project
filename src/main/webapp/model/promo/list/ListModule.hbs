@@ -22,13 +22,9 @@
     {{~/defineElement~}}
 
     <div class="{{blockName}}">
-        <div class="{{blockName}}-media" style="background-image: url({{media.src}})">
-            <div class="{{blockName}}-content">
-                {{element "title"}}
-                {{element "description"}}
-                {{element "items"}}
-                {{element "pagination"}}
-            </div>
-        </div>
+        {{element "title"}}
+        {{element "description"}}
+        {{element "items"}}
+        {{element "pagination"}}
     </div>
 {{~/defineBlock~}}
