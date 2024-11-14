@@ -20,11 +20,10 @@
     {{~/defineElement~}}
 
     <div class="{{blockName}}">
-        <div class="{{blockName}}-content">
+        {{element "media"}}
+        <div class="{{blockName}}-content {{type}}">
             {{element "title"}}
-            {{element "media"}}
             {{element "date"}}
-            {{element "description"}}
             {{element "cta"}}
         </div>
     </div>

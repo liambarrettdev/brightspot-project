@@ -5,23 +5,21 @@
     "head": {
         "_dataUrl": "/model/page/Head.json"
     },
-    "header" : {
+    "header": {
         "_dataUrl": "/model/page/header/Header.json"
     },
     "breadcrumbs": [
         {
-            "_template": "/base/util/Link",
-            "href": "#",
-            "body": "{{words(1)}}",
-            "_repeat": 3
+            "_dataUrl": "/model/link/Link.json",
+            "_repeat": 2
         },
         {
-            "_template": "/base/util/Link",
-            "body": "{{words(1)}}"
+            "_dataUrl": "/model/link/Link.json",
+            "href": ""
         }
     ],
     "aside": {
-        "_template": "/model/page/module/Aside",
+        "_dataUrl": "/model/page/module/Aside.json",
         "content": {
             "_template": "base/util/Concatenated",
             "items": [
@@ -31,7 +29,13 @@
                     "items": [
                         {
                             "_dataUrl": "/model/promo/PromoModule.json",
-                            "_repeat": "3"
+                            "type": "article",
+                            "_repeat": "2"
+                        },
+                        {
+                            "_dataUrl": "/model/promo/PromoModule.json",
+                            "type": "blog-post",
+                            "_repeat": "1"
                         }
                     ]
                 }
@@ -39,38 +43,30 @@
         }
     },
     "main": {
-        "_template": "base/util/Concatenated",
-        "items": [
+        "_template": "/model/article/ArticlePage",
+        "datePublished": "{{date}}",
+        "dateModified": "{{date}}",
+        "headline": "{{words(10)}}",
+        "subHeadline": "{{words(15)}}",
+        "byline": {
+            "_dataUrl": "/model/link/Link.json",
+            "body": "{{name}}"
+        },
+        "lead": {
+            "_dataUrl": "/model/image/Image.json"
+        },
+        "body": {
+            "_dataUrl": "/model/rte/RichTextModule.json"
+        },
+        "tags": [
             {
-                "_template": "/model/article/ArticlePage",
-                "datePublished": "{{date()}}",
-                "dateModified": "{{date()}}",
-                "headline": "{{words(10)}}",
-                "subHeadline": "{{sentences(1, 15)}}",
-                "byline": {
-                    "_template": "/base/util/Link",
-                    "href": "#",
-                    "body": "{{name}}"
-                },
-                "lead": {
-                    "_dataUrl": "/model/image/Image.json"
-                },
-                "body": {
-                    "_dataUrl": "/model/rte/RichTextModule.json"
-                },
-                "tags": [
-                    {
-                        "_template": "/base/util/Link",
-                        "href": "#",
-                        "body": "{{words(1)}}",
-                        "_repeat": 2
-                    }
-                ],
-                "author": {
-                    "_dataUrl": "/model/person/promo/PersonPromoModule.json"
-                }
+                "_dataUrl": "/model/link/Link.json",
+                "_repeat": 2
             }
-        ]
+        ],
+        "author": {
+            "_dataUrl": "/model/person/promo/PersonPromoModule.json"
+        }
     },
     "footer": {
         "_dataUrl": "/model/page/footer/Footer.json"

@@ -10,28 +10,49 @@
     },
     "breadcrumbs": [
         {
-            "_template": "/base/util/Link",
-            "href": "#",
-            "body": "{{words(1)}}",
-            "_repeat": 3
+            "_dataUrl": "/model/link/Link.json",
+            "_repeat": 2
         },
         {
-            "_template": "/base/util/Link",
-            "body": "{{words(1)}}"
+            "_dataUrl": "/model/link/Link.json",
+            "href": ""
         }
     ],
+    "aside": {
+        "_dataUrl": "/model/page/module/Aside.json",
+        "content": {
+            "_template": "base/util/Concatenated",
+            "items": [
+                {
+                    "_template": "/model/promo/list/ListModule",
+                    "title": "{{words(3)}}",
+                    "items": [
+                        {
+                            "_dataUrl": "/model/promo/PromoModule.json",
+                            "type": "blog-post",
+                            "_repeat": "2"
+                        },
+                        {
+                            "_dataUrl": "/model/promo/PromoModule.json",
+                            "type": "article",
+                            "_repeat": "1"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
     "main": {
         "_template": "base/util/Concatenated",
         "items": [
             {
                 "_template": "/model/blog/BlogPostPage",
-                "datePublished": "{{date()}}",
-                "dateModified": "{{date()}}",
+                "datePublished": "{{date}}",
+                "dateModified": "{{date}}",
                 "headline": "{{words(10)}}",
-                "subHeadline": "{{sentences(1, 15)}}",
+                "subHeadline": "{{words(15)}}",
                 "byline": {
-                    "_template": "/base/util/Link",
-                    "href": "#",
+                    "_dataUrl": "/model/link/Link.json",
                     "body": "{{name}}"
                 },
                 "lead": {
@@ -47,9 +68,7 @@
                 },
                 "tags": [
                     {
-                        "_template": "/base/util/Link",
-                        "href": "#",
-                        "body": "{{words(1)}}",
+                        "_dataUrl": "/model/link/Link.json",
                         "_repeat": 2
                     }
                 ],

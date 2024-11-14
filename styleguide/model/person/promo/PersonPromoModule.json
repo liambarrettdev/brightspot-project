@@ -2,11 +2,11 @@
     "_template": "/model/person/promo/PersonPromoModule",
     "title": "{{name}}",
     "media": {
-        "_template": "/base/util/Image",
+        "_dataUrl": "/model/image/Image.json",
         "src": "{{image(500,500)}}"
     },
     "description": "{{sentences(2)}}",
     "ctaUrl": "#",
     "ctaText": "View Profile",
-    "type": "Person"
+    "type": "person"
 }

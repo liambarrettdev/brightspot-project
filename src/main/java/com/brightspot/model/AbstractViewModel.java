@@ -31,7 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractViewModel<M> extends ViewModel<M> {
 
-    private static final String DEFAULT_DATE_FORMAT = "MMMM d, yyyy";
+    public static final String DEFAULT_DATE_FORMAT = "MMMM d, yyyy";
 
     @MainObject
     protected Content mainContent;

@@ -32,12 +32,7 @@
                 "_template": "/base/Enhancement",
                 "alignment": "left",
                 "content": {
-                    "_template": "/model/quote/QuoteModule",
-                    "quote": "{{words(20)}}",
-                    "image": {
-                        "_template": "/base/util/Image",
-                        "src": "https://static.vecteezy.com/system/resources/previews/014/194/216/non_2x/avatar-icon-human-a-person-s-badge-social-media-profile-symbol-the-symbol-of-a-person-vector.jpg"
-                    }
+                    "_dataUrl": "/model/quote/QuoteModule.json"
                 }
             },
             {

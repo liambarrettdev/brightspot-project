@@ -19,7 +19,7 @@
                 },
                 "type": "Online",
                 "location": "Zoom",
-                "date": "{{date()}}",
+                "date": "{{date}}",
                 "description": {
                     "_template": "base/util/Concatenated",
                     "items": [

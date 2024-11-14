@@ -18,7 +18,7 @@ import com.psddev.dari.util.ObjectUtils;
 public interface Promotable extends Linkable {
 
     String INTERNAL_NAME = "com.brightspot.model.promo.Promotable";
-    String DEFAULT_DATE_FORMAT = "MMMM d, yyyy hh:mm a";
+    String DEFAULT_DATE_FORMAT = "MMMM d, yyyy";
 
     String getPromotableType();
 

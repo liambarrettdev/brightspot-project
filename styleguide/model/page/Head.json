@@ -3,9 +3,8 @@
     "title": "{{words(5)}}",
     "linkElements": [
         {
-            "_template": "/base/page/Link",
+            "_dataUrl": "/model/link/Link.json",
             "rel": "canonical",
-            "href": "#",
             "asAttribute": "script",
             "crossOrigin": true
         }

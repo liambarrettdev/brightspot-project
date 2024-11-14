@@ -6,7 +6,7 @@ body {
 .Page {
     &-main {
         display: flex;
-        max-width: 950px;
+        max-width: 1050px;
         margin: 0 auto;
         padding-bottom: 25px;
 
@@ -37,7 +37,7 @@ body {
     }
 
     &-breadcrumbs {
-        max-width: 950px;
+        max-width: 1050px;
         margin: 0 auto;
         padding: 10px;
         border-bottom-width: 1px;
@@ -58,12 +58,13 @@ body {
                 }
 
                 span {
-                    color: var(--site-active)
+                    font-weight: 500;
                 }
             }
 
             li+li:before {
                 content: ">";
+                color: var(--site);
                 margin-left: .5ex;
                 margin-right: .5ex;
             }

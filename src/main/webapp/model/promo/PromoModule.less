@@ -1,56 +1,42 @@
 .PromoModule {
-    height: 350px;
-    width: 300px;
-    overflow: hidden;
+    display: flex;
+    height: 120px;
+    border-left-style: solid;
+    border-left-color: darkgrey;
+    border-left-width: medium;
+
+    &-media {
+        margin: auto;
+        padding: 0 5px;
+
+        img {
+            width: 100px;
+        }
+    }
+
+    &-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
 
     &-title {
-        font-size: larger;
-        font-weight: bold;
+        font-size: 18px;
+        font-weight: 300;
     }
 
     &-date {
-        font-style: italic;
+        font-size: 12px;
+        font-weight: 700;
     }
 
-    &-description {
-        overflow: hidden;
-        position: relative;
-        height: 3.6em;
+    &-cta {
+       margin: auto 0 5% 0;
 
-        @media @mq-max-md {
-            display: none;
+        a.btn {
+            color: var(--white);
+            padding: 5px;
+            text-decoration: none;
         }
-    }
-
-    &-description::after {
-        content: "";
-        text-align: right;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 70%;
-        height: 1.2em;
-        background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 80%);
-    }
-
-    &-media {
-        img {
-            max-width: 100%;
-        }
-    }
-
-    @media @mq-max-lg {
-        height: 300px;
-        width: 250px;
-    }
-
-    @media @mq-max-md {
-        height: 250px;
-        width: 200px;
-    }
-
-    @media @mq-max-sm {
-        height: 200px;
-        width: 150px;
     }
 }

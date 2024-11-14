@@ -12,13 +12,11 @@
     },
     "currentMonth": "May 2023",
     "prevMonth": {
-        "_template": "/base/util/Link",
-        "href": "#",
+        "_dataUrl": "/model/link/Link.json",
         "body": "April 2023"
     },
     "nextMonth": {
-        "_template": "/base/util/Link",
-        "href": "#",
+        "_dataUrl": "/model/link/Link.json",
         "body": "June 2023"
     },
     "events": [

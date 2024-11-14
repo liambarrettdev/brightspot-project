@@ -11,8 +11,8 @@
             "_repeat": 2
         },
         {
-            "_template": "/base/util/Link",
-            "body": "Current Page"
+            "_dataUrl": "/model/link/Link.json",
+            "href": ""
         }
     ],
     "header" : {
