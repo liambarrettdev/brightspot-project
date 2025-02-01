@@ -19,6 +19,11 @@ public class ReportsPage extends PageServlet {
 
     @Override
     protected void doService(ToolPageContext page) throws IOException, ServletException {
+        String url = Utils.addQueryParameters(
+            ReportServlet.SERVLET_PATH,
+            ReportServlet.PARAM_ACTION,
+            ReportServlet.Action.INIT.toString());
+
         page.writeHeader();
 
         page.writeStart("div",
@@ -29,7 +34,7 @@ public class ReportsPage extends PageServlet {
             // load reports dashboard into an iframe
             page.writeStart("iframe",
                 "id", "iframe",
-                "src", Utils.addQueryParameters(ReportServlet.SERVLET_PATH, ReportServlet.PARAM_ACTION, ReportServlet.ACTION_INIT),
+                "src", url,
                 "style", "background: #FFFFFF; border: 0; margin: 0; padding: 0;",
                 "width", "100%",
                 "height", "900px",

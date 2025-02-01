@@ -11,7 +11,7 @@ $(function() {
 
         disableElement(filters);
         $.ajax({
-            url: '/_api/report/data/?id=' + report + '&action=filters&output=html',
+            url: '/_api/report/data/?id=' + report + '&action=filter&output=html',
             dataType: 'html',
             success: function(data) {
                 $('#report-table').empty();
@@ -130,7 +130,7 @@ $(function() {
 
         disableElement(filters);
         $.ajax({
-            url: '/_api/report/data/?id=' + report + '&action=filters&output=html',
+            url: '/_api/report/data/?id=' + report + '&action=filter&output=html',
             data: submitData,
             dataType: 'html',
             success: function(data) {

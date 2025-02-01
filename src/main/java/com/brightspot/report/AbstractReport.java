@@ -157,17 +157,16 @@ public abstract class AbstractReport extends Record implements
 
     // -- Helper Methods -- //
 
-    public void buildFilters(HttpServletRequest request, HttpServletResponse response, String output)
-        throws IOException {
+    public void buildFilters(HttpServletRequest request, HttpServletResponse response, String output) throws IOException {
         if (output == null) {
             return;
         }
 
-        switch (output) {
-            case ReportServlet.OUTPUT_JSON:
+        switch (ReportServlet.Output.valueOf(output)) {
+            case JSON:
                 renderFiltersJson(request, response);
                 break;
-            case ReportServlet.OUTPUT_HTML:
+            case HTML:
                 renderFiltersHtml(request, response);
                 break;
             default:
@@ -175,22 +174,22 @@ public abstract class AbstractReport extends Record implements
         }
     }
 
-    public void buildReport(HttpServletRequest request, HttpServletResponse response, String output)
-        throws IOException {
+    public void buildReport(HttpServletRequest request, HttpServletResponse response, String output) throws IOException {
         if (output == null) {
             return;
         }
 
-        switch (output) {
-            case ReportServlet.OUTPUT_JSON:
+        switch (ReportServlet.Output.valueOf(output)) {
+            case JSON:
                 // create display of the results of the report on the dashboard
                 displayReport(request, response, buildQuery(request, true));
                 break;
-            case ReportServlet.OUTPUT_FILE:
+            case FILE:
                 // create download of the results of the report
                 downloadReport(request, response, buildQuery(request, true));
                 break;
-            case ReportServlet.OUTPUT_EMAIL:
+            case EMAIL:
+                // email the results of the report to the current user
                 ToolUser currentUser = Utils.getCurrentToolUser(request);
                 emailReport(getEmailAttachmentUrl(request), currentUser);
                 break;
@@ -223,7 +222,7 @@ public abstract class AbstractReport extends Record implements
         String url = Utils.addQueryParameters(
             ReportServlet.SERVLET_PATH,
             ReportServlet.PARAM_ID, getId(),
-            ReportServlet.PARAM_ACTION, ReportServlet.ACTION_REPORT,
+            ReportServlet.PARAM_ACTION, ReportServlet.Action.REPORT,
             ReportServlet.PARAM_OUTPUT, output);
 
         for (ReportFilter filter : getFilterFields(request)) {
@@ -253,9 +252,9 @@ public abstract class AbstractReport extends Record implements
         jsonMap.put("ajax", buildAjaxOptions(page));
 
         // Download url for button
-        jsonMap.put("downloadUrl", generateReportDataEndpoint(page.getRequest(), ReportServlet.OUTPUT_FILE));
+        jsonMap.put("downloadUrl", generateReportDataEndpoint(page.getRequest(), ReportServlet.Output.FILE.toString()));
         // Email url for button
-        jsonMap.put("emailUrl", generateReportDataEndpoint(page.getRequest(), ReportServlet.OUTPUT_EMAIL));
+        jsonMap.put("emailUrl", generateReportDataEndpoint(page.getRequest(), ReportServlet.Output.EMAIL.toString()));
         // Default sort column
         jsonMap.put("order", buildDefaultSortColumn());
         // Column Headings
@@ -499,7 +498,7 @@ public abstract class AbstractReport extends Record implements
         String queryString = request.getQueryString();
         if (queryString != null) {
             url.append('?');
-            url.append(queryString.replace(ReportServlet.OUTPUT_EMAIL, ReportServlet.OUTPUT_FILE));
+            url.append(queryString.replace(ReportServlet.Output.EMAIL.toString(), ReportServlet.Output.FILE.toString()));
         }
 
         return url.toString();
@@ -521,7 +520,7 @@ public abstract class AbstractReport extends Record implements
 
     private Map<String, Object> buildAjaxOptions(ToolPageContext page) {
         Map<String, Object> ajaxMap = new HashMap<>();
-        ajaxMap.put("url", generateReportDataEndpoint(page.getRequest(), ReportServlet.OUTPUT_JSON));
+        ajaxMap.put("url", generateReportDataEndpoint(page.getRequest(), ReportServlet.Output.JSON.toString()));
         ajaxMap.put("type", "POST");
         return ajaxMap;
     }

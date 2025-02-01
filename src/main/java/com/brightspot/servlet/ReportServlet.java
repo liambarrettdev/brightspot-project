@@ -53,15 +53,6 @@ public class ReportServlet extends HttpServlet {
     public static final String PARAM_ACTION = "action";
     public static final String PARAM_OUTPUT = "output";
 
-    public static final String ACTION_INIT = "init";
-    public static final String ACTION_FILTERS = "filters";
-    public static final String ACTION_REPORT = "report";
-
-    public static final String OUTPUT_EMAIL = "email";
-    public static final String OUTPUT_HTML = "html";
-    public static final String OUTPUT_JSON = "json";
-    public static final String OUTPUT_FILE = "file";
-
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
@@ -76,18 +67,18 @@ public class ReportServlet extends HttpServlet {
             return;
         }
 
-        switch (action) {
-            case ACTION_INIT:
+        switch (Action.valueOf(action)) {
+            case INIT:
                 // generate main dashboard HTML
                 createReportDashboard(request, response);
                 break;
-            case ACTION_FILTERS:
+            case FILTER:
                 // generate report filters HTML for the selected report
                 if (!ObjectUtils.isBlank(selectedReport)) {
                     selectedReport.buildFilters(request, response, request.getParameter(PARAM_OUTPUT));
                 }
                 break;
-            case ACTION_REPORT:
+            case REPORT:
                 // generate report HTML or trigger CSV download for the selected report
                 if (!ObjectUtils.isBlank(selectedReport)) {
                     selectedReport.buildReport(request, response, request.getParameter(PARAM_OUTPUT));
@@ -135,7 +126,7 @@ public class ReportServlet extends HttpServlet {
                             page.writeHtml("Reports");
                             page.writeEnd();
 
-                            page.writeStart("select", "id", ACTION_REPORT);
+                            page.writeStart("select", "id", Action.REPORT.toString());
                             {
                                 page.writeStart("option", "value", "");
                                 page.writeEnd();
@@ -486,5 +477,50 @@ public class ReportServlet extends HttpServlet {
     private static void writeStylesheetLink(ToolPageContext page, String filePath) throws IOException {
         page.writeStart("link", "rel", "stylesheet", "href", filePath);
         page.writeEnd();
+    }
+
+    // -- Enums -- //
+
+    public enum Action {
+        INIT("init"),
+        FILTER("filter"),
+        REPORT("report");
+
+        private final String name;
+
+        Action(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String toString() {
+            return getName();
+        }
+    }
+
+    public enum Output {
+        EMAIL("email"),
+        HTML("html"),
+        JSON("json"),
+        FILE("file");
+
+        private final String name;
+
+        Output(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String toString() {
+            return getName();
+        }
     }
 }
