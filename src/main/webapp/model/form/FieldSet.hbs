@@ -1,7 +1,7 @@
 {{~#defineBlock "FieldSet"~}}
 
-    {{~#defineElement "title"~}}
-        <div class="{{elementName}}">{{this}}</div>
+    {{~#defineElement "heading"~}}
+        <button class="{{elementName}}">{{this}}</button>
     {{~/defineElement~}}
 
     {{~#defineElement "inputs"~}}
@@ -12,9 +12,11 @@
 
     {{~#defineBlockContainer~}}
         {{#defineBlockBody}}
-            <div class="{{blockName}}">
-                {{element "title"}}
-                {{element "inputs"}}
+            <div class="row">
+                <div class="{{blockName}}" data-bsp-field-set>
+                    {{element "heading"}}
+                    {{element "inputs"}}
+                </div>
             </div>
         {{/defineBlockBody}}
     {{~/defineBlockContainer~}}

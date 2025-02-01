@@ -20,7 +20,7 @@ public class ExpirationUpdateTask extends AbstractTask {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExpirationUpdateTask.class);
 
-    private static final AtomicBoolean FORCE_UPDATE = new AtomicBoolean(false);
+    private static final AtomicBoolean FORCE_RUN = new AtomicBoolean(false);
 
     public ExpirationUpdateTask() {
         super(AbstractTask.EXECUTOR_NAME, ExpirationUpdateTask.class.getName());
@@ -35,7 +35,7 @@ public class ExpirationUpdateTask extends AbstractTask {
 
     @Override
     protected Boolean runImmediately() {
-        return FORCE_UPDATE.compareAndSet(true, false);
+        return FORCE_RUN.compareAndSet(true, false);
     }
 
     @Override
@@ -53,11 +53,11 @@ public class ExpirationUpdateTask extends AbstractTask {
                 return false;
             }
 
-            boolean calculatedValue = Boolean.TRUE.equals(expirableData.getOriginalObject().isExpired());
+            boolean actualValue = Boolean.TRUE.equals(expirableData.getOriginalObject().isExpired());
             boolean currentValue = expirableData.isExpired();
 
-            if (currentValue != calculatedValue) {
-                expirableData.setExpired(calculatedValue);
+            if (currentValue != actualValue) {
+                expirableData.setExpired(actualValue);
                 return true;
             }
 
@@ -69,7 +69,7 @@ public class ExpirationUpdateTask extends AbstractTask {
             "Update Expired Content",
             logger()::debug,
             Expirable.class,
-            Query.from(Expirable.class).where(Expirable.Data.EXPIRED_PREDICATE),
+            Query.from(Expirable.class).where(Expirable.Data.NOT_EXPIRED_PREDICATE),
             processor,
             WriteOperation.SAVE_UNSAFELY,
             5,
@@ -82,7 +82,7 @@ public class ExpirationUpdateTask extends AbstractTask {
 
     // -- Statics -- //
 
-    public static void forceUpdate() {
-        FORCE_UPDATE.set(true);
+    public static void runTask() {
+        FORCE_RUN.set(true);
     }
 }

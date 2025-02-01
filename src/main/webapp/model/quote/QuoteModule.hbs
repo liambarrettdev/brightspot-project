@@ -11,11 +11,15 @@
         <figcaption class="{{elementName}}"> – {{this}}</figcaption>
     {{~/defineElement~}}
 
-    <div class="{{blockName}}" data-has-image="{{#if image~}}true{{else}}false{{/if}}">
-        {{element "image"}}
-        <div class="{{blockName}}-container">
-            {{element "quote"}}
-            {{element "attribution"}}
-        </div>
-    </div>
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}" data-has-image="{{#if image~}}true{{else}}false{{/if}}">
+                {{element "image"}}
+                <div class="{{blockName}}-container">
+                    {{element "quote"}}
+                    {{element "attribution"}}
+                </div>
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
 {{~/defineBlock~}}

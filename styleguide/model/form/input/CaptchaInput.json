@@ -1,6 +1,6 @@
 {
     "_template": "/model/form/input/CaptchaInput",
-    "label": "Example Captcha Input",
+    "label": "{{words(2)}}",
     "name": "captcha",
     "captcha": [
         {

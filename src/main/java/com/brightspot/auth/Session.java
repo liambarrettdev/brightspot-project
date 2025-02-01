@@ -2,9 +2,9 @@ package com.brightspot.auth;
 
 import java.util.Date;
 
-import com.brightspot.model.user.User;
 import com.psddev.dari.db.Query;
 import com.psddev.dari.db.Record;
+import org.apache.commons.lang.time.DateUtils;
 
 public class Session extends Record {
 
@@ -46,12 +46,33 @@ public class Session extends Record {
     // -- Static Methods -- //
 
     /**
+     * Creates a session for a user
+     *
+     * @param user the user to create a session for
+     * @return the {@link Session} or {@code null} if no uer is provided
+     */
+    public static Session createSession(AuthenticationUser user) {
+        if (user == null) {
+            return null;
+        }
+
+        Session session = new Session();
+
+        session.setUser(user);
+        session.setStart(new Date());
+        session.setEnd(DateUtils.addMonths(new Date(), 1));
+        session.saveImmediately();
+
+        return session;
+    }
+
+    /**
      * Returns session by ID
      *
      * @param id the session ID
      * @return the {@link Session} or {@code null} if no session is found or session is expired
      */
-    public static Session getSession(String id) {
+    public static Session findSession(String id) {
         return Query.from(Session.class)
             .where("_id = ?", id)
             .and("end = missing || end > ?", new Date())
@@ -64,7 +85,7 @@ public class Session extends Record {
      * @param user the session user
      * @return the {@link Session} or {@code null} if no session is found or session is expired
      */
-    public static Session getSession(User user) {
+    public static Session findSession(AuthenticationUser user) {
         return Query.from(Session.class)
             .where("user = ?", user)
             .and("end = missing || end > ?", new Date())

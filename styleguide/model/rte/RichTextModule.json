@@ -38,6 +38,13 @@
             {
                 "_template": "/base/util/RawHtml",
                 "html": "{{paragraphs(1)}}"
+            },
+            {
+                "_template": "/base/Enhancement",
+                "alignment": "left",
+                "content": {
+                    "_dataUrl": "/model/gallery/GalleryModule.json"
+                }
             }
         ]
     }

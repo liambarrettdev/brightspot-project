@@ -17,7 +17,7 @@ public class PageViewsRecalculationTask extends AbstractTask {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PageViewsRecalculationTask.class);
 
-    private static final AtomicBoolean FORCE_UPDATE = new AtomicBoolean(false);
+    private static final AtomicBoolean FORCE_RUN = new AtomicBoolean(false);
 
     public PageViewsRecalculationTask() {
         super(AbstractTask.EXECUTOR_NAME, PageViewsRecalculationTask.class.getName());
@@ -32,7 +32,7 @@ public class PageViewsRecalculationTask extends AbstractTask {
 
     @Override
     protected Boolean runImmediately() {
-        return FORCE_UPDATE.compareAndSet(true, false);
+        return FORCE_RUN.compareAndSet(true, false);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class PageViewsRecalculationTask extends AbstractTask {
 
     // -- Statics -- //
 
-    public static void forceUpdate() {
-        FORCE_UPDATE.set(true);
+    public static void runTask() {
+        FORCE_RUN.set(true);
     }
 }

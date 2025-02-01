@@ -1,7 +1,5 @@
 package com.brightspot.auth;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
@@ -14,19 +12,12 @@ import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Site;
 import com.psddev.dari.db.Query;
 import com.psddev.dari.util.JspUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 
 public class PasswordAuthenticator extends AbstractAuthenticator {
 
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_PASSWORD = "password";
-    public static final String AUTH_TOKEN_NAME = "auth_token";
-
-    private static final String COOKIE_NAME = "bsp.auth";
-    private static final String AUTH_HEADER_NAME = "Native-Authorization";
-    private static final String AUTH_BEARER_TYPE = "Bearer";
-    private static final Integer DEFAULT_MAX_AGE = 86400;
 
     @Required
     private String name;
@@ -49,8 +40,8 @@ public class PasswordAuthenticator extends AbstractAuthenticator {
     @Override
     public Session getCurrentSession(HttpServletRequest request) throws AuthenticationException {
         return Optional.ofNullable(JspUtils.getSignedCookie(request, COOKIE_NAME))
-            .filter(sessionId -> StringUtils.isNotBlank(sessionId))
-            .map(Session::getSession)
+            .filter(StringUtils::isNotBlank)
+            .map(Session::findSession)
             .orElse(null);
     }
 
@@ -61,16 +52,7 @@ public class PasswordAuthenticator extends AbstractAuthenticator {
             throw new AuthenticationException("Could not authenticate user");
         }
 
-        Session session = new Session();
-        session.setUser(user);
-        session.setStart(new Date());
-        session.setEnd(DateUtils.addMonths(new Date(), 1));
-        session.saveImmediately();
-
-        CookieUtils.setSignedCookie(request, response, COOKIE_NAME, session.getId().toString(), DEFAULT_MAX_AGE);
-        setAuthToken(response, session);
-
-        return session;
+        return addUserSession(request, response, user);
     }
 
     @Override
@@ -132,16 +114,5 @@ public class PasswordAuthenticator extends AbstractAuthenticator {
         }
 
         return user;
-    }
-
-    private void setAuthToken(HttpServletResponse response, Session session) {
-        Optional.ofNullable(session)
-            .map(e -> JspUtils.signCookie(AUTH_TOKEN_NAME, e.getId().toString()))
-            .map(e -> new String(Base64.getEncoder().encode(e.getBytes()), StandardCharsets.UTF_8))
-            .ifPresent(e -> setAuthToken(response, e));
-    }
-
-    private void setAuthToken(HttpServletResponse response, String token) {
-        response.setHeader(AUTH_HEADER_NAME, AUTH_BEARER_TYPE + " " + token);
     }
 }

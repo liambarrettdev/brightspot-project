@@ -1,4 +1,5 @@
-{{~#defineBlock "Faq"~}}
+{{~#defineBlock "FaqModule"~}}
+
     {{~#defineElement "title"~}}
         <div class="{{elementName}}">{{this}}</div>
     {{~/defineElement~}}
@@ -15,9 +16,13 @@
         </div>
     {{~/defineElement~}}
 
-    <div class="{{blockName}}">
-        {{element "title"}}
-        {{element "description"}}
-        {{element "sections"}}
-    </div>
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}" data-bsp-faq-module>
+                {{element "title"}}
+                {{element "description"}}
+                {{element "sections"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
 {{~/defineBlock~}}

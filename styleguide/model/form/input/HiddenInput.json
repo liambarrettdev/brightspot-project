@@ -1,5 +1,5 @@
 {
     "_template": "/model/form/input/HiddenInput",
-    "name": "Example Hidden Input",
+    "name": "{{words(2)}}",
     "value": "hidden"
 }

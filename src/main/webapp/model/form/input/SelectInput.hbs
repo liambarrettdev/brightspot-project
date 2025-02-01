@@ -1,13 +1,17 @@
 {{~#defineBlock "SelectInput"~}}
-    <div class="{{blockName}}">
-        <label for="{{name}}">{{label}}</label>
-        <select name="{{name}}" {{#if multiple}}multiple{{/if}} {{#if required}}required{{/if}}>
-            {{#with placeholder}}
-                <option value="" disabled selected>{{this}}</option>
-            {{/with}}
-            {{#each options}}
-                {{this}}
-            {{/each}}
-        </select>
+    <div class="row">
+        <div class="one-quarter-width">
+            <label for="{{name}}">{{label}}</label>
+        </div>
+        <div class="three-quarter-width">
+            <select name="{{name}}" {{#if multiple}}multiple{{/if}} {{#if required}}required{{/if}}>
+                {{#with placeholder}}
+                    <option value="" disabled selected>{{this}}</option>
+                {{/with}}
+                {{#each options}}
+                    {{this}}
+                {{/each}}
+            </select>
+        </div>
     </div>
 {{~/defineBlock~}}

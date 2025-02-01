@@ -10,11 +10,11 @@ import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Recordable;
 
-@Recordable.DisplayName("Promo List")
+@Recordable.DisplayName("List (Promos)")
 @ViewBinding(value = ListModuleViewModel.class, types = ListModule.VIEW_CLASS)
 public class ListModule extends AbstractModule implements ShareableModule {
 
-    protected static final String VIEW_CLASS = "promo-module";
+    protected static final String VIEW_CLASS = "promo-list-module";
 
     private String title;
 

@@ -3,7 +3,7 @@
     margin: 0;
     width: 100%;
     position: relative;
-    background-color: var(--site);
+    background-color: var(--site-theme-primary);
 
     &-content {
         color: #fff;
@@ -11,5 +11,16 @@
         padding: 28px 1.5em;
         max-width: 950px;
         margin: 0 auto;
+    }
+
+    &-links {
+        a {
+            color: var(--white);
+            text-decoration: none;
+
+            &:hover {
+                color: var(--highlight);
+            }
+        }
     }
 }

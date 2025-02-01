@@ -1,18 +1,13 @@
 {
     "_template": "/model/form/FieldSet",
-    "title": "Example Group",
+    "heading": "{{words(2)}}",
     "inputs": [
         {
             "_dataUrl": "/model/form/input/TextInput.json"
         },
         {
-            "_dataUrl": "/model/form/input/ChoiceInput.json"
-        },
-        {
-            "_dataUrl": "/model/form/input/SelectInput.json"
-        },
-        {
-            "_dataUrl": "/model/form/input/HiddenInput.json"
+            "_dataUrl": "/model/form/input/SelectInput.json",
+            "multiple": false
         }
     ]
 }

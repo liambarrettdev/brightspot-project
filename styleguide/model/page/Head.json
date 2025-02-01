@@ -3,10 +3,15 @@
     "title": "{{words(5)}}",
     "linkElements": [
         {
-            "_dataUrl": "/model/link/Link.json",
+            "_template": "/base/page/Link",
             "rel": "canonical",
             "asAttribute": "script",
             "crossOrigin": true
+        },
+        {
+            "_template": "/base/page/Link",
+            "rel": "stylesheet",
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         }
     ],
     "metaElements": [

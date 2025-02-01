@@ -5,7 +5,7 @@ import com.psddev.dari.db.Modification;
 
 public interface HeadItem extends ViewWrapper {
 
-    default HeadItem.Data asHeadItemData() {
+    default Data asHeadItemData() {
         return this.as(Data.class);
     }
 

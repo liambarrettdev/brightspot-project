@@ -1,15 +1,19 @@
-{{~#defineBlock "Form"~}}
+{{~#defineBlock "FormModule"~}}
+
+    {{~#defineElement "title"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{/defineElement}}
 
     {{~#defineElement "inputs"~}}
         <div class="{{elementName}}">
-            {{#each this}}
-                {{this}}
-            {{/each}}
+            {{#each this}}{{this}}{{/each}}
         </div>
     {{~/defineElement~}}
 
-    {{~#defineElement "submitLabel"~}}
-        <div class="{{elementName}}"><input type="submit" value="{{this}}"></div>
+    {{~#defineElement "submit" noWith=true~}}
+        <div class="row">
+            <input type="submit" value="Submit">
+        </div>
     {{~/defineElement~}}
 
     {{~#defineElement "successMessage"~}}
@@ -22,9 +26,10 @@
 
     {{~#defineBlockContainer~}}
         {{#defineBlockBody}}
-            <form class="{{blockName}}" action="{{action}}" method="{{method}}">
+            <form class="{{blockName}}" action="{{action}}" method="{{method}}" data-bsp-form-module>
+                {{element "title"}}
                 {{element "inputs"}}
-                {{element "submitLabel"}}
+                {{element "submit"}}
                 {{element "successMessage"}}
                 {{element "errorMessage"}}
             </form>

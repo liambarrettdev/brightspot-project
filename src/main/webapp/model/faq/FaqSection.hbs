@@ -1,6 +1,7 @@
 {{~#defineBlock "FaqSection"~}}
+
     {{~#defineElement "heading"~}}
-        <div class="{{elementName}}">{{this}}</div>
+        <h3 class="{{elementName}}">{{this}}</h3>
     {{~/defineElement~}}
 
     {{~#defineElement "questions"~}}
@@ -11,8 +12,12 @@
         </div>
     {{~/defineElement~}}
 
-    <div class="{{blockName}}">
-        {{element "heading"}}
-        {{element "questions"}}
-    </div>
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}">
+                {{element "heading"}}
+                {{element "questions"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
 {{~/defineBlock~}}

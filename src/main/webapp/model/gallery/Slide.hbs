@@ -1,18 +1,11 @@
 {{~#defineBlock "Slide"~}}
 
     {{~#defineElement "media"~}}
-        <div class="{{elementName}}">
-            <div class="{{elementName}}-icon">
-                <svg>
-                    <use xlink:href="#icon-24-expand"></use>
-                </svg>
-            </div>
-            {{this}}
-        </div>
+        <div class="{{elementName}}">{{this}}</div>
     {{~/defineElement~}}
 
     {{~#defineElement "title"~}}
-        <div class="{{elementName}}">{{this}}</div>
+        <div class="{{elementName}}"><p>{{this}}</p></div>
     {{~/defineElement~}}
 
     {{~#defineElement "description"~}}
@@ -29,8 +22,6 @@
                 {{element "media"}}
                 <div class="{{blockName}}-info">
                     {{element "title"}}
-                    {{element "description"}}
-                    {{element "attribution"}}
                 </div>
             </div>
         {{/defineBlockBody}}

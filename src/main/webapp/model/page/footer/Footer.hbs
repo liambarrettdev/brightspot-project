@@ -1,10 +1,20 @@
 {{~#defineBlock "Footer"~}}
+    {{~#defineElement "text"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "links"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
     {{~#defineElement "copyright"~}}
         <div class="{{elementName}}">{{this}}</div>
     {{~/defineElement~}}
 
     <footer class="{{blockName}}">
         <div class="{{blockName}}-content">
+            {{element "text"}}
+            {{element "links"}}
             {{element "copyright"}}
         </div>
     </footer>

@@ -1,7 +1,31 @@
 {
     "_template": "/model/pagination/Pagination",
-    "pageCount": 3,
-    "pageNumber": 1,
-    "nextPage": "#",
-    "previousPage": "#"
+    "links": [
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "href": "#",
+            "body": "<"
+        },
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "href": "#",
+            "body": "1",
+            "extraClass": "active"
+        },
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "href": "#",
+            "body": "2"
+        },
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "href": "#",
+            "body": "3"
+        },
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "href": "#",
+            "body": ">"
+        }
+    ]
 }

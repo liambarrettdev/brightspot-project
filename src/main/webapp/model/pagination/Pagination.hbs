@@ -1,13 +1,18 @@
 {{~#defineBlock "Pagination"~}}
-    <nav>
-        <ul class="{{blockName}}">
-            {{#with previousPage}}
-                <li class="{{blockName}}-previousPage"><a href="{{this}}" rel="prev">Previous Page</a></li>
-            {{/with}}
-            <li class="{{blockName}}-pageCounts">Page {{pageNumber}} of {{pageCount}}</li>
-            {{#with nextPage}}
-                <li class="{{blockName}}-nextPage"><a href="{{this}}" rel="next">Next Page</a></li>
-            {{/with}}
-        </ul>
-    </nav>
+
+    {{~#defineElement "links"~}}
+        <div class="{{elementName}}">
+            {{#each this}}
+                {{this}}
+            {{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}">
+                {{element "links"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
 {{~/defineBlock~}}

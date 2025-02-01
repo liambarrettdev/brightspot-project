@@ -1,8 +1,13 @@
 {{~#defineBlock "ChoiceInput"~}}
-    <div class="{{blockName}}">
-        {{#each options}}
-            <label for="{{../name}}">{{text}}</label>
-            <input type="{{../type}}" name="{{../name}} value="{{value}}">
-        {{/each}}
+    <div class="row">
+        <div class="one-quarter-width"></div>
+        <div class="three-quarter-width">
+            {{#each options}}
+                <label class="container">
+                    <input type="{{../type}}" name="{{../name}}" value="{{value}}">
+                    {{text}}
+                </label>
+            {{/each}}
+        </div>
     </div>
 {{~/defineBlock~}}

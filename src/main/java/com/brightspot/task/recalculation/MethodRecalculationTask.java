@@ -24,7 +24,7 @@ public class MethodRecalculationTask extends AbstractTask {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodRecalculationTask.class);
 
-    private static final AtomicBoolean FORCE_UPDATE = new AtomicBoolean(false);
+    private static final AtomicBoolean FORCE_RUN = new AtomicBoolean(false);
 
     public MethodRecalculationTask() {
         super(AbstractTask.EXECUTOR_NAME, MethodRecalculationTask.class.getName());
@@ -39,7 +39,7 @@ public class MethodRecalculationTask extends AbstractTask {
 
     @Override
     protected Boolean runImmediately() {
-        return FORCE_UPDATE.compareAndSet(true, false);
+        return FORCE_RUN.compareAndSet(true, false);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class MethodRecalculationTask extends AbstractTask {
 
     // -- Statics -- //
 
-    public static void forceUpdate() {
-        FORCE_UPDATE.set(true);
+    public static void runTask() {
+        FORCE_RUN.set(true);
     }
 }

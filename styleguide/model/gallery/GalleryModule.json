@@ -1,6 +1,6 @@
 {
     "_template": "/model/gallery/GalleryModule",
-    "title": "Example Gallery",
+    "title": "{{words(2)}}",
     "description": {
         "_template": "base/util/Concatenated",
         "items": [
@@ -13,7 +13,19 @@
     "slides": [
         {
             "_dataUrl": "/model/gallery/Slide.json",
-            "_repeat": "4"
+            "index": 1
+        },
+        {
+            "_dataUrl": "/model/gallery/Slide.json",
+            "index": 2
+        },
+        {
+            "_dataUrl": "/model/gallery/Slide.json",
+            "index": 3
+        },
+        {
+            "_dataUrl": "/model/gallery/Slide.json",
+            "index": 4
         }
     ]
 }

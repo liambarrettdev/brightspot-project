@@ -8,6 +8,16 @@
     "header" : {
         "_dataUrl": "/model/page/header/Header.json"
     },
+    "breadcrumbs": [
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "_repeat": 2
+        },
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "href": ""
+        }
+    ],
     "main": {
         "_template": "base/util/Concatenated",
         "items": [
@@ -25,7 +35,7 @@
                     "items": [
                         {
                             "_template": "/base/util/RawHtml",
-                            "html": "{{paragraphs([1, 20])}}"
+                            "html": "{{paragraphs([1, 5])}}"
                         }
                     ]
                 },

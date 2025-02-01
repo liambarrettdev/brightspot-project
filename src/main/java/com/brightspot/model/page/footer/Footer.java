@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import com.brightspot.model.container.ColumnContainerModule;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
@@ -21,6 +22,11 @@ public class Footer extends Record {
     private String name;
 
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
+    private String content;
+
+    private ColumnContainerModule links;
+
+    @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
     @ToolUi.Note("If published in this text, the special '" + YEAR_TOKEN
         + "' date token will be replaced with the value for the current year.")
     private String copyright;
@@ -31,6 +37,22 @@ public class Footer extends Record {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public ColumnContainerModule getLinks() {
+        return links;
+    }
+
+    public void setLinks(ColumnContainerModule links) {
+        this.links = links;
     }
 
     public String getCopyright() {

@@ -5,6 +5,9 @@
     "head": {
         "_dataUrl": "/model/page/Head.json"
     },
+    "header" : {
+        "_dataUrl": "/model/page/header/Header.json"
+    },
     "breadcrumbs": [
         {
             "_dataUrl": "/model/link/Link.json",
@@ -15,9 +18,6 @@
             "href": ""
         }
     ],
-    "header" : {
-        "_dataUrl": "/model/page/header/Header.json"
-    },
     "above": {
         "_dataUrl": "/model/page/module/Above.json"
     },
@@ -30,6 +30,12 @@
                     {
                         "_template": "/base/util/RawHtml",
                         "html": "{{paragraphs([3, 10])}}"
+                    },
+                    {
+                        "_dataUrl": "/model/gallery/GalleryModule.json"
+                    },
+                    {
+                        "_dataUrl": "/model/faq/FaqModule.json"
                     }
                 ]
             }

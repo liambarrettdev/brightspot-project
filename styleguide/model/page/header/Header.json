@@ -9,10 +9,14 @@
         "items": [
             {
                 "_dataUrl": "/model/navigation/NavigationItem.json",
+                "ctaUrl": "#",
+                "ctaText": "{{words(1)}}",
                 "active": true
             },
             {
                 "_dataUrl": "/model/navigation/NavigationItem.json",
+                "ctaUrl": "#",
+                "ctaText": "{{words(1)}}",
                 "_repeat": 2
             }
         ]

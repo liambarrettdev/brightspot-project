@@ -19,12 +19,16 @@
         <div class="{{elementName}}"><a class="btn" href="{{ctaUrl}}">{{ctaText}}</a></div>
     {{~/defineElement~}}
 
-    <div class="{{blockName}}">
-        {{element "media"}}
-        <div class="{{blockName}}-content {{type}}">
-            {{element "title"}}
-            {{element "date"}}
-            {{element "cta"}}
-        </div>
-    </div>
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}} {{type}}">
+                {{element "media"}}
+                <div class="{{blockName}}-content">
+                    {{element "title"}}
+                    {{element "date"}}
+                    {{element "cta"}}
+                </div>
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
 {{~/defineBlock~}}

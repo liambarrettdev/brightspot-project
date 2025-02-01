@@ -1,8 +1,8 @@
 {
     "_template": "/base/util/Image",
     "src": "{{image(1200,800)}}",
-    "alt": "alt text",
-    "caption": "example caption",
+    "alt": "{{words(5)}}",
+    "caption": "{{words(5)}}",
     "credit": "{{name}}",
     "link": {
         "_dataUrl": "/model/link/Link.json"

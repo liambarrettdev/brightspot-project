@@ -30,12 +30,12 @@
                         {
                             "_dataUrl": "/model/promo/PromoModule.json",
                             "type": "blog-post",
-                            "_repeat": "2"
+                            "_repeat": 2
                         },
                         {
                             "_dataUrl": "/model/promo/PromoModule.json",
                             "type": "article",
-                            "_repeat": "1"
+                            "_repeat": 1
                         }
                     ]
                 }

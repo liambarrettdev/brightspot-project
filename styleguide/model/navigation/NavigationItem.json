@@ -1,7 +1,5 @@
 {
     "_template": "/model/navigation/NavigationItem",
-    "ctaUrl": "#",
-    "ctaText": "{{words(1)}}",
     "items": [
         {
             "_template": "/model/navigation/NavigationItem",

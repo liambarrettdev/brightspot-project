@@ -1,7 +1,7 @@
 .BlogPostPage {
 
     a {
-        color: var(--blog);
+        color: var(--blog-theme);
     }
 
     &-content {
@@ -9,10 +9,12 @@
     }
 
     &-headline {
+        color: var(--blog-theme);
         font-size: 24pt;
     }
 
     &-subHeadline {
+        color: var(--blog-theme);
         font-size: 16pt;
         font-weight: 400;
         font-family: Tahoma, sans-serif;
@@ -45,16 +47,17 @@
         a {
             padding: .625rem;
             color: var(--white);
-            background-color: var(--tag);
+            background-color: var(--tag-theme);
             text-decoration: none;
         }
     }
 }
 
 .blog-post {
-    color: var(--blog);
+    color: var(--blog-theme);
+    border-left-color: var(--blog-theme);
 
     a.btn {
-        background: var(--blog);
+        background: var(--blog-theme);
     }
 }

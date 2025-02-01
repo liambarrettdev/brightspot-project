@@ -1,8 +1,12 @@
 {{~#defineBlock "PageNavigation"~}}
 
-    {{~#defineElement "items"~}}
-        <ul class="{{elementName}} {{#if ../dropdown}}dropdownContent{{/if}}">
-            {{#each this}}
+    {{~#defineElement "cta" noWith=true~}}
+        {{#if ctaUrl}}<a href="{{ctaUrl}}">{{ctaText}}</a>{{else}}<span>{{ctaText}}</span>{{/if}}
+    {{~/defineElement~}}
+
+    {{~#defineElement "items" noWith=true~}}
+        <ul class="{{elementName}} {{#if dropdown}}dropdownContent{{/if}}">
+            {{#each items}}
                 <li class="{{elementName}}-item {{#if dropdown}}dropdown{{/if}} {{#if active}}active{{/if}}">{{this}}</li>
             {{/each}}
         </ul>
@@ -10,7 +14,7 @@
 
     {{~#defineBlockContainer~}}
         {{#defineBlockBody}}
-            {{#if ctaUrl}}<a href="{{ctaUrl}}">{{ctaText}}</a>{{else}}<span>{{ctaText}}</span>{{/if}}
+            {{element "cta"}}
             {{element "items"}}
         {{/defineBlockBody}}
     {{~/defineBlockContainer~}}

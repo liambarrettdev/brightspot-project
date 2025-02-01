@@ -1,4 +1,5 @@
-{{~#defineBlock "PromoList"~}}
+{{~#defineBlock "PromoListModule"~}}
+
     {{~#defineElement "title"~}}
         <div class="{{elementName}}">{{this}}</div>
     {{~/defineElement~}}
@@ -21,10 +22,14 @@
         </div>
     {{~/defineElement~}}
 
-    <div class="{{blockName}}">
-        {{element "title"}}
-        {{element "description"}}
-        {{element "items"}}
-        {{element "pagination"}}
-    </div>
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}">
+                {{element "title"}}
+                {{element "description"}}
+                {{element "items"}}
+                {{element "pagination"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
 {{~/defineBlock~}}

@@ -1,14 +1,9 @@
-body {
-    font-family: Poppins, sans-serif;
-    margin: 0;
-}
-
 .Page {
     &-main {
         display: flex;
         max-width: 1050px;
         margin: 0 auto;
-        padding-bottom: 25px;
+        padding: 25px 0;
 
         .Concatenated {
             display: block
@@ -53,8 +48,12 @@ body {
                 display: inline-block;
 
                 a {
-                    color: var(--site);
+                    color: var(--site-theme-primary);
                     text-decoration: none;
+
+                    &:hover {
+                        color: var(--highlight);
+                    }
                 }
 
                 span {
@@ -64,7 +63,7 @@ body {
 
             li+li:before {
                 content: ">";
-                color: var(--site);
+                color: var(--site-theme-primary);
                 margin-left: .5ex;
                 margin-right: .5ex;
             }

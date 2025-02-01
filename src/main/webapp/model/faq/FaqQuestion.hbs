@@ -1,14 +1,19 @@
 {{~#defineBlock "FaqQuestion"~}}
+
     {{~#defineElement "question"~}}
-        <div class="{{elementName}}">{{this}}</div>
+        <button class="{{elementName}}">{{this}}</button>
     {{~/defineElement~}}
 
     {{~#defineElement "answer"~}}
         <div class="{{elementName}}">{{this}}</div>
     {{~/defineElement~}}
 
-    <div class="{{blockName}}">
-        {{element "question"}}
-        {{element "answer"}}
-    </div>
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}">
+                {{element "question"}}
+                {{element "answer"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
 {{~/defineBlock~}}

@@ -1,18 +1,18 @@
 {
     "_template": "/model/form/input/SelectInput",
-    "label": "Example Select Input",
-    "name": "select",
+    "label": "{{words(2)}}",
+    "name": "{{words(1)}}",
     "placeholder": "Please select an option",
     "required": false,
     "multiple": true,
     "options": [
         {
             "_template": "/model/form/input/option/Option",
-            "text": "Example Option",
-            "value": "option",
+            "text": "{{words(2)}}",
+            "value": "{{words(1)}}",
             "selected": false,
             "disabled": false,
-            "_repeat": "4"
+            "_repeat": 4
         }
     ]
 }

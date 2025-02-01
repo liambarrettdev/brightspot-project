@@ -4,7 +4,7 @@
     "questions": [
         {
             "_dataUrl": "/model/faq/FaqQuestion.json",
-            "_repeat": "3"
+            "_repeat": 3
         }
     ]
 }

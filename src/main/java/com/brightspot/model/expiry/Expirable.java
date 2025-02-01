@@ -8,8 +8,14 @@ public interface Expirable extends Recordable {
 
     Boolean isExpired();
 
-    default Expirable.Data asExpirableData() {
-        return this.as(Expirable.Data.class);
+    default Data asExpirableData() {
+        return this.as(Data.class);
+    }
+
+    // defaults
+
+    default Boolean shouldDeleteAfterExpiry() {
+        return false;
     }
 
     // -- Modification Data -- //
@@ -19,7 +25,8 @@ public interface Expirable extends Recordable {
 
         public static final String FIELD_PREFIX = "expirable.";
         public static final String EXPIRED_FIELD = FIELD_PREFIX + "expired";
-        public static final String EXPIRED_PREDICATE = String.format("(%1$s = missing or %1$s = true)", EXPIRED_FIELD);
+        public static final String EXPIRED_PREDICATE = String.format("%s = true", EXPIRED_FIELD);
+        public static final String NOT_EXPIRED_PREDICATE = String.format("(%1$s = missing or %1$s = false)", EXPIRED_FIELD);
 
         @Indexed(visibility = true)
         @ToolUi.ReadOnly
