@@ -67,7 +67,7 @@ public class ReportServlet extends HttpServlet {
             return;
         }
 
-        switch (Action.valueOf(action)) {
+        switch (Action.fromValue(action)) {
             case INIT:
                 // generate main dashboard HTML
                 createReportDashboard(request, response);
@@ -482,45 +482,27 @@ public class ReportServlet extends HttpServlet {
     // -- Enums -- //
 
     public enum Action {
-        INIT("init"),
-        FILTER("filter"),
-        REPORT("report");
+        INIT,
+        FILTER,
+        REPORT;
 
-        private final String name;
-
-        Action(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public String toString() {
-            return getName();
+        public static Action fromValue(String value) {
+            return value == null
+                ? null
+                : Action.valueOf(value.toUpperCase());
         }
     }
 
     public enum Output {
-        EMAIL("email"),
-        HTML("html"),
-        JSON("json"),
-        FILE("file");
+        EMAIL,
+        HTML,
+        JSON,
+        FILE;
 
-        private final String name;
-
-        Output(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public String toString() {
-            return getName();
+        public static Output fromValue(String value) {
+            return value == null
+                ? null
+                : Output.valueOf(value.toUpperCase());
         }
     }
 }

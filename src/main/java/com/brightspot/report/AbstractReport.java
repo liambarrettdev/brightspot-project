@@ -58,8 +58,6 @@ public abstract class AbstractReport extends Record implements
 
     public static final String SORT_BY_COLUMN = "order[0][column]";
     public static final String SORT_BY_DIRECTION = "order[0][dir]";
-    public static final String SORT_BY_ASCENDING = "asc";
-    public static final String SORT_BY_DESCENDING = "desc";
 
     protected static final String REPORT_TYPE = "report-type";
     protected static final String LEFT_ALIGNMENT = "alignLeft";
@@ -92,9 +90,8 @@ public abstract class AbstractReport extends Record implements
     public abstract Query<?> buildQuery(HttpServletRequest request, Boolean applyFilters);
 
     /**
-     * Executes the query from
-     * {@link AbstractReport#buildQuery(HttpServletRequest, Boolean)} and appends results
-     * to table content
+     * Executes the query from {@link AbstractReport#buildQuery(HttpServletRequest, Boolean)} and appends results to
+     * table content
      *
      * @param page the page context
      * @param query the report data query
@@ -110,9 +107,8 @@ public abstract class AbstractReport extends Record implements
         Integer length);
 
     /**
-     * Executes the query from
-     * {@link AbstractReport#buildQuery(HttpServletRequest, Boolean)} and write the result
-     * to CSV format
+     * Executes the query from {@link AbstractReport#buildQuery(HttpServletRequest, Boolean)} and write the result to
+     * CSV format
      *
      * @param page the page context
      * @param query the report data query
@@ -162,7 +158,7 @@ public abstract class AbstractReport extends Record implements
             return;
         }
 
-        switch (ReportServlet.Output.valueOf(output)) {
+        switch (ReportServlet.Output.fromValue(output)) {
             case JSON:
                 renderFiltersJson(request, response);
                 break;
@@ -179,7 +175,7 @@ public abstract class AbstractReport extends Record implements
             return;
         }
 
-        switch (ReportServlet.Output.valueOf(output)) {
+        switch (ReportServlet.Output.fromValue(output)) {
             case JSON:
                 // create display of the results of the report on the dashboard
                 displayReport(request, response, buildQuery(request, true));
@@ -215,7 +211,7 @@ public abstract class AbstractReport extends Record implements
     }
 
     public String getDefaultSortOrder() {
-        return SORT_BY_ASCENDING;
+        return SortOrder.ASC.toString();
     }
 
     public String generateReportDataEndpoint(HttpServletRequest request, String output) {
@@ -231,12 +227,18 @@ public abstract class AbstractReport extends Record implements
             } else {
                 Date startDate = getDateFromRequest(request, filter.getName() + "_from", DEFAULT_DATE_FORMAT);
                 if (startDate != null) {
-                    url = Utils.addQueryParameters(url, filter.getName() + "_from", request.getParameter((filter.getName() + "_from")));
+                    url = Utils.addQueryParameters(
+                        url,
+                        filter.getName() + "_from",
+                        request.getParameter((filter.getName() + "_from")));
                 }
 
                 Date endDate = getDateFromRequest(request, filter.getName() + "_to", DEFAULT_DATE_FORMAT);
                 if (endDate != null) {
-                    url = Utils.addQueryParameters(url, filter.getName() + "_to", request.getParameter((filter.getName() + "_to")));
+                    url = Utils.addQueryParameters(
+                        url,
+                        filter.getName() + "_to",
+                        request.getParameter((filter.getName() + "_to")));
                 }
             }
         }
@@ -490,6 +492,25 @@ public abstract class AbstractReport extends Record implements
         return null;
     }
 
+    protected String getSortFieldName(HttpServletRequest request) {
+        String sortColumn = getStringFromRequest(request, SORT_BY_COLUMN);
+
+        if (StringUtils.isNotBlank(sortColumn)) {
+            int index = 0;
+            try {
+                index = Integer.parseInt(sortColumn);
+            } catch (NumberFormatException e) {
+                getLogger().debug("unable to convert {} to integer", sortColumn);
+            }
+
+            List<Map<String, Object>> columnHeadings = buildTableHeadings(request);
+
+            return (String) columnHeadings.get(index).get("sortName");
+        }
+
+        return null;
+    }
+
     // -- Utility Methods -- //
 
     private String getEmailAttachmentUrl(HttpServletRequest request) {
@@ -541,5 +562,18 @@ public abstract class AbstractReport extends Record implements
 
     public static DateTime endOfMonth() {
         return new DateTime().dayOfMonth().withMaximumValue();
+    }
+
+    // -- Enums -- //
+
+    public enum SortOrder {
+        ASC,
+        DESC;
+
+        public static SortOrder fromValue(String value) {
+            return value == null
+                ? null
+                : SortOrder.valueOf(value.toUpperCase());
+        }
     }
 }

@@ -125,57 +125,48 @@ public class PublishedContentReport extends AbstractReport {
         String filterSite = getStringFromRequest(request, FILTER_BY_SITE);
         String filterType = getStringFromRequest(request, FILTER_BY_TYPE);
 
-        String sortColumn = getStringFromRequest(request, SORT_BY_COLUMN);
-        String sortDirection = getStringFromRequest(request, SORT_BY_DIRECTION);
-
         // build query
         Query<AbstractCreativeWorkPage> query = Query.from(AbstractCreativeWorkPage.class).where("* matches *").timeout(getTimeout());
 
         // set date range
         if (!ObjectUtils.isBlank(filterStart)) {
-            query.and(String.format("%1$s >= ?", FILTER_BY_PUBLISH_DATE), filterStart.getTime());
+            query.and(String.format("%s >= ?", FILTER_BY_PUBLISH_DATE), filterStart.getTime());
         } else {
-            query.and(String.format("%1$s >= ?", FILTER_BY_PUBLISH_DATE), startOfMonth().getMillis());
+            query.and(String.format("%s >= ?", FILTER_BY_PUBLISH_DATE), startOfMonth().getMillis());
         }
 
         if (!ObjectUtils.isBlank(filterEnd)) {
             query.and(
-                String.format("%1$s <= ?", FILTER_BY_PUBLISH_DATE),
+                String.format("%s <= ?", FILTER_BY_PUBLISH_DATE),
                 new DateTime(filterEnd.getTime()).plusDays(1).getMillis());
         } else {
-            query.and(String.format("%1$s <= ?", FILTER_BY_PUBLISH_DATE), endOfMonth().getMillis());
+            query.and(String.format("%s <= ?", FILTER_BY_PUBLISH_DATE), endOfMonth().getMillis());
         }
 
         if (applyFilters) {
             // apply filters
             if (StringUtils.isNotBlank(filterSite)) {
-                query.and(String.format("%1$s = ?", FILTER_BY_SITE), filterSite);
+                query.and(String.format("%s = ?", FILTER_BY_SITE), filterSite);
             }
 
             if (StringUtils.isNotBlank(filterType)) {
-                query.and(String.format("%1$s = ?", FILTER_BY_TYPE), filterType);
+                query.and(String.format("%s = ?", FILTER_BY_TYPE), filterType);
             }
 
             // apply sorts
-            if (StringUtils.isNotBlank(sortColumn)) {
-                int index = 0;
-                try {
-                    index = Integer.parseInt(sortColumn);
-                } catch (NumberFormatException e) {
-                    getLogger().debug("unable to convert {} to integer", sortColumn);
-                }
+            String sortDirection = getStringFromRequest(request, SORT_BY_DIRECTION);
+            String sortFieldName = getSortFieldName(request);
+            if (StringUtils.isNoneBlank(sortDirection, sortFieldName)) {
+                query.setSorters(new ArrayList<>());
 
-                List<Map<String, Object>> columnHeadings = buildTableHeadings(request);
-                String sortColumnName = (String) columnHeadings.get(index).get("sortName");
-                if (StringUtils.isNotBlank(sortColumnName)) {
-                    if (SORT_BY_ASCENDING.equals(sortDirection)) {
-                        query.setSorters(new ArrayList<>());
-                        query.sortAscending(sortColumnName);
-                    }
-                    if (SORT_BY_DESCENDING.equals(sortDirection)) {
-                        query.setSorters(new ArrayList<>());
-                        query.sortDescending(sortColumnName);
-                    }
+                switch (SortOrder.fromValue(sortDirection)) {
+                    case ASC:
+                        query.sortAscending(sortFieldName);
+                        break;
+                    case DESC:
+                    default:
+                        query.sortDescending(sortFieldName);
+                        break;
                 }
             }
         }
