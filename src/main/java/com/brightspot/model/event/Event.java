@@ -120,11 +120,8 @@ public class Event extends AbstractPage implements
     // Expirable
 
     @Override
-    public Boolean isExpired() {
-        Date now = new Date();
-        Date expiryDate = ObjectUtils.firstNonBlank(endDate, startDate, now);
-
-        return !now.before(expiryDate);
+    public Date getExpiryDate() {
+        return ObjectUtils.firstNonBlank(endDate, startDate, null);
     }
 
     // Linkable

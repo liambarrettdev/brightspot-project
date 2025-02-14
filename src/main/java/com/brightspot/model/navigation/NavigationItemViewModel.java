@@ -3,7 +3,6 @@ package com.brightspot.model.navigation;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletRequest;
 
 import com.brightspot.model.AbstractViewModel;

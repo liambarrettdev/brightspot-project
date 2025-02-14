@@ -1,12 +1,22 @@
 package com.brightspot.model.expiry;
 
+import java.util.Date;
+
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Modification;
 import com.psddev.dari.db.Recordable;
 
 public interface Expirable extends Recordable {
 
-    Boolean isExpired();
+    Date getExpiryDate();
+
+    default Boolean isExpired() {
+        Date expiryDate = getExpiryDate();
+        if (expiryDate == null) {
+            return false;
+        }
+        return expiryDate.after(new Date());
+    }
 
     default Data asExpirableData() {
         return this.as(Data.class);

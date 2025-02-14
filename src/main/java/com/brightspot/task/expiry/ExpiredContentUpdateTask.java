@@ -1,4 +1,4 @@
-package com.brightspot.task.expiration;
+package com.brightspot.task.expiry;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
@@ -16,14 +16,14 @@ import org.slf4j.LoggerFactory;
 /**
  * Re-save {@link Expirable} objects whose expired flag needs to be updated in the database.
  */
-public class ExpirationUpdateTask extends AbstractTask {
+public class ExpiredContentUpdateTask extends AbstractTask {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExpirationUpdateTask.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExpiredContentUpdateTask.class);
 
     private static final AtomicBoolean FORCE_RUN = new AtomicBoolean(false);
 
-    public ExpirationUpdateTask() {
-        super(AbstractTask.EXECUTOR_NAME, ExpirationUpdateTask.class.getName());
+    public ExpiredContentUpdateTask() {
+        super(AbstractTask.EXECUTOR_NAME, ExpiredContentUpdateTask.class.getName());
     }
 
     // -- Overrides -- //

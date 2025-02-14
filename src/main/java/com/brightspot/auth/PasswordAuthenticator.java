@@ -10,6 +10,7 @@ import com.brightspot.model.user.User;
 import com.brightspot.utils.CookieUtils;
 import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Site;
+import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Query;
 import com.psddev.dari.util.JspUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +21,7 @@ public class PasswordAuthenticator extends AbstractAuthenticator {
     public static final String PARAM_PASSWORD = "password";
 
     @Required
+    @ToolUi.DisplayFirst
     private String name;
 
     public String getName() {
