@@ -1,0 +1,18 @@
+{{~#defineBlock "Concatenated"~}}
+
+    {{~#defineElement "items"~}}
+        {{~#each this~}}
+            {{~this~}}
+            {{~#unless @last~}}
+                {{~#with ../delimiter~}}
+                    {{~this~}}
+                {{~/with~}}
+            {{~/unless~}}
+        {{~/each~}}
+    {{~/defineElement~}}
+
+    <div class="{{blockName}}">
+        {{element "items"}}
+    </div>
+{{~/defineBlock~}}
+

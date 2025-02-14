@@ -1,51 +1,37 @@
-<!DOCTYPE html>
-<html class="{{type}}" lang="{{#with locale}}{{locale}}{{else}}en{{/with}}">
-<head>
-    {{head}}
-</head>
-<body class="{{type}}-body">
-{{#with header}}
-    <div class="header">
-        {{this}}
-    </div>
-{{/with}}
-{{#with breadcrumbs}}
-    <div class="breadcrumbs">
-        {{#each this}}
-            {{this}}
-            <div class="breadcrumbs-divider">
-                <svg>
-                    <use xlink:href="#icon-caret-right"></use>
-                </svg>
-            </div>
-        {{/each}}
-    </div>
-{{/with}}
-{{#with headline}}
-    <div class="headline">
-        {{this}}
-    </div>
-{{/with}}
-{{#with lead}}
-    <div class="lead">
-        {{this}}
-    </div>
-{{/with}}
-{{#with subHeadline}}
-    <div class="subHeadline">
-        {{this}}
-    </div>
-{{/with}}
-{{#with content}}
-    <div class="content">
-        {{this}}
-    </div>
-{{/with}}
-{{#with footer}}
-    <div class="footer">
-        {{this}}
-    </div>
-{{/with}}
-</body>
-</html>
+{{~#defineBlock "Page"~}}
+    {{~#defineElement "breadcrumbs"~}}
+        <div class="{{elementName}}">
+            <ul class="{{elementName}}-breadcrumb">
+                {{#each this}}
+                    <li class="{{elementName}}-breadcrumb-item">
+                        {{this}}
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    {{~/defineElement~}}
 
+    {{~#defineElement "main" noWith=true~}}
+        {{above}}
+        <main class="{{elementName}}">
+            {{main}}
+            {{aside}}
+        </main>
+        {{below}}
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        <!DOCTYPE html>
+        <html lang="{{#with locale}}{{locale}}{{else}}en{{/with}}">
+        {{#defineBlockBody}}
+            {{head}}
+            <body>
+            {{header}}
+            {{element "breadcrumbs"}}
+            {{element "main"}}
+            {{footer}}
+            </body>
+        {{/defineBlockBody}}
+        </html>
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

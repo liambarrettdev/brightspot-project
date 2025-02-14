@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
+import com.psddev.dari.util.CollectionUtils;
 import com.psddev.dari.util.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
@@ -25,25 +26,28 @@ public final class CaptchaUtils {
     public static final String CAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
     public static final String RECAPTCHA_PARAM = "g-recaptcha-response";
 
+    private static final String SECRET_KEY = "secret";
+    private static final String REMOTE_KEY = "remoteip";
+    private static final String RESPONSE_KEY = "response";
+    private static final String SUCCESS_KEY = "success";
+
     private CaptchaUtils() {
     }
 
-    public static String sendVerifyRequest(String verifyUrl, String secret, String response, String remote)
+    public static String sendVerifyRequest(String secret, String recaptcha, String remote)
         throws IOException {
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
-            if (StringUtils.isBlank(verifyUrl) || StringUtils.isBlank(secret)) {
+            if (StringUtils.isBlank(secret)) {
                 return null;
             }
 
             List<NameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("secret", secret));
-            params.add(new BasicNameValuePair("response", response));
-            params.add(new BasicNameValuePair("remoteip", remote));
+            params.add(new BasicNameValuePair(SECRET_KEY, secret));
+            params.add(new BasicNameValuePair(RESPONSE_KEY, recaptcha));
+            params.add(new BasicNameValuePair(REMOTE_KEY, remote));
 
-            HttpPost httpPost = new HttpPost(verifyUrl);
+            HttpPost httpPost = new HttpPost(CAPTCHA_VERIFY_URL);
             httpPost.setEntity(new UrlEncodedFormEntity(params, Charset.defaultCharset()));
-
-            LOGGER.debug("Sending request to [{}] = {}", verifyUrl, params);
 
             HttpResponse httpResponse = client.execute(httpPost);
 
@@ -62,16 +66,18 @@ public final class CaptchaUtils {
         }
     }
 
-    public static String getResponseValue(String response, String field) {
-        if (StringUtils.isBlank(response) || StringUtils.isBlank(field)) {
+    public static String getResponseScore(String response) {
+        return Optional.ofNullable(ObjectUtils.fromJson(response))
+            .map(data -> CollectionUtils.getByPath(data, SUCCESS_KEY))
+            .map(Object::toString)
+            .orElse(null);
+    }
+
+    public static Boolean verifySuccessResponse(String response) {
+        if (StringUtils.isBlank(response)) {
             return null;
         }
 
-        Map<String, Object> responseMap = Utils.uncheckedCast(ObjectUtils.fromJson(response));
-        if (responseMap.containsKey("success") && responseMap.containsKey(field)) {
-            return responseMap.get(field).toString();
-        }
-
-        return null;
+        return Boolean.TRUE.equals(CollectionUtils.getByPath(ObjectUtils.fromJson(response), SUCCESS_KEY));
     }
 }

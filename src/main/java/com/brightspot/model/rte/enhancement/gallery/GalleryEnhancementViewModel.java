@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.brightspot.model.rte.enhancement.Alignable;
 import com.brightspot.view.base.EnhancementView;
-import com.brightspot.view.model.gallery.CarouselView;
+import com.brightspot.view.model.gallery.GalleryModuleView;
 import com.psddev.cms.view.ViewModel;
 
 public class GalleryEnhancementViewModel extends ViewModel<GalleryEnhancement> implements EnhancementView {
@@ -19,6 +19,6 @@ public class GalleryEnhancementViewModel extends ViewModel<GalleryEnhancement> i
 
     @Override
     public Object getContent() {
-        return createView(CarouselView.class, model.getGallery());
+        return createView(GalleryModuleView.class, model.getGallery());
     }
 }

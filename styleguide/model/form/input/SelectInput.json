@@ -1,14 +1,18 @@
 {
     "_template": "/model/form/input/SelectInput",
-    "label": "{{words(5)}}",
-    "name": "{{words(2)}}",
-    "placeholder": "{{words(1)}}",
+    "label": "{{words(2)}}",
+    "name": "{{words(1)}}",
+    "placeholder": "Please select an option",
     "required": false,
     "multiple": true,
     "options": [
         {
-            "_dataUrl": "/model/form/input/Option.json",
-            "_repeat": "4"
+            "_template": "/model/form/input/option/Option",
+            "text": "{{words(2)}}",
+            "value": "{{words(1)}}",
+            "selected": false,
+            "disabled": false,
+            "_repeat": 4
         }
     ]
 }

@@ -1,0 +1,12 @@
+{
+    "_template": "/model/page/module/Above",
+    "content": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs([1, 5])}}"
+            }
+        ]
+    }
+}

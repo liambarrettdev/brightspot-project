@@ -1,0 +1,9 @@
+{
+    "_template": "/model/quote/QuoteModule",
+    "quote": "{{sentences(1)}}",
+    "attribution": "{{name}}",
+    "image": {
+        "_dataUrl": "/model/image/Image.json",
+        "src": "{{image(800,1200)}}"
+    }
+}

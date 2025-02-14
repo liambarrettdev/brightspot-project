@@ -18,7 +18,7 @@ import com.brightspot.tool.email.attachment.Attachment;
 import com.psddev.dari.util.AbstractMailProvider;
 import com.psddev.dari.util.MailMessage;
 import com.psddev.dari.util.ObjectUtils;
-import com.psddev.dari.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -178,7 +178,7 @@ public class CustomMailProvider extends AbstractMailProvider {
 
             if (!StringUtils.isEmpty(message.getBodyHtml())) {
                 MimeBodyPart html = new MimeBodyPart();
-                html.setContent(message.getBodyHtml(), "text/html; charset=" + StandardCharsets.UTF_8.toString());
+                html.setContent(message.getBodyHtml(), "text/html; charset=" + StandardCharsets.UTF_8);
                 multiPartContent.addBodyPart(html);
                 multiPartContent.setSubType("alternative");
             }
@@ -202,7 +202,6 @@ public class CustomMailProvider extends AbstractMailProvider {
 
         } catch (MessagingException me) {
             LOGGER.warn("Failed to send: [{}]", me.getMessage());
-            me.printStackTrace();
             throw new RuntimeException(me);
         }
     }

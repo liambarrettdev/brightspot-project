@@ -1,0 +1,16 @@
+{{~#defineBlock "Main"~}}
+
+    {{~#defineElement "tags"~}}
+        <div class="{{elementName}} PageContentModule">
+            {{#each this}}{{this}}{{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "sharebar"~}}
+        <div class="{{elementName}} PageContentModule">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "comments"~}}
+        <div class="{{elementName}} PageContentModule">{{this}}</div>
+    {{~/defineElement~}}
+{{~/defineBlock~}}

@@ -1,0 +1,26 @@
+.PromoListModule {
+    .Module;
+    max-width: 90%;
+
+    &-title {
+        .Font-Title
+    }
+
+    &-items {
+        display: flex;
+        flex-wrap: wrap;
+
+        &-item {
+            width: 350px;
+            margin: auto;
+            padding: 5%;
+            text-align: -webkit-center;
+
+            &:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        }
+    }
+}

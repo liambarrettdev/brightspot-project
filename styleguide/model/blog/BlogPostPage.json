@@ -1,0 +1,84 @@
+{
+    "_wrapper": false,
+    "_template": "/model/page/Page",
+    "locale": "en",
+    "head": {
+        "_dataUrl": "/model/page/Head.json"
+    },
+    "header" : {
+        "_dataUrl": "/model/page/header/Header.json"
+    },
+    "breadcrumbs": [
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "_repeat": 2
+        },
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "href": ""
+        }
+    ],
+    "aside": {
+        "_dataUrl": "/model/page/module/Aside.json",
+        "content": {
+            "_template": "base/util/Concatenated",
+            "items": [
+                {
+                    "_template": "/model/promo/list/ListModule",
+                    "title": "{{words(3)}}",
+                    "items": [
+                        {
+                            "_dataUrl": "/model/promo/PromoModule.json",
+                            "type": "blog-post",
+                            "_repeat": 2
+                        },
+                        {
+                            "_dataUrl": "/model/promo/PromoModule.json",
+                            "type": "article",
+                            "_repeat": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "main": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/model/blog/BlogPostPage",
+                "datePublished": "{{date}}",
+                "dateModified": "{{date}}",
+                "headline": "{{words(10)}}",
+                "subHeadline": "{{words(15)}}",
+                "byline": {
+                    "_dataUrl": "/model/link/Link.json",
+                    "body": "{{name}}"
+                },
+                "lead": {
+                    "_dataUrl": "/model/image/Image.json"
+                },
+                "body": {
+                    "_template": "base/util/Concatenated",
+                    "items": [
+                        {
+                            "_dataUrl": "/model/rte/RichTextModule.json"
+                        }
+                    ]
+                },
+                "tags": [
+                    {
+                        "_dataUrl": "/model/link/Link.json",
+                        "_repeat": 2
+                    }
+                ],
+                "author": {
+                    "_dataUrl": "/model/person/promo/PersonPromoModule.json"
+                }
+            }
+        ]
+    },
+    "footer": {
+        "_dataUrl": "/model/page/footer/Footer.json"
+    }
+}

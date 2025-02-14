@@ -4,17 +4,13 @@
 }
 
 .inputContainer.is-minimal,
-.inputContainer.is-half,
-.inputContainer.is-third,
-.inputContainer.is-quarter {
+.inputContainer.is-one-half,
+.inputContainer.is-one-third,
+.inputContainer.is-one-quarter,
+.inputContainer.is-two-third,
+.inputContainer.is-three-quarter {
     float: left;
     clear: none;
-}
-
-.inputContainer.is-half,
-.inputContainer.is-third,
-.inputContainer.is-quarter {
-    flex-grow: 1;
 }
 
 .inputContainer.is-minimal {
@@ -22,14 +18,26 @@
     width: auto;
 }
 
-.inputContainer.is-half {
+.inputContainer.is-one-half {
     width: calc(100% / 2 - 18px);
 }
 
-.inputContainer.is-third {
+.inputContainer.is-one-third {
     width: calc(100% / 3 - 18px);
 }
 
-.inputContainer.is-quarter {
+.inputContainer.is-one-quarter {
     width: calc(100% / 4 - 18px);
+}
+
+.inputContainer.is-two-third {
+    width: calc(200% / 3 - 18px);
+}
+
+.inputContainer.is-three-quarter {
+    width: calc(300% / 4 - 18px);
+}
+
+.inputContainer .repeatableForm>ol>li {
+    overflow: hidden;
 }

@@ -1,0 +1,37 @@
+{{~#defineBlock "CalendarModule"~}}
+
+    {{~#defineElement "title"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{/defineElement}}
+
+    {{~#defineElement "description"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{/defineElement}}
+
+    {{~#defineElement "currentMonth"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{/defineElement}}
+
+    {{~#defineElement "prevMonth"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{/defineElement}}
+
+    {{~#defineElement "nextMonth"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{/defineElement}}
+
+    {{~#defineElement "events"~}}
+        <div class="{{elementName}}">
+            {{#each this}}{{this}}{{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}">
+                {{element "title"}}
+                {{element "description"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

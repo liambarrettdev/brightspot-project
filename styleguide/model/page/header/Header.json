@@ -1,0 +1,29 @@
+{
+    "_template": "/model/page/header/Header",
+    "text": "Example Header",
+    "image": {
+        "_dataUrl": "/model/image/Image.json"
+    },
+    "pageNavigation": {
+        "_template": "/base/page/PageNavigation",
+        "items": [
+            {
+                "_dataUrl": "/model/navigation/NavigationItem.json",
+                "ctaUrl": "#",
+                "ctaText": "{{words(1)}}",
+                "active": true
+            },
+            {
+                "_dataUrl": "/model/navigation/NavigationItem.json",
+                "ctaUrl": "#",
+                "ctaText": "{{words(1)}}",
+                "_repeat": 2
+            }
+        ]
+    },
+    "tagManager": [
+        {
+            "_dataUrl": "/integration/google/GoogleTagManagerBody.json"
+        }
+    ]
+}

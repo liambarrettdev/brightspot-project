@@ -614,7 +614,7 @@ public final class RichTextProcessor {
 
                 Element paragraph = enhancement.parent();
 
-                if (tag.equals(paragraph.tag())) {
+                if (!ObjectUtils.isBlank(paragraph) && tag.equals(paragraph.tag())) {
                     Element before = new Element(tag, "");
                     List<Node> beforeChildren = new ArrayList<>();
 

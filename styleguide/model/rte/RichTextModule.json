@@ -1,0 +1,51 @@
+{
+    "_template": "/model/rte/RichTextModule",
+    "body": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs(2)}}"
+            },
+            {
+                "_template": "/base/Enhancement",
+                "alignment": "left",
+                "content": {
+                    "_dataUrl": "/model/image/Image.json"
+                }
+            },
+            {
+                "_template": "/base/Enhancement",
+                "alignment": "left",
+                "content": {
+                    "_dataUrl": "/model/video/Video.json"
+                }
+            },
+            {
+                "_template": "/base/Enhancement",
+                "alignment": "left",
+                "content": {
+                    "_dataUrl": "/model/audio/Audio.json"
+                }
+            },
+            {
+                "_template": "/base/Enhancement",
+                "alignment": "left",
+                "content": {
+                    "_dataUrl": "/model/quote/QuoteModule.json"
+                }
+            },
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs(1)}}"
+            },
+            {
+                "_template": "/base/Enhancement",
+                "alignment": "left",
+                "content": {
+                    "_dataUrl": "/model/gallery/GalleryModule.json"
+                }
+            }
+        ]
+    }
+}

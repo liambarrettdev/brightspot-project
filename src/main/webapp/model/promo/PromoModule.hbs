@@ -1,0 +1,34 @@
+{{~#defineBlock "PromoModule"~}}
+    {{~#defineElement "title"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "media"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "date"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "description"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "cta" noWith=true~}}
+        <div class="{{elementName}}"><a class="btn" href="{{ctaUrl}}">{{ctaText}}</a></div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}} {{type}}">
+                {{element "media"}}
+                <div class="{{blockName}}-content">
+                    {{element "title"}}
+                    {{element "date"}}
+                    {{element "cta"}}
+                </div>
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

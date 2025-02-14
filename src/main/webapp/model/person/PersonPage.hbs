@@ -1,0 +1,63 @@
+{{~#defineBlock "PersonPage" extend="model/page/Main"~}}
+    {{~#defineElement "image"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "name"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "position"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "email"~}}
+        <div class="{{elementName}}">
+            <i class="fa fa-envelope"></i>
+            <a href="mailto:{{this}}">{{this}}</a>
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "website"~}}
+        <div class="{{elementName}}">
+            <i class="fa fa-globe"></i>
+            <a href="{{this}}">{{this}}</a>
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "biography"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "relatedContent"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "details" noWith=true~}}
+        <div class="{{elementName}}">
+            {{element "name"}}
+            {{element "position"}}
+            {{element "email"}}
+            {{element "website"}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "header" noWith=true~}}
+        <div class="{{elementName}}">
+            {{element "image"}}
+            {{element "details"}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        <div class="{{blockName}}" itemprop="author" itemscope itemtype="http://schema.org/Person"{{extraAttributes}}>
+            {{#defineBlockBody}}
+                {{element "header"}}
+                {{element "biography"}}
+                {{element "relatedContent"}}
+                {{element "sharebar"}}
+                {{element "comments"}}
+            {{/defineBlockBody}}
+        </div>
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

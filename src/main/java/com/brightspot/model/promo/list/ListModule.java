@@ -1,28 +1,28 @@
 package com.brightspot.model.promo.list;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.brightspot.model.list.ListContent;
 import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.module.ShareableModule;
-import com.brightspot.model.promo.Promotable;
+import com.brightspot.model.promo.list.type.CuratedListContent;
+import com.brightspot.model.promo.list.type.DynamicListContent;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Recordable;
 
-@Recordable.DisplayName("Promo List")
+@Recordable.DisplayName("List (Promos)")
 @ViewBinding(value = ListModuleViewModel.class, types = ListModule.VIEW_CLASS)
 public class ListModule extends AbstractModule implements ShareableModule {
 
-    protected static final String VIEW_CLASS = "promo-module";
+    protected static final String VIEW_CLASS = "promo-list-module";
 
     private String title;
 
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
     private String description;
 
-    private List<Promotable> items;
+    @Types({ CuratedListContent.class, DynamicListContent.class })
+    private ListContent content = new CuratedListContent();
 
     public String getTitle() {
         return title;
@@ -40,15 +40,12 @@ public class ListModule extends AbstractModule implements ShareableModule {
         this.description = description;
     }
 
-    public List<Promotable> getItems() {
-        if (items == null) {
-            items = new ArrayList<>();
-        }
-        return items;
+    public ListContent getContent() {
+        return content;
     }
 
-    public void setItems(List<Promotable> items) {
-        this.items = items;
+    public void setContent(ListContent content) {
+        this.content = content;
     }
 
     // -- Overrides -- //

@@ -1,0 +1,28 @@
+{{~#defineBlock "FaqModule"~}}
+
+    {{~#defineElement "title"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "description"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "sections"~}}
+        <div class="{{elementName}}">
+            {{#each this}}
+                <div class="{{elementName}}-section">{{this}}</div>
+            {{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}" data-bsp-faq-module>
+                {{element "title"}}
+                {{element "description"}}
+                {{element "sections"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

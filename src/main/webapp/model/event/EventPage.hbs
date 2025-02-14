@@ -1,0 +1,40 @@
+{{~#defineBlock "EventPage" extend="model/page/Main"~}}
+    {{~#defineElement "name"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "image"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "type"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "location"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "date"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "description"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        <div class="{{blockName}}" itemprop="author" itemscope itemtype="http://schema.org/Event"{{extraAttributes}}>
+            {{#defineBlockBody}}
+                {{element "name"}}
+                {{element "image"}}
+                {{element "type"}}
+                {{element "location"}}
+                {{element "date"}}
+                {{element "description"}}
+                {{element "sharebar"}}
+                {{element "comments"}}
+            {{/defineBlockBody}}
+        </div>
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

@@ -1,0 +1,35 @@
+{{~#defineBlock "PromoListModule"~}}
+
+    {{~#defineElement "title"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "description"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "items"~}}
+        <div class="{{elementName}}">
+            {{#each this}}
+                <div class="{{elementName}}-item">{{this}}</div>
+            {{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "pagination"~}}
+        <div class="{{elementName}}">
+            {{this}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}">
+                {{element "title"}}
+                {{element "description"}}
+                {{element "items"}}
+                {{element "pagination"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

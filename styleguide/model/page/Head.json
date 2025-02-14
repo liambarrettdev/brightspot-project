@@ -1,14 +1,20 @@
 {
     "_template": "/model/page/Head",
-    "title": "Test",
-    "description": "Test Styleguide",
-    "keywords": [
-        "one",
-        "two",
-        "three"
+    "title": "{{words(5)}}",
+    "linkElements": [
+        {
+            "_template": "/base/page/Link",
+            "rel": "canonical",
+            "asAttribute": "script",
+            "crossOrigin": true
+        },
+        {
+            "_template": "/base/page/Link",
+            "rel": "stylesheet",
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        }
     ],
-    "canonicalLink": "#",
-    "extraItems": [
+    "metaElements": [
         {
             "_template": "/base/page/Meta",
             "httpEquiv": "X-UA-Compatible",
@@ -18,20 +24,29 @@
             "_template": "/base/page/Meta",
             "name": "viewport",
             "content": "width=device-width, initial-scale=1, user-scalable=no"
-        },
-        {
-            "_template": "/base/page/ExternalStylesheet",
-            "rel": "stylesheet",
-            "type": "text/css",
-            "media": "screen",
-            "href": "/All.min.css"
-        },
+        }
+    ],
+    "scriptElements": [
         {
             "_template": "/base/page/ExternalScript",
             "type": "text/javascript",
             "src": "/All.min.js",
             "async": false,
             "defer": false
+        }
+    ],
+    "styleElements": [
+        {
+            "_template": "/base/page/ExternalStylesheet",
+            "rel": "stylesheet",
+            "type": "text/css",
+            "media": "screen",
+            "href": "/All.min.css"
+        }
+    ],
+    "extraItems": [
+        {
+            "_dataUrl": "/integration/google/GoogleAnalytics.json"
         }
     ]
 }

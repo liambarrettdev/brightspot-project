@@ -51,7 +51,7 @@ public abstract class AbstractTaskSettings extends Record {
     // -- Overrides -- //
 
     @Override
-    protected void beforeCommit() {
+    public void beforeCommit() {
         if (isRunImmediately()) {
             setRunImmediately(false);
             triggerTask();

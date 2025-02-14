@@ -34,7 +34,7 @@ public final class DirectoryUtils {
 
         // #1
         url = recordable.getState().as(Directory.ObjectModification.class).getSitePermalink(site);
-        if (!StringUtils.isBlank(url)) {
+        if (StringUtils.isNotBlank(url)) {
             if (site == null) {
                 CmsTool cmsSettings = Application.Static.getInstance(CmsTool.class);
                 String siteUrl = StringUtils.removeEnd(cmsSettings.getDefaultSiteUrl(), "/");

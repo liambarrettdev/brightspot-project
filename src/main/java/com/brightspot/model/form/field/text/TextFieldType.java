@@ -1,7 +1,7 @@
 package com.brightspot.model.form.field.text;
 
 import com.brightspot.model.form.field.FieldType;
-import com.brightspot.model.form.field.Placeholderable;
+import com.brightspot.model.form.field.HasPlaceholder;
 import com.psddev.cms.db.ToolUi;
 
 @ToolUi.FieldDisplayOrder({
@@ -16,7 +16,7 @@ public abstract class TextFieldType extends FieldType {
 
     // -- Static Classes -- //
 
-    public static class Default extends TextFieldType implements Placeholderable {
+    public static class Default extends TextFieldType implements HasPlaceholder {
 
         public static final String FIELD_TYPE = "text";
 
@@ -29,7 +29,7 @@ public abstract class TextFieldType extends FieldType {
 
         @Override
         public String getPlaceholder() {
-            return asPlaceholderableData().getPlaceholder();
+            return asPlaceholderData().getPlaceholder();
         }
 
         @Override
@@ -38,7 +38,7 @@ public abstract class TextFieldType extends FieldType {
         }
     }
 
-    public static class Email extends TextFieldType implements Placeholderable {
+    public static class Email extends TextFieldType implements HasPlaceholder {
 
         public static final String FIELD_TYPE = "email";
 
@@ -61,7 +61,7 @@ public abstract class TextFieldType extends FieldType {
 
         @Override
         public String getPlaceholder() {
-            return asPlaceholderableData().getPlaceholder();
+            return asPlaceholderData().getPlaceholder();
         }
 
         @Override
@@ -70,7 +70,7 @@ public abstract class TextFieldType extends FieldType {
         }
     }
 
-    public static class Password extends TextFieldType implements Placeholderable {
+    public static class Password extends TextFieldType implements HasPlaceholder {
 
         public static final String FIELD_TYPE = "password";
 
@@ -93,7 +93,7 @@ public abstract class TextFieldType extends FieldType {
 
         @Override
         public String getPlaceholder() {
-            return asPlaceholderableData().getPlaceholder();
+            return asPlaceholderData().getPlaceholder();
         }
 
         @Override
@@ -102,7 +102,7 @@ public abstract class TextFieldType extends FieldType {
         }
     }
 
-    public static class Phone extends TextFieldType implements Placeholderable {
+    public static class Phone extends TextFieldType implements HasPlaceholder {
 
         public static final String FIELD_TYPE = "tel";
 
@@ -125,7 +125,7 @@ public abstract class TextFieldType extends FieldType {
 
         @Override
         public String getPlaceholder() {
-            return asPlaceholderableData().getPlaceholder();
+            return asPlaceholderData().getPlaceholder();
         }
 
         @Override

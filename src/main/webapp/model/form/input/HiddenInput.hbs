@@ -1,3 +1,5 @@
-<div>
-    <input type="hidden" name="{{name}}" value="{{value}}">
-</div>
+{{~#defineBlock "HiddenInput"~}}
+    <div class="{{blockName}}">
+        <input type="hidden" name="{{name}}" value="{{value}}">
+    </div>
+{{~/defineBlock~}}

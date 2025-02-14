@@ -1,0 +1,13 @@
+{
+    "_template": "/model/video/html/HtmlVideoPlayer",
+    "playerId": "1",
+    "videoId": "n/a",
+    "videoTitle": "Title",
+    "source": {
+        "_template": "/model/video/html/HtmlVideoPlayerSource",
+        "src": "https://www.w3schools.com/html/mov_bbb.mp4",
+        "type": "video/mp4"
+    },
+    "autoplay": false,
+    "muted": true
+}

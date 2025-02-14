@@ -1,0 +1,26 @@
+{{~#defineBlock "CreativeWorkPage" extend="model/page/Main"~}}
+    {{~#defineElement "meta" noWith=true~}}
+        {{#with datePublished}}
+            <meta itemprop="datePublished" content="{{this}}">
+        {{/with}}
+        {{#with dateModified}}
+            <meta itemprop="dateModified" content="{{this}}">
+        {{/with}}
+    {{~/defineElement~}}
+
+    {{~#defineElement "headline"~}}
+        <h1 class="{{elementName}}" itemprop="headline">{{this}}</h1>
+    {{~/defineElement~}}
+
+    {{~#defineElement "subHeadline"~}}
+        <h2 class="{{elementName}}" itemprop="alternativeHeadline">{{this}}</h2>
+    {{~/defineElement~}}
+
+    {{~#defineElement "byline" noWith=true~}}
+        <div class="{{elementName}}"><span>{{#with byline}}{{this}} | {{/with}}{{#with datePublished}}{{this}}{{/with}}</span></div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "author"~}}
+        <div class="{{elementName}} PageContentModule">{{this}}</div>
+    {{~/defineElement~}}
+{{~/defineBlock~}}

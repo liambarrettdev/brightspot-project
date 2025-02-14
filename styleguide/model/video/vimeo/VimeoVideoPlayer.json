@@ -1,0 +1,8 @@
+{
+    "_template": "/model/video/vimeo/VimeoVideoPlayer",
+    "playerId": "1",
+    "videoId": "997312",
+    "videoTitle": "Title",
+    "autoplay": false,
+    "muted": true
+}

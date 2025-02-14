@@ -40,7 +40,7 @@ public interface SiteSingleton extends Recordable {
         }
 
         @Override
-        protected boolean onDuplicate(ObjectIndex index) {
+        public boolean onDuplicate(ObjectIndex index) {
             if (index != null) {
                 String field = index.getField();
                 if (KEY_FIELD.equals(field)) {

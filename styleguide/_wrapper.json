@@ -1,6 +1,10 @@
 {
-    "_template": "/PreviewPage",
-    "body": {
+    "_template": "/model/page/Page",
+    "locale": "en",
+    "head": {
+        "_dataUrl": "/model/page/Head.json"
+    },
+    "main": {
         "_delegate": true
     }
 }

@@ -1,0 +1,10 @@
+{
+    "_template": "/model/link/list/ListModule",
+    "items": [
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "body": "{{words(3)}}",
+            "_repeat": 5
+        }
+    ]
+}

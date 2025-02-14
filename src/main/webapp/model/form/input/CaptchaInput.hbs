@@ -1,0 +1,12 @@
+{{~#defineBlock "CaptchaInput"~}}
+    {{~#defineElement "captcha"~}}
+        {{#each this}}
+            <div class="{{elementName}}">{{this}}</div>
+        {{/each}}
+    {{~/defineElement~}}
+
+    <div class="{{blockName}}">
+        <label for="{{name}}">{{label}}</label>
+        {{element "captcha"}}
+    </div>
+{{~/defineBlock~}}

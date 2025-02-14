@@ -1,0 +1,5 @@
+{{~#if url~}}
+    <div class="IframeContent">
+        <iframe{{#with name}} name="{{this}}"{{/with}} src="{{url}}"{{#with height}} height="{{this}}"{{/with}}{{#with width}} width="{{this}}"{{/with}}{{#with sandbox}} sandbox="{{this}}"{{/with}}></iframe>
+    </div>
+{{~/if~}}

@@ -1,0 +1,11 @@
+{{~#defineBlock "Below"~}}
+    {{~#defineElement "content"~}}
+        <div class="{{elementName}}">
+            {{this}}
+        </div>
+    {{~/defineElement~}}
+
+    <below class="{{blockName}}">
+        {{element "content"}}
+    </div>
+{{~/defineBlock~}}

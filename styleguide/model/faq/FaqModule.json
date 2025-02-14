@@ -1,0 +1,18 @@
+{
+    "_template": "/model/faq/FaqModule",
+    "title": "Example FAQ",
+    "description": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs(1)}}"
+            }
+        ]
+    },
+    "sections": [
+        {
+            "_dataUrl": "/model/faq/FaqSection.json"
+        }
+    ]
+}

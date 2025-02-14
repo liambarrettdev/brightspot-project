@@ -1,13 +1,17 @@
 {
     "_template": "/model/form/input/ChoiceInput",
-    "label": "{{words(5)}}",
+    "label": "{{words(2)}}",
     "name": "{{words(1)}}",
-    "type": "{{words(1)}}",
+    "type": "radio",
     "required": false,
     "options": [
         {
-            "_dataUrl": "/model/form/input/Option.json",
-            "_repeat": "4"
+            "_template": "/model/form/input/option/Option",
+            "text": "{{words(2)}}",
+            "value": "{{words(1)}}",
+            "selected": false,
+            "disabled": false,
+            "_repeat": 2
         }
     ]
 }

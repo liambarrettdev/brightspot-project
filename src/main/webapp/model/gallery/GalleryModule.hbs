@@ -1,0 +1,28 @@
+{{~#defineBlock "GalleryModule"~}}
+
+    {{~#defineElement "title"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "slides"~}}
+        <div class="{{elementName}}">
+            {{#each this}}{{this}}{{/each}}
+            <a class="prev">❮</a>
+            <a class="next">❯</a>
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "index" noWith=true~}}
+        <div class="{{elementName}}"></div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}" data-bsp-gallery-module>
+                {{element "title"}}
+                {{element "index"}}
+                {{element "slides"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

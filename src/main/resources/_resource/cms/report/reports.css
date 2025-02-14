@@ -1,0 +1,125 @@
+body {
+  margin-top: 10px
+}
+
+#report-filters h3 {
+  margin: 6px 0 2px 0;
+  font-weight: 600;
+}
+
+#report-filters select {
+  width: 200px;
+  margin-right: 15px;
+}
+
+#report-filters label {
+  background: lightgray;
+  padding: 4px 7px 4px 2px;
+  margin-right: 4px;
+}
+
+#report-filters .checkbox-filter-control {
+  float: left;
+}
+
+#report-filters .checkbox-filter-control label {
+  background: white;
+  padding: 4px 0px 4px 0px;
+  margin-right: 4px;
+  margin-bottom: 5px;
+  float: left;
+}
+
+#report-filters .filter-control {
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+#report-filters input.date {
+  width: 90px;
+  cursor: pointer;
+}
+
+#report-filters input.to_date,
+#report-filters input[type="checkbox"] {
+  margin-right: 15px;
+}
+
+input[type=checkbox]:checked {
+  background-color: aliceblue;
+  border-color: blue;
+}
+
+.report-description {
+  margin: 12px 0;
+}
+
+#displayTable_filter {
+  display: none;
+  float: right
+}
+
+.pagination {
+  border: none;
+  overflow: visible;
+}
+
+.pagination > li:not(:last-child),
+.paginationItem:not(:last-child) {
+  border: none;
+}
+
+.pagination > li,
+.paginationItem {
+  float: inherit;
+  padding: 0 5px;
+}
+
+.pagination > li.previous a,
+.pagination > li.next a {
+  width: auto;
+}
+
+button.download {
+  float: left;
+  margin: 7px 0 0 0;
+}
+
+table.dataTable {
+  border-bottom: 1px solid gray;
+}
+
+table.dataTable thead th,
+table.dataTable tbody td {
+  text-align: center;
+  white-space: normal;
+}
+
+table.dataTable tbody td:first-of-type {
+  border-left: 1px solid #e8e4e4;
+}
+
+table.dataTable tbody td {
+  border-right: 1px solid #e8e4e4;
+}
+
+table.dataTable td.alignLeft {
+  text-align: left;
+}
+
+table.dataTable th.fixedWidth50,
+table.dataTable td.fixedWidth50 {
+  width: 50px;
+}
+
+table.dataTable tbody tr:nth-child(even) {
+  background: #d8cbcb;
+}
+
+:disabled,
+[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: default !important
+}

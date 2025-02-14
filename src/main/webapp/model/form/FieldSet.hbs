@@ -1,5 +1,23 @@
-<div>
-    {{#each inputs}}
-        {{this}}
-    {{/each}}
-</div>
+{{~#defineBlock "FieldSet"~}}
+
+    {{~#defineElement "heading"~}}
+        <button class="{{elementName}}">{{this}}</button>
+    {{~/defineElement~}}
+
+    {{~#defineElement "inputs"~}}
+        <div class="{{elementName}}">
+            {{#each this}}{{this}}{{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="row">
+                <div class="{{blockName}}" data-bsp-field-set>
+                    {{element "heading"}}
+                    {{element "inputs"}}
+                </div>
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

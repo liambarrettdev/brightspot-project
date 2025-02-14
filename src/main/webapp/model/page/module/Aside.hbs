@@ -1,0 +1,11 @@
+{{~#defineBlock "Aside"~}}
+    {{~#defineElement "content"~}}
+        <div class="{{elementName}}">
+            {{this}}
+        </div>
+    {{~/defineElement~}}
+
+    <aside class="{{blockName}}">
+        {{element "content"}}
+    </aside>
+{{~/defineBlock~}}

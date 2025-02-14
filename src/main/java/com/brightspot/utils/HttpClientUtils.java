@@ -5,9 +5,9 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Optional;
 
-import com.amazonaws.util.CollectionUtils;
 import com.psddev.dari.util.ObjectUtils;
 import com.psddev.dari.util.gson.JsonElement;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
@@ -52,7 +52,7 @@ public final class HttpClientUtils {
         if (!ObjectUtils.isBlank(jsonContent)) {
             request.setEntity(new StringEntity(jsonContent.toString(), ContentType.APPLICATION_JSON));
         }
-        if (!CollectionUtils.isNullOrEmpty(urlParams)) {
+        if (CollectionUtils.isNotEmpty(urlParams)) {
             request.setEntity(new UrlEncodedFormEntity(urlParams, Charset.defaultCharset()));
         }
     }

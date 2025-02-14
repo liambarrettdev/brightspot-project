@@ -5,7 +5,7 @@ import java.util.Optional;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Recordable;
-import com.psddev.dari.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 @ToolUi.FieldDisplayOrder({
     "item",
@@ -67,9 +67,14 @@ public class InternalLink extends Link {
 
     // -- Static Methods -- //
 
-    public static InternalLink create(Linkable linkable) {
+    public static InternalLink create(String text, Linkable linkable) {
         InternalLink instance = new InternalLink();
+        instance.setText(text);
         instance.setItem(linkable);
         return instance;
+    }
+
+    public static InternalLink create(Linkable linkable) {
+        return create(null, linkable);
     }
 }

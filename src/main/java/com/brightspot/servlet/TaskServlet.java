@@ -19,22 +19,25 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RoutingFilter.Path(TaskServlet.PATH)
+@RoutingFilter.Path(TaskServlet.SERVLET_PATH)
 public class TaskServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskServlet.class);
 
-    public static final String PATH = "/_api/task/run";
+    public static final String SERVLET_PATH = "/_api/task/run";
+
+    public static final String PARAM_TASK = "task";
 
     // -- Overrides -- //
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // prepare response
         response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
+        // execute actions
         ToolPageContext page = new ToolPageContext(getServletContext(), request, response);
 
         Set<Class<? extends TriggerableTask>> taskClasses = ClassFinder.findConcreteClasses(TriggerableTask.class);
@@ -43,33 +46,39 @@ public class TaskServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // prepare response
         response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
+        // find request params
+        String taskName = request.getParameter(PARAM_TASK);
+
+        // validate request
+        if (StringUtils.isBlank(taskName)) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // execute actions
         ToolPageContext page = new ToolPageContext(getServletContext(), request, response);
 
-        String taskRequestParam = request.getParameter("task");
-        String statusMessage = "widget.message.failed";
+        String statusMessageKey = "widget.message.failed";
 
         Set<Class<? extends TriggerableTask>> taskClasses = ClassFinder.findConcreteClasses(TriggerableTask.class);
         for (Class<? extends TriggerableTask> taskClass : taskClasses) {
             try {
-                TriggerableTask instance = taskClass.newInstance();
-
-                String param = instance.getTaskParam();
-                if (StringUtils.isNotBlank(param) && param.equals(taskRequestParam)) {
-                    statusMessage = invokeTask(instance);
+                TriggerableTask task = taskClass.newInstance();
+                if (taskName.equals(task.getTaskName())) {
+                    statusMessageKey = invokeTask(task);
                 }
-
             } catch (Exception e) {
-                LOGGER.error("Could not run" + taskRequestParam + " task", e);
+                LOGGER.error("Could not run" + taskName + " task", e);
             }
         }
 
-        writeWidget(page, taskClasses, statusMessage);
+        writeWidget(page, taskClasses, statusMessageKey);
     }
 
     // -- Utility Methods -- //
@@ -91,10 +100,7 @@ public class TaskServlet extends HttpServlet {
         return "widget.message.error";
     }
 
-    public static void writeWidget(
-        ToolPageContext page,
-        Set<Class<? extends TriggerableTask>> taskClasses,
-        String message) throws IOException {
+    public static void writeWidget(ToolPageContext page, Set<Class<? extends TriggerableTask>> taskClasses, String message) throws IOException {
         String widgetTitle = Localization.currentUserText(TaskWidget.class, "widget.title");
         String widgetButtonText = Localization.currentUserText(TaskWidget.class, "widget.button.text");
 
@@ -120,7 +126,7 @@ public class TaskServlet extends HttpServlet {
                 page.writeEnd();
             }
 
-            page.writeStart("form", "name", "input", "action", TaskServlet.PATH, "method", "post");
+            page.writeStart("form", "name", "input", "action", TaskServlet.SERVLET_PATH, "method", "post");
             {
                 page.writeStart("p", "style", "display:block;");
                 {
@@ -129,10 +135,10 @@ public class TaskServlet extends HttpServlet {
                             TriggerableTask instance = taskClass.newInstance();
 
                             String label = instance.getTaskWidgetLabel();
-                            String param = instance.getTaskParam();
+                            String value = instance.getTaskName();
 
-                            if (StringUtils.isNoneBlank(label, param)) {
-                                page.writeTag("input", "type", "radio", "name", "task", "value", param);
+                            if (StringUtils.isNoneBlank(label, value)) {
+                                page.writeTag("input", "type", "radio", "name", PARAM_TASK, "value", value);
                                 page.write(label);
                                 page.writeTag("br");
                             }

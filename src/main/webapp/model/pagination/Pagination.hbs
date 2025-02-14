@@ -1,0 +1,18 @@
+{{~#defineBlock "Pagination"~}}
+
+    {{~#defineElement "links"~}}
+        <div class="{{elementName}}">
+            {{#each this}}
+                {{this}}
+            {{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}">
+                {{element "links"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

@@ -1,0 +1,4 @@
+{
+    "_template": "/integration/google/GoogleTagManagerHead",
+    "containerId": "GTM-123456"
+}

@@ -1,0 +1,14 @@
+{{~#defineBlock "Header"~}}
+    {{~#defineElement "pageNavigation"~}}
+        {{this}}
+    {{~/defineElement~}}
+
+    {{~#defineElement "tagManager"~}}
+        {{#each this}}{{this}}{{/each}}
+    {{~/defineElement~}}
+
+    <header class="{{blockName}}">
+        {{element "pageNavigation"}}
+        {{element "tagManager"}}
+    </header>
+{{~/defineBlock~}}

@@ -4,15 +4,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.brightspot.task.AbstractTask;
 import com.brightspot.tool.recalculation.MethodRecalculation;
-import com.brightspot.utils.TaskUtils;
 import com.psddev.dari.db.Database;
 import com.psddev.dari.db.DatabaseException;
 import com.psddev.dari.db.Query;
 import com.psddev.dari.db.Recordable;
 import com.psddev.dari.db.State;
-import com.psddev.dari.util.RepeatingTask;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,35 +20,47 @@ import org.slf4j.LoggerFactory;
 /**
  * Ingests and processes {@link MethodRecalculation}s, then deletes them. Runs every minute.
  */
-public class MethodRecalculationTask extends RepeatingTask {
+public class MethodRecalculationTask extends AbstractTask {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodRecalculationTask.class);
+
+    private static final AtomicBoolean FORCE_RUN = new AtomicBoolean(false);
+
+    public MethodRecalculationTask() {
+        super(AbstractTask.EXECUTOR_NAME, MethodRecalculationTask.class.getName());
+    }
 
     // -- Overrides -- //
 
     @Override
-    protected DateTime calculateRunTime(DateTime currentTime) {
-        if (TaskUtils.isRunningOnTaskHost()) {
-            return everyMinute(currentTime);
-        }
-        // Never runs because it will never get there.
-        return new DateTime().plusHours(1);
+    protected Logger logger() {
+        return LOGGER;
     }
 
     @Override
-    protected void doRepeatingTask(DateTime runTime) throws Exception {
+    protected Boolean runImmediately() {
+        return FORCE_RUN.compareAndSet(true, false);
+    }
 
+    @Override
+    protected DateTime calculateNextRunTime(DateTime currentTime) {
+        return everyMinute(currentTime);
+    }
+
+    @Override
+    protected void execute() {
         Set<UUID> processed = new HashSet<>();
         Set<UUID> recalculated = new HashSet<>();
+
         try {
-            for (MethodRecalculation recalculation : Query.from(MethodRecalculation.class)
+            for (MethodRecalculation method : Query.from(MethodRecalculation.class)
                 .where("calculationSaveDate < ?", Database.Static.getDefault().now())
                 .iterable(0)) {
 
-                LOGGER.info("Begin processing method recalculation with identifier: {}", recalculation.getIdentifier());
+                logger().info("Begin processing method recalculation with identifier: {}", method.getIdentifier());
 
                 try {
-                    Query<Object> query = recalculation.getQuery();
+                    Query<Object> query = method.getQuery();
                     // Unset sort to avoid leaking database resources
                     query.setSorters(Collections.emptyList());
                     query.timeout(300.0);
@@ -59,24 +71,22 @@ public class MethodRecalculationTask extends RepeatingTask {
                                 State state = State.getInstance(object);
                                 if (state != null) {
                                     try {
-                                        for (String methodName : recalculation.getMethodNames()) {
+                                        for (String methodName : method.getMethodNames()) {
                                             state.getType().getMethod(methodName).recalculate(state);
                                         }
                                     } catch (Exception e) {
                                         // could not recalculate method
-                                        LOGGER.warn(e.getMessage());
+                                        logger().warn(e.getMessage());
                                     }
                                 }
                             }
                         });
-                    processed.add(recalculation.getId());
+                    processed.add(method.getId());
                 } catch (RuntimeException e) {
-                    LOGGER.error(e.getMessage());
+                    logger().error(e.getMessage());
                 }
 
-                LOGGER.info(
-                    "Finished processing method recalculation with identifier: {}",
-                    recalculation.getIdentifier());
+                logger().info("Finished processing method recalculation with identifier: {}", method.getIdentifier());
             }
         } finally {
             processed.forEach(recordId -> {
@@ -86,9 +96,15 @@ public class MethodRecalculationTask extends RepeatingTask {
                         record.delete();
                     }
                 } catch (DatabaseException e) {
-                    LOGGER.warn(e.getMessage(), e);
+                    logger().warn(e.getMessage(), e);
                 }
             });
         }
+    }
+
+    // -- Statics -- //
+
+    public static void runTask() {
+        FORCE_RUN.set(true);
     }
 }
