@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.amazonaws.util.CollectionUtils;
 import com.brightspot.report.AbstractReport;
+import com.brightspot.report.ReportExecutionException;
 import com.brightspot.report.filter.CheckboxFilterType;
 import com.brightspot.report.filter.DateRangeFilterType;
 import com.brightspot.report.filter.DropdownFilterType;
@@ -53,19 +54,31 @@ public class ReportServlet extends HttpServlet {
     public static final String PARAM_ACTION = "action";
     public static final String PARAM_OUTPUT = "output";
 
+    // -- Overrides -- //
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // prepare response
         response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
         response.setStatus(HttpServletResponse.SC_OK);
 
+        // find request params
         String action = request.getParameter(PARAM_ACTION);
-        AbstractReport selectedReport = Query.from(AbstractReport.class)
-                .where("id = ?", request.getParameter(PARAM_ID))
-                .first();
+        String reportId = request.getParameter(PARAM_ID);
 
-        if (action == null) {
-            return;
+        // validate request
+        if (StringUtils.isAnyBlank(action, reportId)) {
+            LOGGER.warn("Request is missing required parameters");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            throw new ReportExecutionException(String.format("'%s' and '%s' are required parameters",
+                PARAM_ACTION,
+                PARAM_ID
+            ));
         }
+
+        AbstractReport selectedReport = Query.from(AbstractReport.class)
+            .where("id = ?", reportId)
+            .first();
 
         switch (Action.fromValue(action)) {
             case INIT:
@@ -85,7 +98,9 @@ public class ReportServlet extends HttpServlet {
                 }
                 break;
             default:
-                break;
+                LOGGER.warn("Invalid Action parameter: {}", action);
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                throw new ReportExecutionException(String.format("'%s' is not a valid Action", action));
         }
     }
 

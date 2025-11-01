@@ -103,10 +103,6 @@ table.dataTable tbody td {
   border-right: 1px solid #e8e4e4;
 }
 
-table.dataTable td.alignLeft {
-  text-align: left;
-}
-
 table.dataTable th.fixedWidth50,
 table.dataTable td.fixedWidth50 {
   width: 50px;

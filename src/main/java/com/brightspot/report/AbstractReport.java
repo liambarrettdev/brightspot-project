@@ -59,10 +59,6 @@ public abstract class AbstractReport extends Record implements
     public static final String SORT_BY_COLUMN = "order[0][column]";
     public static final String SORT_BY_DIRECTION = "order[0][dir]";
 
-    protected static final String REPORT_TYPE = "report-type";
-    protected static final String LEFT_ALIGNMENT = "alignLeft";
-    protected static final String RIGHT_ALIGNMENT = "alignRight";
-    protected static final String FE_TAB = "new-fe-tab";
     protected static final String NO_RESULTS = "n/a";
     protected static final String DEFAULT_NUMBER_OF_ROWS = "50";
     protected static final Double DEFAULT_QUERY_TIMEOUT = 20.0;
@@ -104,7 +100,8 @@ public abstract class AbstractReport extends Record implements
         Query<?> query,
         Map<String, Object> jsonMap,
         Long offset,
-        Integer length);
+        Integer length
+    );
 
     /**
      * Executes the query from {@link AbstractReport#buildQuery(HttpServletRequest, Boolean)} and write the result to
@@ -247,21 +244,21 @@ public abstract class AbstractReport extends Record implements
     }
 
     public void buildTableJson(ToolPageContext page, Query<?> query, Map<String, Object> jsonMap) {
-        // Ajax Settings
+        // ajax Settings
         jsonMap.put("pageLength", Integer.parseInt(this.getNumberOfRows()));
         jsonMap.put("processing", "true");
         jsonMap.put("serverSide", "true");
         jsonMap.put("ajax", buildAjaxOptions(page));
 
-        // Download url for button
+        // download url for button
         jsonMap.put("downloadUrl", generateReportDataEndpoint(page.getRequest(), ReportServlet.Output.FILE.toString()));
-        // Email url for button
+        // email url for button
         jsonMap.put("emailUrl", generateReportDataEndpoint(page.getRequest(), ReportServlet.Output.EMAIL.toString()));
-        // Default sort column
+        // default sort column
         jsonMap.put("order", buildDefaultSortColumn());
-        // Column Headings
+        // column Headings
         jsonMap.put("columns", buildTableHeadings(page.getRequest(), query));
-        // Number of entries dropdown
+        // number of entries dropdown
         jsonMap.put("lengthMenu", Arrays.asList(25, 50, 100, 250, 500, 1000));
 
         jsonMap.put("fixedHeader", true);
@@ -329,8 +326,7 @@ public abstract class AbstractReport extends Record implements
         response.getWriter().write(ObjectUtils.toJson(jsonMap));
     }
 
-    public void downloadReport(HttpServletRequest request, HttpServletResponse response, Query<?> query)
-        throws IOException {
+    public void downloadReport(HttpServletRequest request, HttpServletResponse response, Query<?> query) throws IOException {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=" + getNormalizedName() + "-data.csv");
 
@@ -341,9 +337,7 @@ public abstract class AbstractReport extends Record implements
             headings.add(getEscapedValue(heading.get("label")));
         }
 
-        page.putOverride(
-            Recordable.class,
-            (writer, object) -> writer.write(((ToolPageContext) writer).getObjectLabel(object)));
+        page.putOverride(Recordable.class, (writer, object) -> writer.write(((ToolPageContext) writer).getObjectLabel(object)));
         page.putOverride(Metric.class, (writer, object) -> writer.write(Double.toString(object.getSum())));
         page.putOverride(StorageItem.class, (writer, item) -> writer.write(item.getPublicUrl()));
 

@@ -35,7 +35,7 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Site site = PageFilter.Static.getSite(request);
 
-        AuthenticationSettings settings = AuthenticationFilter.getAuthenticator(request);
+        AuthenticationSettings settings = AuthenticationFilter.getAuthenticationSettings(request);
         AbstractAuthenticator authenticator = Optional.ofNullable(settings)
             .map(AuthenticationSettings::getAuthenticator)
             .orElse(null);

@@ -17,7 +17,7 @@
         <dari.version>3.2.2466-9f28f3</dari.version>
         <brightspot.version>3.2.7262-cf4a82</brightspot.version>
         <styleguide.version>1.1.350-86f868</styleguide.version>
-        <slf4j.version>2.0.12</slf4j.version>
+        <slf4j.version>2.0.17</slf4j.version>
     </properties>
 
     <groupId>com.brightspot</groupId>

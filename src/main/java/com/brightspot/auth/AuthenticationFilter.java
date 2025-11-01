@@ -26,7 +26,7 @@ public class AuthenticationFilter extends AbstractFilter implements AbstractFilt
 
     @Override
     protected void doRequest(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws Exception {
-        if (isAllAccessAllowed(request.getRequestURI())) {
+        if (noAuthenticationRequired(request.getRequestURI())) {
             chain.doFilter(request, response);
             return;
         }
@@ -46,18 +46,9 @@ public class AuthenticationFilter extends AbstractFilter implements AbstractFilt
         }
     }
 
-    // -- Utility Methods -- //
-
-    private boolean isAllAccessAllowed(String requestUri) {
-        return requestUri.startsWith("/_")
-            || requestUri.startsWith("/cms")
-            || requestUri.startsWith(LoginServlet.SERVLET_PATH)
-            || requestUri.startsWith(LogoutServlet.SERVLET_PATH);
-    }
-
     // -- Static Methods -- //
 
-    public static AuthenticationSettings getAuthenticator(HttpServletRequest request) {
+    public static AuthenticationSettings getAuthenticationSettings(HttpServletRequest request) {
         return Optional.ofNullable(PageFilter.Static.getSite(request))
             .map(s -> AuthenticationSiteSettings.get(s, AuthenticationSiteSettings::getSettings))
             .orElse(null);
@@ -78,11 +69,20 @@ public class AuthenticationFilter extends AbstractFilter implements AbstractFilt
             .orElse(null);
     }
 
+    public static boolean noAuthenticationRequired(String requestUri) {
+        return requestUri.startsWith("/_")
+            || requestUri.startsWith("/cms")
+            || requestUri.startsWith(LoginServlet.SERVLET_PATH)
+            || requestUri.startsWith(LogoutServlet.SERVLET_PATH);
+    }
+
     private static Session getSession(HttpServletRequest request) throws Exception {
+        // get cached session
         Session session = (Session) request.getAttribute(AUTHENTICATED_SESSION_ATTRIBUTE);
 
         if (session == null) {
-            AbstractAuthenticator authenticator = Optional.ofNullable(getAuthenticator(request))
+            // check for authentication cookie
+            AbstractAuthenticator authenticator = Optional.ofNullable(getAuthenticationSettings(request))
                 .map(AuthenticationSettings::getAuthenticator)
                 .orElse(null);
 

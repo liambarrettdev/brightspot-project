@@ -49,7 +49,7 @@ public final class StripeClient {
         try {
             return Customer.retrieve(customerId);
         } catch (StripeException e) {
-            LOGGER.error("Could not find Customer with ID " + customerId, e);
+            LOGGER.error("Could not find Customer with ID {}", customerId, e);
         }
 
         return null;
@@ -92,7 +92,7 @@ public final class StripeClient {
         try {
             return PaymentMethod.retrieve(paymentMethodId);
         } catch (StripeException e) {
-            LOGGER.error("Could not find Payment Method with ID " + paymentMethodId, e);
+            LOGGER.error("Could not find Payment Method with ID {}", paymentMethodId, e);
         }
 
         return null;
@@ -145,7 +145,7 @@ public final class StripeClient {
         try {
             return PaymentIntent.retrieve(intentId);
         } catch (StripeException e) {
-            LOGGER.error("Could not find PaymentIntent with ID " + intentId, e);
+            LOGGER.error("Could not find PaymentIntent with ID {}", intentId, e);
         }
 
         return null;

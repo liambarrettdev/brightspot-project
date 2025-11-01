@@ -23,12 +23,12 @@ public class SessionPurgeTaskSettings extends AbstractTaskSettings implements Tr
     }
 
     @Override
-    public Class<? extends Task> getTaskType() {
+    public Class<? extends Task> getTaskClass() {
         return SessionPurgeTask.class;
     }
 
     @Override
-    public void triggerTask() {
+    public void run() {
         SessionPurgeTask.runTask();
     }
 }

@@ -13,7 +13,7 @@ public abstract class AbstractTaskSettings extends Record {
 
     public abstract String getCronExpressionFallback();
 
-    public abstract void triggerTask();
+    public abstract void run();
 
     private Boolean enabled;
 
@@ -54,7 +54,7 @@ public abstract class AbstractTaskSettings extends Record {
     public void beforeCommit() {
         if (isRunImmediately()) {
             setRunImmediately(false);
-            triggerTask();
+            run();
         }
         super.beforeCommit();
     }

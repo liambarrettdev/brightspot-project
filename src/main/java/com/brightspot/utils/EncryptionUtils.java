@@ -14,8 +14,10 @@ import org.apache.commons.codec.binary.Base64;
 
 public final class EncryptionUtils {
 
-    private static final String ENCRYPTION_KEY = "dari/credentials/encryption-key";
-    private static final String INITIALISATION_VECTOR_KEY = "dari/credentials/initialisation-vector-key";
+    public static final String ENCRYPTION_KEY = "dari/credentials/encryption-key";
+    public static final String IV_KEY = "dari/credentials/initialisation-vector-key";
+    public static final String ENCRYPTION_KEY_ERR_MSG = "EncryptDecrypt: getSecretKeyAsBytes: Credentials Encryption Key from Settings is Null";
+    public static final String IV_KEY_ERR_MSG = "EncryptDecrypt: getIvKeyAsBytes: Credentials Initialisation Vector from Settings is Null";
 
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMER = "AES/CBC/PKCS5PADDING";
@@ -95,7 +97,7 @@ public final class EncryptionUtils {
         String setting = Settings.getOrError(
             String.class,
             ENCRYPTION_KEY,
-            "EncryptDecrypt: getSecretKeyAsBytes: Credentials Encryption Key from Settings is Null"
+            ENCRYPTION_KEY_ERR_MSG
         );
 
         return setting.getBytes();
@@ -104,8 +106,8 @@ public final class EncryptionUtils {
     private static byte[] getIvKeyAsBytes() {
         String setting = Settings.getOrError(
             String.class,
-            INITIALISATION_VECTOR_KEY,
-            "EncryptDecrypt: getIvKeyAsBytes: Credentials Initialisation Vector from Settings is Null"
+            IV_KEY,
+            IV_KEY_ERR_MSG
         );
 
         return Base64.decodeBase64(setting);

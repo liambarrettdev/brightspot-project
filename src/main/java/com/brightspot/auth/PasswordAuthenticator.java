@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.brightspot.model.user.PasswordUser;
 import com.brightspot.model.user.User;
+import com.brightspot.tool.SiteSingleton;
 import com.brightspot.utils.CookieUtils;
 import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Site;
@@ -15,7 +16,7 @@ import com.psddev.dari.db.Query;
 import com.psddev.dari.util.JspUtils;
 import org.apache.commons.lang3.StringUtils;
 
-public class PasswordAuthenticator extends AbstractAuthenticator {
+public class PasswordAuthenticator extends AbstractAuthenticator implements SiteSingleton {
 
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_PASSWORD = "password";
@@ -37,6 +38,11 @@ public class PasswordAuthenticator extends AbstractAuthenticator {
     @Override
     protected void afterCreate() {
         setName("Default");
+    }
+
+    @Override
+    public String getLabel() {
+        return "Password";
     }
 
     @Override

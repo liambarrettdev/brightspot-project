@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.brightspot.auth.AbstractAuthenticator;
+import com.brightspot.auth.AuthenticationException;
 import com.brightspot.auth.AuthenticationFilter;
 import com.brightspot.auth.AuthenticationSettings;
 import com.brightspot.auth.PasswordAuthenticator;
@@ -24,10 +25,12 @@ import com.psddev.dari.db.Query;
 import com.psddev.dari.util.JspUtils;
 import com.psddev.dari.util.ObjectUtils;
 import com.psddev.dari.util.Password;
+import com.psddev.dari.util.RoutingFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@RoutingFilter.Path(RegistrationServlet.SERVLET_PATH)
 public class RegistrationServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationServlet.class);
@@ -41,27 +44,81 @@ public class RegistrationServlet extends HttpServlet {
     // -- Overrides -- //
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Site site = PageFilter.Static.getSite(request);
-
-        AuthenticationSettings settings = AuthenticationFilter.getAuthenticator(request);
-        AbstractAuthenticator authenticator = settings.getAuthenticator();
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // prepare response
         response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
         response.setStatus(HttpServletResponse.SC_OK);
 
+        // find request params
+        String tokenId = request.getParameter(PARAM_TOKEN);
+
+        // complete registration
+        Token token = Query.from(Token.class).where("id = ?", tokenId).first();
+
+        if (ObjectUtils.isBlank(token)) {
+            LOGGER.error("Invalid token ID: {}", tokenId);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            throw new AuthenticationException("Invalid or expired token");
+        }
+
+        User user = Optional.ofNullable(token.getUser())
+            .filter(User.class::isInstance)
+            .map(User.class::cast)
+            .orElse(null);
+
+        if (ObjectUtils.isBlank(user)) {
+            LOGGER.error("User missing from token with ID: {}", tokenId);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            throw new AuthenticationException("No user found");
+        }
+
+        user.setStatus(User.Status.VERIFIED);
+        user.save();
+        token.delete();
+
+        // log in user after successfully completing registration
+        Session session = AbstractAuthenticator.addUserSession(request, response, user);
+
+        if (session != null) {
+            Site site = PageFilter.Static.getSite(request);
+            AuthenticationSettings settings = AuthenticationFilter.getAuthenticationSettings(request);
+
+            String redirect = DirectoryUtils.getCanonicalUrl(site, settings.getAuthenticatedLandingPage());
+            if (StringUtils.isBlank(redirect)) {
+                redirect = "/";
+            }
+
+            JspUtils.redirect(request, response, redirect);
+            return;
+        }
+
+        response.sendError(404);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // prepare response
+        response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
+        response.setStatus(HttpServletResponse.SC_OK);
+
+        // find request params
         String emailParam = request.getParameter(PasswordAuthenticator.PARAM_EMAIL);
         String passwordParam = request.getParameter(PasswordAuthenticator.PARAM_PASSWORD);
 
+        // validate request
         if (StringUtils.isAnyBlank(emailParam, passwordParam)) {
-            LOGGER.warn("Request missing required parameters");
-            throw new ServletException("Email and Password are required");
+            LOGGER.warn("Request is missing required parameters");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            throw new AuthenticationException(String.format("'%s' and '%s' are required parameters",
+                PasswordAuthenticator.PARAM_EMAIL,
+                PasswordAuthenticator.PARAM_PASSWORD
+            ));
         }
 
         if (Query.from(User.class).where("email = ?", emailParam).hasMoreThan(0)) {
             LOGGER.warn("User already exists: {}", emailParam);
-            throw new ServletException("User with this email already exists");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            throw new AuthenticationException("User with this email already exists");
         }
 
         // create new user
@@ -81,70 +138,26 @@ public class RegistrationServlet extends HttpServlet {
         // send validation token
         Token token = Token.createToken(user);
 
-        String registrationLink = generateRegistrationUrl(site, token);
+        String confirmationUrl = generateConfirmationUrl(PageFilter.Static.getSite(request), token);
 
-        new CustomMailMessage()
-            .to(emailParam)
-            .from(authenticator.getFrom())
-            .subject(authenticator.getSubject())
-            .bodyHtml(processEmailTemplate(authenticator.getTemplate(), registrationLink))
-            .send();
+        if (StringUtils.isNotBlank(confirmationUrl)) {
+            AuthenticationSettings settings = AuthenticationFilter.getAuthenticationSettings(request);
+            AbstractAuthenticator authenticator = settings.getAuthenticator();
+
+            new CustomMailMessage()
+                .to(emailParam)
+                .from(authenticator.getFrom())
+                .subject(authenticator.getSubject())
+                .bodyHtml(processEmailTemplate(authenticator.getTemplate(), confirmationUrl))
+                .send();
+        } else {
+            throw new AuthenticationException("Could not generate confirmation link");
+        }
 
         JspUtils.redirect(request, response, "/");
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Site site = PageFilter.Static.getSite(request);
-
-        AuthenticationSettings settings = AuthenticationFilter.getAuthenticator(request);
-
-        // prepare response
-        response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
-        response.setStatus(HttpServletResponse.SC_OK);
-
-        // find request params
-        String tokenId = request.getParameter(PARAM_TOKEN);
-
-        // complete registration
-        Token token = Query.from(Token.class).where("id = ?", tokenId).first();
-
-        if (ObjectUtils.isBlank(token)) {
-            //TODO handle error
-            return;
-        }
-
-        User user = Optional.ofNullable(token.getUser())
-            .filter(User.class::isInstance)
-            .map(User.class::cast)
-            .orElse(null);
-
-        if (ObjectUtils.isBlank(user)) {
-            //TODO handle error
-            return;
-        }
-
-        user.setStatus(User.Status.VERIFIED);
-        user.save();
-        token.delete();
-
-        // log in user after successfully completing registration
-        Session session = AbstractAuthenticator.addUserSession(request, response, user);
-
-        if (session != null) {
-            String redirect = DirectoryUtils.getCanonicalUrl(site, settings.getAuthenticatedLandingPage());
-            if (StringUtils.isBlank(redirect)) {
-                redirect = "/";
-            }
-
-            JspUtils.redirect(request, response, redirect);
-            return;
-        }
-
-        response.sendError(404);
-    }
-
-    private String generateRegistrationUrl(Site site, Token token) {
+    private String generateConfirmationUrl(Site site, Token token) {
         if (site == null || token == null) {
             return null;
         }

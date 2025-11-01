@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.brightspot.task.TaskExecutionException;
 import com.brightspot.task.TriggerableTask;
 import com.brightspot.tool.widget.TaskWidget;
 import com.psddev.cms.db.Localization;
@@ -34,8 +35,8 @@ public class TaskServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // prepare response
         response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
-        response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("text/html");
 
         // execute actions
         ToolPageContext page = new ToolPageContext(getServletContext(), request, response);
@@ -49,16 +50,17 @@ public class TaskServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // prepare response
         response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
-        response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("text/html");
 
         // find request params
         String taskName = request.getParameter(PARAM_TASK);
 
         // validate request
         if (StringUtils.isBlank(taskName)) {
+            LOGGER.warn("Request is missing required parameters");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            throw new TaskExecutionException(String.format("'%s' is a required parameter", PARAM_TASK));
         }
 
         // execute actions
@@ -71,10 +73,10 @@ public class TaskServlet extends HttpServlet {
             try {
                 TriggerableTask task = taskClass.newInstance();
                 if (taskName.equals(task.getTaskName())) {
-                    statusMessageKey = invokeTask(task);
+                    statusMessageKey = runTask(task);
                 }
             } catch (Exception e) {
-                LOGGER.error("Could not run" + taskName + " task", e);
+                LOGGER.error("Could not run '{}' task", taskName, e);
             }
         }
 
@@ -83,12 +85,12 @@ public class TaskServlet extends HttpServlet {
 
     // -- Utility Methods -- //
 
-    private String invokeTask(TriggerableTask instance) {
+    private String runTask(TriggerableTask triggeredTask) {
         for (TaskExecutor executor : TaskExecutor.Static.getAll()) {
             for (Object task : executor.getTasks()) {
-                if (task.getClass().equals(instance.getTaskType())) {
+                if (triggeredTask.isInstance(task)) {
                     if (!((Task) task).isRunning()) {
-                        instance.triggerTask();
+                        triggeredTask.run();
                         return "widget.message.started";
                     } else {
                         return "widget.message.running";

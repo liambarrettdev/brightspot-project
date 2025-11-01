@@ -47,7 +47,7 @@ public final class Utils {
             return null;
         }
 
-        Number value = NumberUtils.createNumber(input.replaceAll("[^0-9]", ""));
+        Number value = NumberUtils.createNumber(input.replaceAll("[^0-9.]", ""));
         return ObjectUtils.to(clazz, value);
     }
 
@@ -212,8 +212,8 @@ public final class Utils {
         }
         try {
             return URLEncoder.encode(string, StandardCharsets.UTF_8.toString()).replace("+", "%20");
-        } catch (UnsupportedEncodingException ex) {
-            throw new IllegalStateException(ex);
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalStateException(e);
         }
     }
 
@@ -233,8 +233,8 @@ public final class Utils {
         }
         try {
             return URLDecoder.decode(string, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException ex) {
-            throw new IllegalStateException(ex);
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalStateException(e);
         }
     }
 

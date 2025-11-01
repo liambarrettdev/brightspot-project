@@ -47,6 +47,7 @@ public class ExpiredContentPurgeTask extends AbstractTask {
     protected void execute() {
         Query<Expirable> query = Query.from(Expirable.class).where(Expirable.Data.EXPIRED_PREDICATE);
 
+        // delete expired content
         TaskUtils.asyncProcessQuery(
             Database.Static.getDefault(),
             "Delete Expired Content",
@@ -62,6 +63,7 @@ public class ExpiredContentPurgeTask extends AbstractTask {
             null
         );
 
+        // archive expired content
         TaskUtils.asyncProcessQuery(
             Database.Static.getDefault(),
             "Archive Expired Content",
