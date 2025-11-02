@@ -9,6 +9,8 @@
     "grunt-cli": "1.4.3"
   },
   "scripts": {
+    "build": "mvn clean -P library verify",
+    "docker": "docker compose up",
     "grunt": "grunt",
     "watch": "grunt watch",
     "styleguide": "sh styleguide.sh"
