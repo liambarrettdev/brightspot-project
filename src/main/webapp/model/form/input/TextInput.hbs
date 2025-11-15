@@ -4,10 +4,14 @@
             <label for="{{name}}">{{label}}</label>
         </div>
         <div class="three-quarter-width">
-            <input type="{{type}}" name="{{name}}" title="test message"
+            <input type="{{type}}" 
+                   id="{{name}}"
+                   name="{{name}}"
+                {{#if title}}title="{{title}}" {{/if}}
                 {{#with regex}}pattern="{{this}}" {{/with}}
                 {{#with placeholder}}placeholder="{{this}}" {{/with}}
-                {{#if required}}required{{/if}}>
+                {{#if required}}required{{/if}}
+            >
         </div>
     </div>
 {{~/defineBlock~}}

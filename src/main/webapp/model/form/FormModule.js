@@ -1,22 +1,26 @@
 import $ from 'jquery'
 import bsp_utils from 'bsp-utils'
 
-const SECTION_SELECTOR = '.FieldSet-heading'
-
 export class FormModule {
 
     constructor(el) {
+        this.$el = $(el)
         this.init()
     }
 
     init() {
-        $(SECTION_SELECTOR).click(function(e) {
+        this.$el.find('.FieldSet-heading').on('click', (e) => {
             e.preventDefault()
 
-            const $heading = $(this)
+            const $heading = $(e.currentTarget)
+            const $inputs = $heading.next('.FieldSet-inputs')
+            const isExpanded = $heading.attr('aria-expanded') === 'true'
 
-            $heading.next().slideToggle()
+            $inputs.slideToggle()
             $heading.toggleClass('active')
+            
+            $heading.attr('aria-expanded', !isExpanded)
+            $inputs.attr('aria-hidden', isExpanded)
         })
     }
 }

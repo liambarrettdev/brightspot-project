@@ -1,9 +1,9 @@
 .PromoModule {
     display: flex;
-    height: 120px;
+    min-height: 120px;
     border-left-style: solid;
     border-left-width: thick;
-    background: lightgrey;
+    background: var(--background-lighter);
     padding: 5px;
 
     &-media {
@@ -12,6 +12,7 @@
 
         img {
             width: 100px;
+            height: auto;
         }
     }
 
@@ -38,6 +39,11 @@
             color: var(--white);
             padding: 5px;
             text-decoration: none;
+            
+            &:focus-visible {
+                outline: 2px solid var(--highlight);
+                outline-offset: 2px;
+            }
         }
     }
 }

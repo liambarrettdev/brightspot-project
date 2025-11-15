@@ -1,11 +1,11 @@
 {{~#defineBlock "FaqQuestion"~}}
 
     {{~#defineElement "question"~}}
-        <button class="{{elementName}}">{{this}}</button>
+        <button class="{{elementName}}" type="button" aria-expanded="false" aria-controls="faq-answer-{{@index}}">{{this}}</button>
     {{~/defineElement~}}
 
     {{~#defineElement "answer"~}}
-        <div class="{{elementName}}">{{this}}</div>
+        <div class="{{elementName}}" id="faq-answer-{{@index}}" aria-hidden="true">{{this}}</div>
     {{~/defineElement~}}
 
     {{~#defineBlockContainer~}}

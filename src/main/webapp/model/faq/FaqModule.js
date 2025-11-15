@@ -1,23 +1,26 @@
 import $ from 'jquery'
 import bsp_utils from 'bsp-utils'
 
-const QUESTION_SELECTOR = '.FaqQuestion-question'
-
 export class FaqModule {
 
     constructor(el) {
+        this.$el = $(el)
         this.init()
     }
 
     init() {
-        $(QUESTION_SELECTOR).click(function(e) {
+        this.$el.find('.FaqQuestion-question').on('click', (e) => {
             e.preventDefault()
 
-            const $question = $(this)
-            const $answer = $question.next()
+            const $question = $(e.currentTarget)
+            const $answer = $question.next('.FaqQuestion-answer')
+            const isExpanded = $question.attr('aria-expanded') === 'true'
 
             $answer.slideToggle()
             $question.toggleClass('active')
+            
+            $question.attr('aria-expanded', !isExpanded)
+            $answer.attr('aria-hidden', isExpanded)
         })
     }
 }

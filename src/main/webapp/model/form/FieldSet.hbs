@@ -1,11 +1,11 @@
 {{~#defineBlock "FieldSet"~}}
 
     {{~#defineElement "heading"~}}
-        <button class="{{elementName}}">{{this}}</button>
+        <button class="{{elementName}}" type="button" aria-expanded="false" aria-controls="fieldset-inputs-{{@index}}">{{this}}</button>
     {{~/defineElement~}}
 
     {{~#defineElement "inputs"~}}
-        <div class="{{elementName}}">
+        <div class="{{elementName}}" id="fieldset-inputs-{{@index}}" aria-hidden="true">
             {{#each this}}{{this}}{{/each}}
         </div>
     {{~/defineElement~}}

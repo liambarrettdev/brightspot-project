@@ -5,22 +5,18 @@
     {{~/defineElement~}}
 
     {{~#defineElement "slides"~}}
-        <div class="{{elementName}}">
+        <div class="{{elementName}}" role="region" aria-label="Gallery slides">
+            <div class="GalleryModule-index" role="status" aria-live="polite" aria-atomic="true"></div>
             {{#each this}}{{this}}{{/each}}
-            <a class="prev">❮</a>
-            <a class="next">❯</a>
+            <button class="prev" type="button" aria-label="Previous slide">❮</button>
+            <button class="next" type="button" aria-label="Next slide">❯</button>
         </div>
-    {{~/defineElement~}}
-
-    {{~#defineElement "index" noWith=true~}}
-        <div class="{{elementName}}"></div>
     {{~/defineElement~}}
 
     {{~#defineBlockContainer~}}
         {{#defineBlockBody}}
             <div class="{{blockName}}" data-bsp-gallery-module>
                 {{element "title"}}
-                {{element "index"}}
                 {{element "slides"}}
             </div>
         {{/defineBlockBody}}

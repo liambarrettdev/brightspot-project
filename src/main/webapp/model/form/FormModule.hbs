@@ -12,16 +12,16 @@
 
     {{~#defineElement "submit" noWith=true~}}
         <div class="row">
-            <input type="submit" value="Submit">
+            <button type="submit" aria-label="Submit form">{{#if submitText}}{{submitText}}{{else}}Submit{{/if}}</button>
         </div>
     {{~/defineElement~}}
 
     {{~#defineElement "successMessage"~}}
-        <div class="{{elementName}}">{{this}}</div>
+        <div class="{{elementName}}" role="status" aria-live="polite">{{this}}</div>
     {{~/defineElement~}}
 
     {{~#defineElement "errorMessage"~}}
-        <div class="{{elementName}}">{{this}}</div>
+        <div class="{{elementName}}" role="alert" aria-live="assertive">{{this}}</div>
     {{~/defineElement~}}
 
     {{~#defineBlockContainer~}}

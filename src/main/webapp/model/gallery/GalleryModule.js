@@ -4,54 +4,48 @@ import bsp_utils from 'bsp-utils'
 export class GalleryModule {
 
     constructor(el) {
-        var self = this
+        this.$el = $(el)
+        this.currentSlide = 1
+        
+        // Cache DOM elements scoped to this instance
+        this.$galleryIndex = this.$el.find('.GalleryModule-index')
+        this.$slides = this.$el.find('.Slide')
+        this.$prevBtn = this.$el.find('.prev')
+        this.$nextBtn = this.$el.find('.next')
 
-        self.current = 1
-
-        self.init()
+        this.init()
     }
 
     init() {
-        var self = this
+        this.showSlide(this.currentSlide)
 
-        self.showSlide(self.current);
-
-        $('.prev').click(function(e) {
-            self.showSlide(self.current -= 1)
+        this.$prevBtn.on('click', (e) => {
+            e.preventDefault()
+            this.showSlide(this.currentSlide -= 1)
         })
 
-        $('.next').click(function(e) {
-            self.showSlide(self.current += 1)
+        this.$nextBtn.on('click', (e) => {
+            e.preventDefault()
+            this.showSlide(this.currentSlide += 1)
         })
     }
 
     showSlide(index) {
-        var self = this
-
-        let galleryIndex = $('.GalleryModule-index')
-        let slides = $('.Slide')
-
-        if (index > slides.length) {
-            self.current = 1
+        if (index > this.$slides.length) {
+            this.currentSlide = 1
+        } else if (index < 1) {
+            this.currentSlide = this.$slides.length
+        } else {
+            this.currentSlide = index
         }
 
-        if (index < 1) {
-            self.current = slides.length
-        }
-
-        var temp = self.current - 1
-        slides.each(function() {
-            $( this ).css('transform', `translateX(${-100 * temp}%)`)
-        });
-        galleryIndex.html(self.current + ' / ' + slides.length)
-    }
-
-    get current() {
-        return this._currentSlide
-    }
-
-    set current(value) {
-        this._currentSlide = value
+        const offset = this.currentSlide - 1
+        
+        this.$slides.each(function() {
+            $(this).css('transform', `translateX(${-100 * offset}%)`)
+        })
+        
+        this.$galleryIndex.text(`${this.currentSlide} / ${this.$slides.length}`)
     }
 }
 
