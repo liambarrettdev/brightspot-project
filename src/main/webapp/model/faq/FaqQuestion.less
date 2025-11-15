@@ -10,6 +10,7 @@
         width: 100%;
         border: none;
         outline: none;
+        .focus-outline-inset();
 
         &:after {
             content: '\002B';
@@ -28,18 +29,13 @@
         &:hover, &.active {
             background-color: var(--site-theme-secondary);
         }
-
-        &:focus-visible {
-            outline: 2px solid var(--highlight);
-            outline-offset: -2px;
-        }
     }
 
     &-answer {
         display: none;
         padding: 0 18px;
         overflow: hidden;
-        transition: max-height 0.2s ease-out;
+        .smooth-transition(max-height, 0.2s, ease-out);
         background-color: var(--background-light);
     }
 }

@@ -13,19 +13,33 @@
     "slides": [
         {
             "_dataUrl": "/model/gallery/Slide.json",
+            "media": {
+                "_template": "/base/util/Image",
+                "src": "{{image(612,408)}}",
+                "alt": "{{words(5)}}",
+                "caption": "{{words(5)}}"
+            },
             "index": 1
         },
         {
             "_dataUrl": "/model/gallery/Slide.json",
+            "media": {
+                "_template": "/base/util/Image",
+                "src": "{{image(948,400)}}",
+                "alt": "{{words(5)}}",
+                "caption": "{{words(5)}}"
+            },
             "index": 2
         },
         {
             "_dataUrl": "/model/gallery/Slide.json",
+            "media": {
+                "_template": "/base/util/Image",
+                "src": "{{image(1280,674)}}",
+                "alt": "{{words(5)}}",
+                "caption": "{{words(5)}}"
+            },
             "index": 3
-        },
-        {
-            "_dataUrl": "/model/gallery/Slide.json",
-            "index": 4
         }
     ]
 }

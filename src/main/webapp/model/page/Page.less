@@ -28,7 +28,23 @@
             border-bottom-style: solid;
             border-bottom-width: 2px;
             clear: both;
+            
+            // Mobile responsive styling
+            .mobile({
+                padding: 15px 10px;
+            });
         }
+        
+        // Mobile and Tablet: Stack layout vertically
+        .mobile({
+            flex-direction: column;
+            padding: 15px 0;
+        });
+        
+        .tablet({
+            flex-direction: column;
+            padding: 20px 0;
+        });
     }
 
     &-breadcrumbs {
@@ -68,5 +84,11 @@
                 margin-right: .5ex;
             }
         }
+        
+        // Mobile responsive styling
+        .mobile({
+            padding: 8px;
+            font-size: 12px;
+        });
     }
 }

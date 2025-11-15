@@ -11,6 +11,7 @@
         border: none;
         outline: none;
         border-radius: 0 0 4px 4px;
+        .focus-outline-inset();
 
         &:after {
              content: '\002B';
@@ -31,18 +32,13 @@
         &:hover {
             background-color: var(--site-theme-secondary);
         }
-
-        &:focus-visible {
-            outline: 2px solid var(--highlight);
-            outline-offset: -2px;
-        }
     }
 
     &-inputs {
         display: none;
         padding: 15px;
         overflow: hidden;
-        transition: max-height 0.2s ease-out;
+        .smooth-transition(max-height, 0.2s, ease-out);
         background-color: var(--inset-secondary);
         border-radius: 0 0 4px 4px;
     }
