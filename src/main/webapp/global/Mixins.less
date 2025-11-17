@@ -32,7 +32,11 @@
     }
 }
 
-// Transition mixin
-.smooth-transition(@property: all, @duration: 0.3s, @timing: ease-in-out) {
-    transition: @property @duration @timing;
+// Transition mixins
+.smooth-transition(@property: all, @duration: 0.3s) {
+  transition: @property @duration ease-in-out;
+}
+
+.smooth-transition-out(@property: all, @duration: 0.3s) {
+  transition: @property @duration ease-out;
 }

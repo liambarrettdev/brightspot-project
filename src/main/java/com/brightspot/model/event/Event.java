@@ -148,6 +148,11 @@ public class Event extends AbstractPage implements
     }
 
     @Override
+    public Date getPromotableDate() {
+        return getStartDate();
+    }
+
+    @Override
     public String getPromotableType() {
         return PROMOTABLE_TYPE;
     }

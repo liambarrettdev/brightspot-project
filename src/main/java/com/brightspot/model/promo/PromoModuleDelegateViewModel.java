@@ -1,6 +1,8 @@
 package com.brightspot.model.promo;
 
 import com.brightspot.model.AbstractViewModel;
+import com.brightspot.model.event.Event;
+import com.brightspot.model.event.promo.EventPromoModuleViewModel;
 import com.brightspot.model.person.Person;
 import com.brightspot.model.person.promo.PersonPromoModuleViewModel;
 import com.psddev.cms.view.DelegateView;
@@ -11,6 +13,9 @@ public class PromoModuleDelegateViewModel extends AbstractViewModel<PromoModule>
     public AbstractPromoModuleViewModel getDelegate() {
         if (model.getPromo() instanceof Person) {
             return createView(PersonPromoModuleViewModel.class, model);
+        }
+        if (model.getPromo() instanceof Event) {
+            return createView(EventPromoModuleViewModel.class, model);
         }
         return createView(PromoModuleViewModel.class, model);
     }

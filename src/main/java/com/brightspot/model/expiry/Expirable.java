@@ -15,7 +15,7 @@ public interface Expirable extends Recordable {
         if (expiryDate == null) {
             return false;
         }
-        return expiryDate.after(new Date());
+        return expiryDate.before(new Date());
     }
 
     default Data asExpirableData() {
