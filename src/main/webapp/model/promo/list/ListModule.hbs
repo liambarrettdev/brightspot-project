@@ -9,7 +9,7 @@
     {{~/defineElement~}}
 
     {{~#defineElement "items"~}}
-        <div class="{{elementName}}">
+        <div class="{{elementName}}" data-list-items>
             {{#each this}}
                 <div class="{{elementName}}-item">{{this}}</div>
             {{/each}}
@@ -17,14 +17,14 @@
     {{~/defineElement~}}
 
     {{~#defineElement "pagination"~}}
-        <div class="{{elementName}}">
+        <div class="{{elementName}}" data-list-pagination>
             {{this}}
         </div>
     {{~/defineElement~}}
 
     {{~#defineBlockContainer~}}
         {{#defineBlockBody}}
-            <div class="{{blockName}}">
+            <div class="{{blockName}}" data-bsp-promo-list-module data-list-module>
                 {{element "title"}}
                 {{element "description"}}
                 {{element "items"}}
