@@ -3,7 +3,9 @@ package com.brightspot.model;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 
 import com.brightspot.model.module.AbstractModule;
 import com.brightspot.model.pagination.Pagination;
@@ -27,6 +29,7 @@ import com.psddev.cms.view.servlet.HttpServletPath;
 import com.psddev.cms.view.servlet.MainObject;
 import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
+import com.psddev.dari.util.PageContextFilter;
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractViewModel<M> extends ViewModel<M> {
@@ -81,6 +84,22 @@ public abstract class AbstractViewModel<M> extends ViewModel<M> {
     }
 
     // -- Helper Methods --//
+
+    public int getModuleSpecificPageNumber(UUID moduleId) {
+        HttpServletRequest request = PageContextFilter.Static.getRequestOrNull();
+
+        String modulePageParam = Pagination.getModulePageParam(moduleId);
+        String pageParam = request.getParameter(modulePageParam);
+
+        if (org.apache.commons.lang.StringUtils.isNotBlank(pageParam)) {
+            try {
+                return Integer.parseInt(pageParam);
+            } catch (NumberFormatException e) {
+                return 1;
+            }
+        }
+        return 1;
+    }
 
     protected Object buildObjectView(ViewWrapper wrapper) {
         return Optional.ofNullable(wrapper)

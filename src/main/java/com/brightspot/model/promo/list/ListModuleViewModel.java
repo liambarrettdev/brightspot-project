@@ -33,9 +33,10 @@ public class ListModuleViewModel extends AbstractViewModel<ListModule> implement
         int limit = model.getContent().getItemsPerPage();
 
         int pageCount = (int) Math.ceil((double) totalCount / limit);
-        int currentPageNumber = pageNumber < 1 ? 1 : (pageNumber < pageCount ? pageNumber : pageCount);
+        int modulePageNumber = getModuleSpecificPageNumber(model.getId());
+        int currentPageNumber = modulePageNumber < 1 ? 1 : Math.min(modulePageNumber, pageCount);
 
-        pagination = new Pagination(totalCount, limit);
+        pagination = new Pagination(totalCount, limit, model.getId());
         items = ListUtils.partition(totalItems, limit).get(currentPageNumber - 1);
     }
 

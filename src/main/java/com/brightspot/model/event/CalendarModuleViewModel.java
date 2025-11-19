@@ -40,6 +40,8 @@ public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> i
 
     private YearMonth selectedMonth;
 
+    private transient List<Event> events;
+
     @Override
     protected void onCreate(ViewResponse response) {
         super.onCreate(response);
@@ -55,6 +57,17 @@ public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> i
         if (ObjectUtils.isBlank(selectedMonth)) {
             selectedMonth = YearMonth.now();
         }
+
+        Date startDate = fromLocaDate(selectedMonth.atDay(1));
+        Date endDate = fromLocaDate(selectedMonth.plusMonths(1).atDay(1));
+
+        Query<Event> query = getBaseQuery().and("((endDate > ? and endDate < ?) or (endDate > ? and startDate < ?) or (endDate > ? and startDate < ?) or (startDate > ? and startDate < ?))",
+            startDate, endDate, endDate, endDate, startDate, startDate, startDate, endDate);
+
+        events = query.sortAscending("startDate")
+            .timeout(300D)
+            .select(0, model.getMaxItemsPerPage())
+            .getItems();
     }
 
     @Override
@@ -96,19 +109,6 @@ public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> i
 
     @Override
     public Collection<?> getEvents() {
-        Date startDate = fromLocaDate(selectedMonth.atDay(1));
-        Date endDate = fromLocaDate(selectedMonth.plusMonths(1).atDay(1));
-
-        Query<Event> query = getBaseQuery().and("endDate > ? and endDate < ?", startDate, endDate)
-            .or("endDate > ? and startDate < ?", endDate, endDate)
-            .or("endDate > ? and startDate < ?", startDate, startDate)
-            .or("startDate > ? and startDate < ?", startDate, endDate);
-
-        List<Event> events = query.sortAscending("startDate")
-            .timeout(300D)
-            .select(0, model.getMaxItemsPerPage())
-            .getItems();
-
         return events.stream()
             .map(event -> createView(PromotableDelegateViewModel.class, event))
             .collect(Collectors.toList());
@@ -117,6 +117,11 @@ public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> i
     @Override
     public Object getCta() {
         return createView(LinkView.class, model.getCta());
+    }
+
+    @Override
+    public Object getDefaultMessage() {
+        return events.isEmpty() ? model.getNoEventsMessage() : null;
     }
 
     private Query<Event> getBaseQuery() {

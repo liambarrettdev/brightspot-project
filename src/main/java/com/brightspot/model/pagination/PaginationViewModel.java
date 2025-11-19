@@ -55,7 +55,8 @@ public class PaginationViewModel extends AbstractViewModel<Pagination> implement
     }
 
     private LinkView createPageLink(long pageNumber, String text) {
-        String url = StringUtils.addQueryParameters(baseUrl, Pagination.PARAM_PAGE, pageNumber);
+        String paramPage = Pagination.getModulePageParam(model.getModuleId());
+        String url = StringUtils.addQueryParameters(baseUrl, paramPage, pageNumber);
         if (StringUtils.isBlank(url)) {
             return null;
         }
@@ -68,8 +69,9 @@ public class PaginationViewModel extends AbstractViewModel<Pagination> implement
     }
 
     private long calculateAdjustedPageNumber() {
-        return pageNumber < 1
+        int modulePageNumber = getModuleSpecificPageNumber(model.getModuleId());
+        return modulePageNumber < 1
             ? 1
-            : (pageNumber < model.getPageCount() ? pageNumber : model.getPageCount());
+            : (modulePageNumber < model.getPageCount() ? modulePageNumber : model.getPageCount());
     }
 }

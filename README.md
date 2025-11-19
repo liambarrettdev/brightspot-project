@@ -117,9 +117,9 @@ http://tomcat.apache.org/whichversion.html
 ## Project Structure
 
 ```
-├── src/main/java/com/brightspot/          # Java source code
-│   ├── auth/                              # Authentication system
-│   ├── integration/                       # Third-party integrations (Google, Stripe)
+├── src/main/java/com/brightspot/         # Java source code
+│   ├── auth/                             # Authentication system
+│   ├── integration/                      # Third-party integrations (Google, Stripe)
 │   ├── model/                            # Content models and data structures
 │   │   ├── article/                      # Article content type
 │   │   ├── blog/                         # Blog and blog post models
@@ -132,12 +132,11 @@ http://tomcat.apache.org/whichversion.html
 │   ├── task/                             # Background tasks and cron jobs
 │   ├── tool/                             # CMS admin interface customizations
 │   └── utils/                            # Utility classes and helpers
-├── src/main/webapp/                       # Web application resources
+├── src/main/webapp/                      # Web application resources
 ├── styleguide/                           # Frontend component definitions
 │   ├── model/                            # Component JSON definitions
 │   └── _config.json                      # Styleguide configuration
-├── bower_components/                      # Frontend dependencies
-├── docker-compose.yml                     # Docker development environment
+├── docker-compose.yml                    # Docker development environment
 └── pom.xml                               # Maven build configuration
 ```
 

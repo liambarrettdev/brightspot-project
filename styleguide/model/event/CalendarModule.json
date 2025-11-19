@@ -10,14 +10,14 @@
             }
         ]
     },
-    "currentMonth": "May 2023",
+    "currentMonth": "May 2025",
     "prevMonth": {
         "_dataUrl": "/model/link/Link.json",
-        "body": "April 2023"
+        "body": "April"
     },
     "nextMonth": {
         "_dataUrl": "/model/link/Link.json",
-        "body": "June 2023"
+        "body": "June"
     },
     "events": [
         {
@@ -27,5 +27,6 @@
     ],
     "cta": {
         "_dataUrl": "/model/link/Link.json"
-    }
+    },
+    "defaultMessage": "{{words(5)}}"
 }

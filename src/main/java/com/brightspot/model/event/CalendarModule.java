@@ -16,6 +16,7 @@ public class CalendarModule extends AbstractModule implements ShareableModule {
     protected static final String VIEW_TYPE = "calendar-module";
 
     private static final String DEFAULT_MAX_ITEMS = "20";
+    private static final String DEFAULT_NO_EVENTS_MESSAGE = "No events found";
 
     @Required
     private String title;
@@ -32,6 +33,9 @@ public class CalendarModule extends AbstractModule implements ShareableModule {
 
     @ToolUi.Placeholder(DEFAULT_MAX_ITEMS)
     private Integer maxItemsPerPage;
+
+    @ToolUi.Placeholder(value = DEFAULT_NO_EVENTS_MESSAGE, editable = true)
+    private String noEventsMessage;
 
     public String getTitle() {
         return title;
@@ -71,6 +75,14 @@ public class CalendarModule extends AbstractModule implements ShareableModule {
 
     public void setMaxItemsPerPage(Integer maxItemsPerPage) {
         this.maxItemsPerPage = maxItemsPerPage;
+    }
+
+    public String getNoEventsMessage() {
+        return ObjectUtils.firstNonBlank(noEventsMessage, DEFAULT_NO_EVENTS_MESSAGE);
+    }
+
+    public void setNoEventsMessage(String noEventsMessage) {
+        this.noEventsMessage = noEventsMessage;
     }
 
     // -- Overrides -- //

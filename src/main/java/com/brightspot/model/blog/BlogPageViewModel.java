@@ -34,7 +34,7 @@ public class BlogPageViewModel extends AbstractViewModel<Blog> implements BlogPa
         int pageCount = (int) Math.ceil((double) totalCount / limit);
         long currentPageNumber = pageNumber < 1 ? 1 : (pageNumber < pageCount ? pageNumber : pageCount);
 
-        pagination = new Pagination(totalCount, limit);
+        pagination = new Pagination(totalCount, limit, model.getId());
         posts = query.sortDescending(Content.PUBLISH_DATE_FIELD)
             .select((currentPageNumber - 1) * limit, limit)
             .getItems();

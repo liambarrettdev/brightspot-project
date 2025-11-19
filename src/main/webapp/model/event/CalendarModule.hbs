@@ -21,10 +21,18 @@
     {{/defineElement}}
 
     {{~#defineElement "events"~}}
+        {{#with this}}
         <div class="{{elementName}}">
             {{#each this}}{{this}}{{/each}}
         </div>
+        {{/with}}
     {{~/defineElement~}}
+
+    {{~#defineElement "defaultMessage"~}}
+        {{#with this}}
+        <div class="{{elementName}}">{{this}}</div>
+        {{/with}}
+    {{/defineElement}}
 
     {{~#defineBlockContainer~}}
         {{#defineBlockBody}}
@@ -36,6 +44,7 @@
                     {{element "currentMonth"}}
                     {{element "nextMonth"}}
                 </div>
+                {{element "defaultMessage"}}
                 {{element "events"}}
             </div>
         {{/defineBlockBody}}

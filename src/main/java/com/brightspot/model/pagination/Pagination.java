@@ -1,5 +1,7 @@
 package com.brightspot.model.pagination;
 
+import java.util.UUID;
+
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.util.ObjectUtils;
 
@@ -12,9 +14,12 @@ public class Pagination {
 
     private Integer pageCountLimit;
 
-    public Pagination(long totalItemCount, int pageCountLimit) {
+    private UUID moduleId;
+
+    public Pagination(long totalItemCount, int pageCountLimit, UUID moduleId) {
         this.totalItemCount = totalItemCount;
         this.pageCountLimit = pageCountLimit;
+        this.moduleId = moduleId;
     }
 
     public Long getTotalItemCount() {
@@ -33,7 +38,21 @@ public class Pagination {
         this.pageCountLimit = pageCountLimit;
     }
 
+    public UUID getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(UUID moduleId) {
+        this.moduleId = moduleId;
+    }
+
     public long getPageCount() {
         return (long) Math.ceil((double) getTotalItemCount() / getPageCountLimit());
+    }
+
+    public static String getModulePageParam(UUID moduleId) {
+        return moduleId == null
+                ? PARAM_PAGE + "_default"
+                : PARAM_PAGE + "_" + moduleId;
     }
 }
