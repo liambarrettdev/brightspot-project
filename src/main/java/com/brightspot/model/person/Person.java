@@ -17,6 +17,7 @@ import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Query;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 import com.psddev.dari.util.StorageItem;
 import com.psddev.dari.util.StringUtils;
@@ -31,7 +32,7 @@ public class Person extends AbstractPage implements
     private static final String PROMOTABLE_TYPE = "person";
     private static final String DEFAULT_THUMBNAIL = "/assets/placeholders/person.png";
 
-    @Indexed(unique = true)
+    @Recordable.Indexed(unique = true)
     private String email;
 
     private String position;
@@ -43,11 +44,11 @@ public class Person extends AbstractPage implements
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class, inline = false)
     private String biography;
 
-    @Embedded
+    @Recordable.Embedded
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.getAvatarPlaceholderHtml()}'></span>")
     private Image avatar;
 
-    @Indexed
+    @Recordable.Indexed
     @ToolUi.Tab("Content")
     public List<HasAuthor> getMostRecentContent() {
         return Query.from(HasAuthor.class)
@@ -58,7 +59,7 @@ public class Person extends AbstractPage implements
             .getItems();
     }
 
-    @Indexed
+    @Recordable.Indexed
     @ToolUi.Hidden
     public StorageItem getPreviewStorageItem() {
         return Optional.ofNullable(getPreviewImage())

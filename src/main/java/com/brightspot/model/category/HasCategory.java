@@ -21,7 +21,7 @@ public interface HasCategory extends Recordable {
 
         @ToolUi.Heading("Category")
 
-        @Indexed
+        @Recordable.Indexed
         @ToolUi.Filterable
         private Category category;
 

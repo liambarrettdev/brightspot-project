@@ -12,11 +12,11 @@ public class QuoteModule extends AbstractModule implements ShareableModule {
 
     protected static final String VIEW_CLASS = "quote-module";
 
-    @Indexed
-    @Required
+    @Recordable.Indexed
+    @Recordable.Required
     private String text;
 
-    @Indexed
+    @Recordable.Indexed
     private String attribution;
 
     private Image image;

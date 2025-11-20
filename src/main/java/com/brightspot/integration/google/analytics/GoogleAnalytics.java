@@ -3,13 +3,14 @@ package com.brightspot.integration.google.analytics;
 import com.brightspot.model.page.HeadItem;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 
 @ViewBinding(value = GoogleAnalyticsViewModel.class, types = GoogleAnalytics.VIEW_TYPE)
 public class GoogleAnalytics extends Record implements HeadItem {
 
     protected static final String VIEW_TYPE = "google-analytics";
 
-    @Required
+    @Recordable.Required
     private String trackingId;
 
     private Boolean disablePageViews;

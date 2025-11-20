@@ -3,6 +3,7 @@ package com.brightspot.model.page.element;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 
 @ViewBinding(value = StylesheetElementInlineViewModel.class, types = StylesheetElement.VIEW_TYPE_INLINE)
 @ViewBinding(value = StylesheetElementExternalViewModel.class, types = StylesheetElement.VIEW_TYPE_EXTERNAL)
@@ -11,7 +12,7 @@ public class StylesheetElement extends HeadElement {
     protected static final String VIEW_TYPE_INLINE = "inline-stylesheet-element";
     protected static final String VIEW_TYPE_EXTERNAL = "external-stylesheet-element";
 
-    @Required
+    @Recordable.Required
     private Stylesheet type = new InlineStylesheet();
 
     public Stylesheet getType() {
@@ -27,7 +28,7 @@ public class StylesheetElement extends HeadElement {
         return type instanceof InlineStylesheet ? VIEW_TYPE_INLINE : VIEW_TYPE_EXTERNAL;
     }
 
-    @Embedded
+    @Recordable.Embedded
     public abstract static class Stylesheet extends Record {
 
     }

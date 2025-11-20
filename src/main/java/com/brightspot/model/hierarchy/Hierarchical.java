@@ -46,7 +46,7 @@ public interface Hierarchical extends Recordable {
         public static final String FIELD_PREFIX = "hierarchical.";
         public static final String PARENT_FIELD = FIELD_PREFIX + "getParent";
 
-        @Indexed
+        @Recordable.Indexed
         @ToolUi.Hidden
         public Hierarchical getParent() {
             return getOriginalObject().getHierarchicalParent();

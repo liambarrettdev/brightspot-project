@@ -5,13 +5,14 @@ import java.util.List;
 
 import com.brightspot.model.form.field.FieldInput;
 import com.psddev.cms.view.ViewBinding;
+import com.psddev.dari.db.Recordable;
 
 @ViewBinding(value = ChoiceFieldDelegateViewModel.class, types = ChoiceField.VIEW_CLASS)
 public class ChoiceField extends FieldInput {
 
     protected static final String VIEW_CLASS = "choice-field";
 
-    @Required
+    @Recordable.Required
     private ChoiceFieldType type = new ChoiceFieldType.Dropdown();
 
     @CollectionMinimum(1)

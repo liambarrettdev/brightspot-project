@@ -23,6 +23,7 @@ import com.psddev.cms.db.Taxon;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Query;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,9 +46,9 @@ public class Category extends AbstractPage implements
     @ToolUi.Note("This will override the default page content")
     private List<AbstractModule> contents;
 
-    @Indexed
-    @Where("_id != ?")
-    @Types({ Category.class, Page.class })
+    @Recordable.Indexed
+    @Recordable.Where("_id != ?")
+    @Recordable.Types({ Category.class, Page.class })
     @ToolUi.Filterable
     private Hierarchical parent;
 

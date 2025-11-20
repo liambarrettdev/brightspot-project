@@ -7,7 +7,7 @@ import com.psddev.dari.db.Recordable;
 @Recordable.Embedded
 public class Slide extends Record {
 
-    @Required
+    @Recordable.Required
     private Image image;
 
     private String title;

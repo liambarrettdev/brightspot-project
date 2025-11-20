@@ -12,7 +12,7 @@ import com.psddev.dari.util.StorageItem;
 @Recordable.Embedded
 public class HtmlAudioFileWrapper extends Record {
 
-    @Required
+    @Recordable.Required
     @MimeTypes("+audio/")
     private StorageItem file;
 

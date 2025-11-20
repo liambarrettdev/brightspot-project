@@ -1570,7 +1570,7 @@ public class ObjectField extends Record {
     /**
      * Description of a value that can be stored in a field.
      */
-    @Embedded
+    @Recordable.Embedded
     public static class Value extends Record {
 
         private static final String LABEL_KEY = "label";

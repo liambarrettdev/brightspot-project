@@ -44,7 +44,8 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
         }
 
         // site-specific links
-        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
+        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements)
+            .stream()
             .map(item -> item.getElements(LinkElement.class))
             .flatMap(elements -> elements.stream().map(this::buildObjectView))
             .collect(Collectors.toList()));
@@ -74,7 +75,8 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
         }
 
         // site-specific meta tags
-        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
+        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements)
+            .stream()
             .map(item -> item.getElements(MetaElement.class))
             .flatMap(elements -> elements.stream().map(this::buildObjectView))
             .collect(Collectors.toList()));
@@ -97,7 +99,8 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
         }
 
         // site-specific scripts
-        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
+        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements)
+            .stream()
             .map(item -> item.getElements(ScriptElement.class))
             .flatMap(elements -> elements.stream().map(this::buildObjectView))
             .collect(Collectors.toList()));
@@ -121,7 +124,8 @@ public class PageHeadViewModel extends AbstractViewModel<AbstractPage> implement
         }
 
         // site-specific stylesheets
-        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements).stream()
+        items.addAll(IntegrationSiteSettings.get(getCurrentSite(), IntegrationSiteSettings::getCustomHeadElements)
+            .stream()
             .map(item -> item.getElements(StylesheetElement.class))
             .flatMap(elements -> elements.stream().map(this::buildObjectView))
             .collect(Collectors.toList()));

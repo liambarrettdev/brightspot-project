@@ -177,10 +177,10 @@ public final class StripeClient {
 
     public static Boolean checkDefaultPaymentMethod(Customer customer, String paymentMethodId) {
         return Optional.ofNullable(customer)
-                .map(Customer::getInvoiceSettings)
-                .map(Customer.InvoiceSettings::getDefaultPaymentMethod)
-                .map(defaultPaymentMethod -> defaultPaymentMethod.equalsIgnoreCase(paymentMethodId))
-                .orElse(false);
+            .map(Customer::getInvoiceSettings)
+            .map(Customer.InvoiceSettings::getDefaultPaymentMethod)
+            .map(defaultPaymentMethod -> defaultPaymentMethod.equalsIgnoreCase(paymentMethodId))
+            .orElse(false);
     }
 
     public static synchronized StripeClient getInstance(String key) {

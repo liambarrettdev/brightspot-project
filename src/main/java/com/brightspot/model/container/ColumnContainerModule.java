@@ -17,7 +17,7 @@ public class ColumnContainerModule extends AbstractModule implements ShareableMo
 
     protected static final String VIEW_CLASS = "column-container-module";
 
-    @Required
+    @Recordable.Required
     private ColumnContainer content = new OneColumn();
 
     public ColumnContainer getContent() {

@@ -10,7 +10,7 @@ import com.psddev.dari.db.Recordable;
 @Recordable.DisplayName("Internal Link")
 public class InternalLinkPromo extends Record implements Promo {
 
-    @Required
+    @Recordable.Required
     private Promotable promotable;
 
     public Promotable getPromotable() {

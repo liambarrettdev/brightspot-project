@@ -13,7 +13,7 @@ import com.psddev.dari.db.Recordable;
 @ViewBinding(value = PageNavigationViewModel.class)
 public class Header extends Record {
 
-    @Required
+    @Recordable.Required
     private String name;
 
     private String text;

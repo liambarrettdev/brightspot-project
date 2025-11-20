@@ -10,6 +10,7 @@ import com.brightspot.tool.HasImagePreview;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.ObjectType;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 
 @ToolUi.IconName(Video.ICON_NAME)
@@ -31,17 +32,17 @@ public class Video extends AbstractMediaContent implements
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.asTimedContentData().getDurationLabel()}'></span>")
     private VideoSource source;
 
-    @Embedded
+    @Recordable.Embedded
     @ToolUi.Tab(TAB_OVERRIDES)
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.getThumbnailPlaceholderHtml()}'></span>")
     private Image thumbnail;
 
-    @Indexed
-    @Where(VIDEO_PREDICATE)
+    @Recordable.Indexed
+    @Recordable.Where(VIDEO_PREDICATE)
     @ToolUi.Hidden
     @ToolUi.DropDown
     @ToolUi.Filterable
-    public ObjectType videoType;
+    private ObjectType videoType;
 
     public String getName() {
         return name;

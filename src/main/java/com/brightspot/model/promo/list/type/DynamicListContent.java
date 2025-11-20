@@ -27,14 +27,14 @@ public class DynamicListContent extends ListContent implements DynamicListModifi
         + " && (cms.ui.hidden = false || cms.ui.hidden = missing)"
         + " && isAbstract = false";
 
-    @Where(PROMOTABLE_PREDICATE)
+    @Recordable.Where(PROMOTABLE_PREDICATE)
     @ToolUi.DropDown
     private Set<ObjectType> types;
 
     @ToolUi.Placeholder(DEFAULT_ITEMS_PER_PAGE)
     private Integer itemsPerPage = Integer.parseInt(DEFAULT_ITEMS_PER_PAGE);
 
-    @Required
+    @Recordable.Required
     private DynamicListSort sort = new AgeDynamicListSort();
 
     public Set<ObjectType> getTypes() {

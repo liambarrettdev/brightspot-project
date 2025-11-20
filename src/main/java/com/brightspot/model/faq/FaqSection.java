@@ -12,7 +12,7 @@ import com.psddev.dari.db.Recordable;
 @ViewBinding(value = FaqSectionViewModel.class)
 public class FaqSection extends Record {
 
-    @Required
+    @Recordable.Required
     private String value;
 
     @CollectionMinimum(1)

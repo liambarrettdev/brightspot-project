@@ -23,7 +23,7 @@ public interface HasTag extends Recordable {
 
         @ToolUi.Heading("Tagging")
 
-        @Indexed
+        @Recordable.Indexed
         @ToolUi.Filterable
         private List<Tag> tags;
 

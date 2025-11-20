@@ -7,7 +7,7 @@ import com.psddev.dari.db.Recordable;
 @Recordable.Embedded
 public abstract class HeadElement extends Record implements ViewWrapper {
 
-    @Required
+    @Recordable.Required
     private String internalName;
 
     public String getInternalName() {

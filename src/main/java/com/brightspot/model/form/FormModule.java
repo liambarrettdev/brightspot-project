@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.brightspot.model.form.action.Action;
 import com.brightspot.model.form.field.Field;
@@ -23,6 +25,7 @@ public class FormModule extends AbstractModule implements ShareableModule {
 
     public static final String TAB_OVERRIDES = "Overrides";
     public static final String FORM_ID_PARAM = "brightspot.form.id";
+    public static final String CSRF_TOKEN_PARAM = "brightspot.form.csrf";
 
     protected static final String VIEW_TYPE = "form-module";
 
@@ -33,7 +36,7 @@ public class FormModule extends AbstractModule implements ShareableModule {
     @CollectionMinimum(1)
     private List<Field> fields;
 
-    @Embedded
+    @Recordable.Embedded
     @CollectionMinimum(1)
     private List<Action> actions;
 
@@ -109,9 +112,50 @@ public class FormModule extends AbstractModule implements ShareableModule {
     }
 
     private boolean validateRequest(HttpServletRequest request) {
-        return Optional.ofNullable(request)
-            .map(r -> r.getParameter(FORM_ID_PARAM))
-            .map(id -> getId().toString().equals(id))
-            .orElse(false);
+        if (request == null) {
+            return false;
+        }
+
+        // Validate form ID
+        String formIdParam = request.getParameter(FORM_ID_PARAM);
+        if (getId() == null || !getId().toString().equals(formIdParam)) {
+            return false;
+        }
+
+        // Validate CSRF token
+        String csrfToken = request.getParameter(CSRF_TOKEN_PARAM);
+        HttpSession session = request.getSession(false);
+        if (session == null || csrfToken == null) {
+            return false;
+        }
+
+        String sessionToken = (String) session.getAttribute(getCSRFSessionKey());
+        return csrfToken.equals(sessionToken);
+    }
+
+    /**
+     * Generates and stores a CSRF token in the session for this form.
+     *
+     * @param request the HTTP request containing the session
+     * @return the generated CSRF token
+     */
+    public String generateCSRFToken(HttpServletRequest request) {
+        if (request == null) {
+            return null;
+        }
+
+        HttpSession session = request.getSession(true);
+        String token = UUID.randomUUID().toString();
+        session.setAttribute(getCSRFSessionKey(), token);
+        return token;
+    }
+
+    /**
+     * Gets the session key for storing this form's CSRF token.
+     *
+     * @return the session key
+     */
+    private String getCSRFSessionKey() {
+        return CSRF_TOKEN_PARAM + "." + (getId() != null ? getId().toString() : "unknown");
     }
 }

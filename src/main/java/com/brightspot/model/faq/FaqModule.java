@@ -14,7 +14,7 @@ public class FaqModule extends AbstractModule implements ShareableModule {
 
     protected static final String VIEW_TYPE = "faq-module";
 
-    @Required
+    @Recordable.Required
     private String title;
 
     private String description;

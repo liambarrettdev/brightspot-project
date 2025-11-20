@@ -31,7 +31,7 @@ public class AudioEnhancement extends AbstractRichTextEnhancement implements Ali
     public static final String ELEMENT_NAME = "Audio";
     public static final String TAG_NAME = "bsp.audio";
 
-    @Required
+    @Recordable.Required
     private Audio audio;
 
     public Audio getAudio() {

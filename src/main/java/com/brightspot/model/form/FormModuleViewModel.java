@@ -12,6 +12,7 @@ import com.brightspot.view.model.form.input.HiddenInputView;
 import com.psddev.cms.view.ViewResponse;
 import com.psddev.cms.view.servlet.HttpMethod;
 import com.psddev.dari.db.State;
+import com.psddev.dari.util.PageContextFilter;
 import org.apache.commons.lang3.StringUtils;
 
 import static com.brightspot.integration.GenericHttpClient.Method.POST;
@@ -53,10 +54,20 @@ public class FormModuleViewModel extends AbstractViewModel<FormModule> implement
             .map(input -> createView(input.getViewClass(), input))
             .collect(Collectors.toList());
 
+        // Add hidden form ID field
         items.add(new HiddenInputView.Builder()
             .name(FormModule.FORM_ID_PARAM)
             .value(State.getInstance(model).getId().toString())
             .build());
+
+        // Add CSRF token field for security
+        String csrfToken = model.generateCSRFToken(PageContextFilter.Static.getRequestOrNull());
+        if (csrfToken != null) {
+            items.add(new HiddenInputView.Builder()
+                .name(FormModule.CSRF_TOKEN_PARAM)
+                .value(csrfToken)
+                .build());
+        }
 
         return items;
     }

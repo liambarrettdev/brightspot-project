@@ -17,7 +17,7 @@ public interface AlphabeticalSortable extends Recordable {
         public static final String SORT_FIELD = FIELD_PREFIX + "getSortValue";
         public static final String SORT_FIELD_INDEX = AlphabeticalSortable.class.getName() + "/" + SORT_FIELD;
 
-        @Indexed
+        @Recordable.Indexed
         @ToolUi.Hidden
         public String getSortValue() {
             return getOriginalObject().getAlphabeticalSortValue();

@@ -10,7 +10,7 @@ import com.psddev.dari.db.Recordable;
 @Recordable.DisplayName("Age")
 public class AgeDynamicListSort extends Record implements DynamicListSort {
 
-    @Required
+    @Recordable.Required
     private Direction direction = Direction.DESCENDING;
 
     public Direction getDirection() {

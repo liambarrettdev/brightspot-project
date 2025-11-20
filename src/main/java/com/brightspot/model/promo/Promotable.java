@@ -12,6 +12,7 @@ import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Modification;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 
 @ViewBinding(value = PromotableDelegateViewModel.class)
@@ -98,7 +99,7 @@ public interface Promotable extends Linkable {
         @ToolUi.NoteHtml("<span data-dynamic-html='${content.asPromotableData().getPromoImagePlaceholderHtml()}'></span>")
         private Image promoImage;
 
-        @Indexed
+        @Recordable.Indexed
         @ToolUi.Tab(TAB_NAME)
         @ToolUi.Heading("Advanced")
         private Boolean excludeFromDynamicResults;

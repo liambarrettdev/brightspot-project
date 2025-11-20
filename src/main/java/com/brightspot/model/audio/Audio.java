@@ -10,6 +10,7 @@ import com.brightspot.tool.HasImagePreview;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.ObjectType;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 
 @ToolUi.IconName(Audio.ICON_NAME)
@@ -31,13 +32,13 @@ public class Audio extends AbstractMediaContent implements
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.asTimedContentData().getDurationLabel()}'></span>")
     private AudioSource source;
 
-    @Embedded
+    @Recordable.Embedded
     @ToolUi.Tab(TAB_OVERRIDES)
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.getThumbnailPlaceholderHtml()}'></span>")
     private Image thumbnail;
 
-    @Indexed
-    @Where(AUDIO_PREDICATE)
+    @Recordable.Indexed
+    @Recordable.Where(AUDIO_PREDICATE)
     @ToolUi.Hidden
     @ToolUi.DropDown
     @ToolUi.Filterable

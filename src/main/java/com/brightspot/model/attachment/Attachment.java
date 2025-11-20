@@ -4,6 +4,7 @@ import com.brightspot.model.link.Linkable;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.StorageItem;
 
 @ToolUi.Publishable(false)
@@ -11,7 +12,7 @@ public class Attachment extends Content implements Linkable {
 
     private String name;
 
-    @Required
+    @Recordable.Required
     private StorageItem file;
 
     private Boolean autoDownload;

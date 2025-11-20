@@ -16,6 +16,7 @@ import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -35,23 +36,23 @@ public class Event extends AbstractPage implements
 
     private static final String PROMOTABLE_TYPE = "event";
 
-    @Required
+    @Recordable.Required
     @ToolUi.CssClass("is-one-half")
     private String location;
 
-    @Indexed
-    @Required
+    @Recordable.Indexed
+    @Recordable.Required
     @ToolUi.Filterable
     @ToolUi.CssClass("is-one-half")
     private Type type = Type.ONLINE;
 
-    @Indexed
-    @Required
+    @Recordable.Indexed
+    @Recordable.Required
     @ToolUi.Filterable
     @ToolUi.CssClass("is-one-half")
     private Date startDate;
 
-    @Indexed
+    @Recordable.Indexed
     @ToolUi.Filterable
     @ToolUi.CssClass("is-one-half")
     private Date endDate;

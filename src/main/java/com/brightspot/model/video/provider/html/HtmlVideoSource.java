@@ -12,7 +12,7 @@ public class HtmlVideoSource extends VideoSource {
 
     protected static final String VIEW_TYPE = "html-video";
 
-    @Required
+    @Recordable.Required
     private HtmlVideoFileWrapper content;
 
     public HtmlVideoFileWrapper getContent() {

@@ -16,7 +16,7 @@ public class NavigationLinkItem extends Record implements NavigationItem {
     @ToolUi.Placeholder(dynamicText = "${content.getTextFallback()}", editable = true)
     private String text;
 
-    @Required
+    @Recordable.Required
     private Link link = new InternalLink();
 
     public String getText() {

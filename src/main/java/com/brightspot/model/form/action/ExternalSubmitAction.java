@@ -8,6 +8,7 @@ import com.brightspot.model.form.FormModule;
 import com.brightspot.tool.field.annotation.Url;
 import com.google.common.base.Charsets;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 import com.psddev.dari.util.PageContextFilter;
 import org.apache.commons.lang3.StringUtils;
@@ -30,10 +31,10 @@ public class ExternalSubmitAction extends Record implements Action {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExternalSubmitAction.class);
 
     @Url
-    @Required
+    @Recordable.Required
     private String endpoint;
 
-    @Required
+    @Recordable.Required
     private GenericHttpClient.Method method = POST;
 
     public String getEndpoint() {

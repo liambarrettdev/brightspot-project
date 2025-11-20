@@ -38,7 +38,7 @@ public interface Expirable extends Recordable {
         public static final String EXPIRED_PREDICATE = String.format("%s = true", EXPIRED_FIELD);
         public static final String NOT_EXPIRED_PREDICATE = String.format("(%1$s = missing or %1$s = false)", EXPIRED_FIELD);
 
-        @Indexed(visibility = true)
+        @Recordable.Indexed(visibility = true)
         @ToolUi.ReadOnly
         private Boolean expired;
 

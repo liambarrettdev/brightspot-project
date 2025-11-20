@@ -18,7 +18,7 @@ public class CalendarModule extends AbstractModule implements ShareableModule {
     private static final String DEFAULT_MAX_ITEMS = "20";
     private static final String DEFAULT_NO_EVENTS_MESSAGE = "No events found";
 
-    @Required
+    @Recordable.Required
     private String title;
 
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)

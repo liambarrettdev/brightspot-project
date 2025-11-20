@@ -20,8 +20,8 @@ public class PromoModule extends AbstractModule implements
 
     protected static final String VIEW_CLASS = "promo-module";
 
-    @Required
-    @Embedded
+    @Recordable.Required
+    @Recordable.Embedded
     private Promo promo = new NoLinkPromo();
 
     @ToolUi.Placeholder(dynamicText = "${content.getTitleFallback()}", editable = true)

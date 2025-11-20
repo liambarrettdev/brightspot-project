@@ -31,7 +31,7 @@ public class VideoEnhancement extends AbstractRichTextEnhancement implements Ali
     public static final String ELEMENT_NAME = "Video";
     public static final String TAG_NAME = "bsp.video";
 
-    @Required
+    @Recordable.Required
     private Video video;
 
     public Video getVideo() {

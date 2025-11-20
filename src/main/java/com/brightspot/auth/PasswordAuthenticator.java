@@ -13,6 +13,7 @@ import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Query;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.JspUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -21,7 +22,7 @@ public class PasswordAuthenticator extends AbstractAuthenticator implements Site
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_PASSWORD = "password";
 
-    @Required
+    @Recordable.Required
     @ToolUi.DisplayFirst
     private String name;
 

@@ -4,6 +4,7 @@ import com.brightspot.tool.field.annotation.Url;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 
 @ViewBinding(value = ScriptElementInlineViewModel.class, types = ScriptElement.VIEW_TYPE_INLINE)
 @ViewBinding(value = ScriptElementExternalViewModel.class, types = ScriptElement.VIEW_TYPE_EXTERNAL)
@@ -12,7 +13,7 @@ public class ScriptElement extends HeadElement {
     protected static final String VIEW_TYPE_INLINE = "inline-script-element";
     protected static final String VIEW_TYPE_EXTERNAL = "external-script-element";
 
-    @Required
+    @Recordable.Required
     private Script type = new InlineScript();
 
     public Script getType() {
@@ -28,7 +29,7 @@ public class ScriptElement extends HeadElement {
         return type instanceof InlineScript ? VIEW_TYPE_INLINE : VIEW_TYPE_EXTERNAL;
     }
 
-    @Embedded
+    @Recordable.Embedded
     public abstract static class Script extends Record {
 
     }

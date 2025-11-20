@@ -8,6 +8,13 @@ export class ListModule {
         this.$itemsContainer = this.$el.find('[data-list-items]')
         this.$paginationContainer = this.$el.find('[data-list-pagination]')
         
+        // Get the unique ID from the server-rendered attribute
+        this.moduleId = this.$el.attr('data-list-module-id')
+        
+        // Get the index of this list module among all list modules on the page
+        // This serves as a fallback if the ID is not present
+        this.moduleIndex = $('[data-list-module]').index(this.$el)
+        
         // Extract base URL from the first pagination link or use current URL
         const $firstLink = this.$el.find('.Pagination a[href]').first()
         if ($firstLink.length) {
@@ -76,10 +83,23 @@ export class ListModule {
         // Parse the HTML response - it will be the full page HTML
         const $response = $(html)
         
-        // Find the ListModule in the response using data attribute
-        const $responseModule = $response.find('[data-list-module]')
+        // Find the matching ListModule in the response
+        let $responseModule = $()
         
-        // If we found the module in the response, extract its content
+        // First, try to find by the unique module ID (if available)
+        if (this.moduleId) {
+            $responseModule = $response.find('[data-list-module-id="' + this.moduleId + '"]')
+        }
+        
+        // If not found by ID, try to find by index position
+        if (!$responseModule.length) {
+            const $allResponseModules = $response.find('[data-list-module]')
+            if ($allResponseModules.length > this.moduleIndex) {
+                $responseModule = $allResponseModules.eq(this.moduleIndex)
+            }
+        }
+        
+        // If we found the matching module in the response, extract its content
         if ($responseModule.length) {
             const $newItemsContainer = $responseModule.find('[data-list-items]')
             const $newPaginationContainer = $responseModule.find('[data-list-pagination]')
@@ -100,23 +120,9 @@ export class ListModule {
                 this.$paginationContainer.html($newPaginationContainer.html())
             }
         } else {
-            // Fallback: try to find by data attributes directly
-            const $newItemsContainer = $response.find('[data-list-items]')
-            const $newPaginationContainer = $response.find('[data-list-pagination]')
-            
-            if ($newItemsContainer.length) {
-                this.$itemsContainer.fadeOut(200, () => {
-                    this.$itemsContainer.html($newItemsContainer.first().html())
-                    this.$itemsContainer.removeClass('loading')
-                    this.$itemsContainer.fadeIn(200)
-                })
-            } else {
-                this.$itemsContainer.removeClass('loading')
-            }
-            
-            if ($newPaginationContainer.length) {
-                this.$paginationContainer.html($newPaginationContainer.first().html())
-            }
+            // Fallback: couldn't find matching module
+            console.warn('Could not find matching list module in response')
+            this.$itemsContainer.removeClass('loading')
         }
         
         // Update browser URL without reload

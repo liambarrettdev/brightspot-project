@@ -10,6 +10,7 @@ import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.brightspot.utils.CookieUtils;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.JspUtils;
 
 @ToolUi.Publishable(false)
@@ -25,13 +26,13 @@ public abstract class AbstractAuthenticator extends Record {
 
     @ToolUi.Heading("Registration Email")
 
-    @Required
+    @Recordable.Required
     private String from;
 
-    @Required
+    @Recordable.Required
     private String subject;
 
-    @Required
+    @Recordable.Required
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
     private String template;
 

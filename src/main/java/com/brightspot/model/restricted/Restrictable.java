@@ -30,7 +30,7 @@ public interface Restrictable extends Recordable {
 
         public static final String TAB_NAME = "Access";
 
-        @Indexed
+        @Recordable.Indexed
         @ToolUi.Tab(TAB_NAME)
         @ToolUi.Note("Page will be restricted to logged in users only")
         private Boolean restrictedContent;

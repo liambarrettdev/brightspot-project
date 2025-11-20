@@ -5,6 +5,7 @@ import java.util.Map;
 import com.brightspot.model.form.FormModule;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.MailMessage;
 import com.psddev.dari.util.PageContextFilter;
 import org.apache.commons.lang3.StringUtils;
@@ -15,18 +16,18 @@ public class EmailAction extends Record implements Action {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailAction.class);
 
-    @Required
+    @Recordable.Required
     private String fromEmail;
 
-    @Required
+    @Recordable.Required
     @ToolUi.Note("Specify the recipient address for the email. To use a parameter, use ${parameterName}.")
     private String toEmail;
 
-    @Required
+    @Recordable.Required
     @ToolUi.Note("Specify the subject for the email. To use a parameter, use ${parameterName}.")
     private String subject;
 
-    @Required
+    @Recordable.Required
     @ToolUi.Note("Send an email with the values from the form. To use a parameter, use ${parameterName}.")
     private String body;
 
@@ -74,7 +75,7 @@ public class EmailAction extends Record implements Action {
             Map<String, String> submission = form.getSubmission(PageContextFilter.Static.getRequestOrNull());
             for (Map.Entry<String, String> entry : submission.entrySet()) {
                 String key = "${" + entry.getKey() + "}";
-                String value = entry.getValue();
+                String value = sanitizeValue(entry.getValue());
 
                 if (StringUtils.isNotBlank(to)) {
                     to = to.replace(key, value);
@@ -99,5 +100,22 @@ public class EmailAction extends Record implements Action {
         }
 
         return true;
+    }
+
+    // -- Helper Methods -- //
+
+    /**
+     * Sanitizes user input to prevent email header injection attacks
+     * by removing carriage return and newline characters.
+     *
+     * @param value the user input value to sanitize
+     * @return the sanitized value, or empty string if input is null
+     */
+    private String sanitizeValue(String value) {
+        if (value == null) {
+            return "";
+        }
+        // Remove \r, \n, and any Unicode line separators to prevent header injection
+        return value.replaceAll("[\\r\\n\\u0085\\u2028\\u2029]", "");
     }
 }

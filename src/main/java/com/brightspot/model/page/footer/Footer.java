@@ -11,6 +11,7 @@ import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 import org.apache.commons.lang3.StringUtils;
 
 @ViewBinding(value = FooterViewModel.class)
@@ -18,7 +19,7 @@ public class Footer extends Record {
 
     private static final String YEAR_TOKEN = "$YYYY";
 
-    @Required
+    @Recordable.Required
     private String name;
 
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)

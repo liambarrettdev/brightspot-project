@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 @Recordable.DisplayName("Internal")
 public class InternalLink extends Link {
 
-    @Required
+    @Recordable.Required
     private Linkable item;
 
     @ToolUi.Tab(ADVANCED_TAB)

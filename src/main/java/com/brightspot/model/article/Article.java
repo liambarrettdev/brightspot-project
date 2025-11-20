@@ -13,6 +13,7 @@ import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.crosslinker.db.Crosslinkable;
+import com.psddev.dari.db.Recordable;
 
 @ToolUi.FieldDisplayOrder({
     "name",
@@ -34,7 +35,7 @@ public class Article extends AbstractCreativeWorkPage implements
 
     private static final String PROMOTABLE_TYPE = "article";
 
-    @Required
+    @Recordable.Required
     @Crosslinkable.Crosslinked
     private RichTextModule body = new RichTextModule();
 

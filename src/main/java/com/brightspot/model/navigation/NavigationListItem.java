@@ -19,7 +19,7 @@ public class NavigationListItem extends Record implements NavigationItem {
 
     private Link link;
 
-    @Embedded
+    @Recordable.Embedded
     @Types({ NavigationTextItem.class, NavigationLinkItem.class })
     private List<NavigationItem> items;
 

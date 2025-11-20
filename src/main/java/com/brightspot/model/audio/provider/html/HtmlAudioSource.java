@@ -12,7 +12,7 @@ public class HtmlAudioSource extends AudioSource {
 
     protected static final String VIEW_TYPE = "html-audio";
 
-    @Required
+    @Recordable.Required
     private HtmlAudioFileWrapper content;
 
     public HtmlAudioFileWrapper getContent() {

@@ -4,14 +4,15 @@ import java.util.Date;
 
 import com.brightspot.model.expiry.Expirable;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 import org.apache.commons.lang.time.DateUtils;
 
 public class Token extends Record implements Expirable {
 
-    @Required
+    @Recordable.Required
     private AuthenticationUser user;
 
-    @Required
+    @Recordable.Required
     private Date expiryDate;
 
     public AuthenticationUser getUser() {

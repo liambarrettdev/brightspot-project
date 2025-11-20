@@ -11,10 +11,10 @@ import com.psddev.dari.db.Recordable;
 @ViewBinding(value = FaqQuestionViewModel.class)
 public class FaqQuestion extends Record {
 
-    @Required
+    @Recordable.Required
     private String question;
 
-    @Required
+    @Recordable.Required
     @ToolUi.RichText(inline = false, toolbar = BasicRichTextToolbar.class)
     private String answer;
 

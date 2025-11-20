@@ -71,7 +71,7 @@ public abstract class AbstractReport extends Record implements
     @Values({ "25", "50", "100", "250", "500", "1000" })
     private String numberOfRows = DEFAULT_NUMBER_OF_ROWS;
 
-    @Indexed
+    @Recordable.Indexed
     public String getNormalizedName() {
         return Utils.toNormalized(getName());
     }

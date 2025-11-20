@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.HtmlWriter;
 import org.apache.commons.lang.StringUtils;
 
@@ -14,7 +15,7 @@ public class MetaElement extends HeadElement {
 
     protected static final String VIEW_TYPE = "meta-element";
 
-    @Required
+    @Recordable.Required
     private Type type;
 
     @DisplayName("Attribute: \"content\"")
@@ -84,7 +85,7 @@ public class MetaElement extends HeadElement {
         return getElementPreview();
     }
 
-    @Embedded
+    @Recordable.Embedded
     public abstract static class Type extends Record {
 
         abstract String getValue();
@@ -93,7 +94,7 @@ public class MetaElement extends HeadElement {
     @DisplayName("HTTP Equiv")
     public static class HttpEquivType extends Type {
 
-        @Required
+        @Recordable.Required
         @DisplayName("Attribute: \"http-equiv\"")
         private String value;
 
@@ -109,7 +110,7 @@ public class MetaElement extends HeadElement {
     @DisplayName("Name")
     public static class NameType extends Type {
 
-        @Required
+        @Recordable.Required
         @DisplayName("Attribute: \"name\"")
         private String value;
 

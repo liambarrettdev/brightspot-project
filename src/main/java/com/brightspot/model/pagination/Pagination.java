@@ -52,7 +52,7 @@ public class Pagination {
 
     public static String getModulePageParam(UUID moduleId) {
         return moduleId == null
-                ? PARAM_PAGE + "_default"
-                : PARAM_PAGE + "_" + moduleId;
+            ? PARAM_PAGE + "_default"
+            : PARAM_PAGE + "_" + moduleId;
     }
 }

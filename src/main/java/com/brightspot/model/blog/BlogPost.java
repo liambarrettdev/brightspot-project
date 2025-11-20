@@ -11,6 +11,7 @@ import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
 import com.psddev.crosslinker.db.Crosslinkable;
+import com.psddev.dari.db.Recordable;
 import org.apache.commons.lang3.StringUtils;
 
 @ToolUi.FieldDisplayOrder({
@@ -35,11 +36,11 @@ public class BlogPost extends AbstractCreativeWorkPage implements
 
     private static final String PROMOTABLE_TYPE = "blog-post";
 
-    @Required
+    @Recordable.Required
     @Crosslinkable.Crosslinked
     private RichTextModule body = new RichTextModule();
 
-    @Required
+    @Recordable.Required
     private Blog blog;
 
     public RichTextModule getBody() {

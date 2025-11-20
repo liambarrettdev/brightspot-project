@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.brightspot.model.image.Image;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.ToolUi;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.StorageItem;
 
 @ToolUi.Publishable(false)
@@ -13,7 +14,7 @@ public abstract class AbstractMediaContent extends Content {
 
     public abstract Image getPreviewImage();
 
-    @Indexed
+    @Recordable.Indexed
     @ToolUi.Hidden
     public StorageItem getPreviewStorageItem() {
         return Optional.ofNullable(getPreviewImage())

@@ -16,6 +16,7 @@ import com.psddev.cms.db.Seo;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 
 @Seo.TitleFields("displayName")
@@ -32,8 +33,8 @@ public abstract class AbstractPage extends Content implements
     @ToolUi.Placeholder(dynamicText = "${content.getNameFallback()}", editable = true)
     private String name;
 
-    @Indexed
-    @Required
+    @Recordable.Indexed
+    @Recordable.Required
     private String displayName;
 
     @ToolUi.Tab(CustomSiteSettings.TAB_LAYOUT)

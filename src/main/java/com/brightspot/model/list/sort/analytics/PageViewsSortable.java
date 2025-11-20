@@ -28,7 +28,7 @@ public interface PageViewsSortable extends Recordable {
         public static final String SORT_FIELD = FIELD_PREFIX + "getSortValue";
         public static final String SORT_FIELD_INDEX = PageViewsSortable.class.getName() + "/" + SORT_FIELD;
 
-        @Indexed
+        @Recordable.Indexed
         @ToolUi.Hidden
         @ToolUi.Sortable
         public Long getSortValue() {

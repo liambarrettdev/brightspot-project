@@ -26,6 +26,7 @@ import com.psddev.cms.db.Site;
 import com.psddev.cms.tool.ToolPageContext;
 import com.psddev.dari.db.ObjectType;
 import com.psddev.dari.db.Query;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 import com.psddev.dari.util.PaginatedResult;
 import org.apache.commons.lang3.StringUtils;
@@ -60,7 +61,7 @@ public class PublishedContentReport extends AbstractReport {
     /*
      * configuration
      */
-    @Where(CONTENT_PREDICATE)
+    @Recordable.Where(CONTENT_PREDICATE)
     private Set<ObjectType> types;
 
     public Set<ObjectType> getTypes() {

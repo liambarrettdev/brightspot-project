@@ -10,6 +10,7 @@ import com.brightspot.tool.DefaultGlobal;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.ToolUi;
+import com.psddev.dari.db.Recordable;
 
 @ToolUi.FieldDisplayOrder({
     "email",
@@ -28,8 +29,8 @@ public class User extends Content implements
 
     @ToolUi.Heading("Basic Details")
 
-    @Indexed(unique = true)
-    @Required
+    @Recordable.Indexed(unique = true)
+    @Recordable.Required
     private String email;
 
     @ToolUi.Placeholder("Pending")
@@ -37,21 +38,21 @@ public class User extends Content implements
 
     @ToolUi.Heading("Personal Details")
 
-    @Embedded
+    @Recordable.Embedded
     private Image avatar;
 
-    @Indexed
+    @Recordable.Indexed
     @ToolUi.CssClass("is-one-half")
     private String firstName;
 
-    @Indexed
+    @Recordable.Indexed
     @ToolUi.CssClass("is-one-half")
     private String lastName;
 
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class, inline = false)
     private String biography;
 
-    @Indexed
+    @Recordable.Indexed
     @ToolUi.Hidden
     public String getFullName() {
         return Stream.of(getFirstName(), getLastName())

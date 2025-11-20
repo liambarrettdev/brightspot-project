@@ -61,8 +61,8 @@ public class CalendarModuleViewModel extends AbstractViewModel<CalendarModule> i
         Date startDate = fromLocaDate(selectedMonth.atDay(1));
         Date endDate = fromLocaDate(selectedMonth.plusMonths(1).atDay(1));
 
-        Query<Event> query = getBaseQuery().and("((endDate > ? and endDate < ?) or (endDate > ? and startDate < ?) or (endDate > ? and startDate < ?) or (startDate > ? and startDate < ?))",
-            startDate, endDate, endDate, endDate, startDate, startDate, startDate, endDate);
+        Query<Event> query = getBaseQuery().and("(startDate >= ? and startDate < ?) or (startDate < ? and endDate > ?)",
+            startDate, endDate, endDate, startDate);
 
         events = query.sortAscending("startDate")
             .timeout(300D)

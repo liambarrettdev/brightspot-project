@@ -23,5 +23,6 @@
     ],
     "pagination": {
         "_dataUrl": "/model/pagination/Pagination.json"
-    }
+    },
+    "moduleId": "{{words(1)}}"
 }

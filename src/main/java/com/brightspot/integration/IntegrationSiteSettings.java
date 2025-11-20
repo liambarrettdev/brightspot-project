@@ -22,23 +22,23 @@ public class IntegrationSiteSettings extends Modification<Site> {
     @ToolUi.Heading("Page")
 
     @ToolUi.Tab(TAB_INTEGRATIONS)
-    @Embedded
+    @Recordable.Embedded
     private List<CustomHeadElements> customHeadElements;
 
     @ToolUi.Tab(TAB_INTEGRATIONS)
-    @Embedded
+    @Recordable.Embedded
     private List<HeadItem> extraHeadItems;
 
     @ToolUi.Heading("Forms")
 
     @ToolUi.Tab(TAB_INTEGRATIONS)
-    @Embedded
+    @Recordable.Embedded
     private CaptchaProvider captchaProvider;
 
     @ToolUi.Heading("Stripe")
 
     @ToolUi.Tab(TAB_INTEGRATIONS)
-    @Embedded
+    @Recordable.Embedded
     private StripeSettings stripeSettings;
 
     public List<CustomHeadElements> getCustomHeadElements() {

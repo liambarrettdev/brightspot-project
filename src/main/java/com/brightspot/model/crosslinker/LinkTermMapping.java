@@ -17,11 +17,12 @@ import com.psddev.crosslinker.db.Term;
 import com.psddev.crosslinker.db.TermMapping;
 import com.psddev.crosslinker.db.Word;
 import com.psddev.dari.db.Query;
+import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.PageContextFilter;
 
 public class LinkTermMapping extends TermMapping {
 
-    @Required
+    @Recordable.Required
     private Link link;
 
     public Link getLink() {

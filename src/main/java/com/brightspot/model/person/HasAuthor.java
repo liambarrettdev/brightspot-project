@@ -18,7 +18,7 @@ public interface HasAuthor extends Recordable {
         public static final String FIELD_PREFIX = "authorable.";
         public static final String AUTHOR_FIELD = FIELD_PREFIX + "author";
 
-        @Indexed
+        @Recordable.Indexed
         @ToolUi.Filterable
         private Person author;
 

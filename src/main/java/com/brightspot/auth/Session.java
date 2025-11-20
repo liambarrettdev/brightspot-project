@@ -4,19 +4,20 @@ import java.util.Date;
 
 import com.psddev.dari.db.Query;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 import org.apache.commons.lang.time.DateUtils;
 
 public class Session extends Record {
 
-    @Indexed
-    @Required
+    @Recordable.Indexed
+    @Recordable.Required
     private AuthenticationUser user;
 
-    @Indexed
-    @Required
+    @Recordable.Indexed
+    @Recordable.Required
     private Date start;
 
-    @Indexed
+    @Recordable.Indexed
     private Date end;
 
     public AuthenticationUser getUser() {

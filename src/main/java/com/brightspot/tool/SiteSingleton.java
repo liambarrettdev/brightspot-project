@@ -18,7 +18,7 @@ public interface SiteSingleton extends Recordable {
         public static final String FIELD_PREFIX = "site.singleton.";
         public static final String KEY_FIELD = FIELD_PREFIX + "key";
 
-        @Indexed(unique = true)
+        @Recordable.Indexed(unique = true)
         @ToolUi.Hidden
         private String key;
 

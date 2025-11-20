@@ -61,4 +61,9 @@ public class ListModuleViewModel extends AbstractViewModel<ListModule> implement
     public Object getPagination() {
         return createView(PaginationView.class, pagination);
     }
+
+    @Override
+    public Object getModuleId() {
+        return model.getId().toString();
+    }
 }
