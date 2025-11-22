@@ -10,6 +10,8 @@ public abstract class AbstractCronTask extends AbstractTask {
 
     protected static final String EXECUTOR_NAME = "Scheduled Tasks";
 
+    private static final long RUN_TIME_OFFSET_MS = 1000L;
+
     protected abstract AbstractTaskSettings getSettings();
 
     public AbstractCronTask(String executor, String name) {
@@ -23,7 +25,7 @@ public abstract class AbstractCronTask extends AbstractTask {
         return Optional.ofNullable(getSettings())
             .map(AbstractTaskSettings::getCronExpression)
             .map(CronUtils::getNextExecutionTime)
-            .map(nextRunTime -> nextRunTime.minus(1000))
+            .map(nextRunTime -> nextRunTime.minus(RUN_TIME_OFFSET_MS))
             .orElse(null);
     }
 

@@ -42,6 +42,6 @@ public class DateRangeFilterType extends AbstractFilterType {
 
     @Override
     public void updateJson(Map<String, Object> json) {
-
+        //do nothing
     }
 }

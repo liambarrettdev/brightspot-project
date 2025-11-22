@@ -197,9 +197,7 @@ public class PublishedContentReport extends AbstractReport {
         PaginatedResult<AbstractCreativeWorkPage> records = contentQuery.timeout(getTimeout()).select(offset, length);
 
         for (AbstractCreativeWorkPage content : records.getItems()) {
-            if (!ObjectUtils.isBlank(content)) {
-                data.add(createTableRowData(content));
-            }
+            data.add(createTableRowData(content));
         }
 
         jsonMap.put("data", data);
@@ -213,9 +211,7 @@ public class PublishedContentReport extends AbstractReport {
         Query<AbstractCreativeWorkPage> contentQuery = Utils.uncheckedCast(query);
 
         for (AbstractCreativeWorkPage content : contentQuery.timeout(300D).iterable(100)) {
-            if (!ObjectUtils.isBlank(content)) {
-                writeCsvRow(page, createTableRowData(content));
-            }
+            writeCsvRow(page, createTableRowData(content));
         }
     }
 
@@ -235,34 +231,34 @@ public class PublishedContentReport extends AbstractReport {
         List<String> columnData = new ArrayList<>();
 
         // published date
-        columnData.add(Optional.ofNullable(content)
+        columnData.add(Optional.of(content)
             .map(Content::getPublishDate)
             .map(date -> formatDate(date, null))
             .orElse(NO_RESULTS));
 
         // site
-        columnData.add(Optional.ofNullable(content)
+        columnData.add(Optional.of(content)
             .map(AbstractPage::getSiteOwner)
             .map(Site::getName)
             .orElse(NO_RESULTS));
 
         // title
-        columnData.add(Optional.ofNullable(content)
+        columnData.add(Optional.of(content)
             .map(Promotable::getPromoTitle)
             .orElse(NO_RESULTS));
 
         // type
-        columnData.add(Optional.ofNullable(content)
+        columnData.add(Optional.of(content)
             .map(Promotable::getPromotableType)
             .orElse(NO_RESULTS));
 
         // author
-        columnData.add(Optional.ofNullable(content)
+        columnData.add(Optional.of(content)
             .map(Promotable::getPromotableAuthor)
             .orElse(NO_RESULTS));
 
         // page views
-        columnData.add(Optional.ofNullable(content)
+        columnData.add(Optional.of(content)
             .map(AbstractCreativeWorkPage::getPageViews)
             .map(String::valueOf)
             .orElse(NO_RESULTS));

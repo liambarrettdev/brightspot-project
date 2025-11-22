@@ -35,7 +35,7 @@ public class RegistrationServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationServlet.class);
 
-    public static final String SERVLET_PATH = "_auth/register";
+    public static final String SERVLET_PATH = "/_auth/register";
 
     public static final String PARAM_TOKEN = "token";
     public static final String PARAM_FORENAME = "forename";
@@ -92,7 +92,7 @@ public class RegistrationServlet extends HttpServlet {
             return;
         }
 
-        response.sendError(404);
+        response.sendError(500);
     }
 
     @Override

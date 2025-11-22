@@ -1,13 +1,10 @@
 package com.brightspot.utils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.TimeZone;
 
 import com.brightspot.tool.CustomSiteSettings;
 import com.ibm.icu.text.NumberFormat;
@@ -52,13 +49,13 @@ public final class LocalizationUtils {
             pattern = DEFAULT_DATE_FORMAT;
         }
 
-        String timezone = Optional.ofNullable(Utils.getCurrentToolUser())
+        ZoneId timezone = Optional.ofNullable(Utils.getCurrentToolUser())
             .map(ToolUser::getTimeZone)
-            .orElse(ZoneId.systemDefault().toString());
+            .map(ZoneId::of)
+            .orElse(ZoneId.systemDefault());
 
-        DateFormat formatter = new SimpleDateFormat(pattern);
-        formatter.setTimeZone(TimeZone.getTimeZone(timezone));
-        return formatter.format(date);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return date.toInstant().atZone(timezone).format(formatter);
     }
 
     public static String localizeDate(Date date, Site site, String format) {
@@ -74,7 +71,7 @@ public final class LocalizationUtils {
 
         return DateTimeFormatter.ofPattern(format)
             .withLocale(getLocaleOrDefault(locale))
-            .format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+            .format(date.toInstant().atZone(ZoneId.systemDefault()));
     }
 
     public static String localizeNumber(Number number, Site site) {

@@ -17,7 +17,7 @@ public abstract class AbstractTaskSettings extends Record {
 
     private Boolean enabled;
 
-    @ToolUi.NoteHtml("<span data-dynamic-html='${content.getCronExpressionNote()}'</span>")
+    @ToolUi.NoteHtml("<span data-dynamic-html='${content.getCronExpressionNote()}'></span>")
     @ToolUi.Placeholder(dynamicText = "${content.getCronExpressionFallback()}")
     private String cronExpression;
 

@@ -3,6 +3,7 @@ package com.brightspot.utils;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -32,7 +33,7 @@ public final class EncryptionUtils {
      * @param input plain text
      * @return encrypted text
      */
-    public static String encrypt(String input) throws Exception {
+    public static String encrypt(String input) throws GeneralSecurityException {
         SecretKey secretKey = new SecretKeySpec(getSecretKeyAsBytes(), ALGORITHM);
         Cipher cipher = Cipher.getInstance(TRANSFORMER);
         Base64 coder = new Base64(32, LINEBREAK, true);
@@ -100,7 +101,7 @@ public final class EncryptionUtils {
             ENCRYPTION_KEY_ERR_MSG
         );
 
-        return setting.getBytes();
+        return setting.getBytes(StandardCharsets.UTF_8);
     }
 
     private static byte[] getIvKeyAsBytes() {

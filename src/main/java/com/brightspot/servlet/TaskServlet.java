@@ -71,7 +71,7 @@ public class TaskServlet extends HttpServlet {
         Set<Class<? extends TriggerableTask>> taskClasses = ClassFinder.findConcreteClasses(TriggerableTask.class);
         for (Class<? extends TriggerableTask> taskClass : taskClasses) {
             try {
-                TriggerableTask task = taskClass.newInstance();
+                TriggerableTask task = taskClass.getDeclaredConstructor().newInstance();
                 if (taskName.equals(task.getTaskName())) {
                     statusMessageKey = runTask(task);
                 }
@@ -134,10 +134,10 @@ public class TaskServlet extends HttpServlet {
                 {
                     for (Class<? extends TriggerableTask> taskClass : taskClasses) {
                         try {
-                            TriggerableTask instance = taskClass.newInstance();
+                            TriggerableTask task = taskClass.getDeclaredConstructor().newInstance();
 
-                            String label = instance.getTaskWidgetLabel();
-                            String value = instance.getTaskName();
+                            String label = task.getTaskWidgetLabel();
+                            String value = task.getTaskName();
 
                             if (StringUtils.isNoneBlank(label, value)) {
                                 page.writeTag("input", "type", "radio", "name", PARAM_TASK, "value", value);

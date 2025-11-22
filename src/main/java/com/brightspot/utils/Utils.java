@@ -242,7 +242,7 @@ public final class Utils {
         try {
             Thread.sleep(millis);
         } catch (final InterruptedException ignored) {
-            //Ignored
+            Thread.currentThread().interrupt();
         }
     }
 

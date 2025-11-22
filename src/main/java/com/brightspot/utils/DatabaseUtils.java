@@ -1,5 +1,6 @@
 package com.brightspot.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +44,7 @@ public final class DatabaseUtils {
 
     public static <T> List<T> findByIds(Class<T> clazz, List<String> ids) {
         if (CollectionUtils.isEmpty(ids)) {
-            return null;
+            return new ArrayList<>();
         }
 
         return Query.from(clazz).where("_id = ?", ids).selectAll();

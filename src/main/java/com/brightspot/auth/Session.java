@@ -50,7 +50,7 @@ public class Session extends Record {
      * Creates a session for a user
      *
      * @param user the user to create a session for
-     * @return the {@link Session} or {@code null} if no uer is provided
+     * @return the {@link Session} or {@code null} if no user is provided
      */
     public static Session createSession(AuthenticationUser user) {
         if (user == null) {

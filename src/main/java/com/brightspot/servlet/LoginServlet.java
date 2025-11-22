@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.error("this method is not supported");
+        LOGGER.warn("this method is not supported");
         response.sendError(404);
     }
 
@@ -63,6 +63,6 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        response.sendError(404);
+        response.sendError(401);
     }
 }

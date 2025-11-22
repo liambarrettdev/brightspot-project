@@ -2,8 +2,10 @@ package com.brightspot.report;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -64,7 +66,8 @@ public abstract class AbstractReport extends Record implements
     protected static final Double DEFAULT_QUERY_TIMEOUT = 20.0;
     protected static final String DEFAULT_DATE_FORMAT = "dd/MM/yyyy";
 
-    private String name = getName();
+    @ToolUi.Placeholder(dynamicText = "${content.getDefaultNameFallback()}")
+    private String name;
 
     private Double timeout = DEFAULT_QUERY_TIMEOUT;
 
@@ -125,7 +128,7 @@ public abstract class AbstractReport extends Record implements
     public abstract Logger getLogger();
 
     public String getName() {
-        return ObjectUtils.firstNonBlank(name, getDefaultName());
+        return ObjectUtils.firstNonBlank(name, getDefaultNameFallback());
     }
 
     public void setName(String name) {
@@ -209,6 +212,10 @@ public abstract class AbstractReport extends Record implements
 
     public String getDefaultSortOrder() {
         return SortOrder.ASC.toString();
+    }
+
+    public String getDefaultNameFallback() {
+        return ObjectType.getInstance(getClass()).getDisplayName();
     }
 
     public String generateReportDataEndpoint(HttpServletRequest request, String output) {
@@ -466,8 +473,10 @@ public abstract class AbstractReport extends Record implements
         String param = getStringFromRequest(request, parameterName);
         if (param != null) {
             try {
-                return new SimpleDateFormat(dateFormat).parse(param);
-            } catch (ParseException e) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+                LocalDate localDate = LocalDate.parse(param, formatter);
+                return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            } catch (DateTimeParseException e) {
                 getLogger().debug("Unable to convert {} {} to date", parameterName, param);
             }
         }
@@ -499,7 +508,9 @@ public abstract class AbstractReport extends Record implements
 
             List<Map<String, Object>> columnHeadings = buildTableHeadings(request);
 
-            return (String) columnHeadings.get(index).get("sortName");
+            if (index >= 0 && index < columnHeadings.size()) {
+                return (String) columnHeadings.get(index).get("sortName");
+            }
         }
 
         return null;
@@ -508,7 +519,7 @@ public abstract class AbstractReport extends Record implements
     // -- Utility Methods -- //
 
     private String getEmailAttachmentUrl(HttpServletRequest request) {
-        StringBuffer url = request.getRequestURL();
+        StringBuilder url = new StringBuilder(request.getRequestURL().toString());
 
         String queryString = request.getQueryString();
         if (queryString != null) {
@@ -527,10 +538,8 @@ public abstract class AbstractReport extends Record implements
             } catch (NumberFormatException e) {
                 getLogger().debug("Unable to convert length {} to int", param);
             }
-        } else {
-            return Integer.parseInt(this.getNumberOfRows());
         }
-        return null;
+        return Integer.parseInt(this.getNumberOfRows());
     }
 
     private Map<String, Object> buildAjaxOptions(ToolPageContext page) {
@@ -538,10 +547,6 @@ public abstract class AbstractReport extends Record implements
         ajaxMap.put("url", generateReportDataEndpoint(page.getRequest(), ReportServlet.Output.JSON.toString()));
         ajaxMap.put("type", "POST");
         return ajaxMap;
-    }
-
-    private String getDefaultName() {
-        return ObjectType.getInstance(getClass()).getDisplayName();
     }
 
     // -- Statics -- //

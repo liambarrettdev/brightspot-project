@@ -34,7 +34,7 @@ public abstract class AbstractTask extends RepeatingTask {
     }
 
     @Override
-    protected void doRepeatingTask(DateTime runtTime) {
+    protected void doRepeatingTask(DateTime runTime) {
         if (!Settings.isProduction()) {
             setSafeToStop(true);
         }

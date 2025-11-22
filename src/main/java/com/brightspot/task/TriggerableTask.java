@@ -10,7 +10,7 @@ public interface TriggerableTask extends Recordable {
         return Utils.toNormalized(getTaskWidgetLabel());
     }
 
-    default Boolean isInstance(Object object) {
+    default boolean isInstance(Object object) {
         if (object == null) {
             return false;
         }

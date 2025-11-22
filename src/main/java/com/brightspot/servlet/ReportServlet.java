@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.amazonaws.util.CollectionUtils;
 import com.brightspot.report.AbstractReport;
 import com.brightspot.report.ReportExecutionException;
 import com.brightspot.report.filter.CheckboxFilterType;
@@ -132,7 +131,7 @@ public class ReportServlet extends HttpServlet {
                     page.writeStart("div", "id", "reports");
                     {
                         List<AbstractReport> reports = ReportTool.get(ReportTool::getReports);
-                        if (CollectionUtils.isNullOrEmpty(reports)) {
+                        if (reports == null || reports.isEmpty()) {
                             page.writeStart("span", "class", "error");
                             page.writeHtml("No reports configured in global settings");
                             page.writeEnd();

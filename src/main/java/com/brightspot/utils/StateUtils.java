@@ -15,7 +15,7 @@ public final class StateUtils {
     private StateUtils() {
     }
 
-    public <S, T> T resolveAndGet(S record, Function<S, T> getter) {
+    public static <S, T> T resolveAndGet(S record, Function<S, T> getter) {
         boolean addListener = State.getInstance(record).isResolveToReferenceOnly();
         UnresolvedStateLazyLoader listener = null;
 

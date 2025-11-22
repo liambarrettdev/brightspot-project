@@ -22,6 +22,8 @@ public class ExpiredContentPurgeTask extends AbstractTask {
 
     private static final AtomicBoolean FORCE_RUN = new AtomicBoolean(false);
 
+    private static final long DAYS_BEFORE_ARCHIVE = 30L;
+
     public ExpiredContentPurgeTask() {
         super(AbstractTask.EXECUTOR_NAME, ExpiredContentPurgeTask.class.getName());
     }
@@ -83,7 +85,7 @@ public class ExpiredContentPurgeTask extends AbstractTask {
     private Function<Expirable, Boolean> shouldArchive() {
         return record -> {
             long milliseconds = Math.abs(new Date().getTime() - record.getExpiryDate().getTime());
-            if (TimeUnit.DAYS.convert(milliseconds, TimeUnit.MILLISECONDS) > 30) {
+            if (TimeUnit.DAYS.convert(milliseconds, TimeUnit.MILLISECONDS) > DAYS_BEFORE_ARCHIVE) {
                 record.as(Content.ObjectModification.class).setTrash(true);
                 return true;
             }

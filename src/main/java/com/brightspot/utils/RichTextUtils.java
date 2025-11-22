@@ -146,7 +146,7 @@ public final class RichTextUtils {
 
     public static Map<String, String> getAttributeMap(Element element) {
         if (element == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("element cannot be empty");
         }
 
         Map<String, String> attributeMap = new HashMap<>();
