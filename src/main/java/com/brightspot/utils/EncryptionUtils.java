@@ -3,13 +3,19 @@ package com.brightspot.utils;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
-import java.security.GeneralSecurityException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.brightspot.exception.EncryptionException;
 import com.psddev.dari.util.Settings;
 import org.apache.commons.codec.binary.Base64;
 
@@ -33,32 +39,25 @@ public final class EncryptionUtils {
      * @param input plain text
      * @return encrypted text
      */
-    public static String encrypt(String input) throws GeneralSecurityException {
-        SecretKey secretKey = new SecretKeySpec(getSecretKeyAsBytes(), ALGORITHM);
-        Cipher cipher = Cipher.getInstance(TRANSFORMER);
-        Base64 coder = new Base64(32, LINEBREAK, true);
+    public static String encrypt(String input) throws EncryptionException {
+        try {
+            SecretKey secretKey = new SecretKeySpec(getSecretKeyAsBytes(), ALGORITHM);
+            Cipher cipher = Cipher.getInstance(TRANSFORMER);
+            Base64 coder = new Base64(32, LINEBREAK, true);
 
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(getIvKeyAsBytes()));
-        byte[] cipherText = cipher.doFinal(input.getBytes());
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(getIvKeyAsBytes()));
+            byte[] cipherText = cipher.doFinal(input.getBytes());
 
-        return new String(coder.encode(cipherText));
-    }
-
-    /**
-     * Non synchronized - each call has one instance Cipher
-     *
-     * @param input text as plain char array
-     * @return encrypted text
-     */
-    public static String encrypt(char[] input) throws Exception {
-        SecretKey secretKey = new SecretKeySpec(getSecretKeyAsBytes(), ALGORITHM);
-        Cipher cipher = Cipher.getInstance(TRANSFORMER);
-        Base64 coder = new Base64(32, LINEBREAK, true);
-
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(getIvKeyAsBytes()));
-        byte[] cipherText = cipher.doFinal(convertToBytes(input));
-
-        return new String(coder.encode(cipherText));
+            return new String(coder.encode(cipherText));
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            throw new EncryptionException("Encryption algorithm '" + ALGORITHM + "' or transformation '" + TRANSFORMER + "' is not available", e);
+        } catch (InvalidKeyException | InvalidAlgorithmParameterException e) {
+            throw new EncryptionException("Invalid encryption configuration: key or initialization vector may be incorrect or improperly formatted", e);
+        } catch (IllegalBlockSizeException e) {
+            throw new EncryptionException("Input data size is not valid for the encryption algorithm", e);
+        } catch (BadPaddingException e) {
+            throw new EncryptionException("Padding error during encryption: data may be corrupted", e);
+        }
     }
 
     /**
@@ -67,20 +66,30 @@ public final class EncryptionUtils {
      * @param input encrypted text
      * @return unencrypted text
      */
-    public static String decrypt(String input) throws Exception {
+    public static String decrypt(String input) throws EncryptionException {
         if (input == null) {
             return "";
         }
 
-        SecretKey secretKey = new SecretKeySpec(getSecretKeyAsBytes(), ALGORITHM);
-        Cipher cipher = Cipher.getInstance(TRANSFORMER);
-        Base64 coder = new Base64(32, LINEBREAK, true);
+        try {
+            SecretKey secretKey = new SecretKeySpec(getSecretKeyAsBytes(), ALGORITHM);
+            Cipher cipher = Cipher.getInstance(TRANSFORMER);
+            Base64 coder = new Base64(32, LINEBREAK, true);
 
-        byte[] encrypted = coder.decode(input.getBytes());
-        cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(getIvKeyAsBytes()));
-        byte[] decrypted = cipher.doFinal(encrypted);
+            byte[] encrypted = coder.decode(input.getBytes());
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(getIvKeyAsBytes()));
+            byte[] decrypted = cipher.doFinal(encrypted);
 
-        return new String(decrypted);
+            return new String(decrypted);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            throw new EncryptionException("Decryption algorithm '" + ALGORITHM + "' or transformation '" + TRANSFORMER + "' is not available", e);
+        } catch (InvalidKeyException | InvalidAlgorithmParameterException e) {
+            throw new EncryptionException("Invalid decryption configuration: key or initialization vector may be incorrect or improperly formatted", e);
+        } catch (IllegalBlockSizeException e) {
+            throw new EncryptionException("Encrypted data size is not valid for the decryption algorithm", e);
+        } catch (BadPaddingException e) {
+            throw new EncryptionException("Padding error during decryption: encrypted data may be corrupted or key may be incorrect", e);
+        }
     }
 
     private static byte[] convertToBytes(char[] chars) {

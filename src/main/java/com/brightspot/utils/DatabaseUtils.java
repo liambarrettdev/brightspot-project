@@ -59,7 +59,7 @@ public final class DatabaseUtils {
         try {
             state.save();
         } catch (Exception e) {
-            LOGGER.error("Could not save record with ID " + state.getId() + "; saving unsafely", e);
+            LOGGER.warn("Could not save record with ID ${}; saving unsafely", state.getId(), e);
             state.saveUnsafely();
         }
     }

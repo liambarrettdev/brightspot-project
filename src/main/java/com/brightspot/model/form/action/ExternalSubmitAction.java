@@ -1,12 +1,12 @@
 package com.brightspot.model.form.action;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
 import com.brightspot.integration.GenericHttpClient;
 import com.brightspot.model.form.FormModule;
 import com.brightspot.tool.field.annotation.Url;
-import com.google.common.base.Charsets;
 import com.psddev.dari.db.Record;
 import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
@@ -24,7 +24,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.brightspot.integration.GenericHttpClient.Method.POST;
+import static com.brightspot.integration.GenericHttpClient.Method.*;
 
 public class ExternalSubmitAction extends Record implements Action {
 
@@ -98,7 +98,7 @@ public class ExternalSubmitAction extends Record implements Action {
                 break;
             case POST:
                 request = new HttpPost(endpoint);
-                ((HttpPost) request).setEntity(new UrlEncodedFormEntity(params, Charsets.UTF_8));
+                ((HttpPost) request).setEntity(new UrlEncodedFormEntity(params, StandardCharsets.UTF_8));
                 break;
             default:
                 break;
