@@ -57,16 +57,7 @@ public class EncryptedFieldProcessor extends PageServlet {
 
         page.writeStart("div", "class", "inputSmall");
         {
-            page.writeStart(
-                "select",
-                "class",
-                "toggleable",
-                "data-root",
-                ".inputSmall",
-                "id",
-                page.getId(),
-                "name",
-                formSubmissionInput);
+            page.writeStart("select", "class", "toggleable", "data-root", ".inputSmall", "id", page.getId(), "name", formSubmissionInput);
             {
                 page.writeStart("option", "data-hide", ".valueChange", "value", false, "selected", "selected");
                 {

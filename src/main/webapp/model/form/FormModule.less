@@ -1,0 +1,63 @@
+.FormModule {
+    .Module;
+    width: 90%;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: var(--inset-primary);
+
+    * {
+        box-sizing: border-box;
+    }
+
+    &-title {
+        .Font-Title;
+    }
+
+    &-inputs {
+        padding: 15px;
+    }
+
+    &-successMessage, &-errorMessage {
+        display: none;
+    }
+
+    label {
+        padding: 12px 12px 12px 0;
+        display: inline-block;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+        width: 20px;
+        appearance: auto;
+    }
+
+    button[type=submit] {
+        color: var(--white);
+        background-color: var(--site-theme-active);
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #40a444;
+        }
+    }
+
+    .row {
+        margin-top: 5px;
+
+        &:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    }
+}

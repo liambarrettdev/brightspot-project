@@ -1,0 +1,15 @@
+{
+    "_template": "/model/container/ColumnContainerModule",
+    "columns": [
+        {
+            "_template": "base/util/Concatenated",
+            "items": [
+                {
+                    "_dataUrl": "/model/link/list/ListModule.json"
+                }
+            ],
+            "_repeat": 3
+        }
+    ],
+    "type": "ThreeColumn"
+}

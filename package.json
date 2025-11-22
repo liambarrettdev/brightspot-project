@@ -1,14 +1,18 @@
 {
-  "name": "brightspot-template",
+  "name": "brightspot-project",
   "private": true,
+  "version": "1.0.0",
   "devDependencies": {
     "bsp-grunt": "perfectsense/brightspot-js-grunt#v4.0.0",
-    "bsp-styleguide": "perfectsense/brightspot-styleguide#v1.1.350-86f868",
+    "bsp-styleguide": "perfectsense/brightspot-styleguide#v1.1.364-3948a8",
     "grunt": "1.5.3",
     "grunt-cli": "1.4.3"
   },
   "scripts": {
+    "build": "mvn clean -P library verify",
+    "docker": "docker compose up",
     "grunt": "grunt",
-    "styleguide": "styleguide"
+    "watch": "grunt watch",
+    "styleguide": "sh styleguide.sh"
   }
 }

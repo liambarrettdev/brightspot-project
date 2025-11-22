@@ -1,5 +1,23 @@
-<div>
-    {{#each inputs}}
-        {{this}}
-    {{/each}}
-</div>
+{{~#defineBlock "FieldSet"~}}
+
+    {{~#defineElement "heading"~}}
+        <button class="{{elementName}}" type="button" aria-expanded="false" aria-controls="fieldset-inputs-{{@index}}">{{this}}</button>
+    {{~/defineElement~}}
+
+    {{~#defineElement "inputs"~}}
+        <div class="{{elementName}}" id="fieldset-inputs-{{@index}}" aria-hidden="true">
+            {{#each this}}{{this}}{{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="row">
+                <div class="{{blockName}}" data-bsp-field-set>
+                    {{element "heading"}}
+                    {{element "inputs"}}
+                </div>
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

@@ -1,31 +1,29 @@
-<a class="Slide">
-    {{#with media}}
-        <div class="Slide-media">
-            <div class="Slide-icon">
-                <svg>
-                    <use xlink:href="#icon-24-expand"></use>
-                </svg>
-            </div>
-            {{this}}
-        </div>
-    {{/with}}
-    <div class="Slide-content">
-        {{#with title}}
-            <div class="Slide-title">
-                {{~this~}}
-            </div>
-        {{/with}}
+{{~#defineBlock "Slide"~}}
 
-        {{#with description}}
-            <div class="Slide-description">
-                {{~this~}}
-            </div>
-        {{/with}}
+    {{~#defineElement "media"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
 
-        {{#with attribution}}
-            <div class="Slide-attribution">
-                {{~this~}}
+    {{~#defineElement "title"~}}
+        <div class="{{elementName}}"><p>{{this}}</p></div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "description"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineElement "attribution"~}}
+        <div class="{{elementName}}">{{this}}</div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}">
+                {{element "media"}}
+                <div class="{{blockName}}-info">
+                    {{element "title"}}
+                </div>
             </div>
-        {{/with}}
-    </div>
-</a>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

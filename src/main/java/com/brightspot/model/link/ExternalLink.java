@@ -20,7 +20,7 @@ public class ExternalLink extends Link {
     }
 
     @Url
-    @Required
+    @Recordable.Required
     private String url;
 
     public String getUrl() {

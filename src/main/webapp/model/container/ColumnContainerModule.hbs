@@ -1,0 +1,18 @@
+{{~#defineBlock "ColumnContainer"~}}
+
+    {{~#defineElement "columns" noWith=true~}}
+        <div class="{{elementName}}">
+            {{#each columns}}
+                <div class="{{elementName}}-column {{../type}}">{{this}}</div>
+            {{/each}}
+        </div>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            <div class="{{blockName}}">
+                {{element "columns"}}
+            </div>
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

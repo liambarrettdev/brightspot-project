@@ -1,0 +1,5 @@
+{
+    "_template": "/integration/google/GoogleAnalytics",
+    "trackingId": "UA-90584504-1",
+    "disablePageViews": false
+}

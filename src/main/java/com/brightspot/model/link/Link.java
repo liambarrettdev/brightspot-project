@@ -44,7 +44,7 @@ public abstract class Link extends Record {
         return null;
     }
 
-    // - Enums -- //
+    // -- Enums -- //
 
     public enum Target {
 

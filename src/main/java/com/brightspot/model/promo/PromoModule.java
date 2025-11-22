@@ -13,15 +13,15 @@ import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 
 @Recordable.DisplayName("Promo")
-@ViewBinding(value = PromoModuleViewModel.class, types = PromoModule.VIEW_CLASS)
+@ViewBinding(value = PromoModuleDelegateViewModel.class, types = PromoModule.VIEW_CLASS)
 public class PromoModule extends AbstractModule implements
     HasImagePreview,
     ShareableModule {
 
     protected static final String VIEW_CLASS = "promo-module";
 
-    @Required
-    @Embedded
+    @Recordable.Required
+    @Recordable.Embedded
     private Promo promo = new NoLinkPromo();
 
     @ToolUi.Placeholder(dynamicText = "${content.getTitleFallback()}", editable = true)
@@ -33,8 +33,8 @@ public class PromoModule extends AbstractModule implements
     @ToolUi.NoteHtml("<span data-dynamic-html='${content.getPromoImagePlaceholderHtml()}'></span>")
     private Image image;
 
+    @ToolUi.DisplayName("CTA Text")
     @ToolUi.Placeholder(dynamicText = "${content.getButtonTextFallback()}", editable = true)
-    @DisplayName("CTA Text")
     private String ctaText;
 
     public Promo getPromo() {

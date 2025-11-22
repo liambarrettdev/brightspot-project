@@ -94,7 +94,7 @@ public final class GeolocationUtils {
      * <p/>
      * Given the latitude and longitude (in degrees) of two points compute
      * the great circle distance (in nautical miles) between them. The
-     * following formula assumes that sin, cos, and arcos are comptued
+     * following formula assumes that sin, cos, and arcos are computed
      * in degrees, so need to convert back and forth between radians.
      * <p/>
      * <code>d  = 60 * acos (sin(L1)*sin(L2) + cos(L1)*cos(L2)*cos(G1 - G2))</code>
@@ -146,8 +146,6 @@ public final class GeolocationUtils {
         angle2 = Math.toDegrees(angle2);
 
         // each degree on a great circle of Earth is 60 nautical miles
-        double distance2 = 60 * angle2;
-
-        return distance2;
+        return 60 * angle2;
     }
 }

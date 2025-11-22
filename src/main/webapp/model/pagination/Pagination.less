@@ -1,0 +1,46 @@
+.Pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+
+    &-links {
+        display: flex;
+        gap: 0;
+    }
+
+    a {
+        color: var(--text-dark);
+        padding: 8px 16px;
+        text-decoration: none;
+        border: 1px solid var(--border-color);
+        margin-left: -1px;
+        .focus-outline-inset();
+
+        &.active {
+            background-color: var(--site-theme-active);
+            color: var(--white);
+            border: 1px solid var(--site-theme-active);
+            z-index: 1;
+        }
+
+        &:hover:not(.active),
+        &:focus:not(.active) {
+            background-color: var(--inset-secondary);
+        }
+
+        &:focus-visible {
+            z-index: 2;
+        }
+
+        &:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            margin-left: 0;
+        }
+
+        &:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
+}

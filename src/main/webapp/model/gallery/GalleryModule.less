@@ -1,0 +1,70 @@
+.GalleryModule {
+    .Module;
+
+    &-title {
+        .Font-Title;
+        margin-bottom: 25px;
+    }
+
+    &-index {
+        color: var(--white);
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        z-index: 10;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 4px;
+        pointer-events: none;
+    }
+
+    &-slides {
+        display: flex;
+        position: relative;
+        max-width: 600px;
+        width: 100%;
+        margin: auto;
+        overflow: hidden;
+        height: 400px;
+
+        .Slide {
+            flex: 0 0 100%;
+            height: 100%;
+            .smooth-transition(all, 0.75s);
+        }
+    }
+
+    .prev,
+    .next {
+        background: transparent;
+        border: none;
+        text-decoration: none;
+        width: auto;
+        position: absolute;
+        top: 50%;
+        padding: 15px;
+        margin-top: -22px;
+        color: var(--white);
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 5;
+        .focus-outline();
+    }
+
+    .prev {
+        left: 0;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover,
+    .next:hover {
+        background-color: var(--site-theme-primary);
+    }
+}

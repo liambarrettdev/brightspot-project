@@ -9,7 +9,7 @@ import com.psddev.dari.db.Recordable;
 public class ExternalLinkPromo extends Record implements Promo {
 
     @Url
-    @Required
+    @Recordable.Required
     private String url;
 
     public String getUrl() {

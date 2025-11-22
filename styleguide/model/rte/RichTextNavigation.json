@@ -1,6 +1,6 @@
 {
     "_template": "/model/rte/RichTextNavigation",
-    "title": "{{words(5)}}",
+    "title": "Some More Content",
     "previousPage": {
         "_dataUrl": "/model/link/Link.json"
     },

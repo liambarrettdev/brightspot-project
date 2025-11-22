@@ -1,0 +1,28 @@
+{
+    "_template": "/model/promo/list/ListModule",
+    "title": "{{words(3)}}",
+    "description": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{paragraphs([1, 1])}}"
+            }
+        ]
+    },
+    "items": [
+        {
+            "_dataUrl": "/model/promo/PromoModule.json",
+            "_repeat": 2
+        },
+        {
+            "_dataUrl": "/model/promo/PromoModule.json",
+            "type": "blog-post",
+            "_repeat": 2
+        }
+    ],
+    "pagination": {
+        "_dataUrl": "/model/pagination/Pagination.json"
+    },
+    "moduleId": "{{words(1)}}"
+}

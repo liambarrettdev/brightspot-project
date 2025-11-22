@@ -1,0 +1,9 @@
+{
+    "_template": "/model/iframe/IframeModule",
+    "url": "#",
+    "height": 600,
+    "width": 720,
+    "name": "{{words(5)}}",
+    "sandbox": "{{words(1)}}",
+    "style": "width:100%"
+}

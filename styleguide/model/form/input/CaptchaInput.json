@@ -1,0 +1,10 @@
+{
+    "_template": "/model/form/input/CaptchaInput",
+    "label": "{{words(2)}}",
+    "name": "captcha",
+    "captcha": [
+        {
+            "_dataUrl": "/integration/google/GoogleCaptcha.json"
+        }
+    ]
+}

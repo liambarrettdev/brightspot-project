@@ -1,0 +1,20 @@
+{{~#defineBlock "PersonPromoModule" extend="model/promo/PromoModule"~}}
+
+    {{~#defineElement "title" noWith=true~}}
+        <div class="{{elementName}}">
+            {{#if ctaUrl}}<a class="btn" href="{{ctaUrl}}">{{/if}}
+            {{title}}
+            {{#if ctaUrl}}</a>{{/if}}
+        </div>
+    {{~/defineElement~}}
+
+    <div class="{{blockName}}">
+        <div class="{{blockName}}-content">
+            <div class="{{blockName}}-header">
+                {{element "media"}}
+                {{element "title"}}
+            </div>
+            {{element "description"}}
+        </div>
+    </div>
+{{~/defineBlock~}}

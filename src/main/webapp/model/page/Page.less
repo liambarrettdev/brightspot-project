@@ -1,26 +1,94 @@
-body {
-    font-family: "Poppins", sans-serif;
-}
+.Page {
+    &-main {
+        display: flex;
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 25px 0;
 
-.breadcrumbs {
-    &-divider {
-        display: inline-block;
-
-        &:last-child {
-            display: none;
+        .Concatenated {
+            display: block
         }
 
-        svg {
-            width: 5px;
-            height: 9px;
+        .Enhancement {
+            margin: 15px;
+
+            img, video, audio, iframe {
+                display: block;
+                margin: 0 auto;
+            }
+
+            img {
+                display: block;
+                max-width: 100%;
+            }
         }
+
+        .PageContentModule {
+            padding: 20px 15px;
+            border-bottom-style: solid;
+            border-bottom-width: 2px;
+            clear: both;
+            
+            // Mobile responsive styling
+            .mobile({
+                padding: 15px 10px;
+            });
+        }
+        
+        // Mobile and Tablet: Stack layout vertically
+        .mobile({
+            flex-direction: column;
+            padding: 15px 0;
+        });
+        
+        .tablet({
+            flex-direction: column;
+            padding: 20px 0;
+        });
     }
-}
 
-.lead {
-    text-align: center;
+    &-breadcrumbs {
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 10px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
 
-    img {
-        max-height: 500px;
+        &-breadcrumb {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                font-weight: 700;
+                display: inline-block;
+
+                a {
+                    color: var(--site-theme-primary);
+                    text-decoration: none;
+
+                    &:hover {
+                        color: var(--highlight);
+                    }
+                }
+
+                span {
+                    font-weight: 500;
+                }
+            }
+
+            li+li:before {
+                content: ">";
+                color: var(--site-theme-primary);
+                margin-left: .5ex;
+                margin-right: .5ex;
+            }
+        }
+        
+        // Mobile responsive styling
+        .mobile({
+            padding: 8px;
+            font-size: 12px;
+        });
     }
 }

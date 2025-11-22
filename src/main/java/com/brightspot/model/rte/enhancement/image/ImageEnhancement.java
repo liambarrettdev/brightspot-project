@@ -32,7 +32,7 @@ public class ImageEnhancement extends AbstractRichTextEnhancement implements Ali
     public static final String ELEMENT_NAME = "Image";
     public static final String TAG_NAME = "bsp.image";
 
-    @Required
+    @Recordable.Required
     private Image image;
 
     private Link link;

@@ -2,9 +2,11 @@ package com.brightspot.model.module;
 
 import java.util.Optional;
 
+import com.psddev.dari.db.Recordable;
+
 public class SharedModule extends AbstractModule {
 
-    @Required
+    @Recordable.Required
     private Module content;
 
     public Module getContent() {

@@ -2,6 +2,7 @@ package com.brightspot.model.navigation;
 
 import java.util.Optional;
 
+import com.brightspot.model.link.InternalLink;
 import com.brightspot.model.link.Link;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
@@ -15,8 +16,8 @@ public class NavigationLinkItem extends Record implements NavigationItem {
     @ToolUi.Placeholder(dynamicText = "${content.getTextFallback()}", editable = true)
     private String text;
 
-    @Required
-    private Link link;
+    @Recordable.Required
+    private Link link = new InternalLink();
 
     public String getText() {
         return ObjectUtils.firstNonBlank(text, getTextFallback());
@@ -37,6 +38,11 @@ public class NavigationLinkItem extends Record implements NavigationItem {
     // -- Overrides -- //
 
     @Override
+    public String getLabel() {
+        return getCtaText();
+    }
+
+    @Override
     public String getCtaText() {
         return getText();
     }
@@ -46,11 +52,6 @@ public class NavigationLinkItem extends Record implements NavigationItem {
         return Optional.ofNullable(link)
             .map(link -> link.getLinkUrl(site))
             .orElse(null);
-    }
-
-    @Override
-    public String getLabel() {
-        return getCtaText();
     }
 
     // -- Helper Methods -- //

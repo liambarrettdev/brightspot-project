@@ -1,12 +1,14 @@
 {
     "_template": "/model/navigation/NavigationItem",
-    "ctaText": "{{words(2)}}",
-    "ctaUrl": "#",
     "items": [
         {
             "_template": "/model/navigation/NavigationItem",
-            "ctaText": "{{words(2)}}",
-            "ctaUrl": "#"
+            "ctaUrl": "#",
+            "ctaText": "{{words(1)}}",
+            "dropdown": false,
+            "_repeat": 2
         }
-    ]
+    ],
+    "dropdown": true,
+    "active": false
 }

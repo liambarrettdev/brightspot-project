@@ -1,0 +1,60 @@
+.PromoListModule {
+    .Module;
+    max-width: 90%;
+
+    &-title {
+        .Font-Title
+    }
+
+    &-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+
+        &-item {
+            width: 350px;
+            min-height: 140px;
+            margin: auto;
+            padding: 5%;
+            text-align: -webkit-center;
+            flex-shrink: 0;
+
+            &:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        }
+
+        // Mobile responsive styling
+        .mobile({
+            gap: 15px;
+            flex-direction: column;
+            align-items: center;
+
+            &-item {
+                width: 100%;
+                max-width: 320px;
+                min-height: 120px;
+                padding: 10px;
+                box-sizing: border-box;
+            }
+        });
+
+        // Tablet responsive styling
+        .tablet({
+            gap: 18px;
+            justify-content: space-around;
+
+            &-item {
+                width: calc(50% - 20px);
+                max-width: 340px;
+                min-width: 280px;
+                min-height: 130px;
+                padding: 15px;
+                box-sizing: border-box;
+            }
+        });
+    }
+}

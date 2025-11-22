@@ -13,11 +13,11 @@ public abstract class AbstractTaskSettings extends Record {
 
     public abstract String getCronExpressionFallback();
 
-    public abstract void triggerTask();
+    public abstract void run();
 
     private Boolean enabled;
 
-    @ToolUi.NoteHtml("<span data-dynamic-html='${content.getCronExpressionNote()}'</span>")
+    @ToolUi.NoteHtml("<span data-dynamic-html='${content.getCronExpressionNote()}'></span>")
     @ToolUi.Placeholder(dynamicText = "${content.getCronExpressionFallback()}")
     private String cronExpression;
 
@@ -51,10 +51,10 @@ public abstract class AbstractTaskSettings extends Record {
     // -- Overrides -- //
 
     @Override
-    protected void beforeCommit() {
+    public void beforeCommit() {
         if (isRunImmediately()) {
             setRunImmediately(false);
-            triggerTask();
+            run();
         }
         super.beforeCommit();
     }

@@ -18,7 +18,7 @@ public interface SiteSingleton extends Recordable {
         public static final String FIELD_PREFIX = "site.singleton.";
         public static final String KEY_FIELD = FIELD_PREFIX + "key";
 
-        @Indexed(unique = true)
+        @Recordable.Indexed(unique = true)
         @ToolUi.Hidden
         private String key;
 
@@ -40,7 +40,7 @@ public interface SiteSingleton extends Recordable {
         }
 
         @Override
-        protected boolean onDuplicate(ObjectIndex index) {
+        public boolean onDuplicate(ObjectIndex index) {
             if (index != null) {
                 String field = index.getField();
                 if (KEY_FIELD.equals(field)) {

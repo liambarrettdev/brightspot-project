@@ -1,0 +1,21 @@
+{{~#defineBlock "PageNavigation"~}}
+
+    {{~#defineElement "cta" noWith=true~}}
+        {{#if ctaUrl}}<a href="{{ctaUrl}}">{{ctaText}}</a>{{else}}<span>{{ctaText}}</span>{{/if}}
+    {{~/defineElement~}}
+
+    {{~#defineElement "items" noWith=true~}}
+        <ul class="{{elementName}} {{#if dropdown}}dropdownContent{{/if}}">
+            {{#each items}}
+                <li class="{{elementName}}-item {{#if dropdown}}dropdown{{/if}} {{#if active}}active{{/if}}">{{this}}</li>
+            {{/each}}
+        </ul>
+    {{~/defineElement~}}
+
+    {{~#defineBlockContainer~}}
+        {{#defineBlockBody}}
+            {{element "cta"}}
+            {{element "items"}}
+        {{/defineBlockBody}}
+    {{~/defineBlockContainer~}}
+{{~/defineBlock~}}

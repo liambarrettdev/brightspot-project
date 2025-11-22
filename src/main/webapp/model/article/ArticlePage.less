@@ -1,0 +1,120 @@
+.ArticlePage {
+
+    a {
+        color: var(--article-theme);
+    }
+
+    &-content {
+        max-width: 650px;
+        width: 100%;
+        padding: 0 15px;
+        
+        // Mobile responsive styling
+        .mobile({
+            padding: 0 10px;
+        });
+    }
+
+    &-headline {
+        color: var(--article-theme);
+        font-size: 24pt;
+        
+        // Mobile responsive styling
+        .mobile({
+            font-size: 18pt;
+            line-height: 1.2em;
+        });
+        
+        // Tablet responsive styling
+        .tablet({
+            font-size: 20pt;
+        });
+    }
+
+    &-subHeadline {
+        color: var(--article-theme);
+        font-size: 16pt;
+        font-weight: 400;
+        font-family: Tahoma, sans-serif;
+        line-height: 1.1em;
+        
+        // Mobile responsive styling
+        .mobile({
+            font-size: 12pt;
+        });
+        
+        // Tablet responsive styling
+        .tablet({
+            font-size: 14pt;
+        });
+    }
+
+    &-byline {
+        font-size: 10pt;
+        font-weight: 700;
+        font-family: Tahoma, sans-serif;
+        
+        // Mobile responsive styling
+        .mobile({
+            font-size: 9pt;
+        });
+    }
+
+    &-lead {
+        text-align: center;
+        padding: 15px 0px;
+
+        img {
+            display: block;
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            
+            // Mobile responsive styling
+            .mobile({
+                max-height: 200px;
+            });
+        }
+        
+        // Mobile responsive styling
+        .mobile({
+            padding: 10px 0;
+        });
+    }
+
+    &-body {
+        padding-top: 0 !important;
+        
+        // Mobile responsive styling
+        .mobile({
+            font-size: 14px;
+            line-height: 1.6em;
+        });
+    }
+
+    &-tags {
+        a {
+            padding: .625rem;
+            color: var(--white);
+            background-color: var(--tag-theme);
+            text-decoration: none;
+            
+            // Mobile responsive styling
+            .mobile({
+                padding: .5rem;
+                font-size: 12px;
+                display: inline-block;
+                margin: 4px;
+            });
+        }
+    }
+}
+
+.article {
+    color: var(--article-theme);
+    border-left-color: var(--article-theme);
+
+    a.btn {
+        background: var(--article-theme);
+    }
+}

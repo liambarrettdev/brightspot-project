@@ -1,15 +1,13 @@
 package com.brightspot.model.gallery;
 
 import com.brightspot.model.image.Image;
-import com.psddev.cms.view.ViewBinding;
 import com.psddev.dari.db.Record;
 import com.psddev.dari.db.Recordable;
 
 @Recordable.Embedded
-@ViewBinding(value = SlideViewModel.class)
 public class Slide extends Record {
 
-    @Required
+    @Recordable.Required
     private Image image;
 
     private String title;

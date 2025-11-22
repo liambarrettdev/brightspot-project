@@ -80,7 +80,7 @@ public final class RichTextUtils {
 
         Map<String, ObjectType> concreteTagTypes = RichTextElement.getConcreteTagTypes();
 
-        // Find all defined RichTextElements as a comma delimited list
+        // Find all defined RichTextElements as a comma-delimited list
         String cssQuery = String.join(",", concreteTagTypes.keySet());
 
         // Completely remove all tags
@@ -99,7 +99,7 @@ public final class RichTextUtils {
             String[] parts = richText.split("<br\\s?/?>");
             for (String part : parts) {
                 String firstParagraph = RichTextUtils.richTextToPlainText(part);
-                if (!StringUtils.isBlank(firstParagraph)) {
+                if (StringUtils.isNotBlank(firstParagraph)) {
                     return firstParagraph;
                 }
             }
@@ -109,7 +109,7 @@ public final class RichTextUtils {
     }
 
     public static List<Image> getImagesFromRichText(String richText) {
-        if (!StringUtils.isBlank(richText)) {
+        if (StringUtils.isNotBlank(richText)) {
             Document bodyDocument = RichTextUtils.documentFromRichText(richText);
             return bodyDocument.select(ImageEnhancement.TAG_NAME)
                 .stream()
@@ -127,7 +127,7 @@ public final class RichTextUtils {
     }
 
     public static Image getFirstImageFromRichText(String richText) {
-        if (!StringUtils.isBlank(richText)) {
+        if (StringUtils.isNotBlank(richText)) {
             return RichTextUtils.documentFromRichText(richText).select(ImageEnhancement.TAG_NAME)
                 .stream()
                 .map(e -> {
@@ -146,7 +146,7 @@ public final class RichTextUtils {
 
     public static Map<String, String> getAttributeMap(Element element) {
         if (element == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("element cannot be empty");
         }
 
         Map<String, String> attributeMap = new HashMap<>();

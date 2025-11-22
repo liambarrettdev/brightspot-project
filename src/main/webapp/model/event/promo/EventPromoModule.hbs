@@ -1,0 +1,16 @@
+{{~#defineBlock "EventPromoModule" extend="model/promo/PromoModule"~}}
+
+  {{~#defineElement "location"~}}
+      <div class="{{elementName}}">{{this}}</div>
+  {{/defineElement}}
+
+  <div class="{{blockName}}">
+        <div class="{{blockName}}-content">
+            {{element "title"}}
+            {{element "date"}}
+            {{element "location"}}
+            {{element "description"}}
+            {{element "cta"}}
+        </div>
+    </div>
+{{~/defineBlock~}}

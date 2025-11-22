@@ -1,0 +1,31 @@
+{
+    "_wrapper": false,
+    "_template": "/model/page/Page",
+    "locale": "en",
+    "head": {
+        "_dataUrl": "/model/page/Head.json"
+    },
+    "header" : {
+        "_dataUrl": "/model/page/header/Header.json"
+    },
+    "main": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/model/category/CategoryPage",
+                "name": "Example Category",
+                "content": {
+                    "_template": "base/util/Concatenated",
+                    "items": [
+                        {
+                            "_dataUrl": "/model/promo/list/ListModule.json"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "footer": {
+        "_dataUrl": "/model/page/footer/Footer.json"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "_template": "/model/promo/PromoModule",
+    "title": "{{words(6)}}",
+    "media": {
+        "_dataUrl": "/model/image/Image.json"
+    },
+    "byline": "{{name}}",
+    "date": "{{date}}",
+    "description": "{{sentences(1)}}",
+    "duration": "2 mins",
+    "ctaUrl": "#",
+    "ctaText": "Read More",
+    "type": "article"
+}

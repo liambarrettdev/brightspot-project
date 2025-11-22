@@ -1,0 +1,51 @@
+{
+    "_wrapper": false,
+    "_template": "/model/page/Page",
+    "locale": "en",
+    "head": {
+        "_dataUrl": "/model/page/Head.json"
+    },
+    "header" : {
+        "_dataUrl": "/model/page/header/Header.json"
+    },
+    "breadcrumbs": [
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "_repeat": 2
+        },
+        {
+            "_dataUrl": "/model/link/Link.json",
+            "href": ""
+        }
+    ],
+    "main": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/model/person/PersonPage",
+                "name": "{{name}}",
+                "image": {
+                    "_dataUrl": "/model/image/Image.json"
+                },
+                "position": "Contractor",
+                "email": "example@email.com",
+                "website": "http://example.com",
+                "biography": {
+                    "_template": "base/util/Concatenated",
+                    "items": [
+                        {
+                            "_template": "/base/util/RawHtml",
+                            "html": "{{paragraphs([1, 5])}}"
+                        }
+                    ]
+                },
+                "relatedContent": {
+                    "_dataUrl": "/model/promo/list/ListModule.json"
+                }
+            }
+        ]
+    },
+    "footer": {
+        "_dataUrl": "/model/page/footer/Footer.json"
+    }
+}

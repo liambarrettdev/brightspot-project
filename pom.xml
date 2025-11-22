@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
         http://maven.apache.org/maven-v4_0_0.xsd">
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dari.version>3.2.2466-9f28f3</dari.version>
-        <brightspot.version>3.2.7262-cf4a82</brightspot.version>
-        <styleguide.version>1.1.350-86f868</styleguide.version>
-        <slf4j.version>2.0.3</slf4j.version>
-    </properties>
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,12 +12,20 @@
         <version>3.2.2466-9f28f3</version>
     </parent>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dari.version>3.2.2466-9f28f3</dari.version>
+        <brightspot.version>3.2.7262-cf4a82</brightspot.version>
+        <styleguide.version>1.1.350-86f868</styleguide.version>
+        <slf4j.version>2.0.17</slf4j.version>
+    </properties>
+
     <groupId>com.brightspot</groupId>
-    <artifactId>base-brightspot</artifactId>
+    <artifactId>brightspot-project</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Base Brightspot</name>
+    <name>Brightspot Project</name>
 
     <dependencies>
 
@@ -157,6 +157,12 @@
             <groupId>com.psddev</groupId>
             <artifactId>sitemap</artifactId>
             <version>1.0.7-4cdc5c</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava-jdk5</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Watch -->
@@ -174,7 +180,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.30</version>
+            <version>8.0.33</version>
             <scope>provided</scope>
         </dependency>
 
@@ -220,33 +226,63 @@
             <version>1.2</version>
         </dependency>
 
-        <!-- Standard TagLibs -->
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-
         <!-- =============
         Miscellaneous APIs
         ============== -->
 
+        <!-- test moving to a newer version, remove this if any issues -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.2.1-jre</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
+            <version>2.16.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.17.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.18.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.12.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.cronutils</groupId>
             <artifactId>cron-utils</artifactId>
-            <version>9.2.0</version>
+            <version>9.2.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
             <version>2.3.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>27.1.0</version>
         </dependency>
 
         <!-- ========
@@ -374,8 +410,8 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v10.24.1</nodeVersion>
-                            <npmVersion>6.13.4</npmVersion>
+                            <nodeVersion>v14.21.3</nodeVersion>
+                            <npmVersion>6.14.18</npmVersion>
                         </configuration>
                     </execution>
 

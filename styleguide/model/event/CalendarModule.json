@@ -1,0 +1,32 @@
+{
+    "_template": "/model/event/CalendarModule",
+    "title": "Example Calendar",
+    "description": {
+        "_template": "base/util/Concatenated",
+        "items": [
+            {
+                "_template": "/base/util/RawHtml",
+                "html": "{{sentences(1)}}"
+            }
+        ]
+    },
+    "currentMonth": "May 2025",
+    "prevMonth": {
+        "_dataUrl": "/model/link/Link.json",
+        "body": "April"
+    },
+    "nextMonth": {
+        "_dataUrl": "/model/link/Link.json",
+        "body": "June"
+    },
+    "events": [
+        {
+            "_dataUrl": "/model/event/promo/EventPromoModule.json",
+            "_repeat": 3
+        }
+    ],
+    "cta": {
+        "_dataUrl": "/model/link/Link.json"
+    },
+    "defaultMessage": "{{words(5)}}"
+}

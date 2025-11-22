@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.brightspot.task.TaskExecutionException;
 import com.brightspot.task.TriggerableTask;
 import com.brightspot.tool.widget.TaskWidget;
 import com.psddev.cms.db.Localization;
@@ -19,22 +20,25 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RoutingFilter.Path(TaskServlet.PATH)
+@RoutingFilter.Path(TaskServlet.SERVLET_PATH)
 public class TaskServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskServlet.class);
 
-    public static final String PATH = "/_api/task/run";
+    public static final String SERVLET_PATH = "/_api/task/run";
+
+    public static final String PARAM_TASK = "task";
 
     // -- Overrides -- //
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // prepare response
         response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
-        response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("text/html");
 
+        // execute actions
         ToolPageContext page = new ToolPageContext(getServletContext(), request, response);
 
         Set<Class<? extends TriggerableTask>> taskClasses = ClassFinder.findConcreteClasses(TriggerableTask.class);
@@ -43,43 +47,50 @@ public class TaskServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // prepare response
         response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
-        response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("text/html");
 
+        // find request params
+        String taskName = request.getParameter(PARAM_TASK);
+
+        // validate request
+        if (StringUtils.isBlank(taskName)) {
+            LOGGER.warn("Request is missing required parameters");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            throw new TaskExecutionException(String.format("'%s' is a required parameter", PARAM_TASK));
+        }
+
+        // execute actions
         ToolPageContext page = new ToolPageContext(getServletContext(), request, response);
 
-        String taskRequestParam = request.getParameter("task");
-        String statusMessage = "widget.message.failed";
+        String statusMessageKey = "widget.message.failed";
 
         Set<Class<? extends TriggerableTask>> taskClasses = ClassFinder.findConcreteClasses(TriggerableTask.class);
         for (Class<? extends TriggerableTask> taskClass : taskClasses) {
             try {
-                TriggerableTask instance = taskClass.newInstance();
-
-                String param = instance.getTaskParam();
-                if (StringUtils.isNotBlank(param) && param.equals(taskRequestParam)) {
-                    statusMessage = invokeTask(instance);
+                TriggerableTask task = taskClass.getDeclaredConstructor().newInstance();
+                if (taskName.equals(task.getTaskName())) {
+                    statusMessageKey = runTask(task);
                 }
-
             } catch (Exception e) {
-                LOGGER.error("Could not run" + taskRequestParam + " task", e);
+                LOGGER.error("Could not run '{}' task", taskName, e);
             }
         }
 
-        writeWidget(page, taskClasses, statusMessage);
+        writeWidget(page, taskClasses, statusMessageKey);
     }
 
     // -- Utility Methods -- //
 
-    private String invokeTask(TriggerableTask instance) {
+    private String runTask(TriggerableTask triggeredTask) {
         for (TaskExecutor executor : TaskExecutor.Static.getAll()) {
             for (Object task : executor.getTasks()) {
-                if (task.getClass().equals(instance.getTaskType())) {
+                if (triggeredTask.isInstance(task)) {
                     if (!((Task) task).isRunning()) {
-                        instance.triggerTask();
+                        triggeredTask.run();
                         return "widget.message.started";
                     } else {
                         return "widget.message.running";
@@ -91,10 +102,7 @@ public class TaskServlet extends HttpServlet {
         return "widget.message.error";
     }
 
-    public static void writeWidget(
-        ToolPageContext page,
-        Set<Class<? extends TriggerableTask>> taskClasses,
-        String message) throws IOException {
+    public static void writeWidget(ToolPageContext page, Set<Class<? extends TriggerableTask>> taskClasses, String message) throws IOException {
         String widgetTitle = Localization.currentUserText(TaskWidget.class, "widget.title");
         String widgetButtonText = Localization.currentUserText(TaskWidget.class, "widget.button.text");
 
@@ -120,19 +128,19 @@ public class TaskServlet extends HttpServlet {
                 page.writeEnd();
             }
 
-            page.writeStart("form", "name", "input", "action", TaskServlet.PATH, "method", "post");
+            page.writeStart("form", "name", "input", "action", TaskServlet.SERVLET_PATH, "method", "post");
             {
                 page.writeStart("p", "style", "display:block;");
                 {
                     for (Class<? extends TriggerableTask> taskClass : taskClasses) {
                         try {
-                            TriggerableTask instance = taskClass.newInstance();
+                            TriggerableTask task = taskClass.getDeclaredConstructor().newInstance();
 
-                            String label = instance.getTaskWidgetLabel();
-                            String param = instance.getTaskParam();
+                            String label = task.getTaskWidgetLabel();
+                            String value = task.getTaskName();
 
-                            if (StringUtils.isNoneBlank(label, param)) {
-                                page.writeTag("input", "type", "radio", "name", "task", "value", param);
+                            if (StringUtils.isNoneBlank(label, value)) {
+                                page.writeTag("input", "type", "radio", "name", PARAM_TASK, "value", value);
                                 page.write(label);
                                 page.writeTag("br");
                             }

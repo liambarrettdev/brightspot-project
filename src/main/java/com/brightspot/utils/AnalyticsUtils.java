@@ -15,11 +15,14 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AnalyticsUtils {
+public final class AnalyticsUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AnalyticsUtils.class);
 
-    public static Integer getPageViews(UUID id, DateTime start, DateTime end) {
+    private AnalyticsUtils() {
+    }
+
+    public static Long getPageViews(UUID id, DateTime start, DateTime end) {
         State state = findPageState(id);
         if (state == null) {
             return null;
@@ -39,11 +42,11 @@ public class AnalyticsUtils {
         return Optional.ofNullable(state.get(viewsField.field.getInternalName()))
             .map(Metric.class::cast)
             .map(m -> m.getSumBetween(start, end))
-            .map(Double::intValue)
-            .orElse(0);
+            .map(Double::longValue)
+            .orElse(0L);
     }
 
-    public static Integer getPageClicks(UUID pageId, DateTime start, DateTime end) {
+    public static Long getPageClicks(UUID pageId, DateTime start, DateTime end) {
         State state = findPageState(pageId);
         if (state == null) {
             return null;
@@ -63,8 +66,8 @@ public class AnalyticsUtils {
         return Optional.ofNullable(state.get(viewsField.field.getInternalName()))
             .map(Metric.class::cast)
             .map(m -> m.getSumBetween(start, end))
-            .map(Double::intValue)
-            .orElse(0);
+            .map(Double::longValue)
+            .orElse(0L);
     }
 
     private static State findPageState(UUID id) {

@@ -6,7 +6,7 @@ import com.psddev.dari.db.Recordable;
 @Recordable.DisplayName("Text Item")
 public class NavigationTextItem extends Record implements NavigationItem {
 
-    @Required
+    @Recordable.Required
     private String text;
 
     public String getText() {

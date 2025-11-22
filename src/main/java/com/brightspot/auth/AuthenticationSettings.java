@@ -7,6 +7,7 @@ import com.psddev.dari.db.Recordable;
 @Recordable.Embedded
 public class AuthenticationSettings extends Record {
 
+    @Recordable.Required
     private AbstractAuthenticator authenticator;
 
     private AbstractPage authenticatedLandingPage;

@@ -525,7 +525,7 @@ public class ObjectField extends Record {
      * Returns the display name.
      */
     public String getDisplayName() {
-        if (!StringUtils.isBlank(displayName)) {
+        if (StringUtils.isNotBlank(displayName)) {
             return displayName;
         }
 
@@ -776,7 +776,7 @@ public class ObjectField extends Record {
 
             String junctionPositionField = getJunctionPositionField();
 
-            if (!StringUtils.isBlank(junctionPositionField)) {
+            if (StringUtils.isNotBlank(junctionPositionField)) {
                 query.sortAscending(junctionPositionField);
             }
 
@@ -1110,7 +1110,7 @@ public class ObjectField extends Record {
 
         String predicate = getPredicate();
 
-        if (!StringUtils.isBlank(predicate)
+        if (StringUtils.isNotBlank(predicate)
             && RECORD_TYPE.equals(internalType)
             && !PredicateParser.Static.evaluate(value, predicate, state)) {
 
@@ -1118,7 +1118,7 @@ public class ObjectField extends Record {
 
             state.addError(
                 this,
-                !StringUtils.isBlank(validationMessage)
+                StringUtils.isNotBlank(validationMessage)
                     ? validationMessage
                     : String.format("Must match: %s!", predicate));
 
@@ -1179,7 +1179,7 @@ public class ObjectField extends Record {
 
                 state.addError(
                     this,
-                    !StringUtils.isBlank(patternMessage)
+                    StringUtils.isNotBlank(patternMessage)
                         ? patternMessage
                         : String.format("Must match: %s!", pattern));
 
@@ -1188,7 +1188,7 @@ public class ObjectField extends Record {
         } else if (FILE_TYPE.equals(internalType)) {
             String mimeTypes = getMimeTypes();
 
-            if (!StringUtils.isBlank(mimeTypes)
+            if (StringUtils.isNotBlank(mimeTypes)
                 && !new SparseSet(mimeTypes).contains(ObjectUtils.to(StorageItem.class, value).getContentType())) {
 
                 state.addError(this, createMimeTypesValidationMessage());
@@ -1570,7 +1570,7 @@ public class ObjectField extends Record {
     /**
      * Description of a value that can be stored in a field.
      */
-    @Embedded
+    @Recordable.Embedded
     public static class Value extends Record {
 
         private static final String LABEL_KEY = "label";
@@ -1632,14 +1632,14 @@ public class ObjectField extends Record {
             this.value = value;
         }
 
-        // --- Comparable support --
+        // -- Comparable support --
 
         @Override
         public int compareTo(Record value) {
             return getLabel().compareTo(value.getLabel());
         }
 
-        // --- Object support ---
+        // -- Object support ---
 
         @Override
         public boolean equals(Object other) {

@@ -3,15 +3,22 @@ package com.brightspot.model.event;
 import java.util.Date;
 import java.util.Optional;
 
+import com.brightspot.model.expiry.Expirable;
+import com.brightspot.model.list.sort.alphabetical.AlphabeticalSortable;
+import com.brightspot.model.list.sort.analytics.PageViewsSortable;
 import com.brightspot.model.page.AbstractPage;
-import com.brightspot.model.page.AbstractPageViewModel;
+import com.brightspot.model.page.PageViewModel;
 import com.brightspot.model.promo.Promotable;
-import com.brightspot.model.slug.Sluggable;
+import com.brightspot.model.slug.HasSlug;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
+import com.brightspot.utils.RichTextUtils;
+import com.brightspot.utils.Utils;
 import com.psddev.cms.db.Site;
 import com.psddev.cms.db.ToolUi;
 import com.psddev.cms.view.ViewBinding;
-import com.psddev.dari.util.StringUtils;
+import com.psddev.dari.db.Recordable;
+import com.psddev.dari.util.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 @ToolUi.DefaultSortField("startDate")
 @ToolUi.FieldDisplayOrder({
@@ -19,30 +26,35 @@ import com.psddev.dari.util.StringUtils;
     "displayName",
     "sluggable.slug"
 })
-@ViewBinding(value = EventPageViewModel.class, types = AbstractPageViewModel.MAIN_CONTENT_VIEW)
+@ViewBinding(value = EventPageViewModel.class, types = PageViewModel.MAIN_CONTENT_VIEW)
 public class Event extends AbstractPage implements
-    Promotable,
-    Sluggable {
+    AlphabeticalSortable,
+    Expirable,
+    HasSlug,
+    PageViewsSortable,
+    Promotable {
 
-    @Required
-    @ToolUi.CssClass("is-half")
+    private static final String PROMOTABLE_TYPE = "event";
+
+    @Recordable.Required
+    @ToolUi.CssClass("is-one-half")
     private String location;
 
-    @Indexed
-    @Required
+    @Recordable.Indexed
+    @Recordable.Required
     @ToolUi.Filterable
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private Type type = Type.ONLINE;
 
-    @Indexed
-    @Required
+    @Recordable.Indexed
+    @Recordable.Required
     @ToolUi.Filterable
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private Date startDate;
 
-    @Indexed
+    @Recordable.Indexed
     @ToolUi.Filterable
-    @ToolUi.CssClass("is-half")
+    @ToolUi.CssClass("is-one-half")
     private Date endDate;
 
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class)
@@ -94,16 +106,23 @@ public class Event extends AbstractPage implements
 
     @Override
     public String createPermalink(Site site) {
-        if (StringUtils.isBlank(asSluggableData().getSlug())) {
+        if (StringUtils.isBlank(asSlugData().getSlug())) {
             return null;
         }
 
         return Optional.ofNullable(getType())
             .map(Type::toString)
-            .map(StringUtils::toNormalized)
-            .map(prefix -> StringUtils.ensureEnd(prefix, "/"))
-            .map(prefix -> prefix + asSluggableData().getSlug())
-            .orElse(asSluggableData().getSlug());
+            .map(Utils::toNormalized)
+            .map(prefix -> StringUtils.appendIfMissing(prefix, "/"))
+            .map(prefix -> prefix + asSlugData().getSlug())
+            .orElse(asSlugData().getSlug());
+    }
+
+    // Expirable
+
+    @Override
+    public Date getExpiryDate() {
+        return ObjectUtils.firstNonBlank(endDate, startDate, null);
     }
 
     // Linkable
@@ -120,11 +139,30 @@ public class Event extends AbstractPage implements
         return getDisplayName();
     }
 
+    @Override
+    public String getPromoDescriptionFallback() {
+        return Optional.ofNullable(getDescription())
+            .map(RichTextUtils::stripRichTextElements)
+            .map(RichTextUtils::getFirstBodyParagraph)
+            .map(RichTextUtils::richTextToPlainText)
+            .orElse(null);
+    }
+
+    @Override
+    public Date getPromotableDate() {
+        return getStartDate();
+    }
+
+    @Override
+    public String getPromotableType() {
+        return PROMOTABLE_TYPE;
+    }
+
     // Sluggable
 
     @Override
     public String getSlugFallback() {
-        return StringUtils.toNormalized(getDisplayName());
+        return Utils.toNormalized(getDisplayName());
     }
 
     // -- Enums -- //

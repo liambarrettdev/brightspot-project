@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Optional;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,33 +17,32 @@ import com.brightspot.utils.DirectoryUtils;
 import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Site;
 import com.psddev.dari.util.JspUtils;
-import com.psddev.dari.util.StringUtils;
+import com.psddev.dari.util.RoutingFilter;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @MultipartConfig
-@WebServlet(urlPatterns = LoginServlet.PATH)
+@RoutingFilter.Path(LoginServlet.SERVLET_PATH)
 public class LoginServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginServlet.class);
 
-    public static final String PATH = "/_auth/login";
+    public static final String SERVLET_PATH = "/_auth/login";
 
     // -- Overrides -- //
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-        LOGGER.error("this method is not supported");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        LOGGER.warn("this method is not supported");
         response.sendError(404);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Site site = PageFilter.Static.getSite(request);
 
-        AuthenticationSettings settings = AuthenticationFilter.getAuthenticator(request);
+        AuthenticationSettings settings = AuthenticationFilter.getAuthenticationSettings(request);
         AbstractAuthenticator authenticator = Optional.ofNullable(settings)
             .map(AuthenticationSettings::getAuthenticator)
             .orElse(null);
@@ -65,6 +63,6 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        response.sendError(404);
+        response.sendError(401);
     }
 }

@@ -1,0 +1,46 @@
+{
+    "_template": "/model/form/FormModule",
+    "title": "{{words(2)}}",
+    "method": "POST",
+    "action": "#",
+    "inputs": [
+        {
+            "_dataUrl": "/model/form/input/TextInput.json",
+            "required": true
+        },
+        {
+            "_dataUrl": "/model/form/input/TextInput.json",
+            "type": "email",
+            "required": true
+        },
+        {
+            "_dataUrl": "/model/form/input/SelectInput.json"
+        },
+        {
+            "_dataUrl": "/model/form/input/ChoiceInput.json",
+            "type": "radio"
+        },
+        {
+            "_dataUrl": "/model/form/input/ChoiceInput.json",
+            "type": "checkbox",
+            "options": [
+                {
+                    "_template": "/model/form/input/option/Option",
+                    "text": "{{words(2)}}",
+                    "value": "{{words(1)}}",
+                    "selected": true,
+                    "disabled": false
+                }
+            ]
+        },
+        {
+            "_dataUrl": "/model/form/FieldSet.json"
+        },
+        {
+            "_dataUrl": "/model/form/input/HiddenInput.json"
+        }
+    ],
+    "submitLabel": "Submit",
+    "successMessage": "Submitted Successfully",
+    "errorMessage": "Submission Failed"
+}

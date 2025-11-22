@@ -5,12 +5,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.brightspot.auth.AuthenticationUser;
+import com.brightspot.model.image.Image;
 import com.brightspot.tool.DefaultGlobal;
-import com.brightspot.tool.field.annotation.MimeTypes;
 import com.brightspot.tool.rte.BasicRichTextToolbar;
 import com.psddev.cms.db.Content;
 import com.psddev.cms.db.ToolUi;
-import com.psddev.dari.util.StorageItem;
+import com.psddev.dari.db.Recordable;
 
 @ToolUi.FieldDisplayOrder({
     "email",
@@ -29,8 +29,8 @@ public class User extends Content implements
 
     @ToolUi.Heading("Basic Details")
 
-    @Required
-    @Indexed(unique = true)
+    @Recordable.Indexed(unique = true)
+    @Recordable.Required
     private String email;
 
     @ToolUi.Placeholder("Pending")
@@ -38,21 +38,21 @@ public class User extends Content implements
 
     @ToolUi.Heading("Personal Details")
 
-    @MimeTypes("+image/")
-    private StorageItem avatar;
+    @Recordable.Embedded
+    private Image avatar;
 
-    @Indexed
-    @ToolUi.CssClass("is-half")
+    @Recordable.Indexed
+    @ToolUi.CssClass("is-one-half")
     private String firstName;
 
-    @Indexed
-    @ToolUi.CssClass("is-half")
+    @Recordable.Indexed
+    @ToolUi.CssClass("is-one-half")
     private String lastName;
 
     @ToolUi.RichText(toolbar = BasicRichTextToolbar.class, inline = false)
     private String biography;
 
-    @Indexed
+    @Recordable.Indexed
     @ToolUi.Hidden
     public String getFullName() {
         return Stream.of(getFirstName(), getLastName())
@@ -76,11 +76,11 @@ public class User extends Content implements
         this.status = status;
     }
 
-    public StorageItem getAvatar() {
+    public Image getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(StorageItem avatar) {
+    public void setAvatar(Image avatar) {
         this.avatar = avatar;
     }
 

@@ -3,7 +3,6 @@
 module.exports = function (grunt) {
     require('bsp-grunt')(grunt, {
         bsp: {
-
             styles: {
                 dir: '',
                 less: [ '*.less' ],
@@ -11,11 +10,9 @@ module.exports = function (grunt) {
                     autoprefixer: true
                 }
             },
-
             scripts: {
                 dir: ''
             },
-
             systemjs: {
                 configOverrides: {
                     minify: true
@@ -24,7 +21,6 @@ module.exports = function (grunt) {
                 destFile: '<%= bsp.scripts.minDir %>' + 'All.min.js'
             }
         },
-
         copy: {
             compiledCSS: {
                 files: [
@@ -34,7 +30,6 @@ module.exports = function (grunt) {
                 ]
             }
         },
-
         systemjs: {
             dist: {
                 files: [
@@ -42,7 +37,6 @@ module.exports = function (grunt) {
                 ]
             }
         },
-
         watch: {
             less: {
                 files: ['*.less', '<%= bsp.styles.srcDir %>' + '/**/*.less', '<%= bsp.styles.srcDir %>' + '/**/*.vars'],

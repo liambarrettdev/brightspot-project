@@ -1,0 +1,10 @@
+{
+  "_template": "/model/event/promo/EventPromoModule",
+  "title": "{{words(6)}}",
+  "date": "{{date}}",
+  "description": "{{sentences(1)}}",
+  "location": "{{words(1)}}",
+  "ctaUrl": "#",
+  "ctaText": "Event Details",
+  "type": "event"
+}

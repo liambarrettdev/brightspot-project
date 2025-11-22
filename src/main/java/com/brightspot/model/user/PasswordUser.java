@@ -21,7 +21,7 @@ public interface PasswordUser extends Recordable {
         @ToolUi.FieldDisplayType("password")
         private String password;
 
-        @Indexed
+        @Recordable.Indexed
         @ToolUi.Hidden
         private String resetPasswordToken;
 

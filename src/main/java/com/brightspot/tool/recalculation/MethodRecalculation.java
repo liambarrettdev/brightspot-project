@@ -5,15 +5,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.brightspot.task.recalculation.MethodRecalculationTask;
 import com.google.common.base.Preconditions;
 import com.psddev.dari.db.Database;
 import com.psddev.dari.db.Query;
 import com.psddev.dari.db.Record;
+import com.psddev.dari.db.Recordable;
 
 /**
  * Class for describing an indexed method recalculation event. Create one to recalculate the {{@code methodName}} for
- * all results of the {{@code query}}. Ingested then deleted by {{@link MethodRecalculationTask}}.
+ * all results of the {{@code query}}. Ingested then deleted by
+ * {{@link com.brightspot.task.recalculation.MethodRecalculationTask}}.
  */
 public class MethodRecalculation extends Record {
 
@@ -21,10 +22,10 @@ public class MethodRecalculation extends Record {
 
     private List<String> methodNames;
 
-    @Indexed
+    @Recordable.Indexed
     private String identifier;
 
-    @Indexed
+    @Recordable.Indexed
     private Date calculationSaveDate;
 
     public MethodRecalculation() {

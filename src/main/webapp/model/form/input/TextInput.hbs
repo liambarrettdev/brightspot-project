@@ -1,7 +1,17 @@
-<div>
-    <label for="{{name}}">{{label}}</label>
-    <input type="{{type}}" name="{{name}}"
-        {{#with regex}}pattern="{{this}}"{{/with}}
-        {{#with placeholder}}placeholder="{{this}}"{{/with}}
-        {{#if required}}required{{/if}}>
-</div>
+{{~#defineBlock "TextInput"~}}
+    <div class="row">
+        <div class="one-quarter-width">
+            <label for="{{name}}">{{label}}</label>
+        </div>
+        <div class="three-quarter-width">
+            <input type="{{type}}" 
+                   id="{{name}}"
+                   name="{{name}}"
+                {{#if title}}title="{{title}}" {{/if}}
+                {{#with regex}}pattern="{{this}}" {{/with}}
+                {{#with placeholder}}placeholder="{{this}}" {{/with}}
+                {{#if required}}required{{/if}}
+            >
+        </div>
+    </div>
+{{~/defineBlock~}}

@@ -1,0 +1,42 @@
+// Responsive breakpoint mixins
+.mobile(@rules) {
+    @media only screen and (max-width: @sm-max) {
+        @rules();
+    }
+}
+
+.tablet(@rules) {
+    @media only screen and (min-width: @md-min) and (max-width: @md-max) {
+        @rules();
+    }
+}
+
+.desktop(@rules) {
+    @media only screen and (min-width: @lg-min) {
+        @rules();
+    }
+}
+
+// Focus state mixins
+.focus-outline() {
+    &:focus-visible {
+        outline: 2px solid var(--highlight);
+        outline-offset: 2px;
+    }
+}
+
+.focus-outline-inset() {
+    &:focus-visible {
+        outline: 2px solid var(--highlight);
+        outline-offset: -2px;
+    }
+}
+
+// Transition mixins
+.smooth-transition(@property: all, @duration: 0.3s) {
+  transition: @property @duration ease-in-out;
+}
+
+.smooth-transition-out(@property: all, @duration: 0.3s) {
+  transition: @property @duration ease-out;
+}

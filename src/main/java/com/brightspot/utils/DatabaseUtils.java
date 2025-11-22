@@ -1,9 +1,9 @@
 package com.brightspot.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.amazonaws.util.CollectionUtils;
 import com.psddev.dari.db.AsyncDatabaseWriter;
 import com.psddev.dari.db.Database;
 import com.psddev.dari.db.Query;
@@ -11,6 +11,7 @@ import com.psddev.dari.db.Recordable;
 import com.psddev.dari.db.State;
 import com.psddev.dari.db.WriteOperation;
 import com.psddev.dari.util.AsyncQueue;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +43,8 @@ public final class DatabaseUtils {
     }
 
     public static <T> List<T> findByIds(Class<T> clazz, List<String> ids) {
-        if (CollectionUtils.isNullOrEmpty(ids)) {
-            return null;
+        if (CollectionUtils.isEmpty(ids)) {
+            return new ArrayList<>();
         }
 
         return Query.from(clazz).where("_id = ?", ids).selectAll();

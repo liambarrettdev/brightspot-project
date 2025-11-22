@@ -1,0 +1,12 @@
+{
+    "_template": "/model/person/promo/PersonPromoModule",
+    "title": "{{name}}",
+    "media": {
+        "_dataUrl": "/model/image/Image.json",
+        "src": "{{image(500,500)}}"
+    },
+    "description": "{{sentences(2)}}",
+    "ctaUrl": "#",
+    "ctaText": "View Profile",
+    "type": "person"
+}

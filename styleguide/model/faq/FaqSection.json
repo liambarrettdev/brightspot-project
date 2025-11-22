@@ -1,0 +1,10 @@
+{
+    "_template": "/model/faq/FaqSection",
+    "heading": "{{words(3)}}",
+    "questions": [
+        {
+            "_dataUrl": "/model/faq/FaqQuestion.json",
+            "_repeat": 3
+        }
+    ]
+}
