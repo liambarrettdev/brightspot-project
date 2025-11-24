@@ -46,7 +46,7 @@ public final class EncryptionUtils {
             Base64 coder = new Base64(32, LINEBREAK, true);
 
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(getIvKeyAsBytes()));
-            byte[] cipherText = cipher.doFinal(input.getBytes());
+            byte[] cipherText = cipher.doFinal(input.getBytes(StandardCharsets.UTF_8));
 
             return new String(coder.encode(cipherText));
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
@@ -76,11 +76,11 @@ public final class EncryptionUtils {
             Cipher cipher = Cipher.getInstance(TRANSFORMER);
             Base64 coder = new Base64(32, LINEBREAK, true);
 
-            byte[] encrypted = coder.decode(input.getBytes());
+            byte[] encrypted = coder.decode(input.getBytes(StandardCharsets.UTF_8));
             cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(getIvKeyAsBytes()));
             byte[] decrypted = cipher.doFinal(encrypted);
 
-            return new String(decrypted);
+            return new String(decrypted, StandardCharsets.UTF_8);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             throw new EncryptionException("Decryption algorithm '" + ALGORITHM + "' or transformation '" + TRANSFORMER + "' is not available", e);
         } catch (InvalidKeyException | InvalidAlgorithmParameterException e) {

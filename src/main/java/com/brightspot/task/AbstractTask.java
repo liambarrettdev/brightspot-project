@@ -16,7 +16,7 @@ public abstract class AbstractTask extends RepeatingTask {
 
     protected abstract DateTime calculateNextRunTime(DateTime currentTime);
 
-    protected abstract void execute();
+    protected abstract void execute() throws TaskExecutionException;
 
     public AbstractTask(String executor, String name) {
         super(executor, name);
@@ -45,8 +45,12 @@ public abstract class AbstractTask extends RepeatingTask {
 
         try {
             execute();
+        } catch (TaskExecutionException e) {
+            logger().error("Task execution failed: {}", e.getMessage(), e);
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            logger().warn("Invalid task configuration: {}", e.getMessage(), e);
         } catch (Exception e) {
-            logger().error("Exception running task", e);
+            logger().error("Unexpected error in task execution", e);
         }
     }
 }

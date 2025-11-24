@@ -28,6 +28,13 @@ public final class DatabaseUtils {
     private DatabaseUtils() {
     }
 
+    /**
+     * Finds a record by ID.
+     *
+     * @param clazz the record class
+     * @param id the record ID as a string
+     * @return the record, or null if not found or ID is invalid
+     */
     public static <T> T findById(Class<T> clazz, String id) {
         if (StringUtils.isBlank(id)) {
             return null;
@@ -37,9 +44,8 @@ public final class DatabaseUtils {
             return Query.findById(clazz, UUID.fromString(id));
         } catch (IllegalArgumentException e) {
             LOGGER.debug("Could not parse string {} to UUID", id);
+            return null;
         }
-
-        return null;
     }
 
     public static <T> List<T> findByIds(Class<T> clazz, List<String> ids) {
@@ -50,6 +56,11 @@ public final class DatabaseUtils {
         return Query.from(clazz).where("_id = ?", ids).selectAll();
     }
 
+    /**
+     * Safely saves a record, falling back to unsafe save if the safe save fails.
+     *
+     * @param record the record to save
+     */
     public static void safeSave(Recordable record) {
         if (record == null) {
             return;

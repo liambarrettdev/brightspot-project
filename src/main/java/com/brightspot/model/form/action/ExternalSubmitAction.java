@@ -24,7 +24,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.brightspot.integration.GenericHttpClient.Method.*;
+import static com.brightspot.integration.GenericHttpClient.Method.POST;
 
 public class ExternalSubmitAction extends Record implements Action {
 

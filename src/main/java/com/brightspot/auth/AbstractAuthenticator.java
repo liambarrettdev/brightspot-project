@@ -83,7 +83,7 @@ public abstract class AbstractAuthenticator extends Record {
     private static void setAuthToken(HttpServletResponse response, Session session) {
         Optional.ofNullable(session)
             .map(e -> JspUtils.signCookie(AUTH_TOKEN_NAME, e.getId().toString()))
-            .map(e -> new String(Base64.getEncoder().encode(e.getBytes()), StandardCharsets.UTF_8))
+            .map(e -> new String(Base64.getEncoder().encode(e.getBytes(StandardCharsets.UTF_8))))
             .ifPresent(e -> setAuthToken(response, e));
     }
 
