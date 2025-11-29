@@ -142,9 +142,9 @@ public final class TaskUtils {
                 protected void finished() {
                     try {
                         running.await();
-                    } catch (BrokenBarrierException error) {
+                    } catch (BrokenBarrierException e) {
                         // Ignore.
-                    } catch (InterruptedException error) {
+                    } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
                 }
@@ -166,7 +166,7 @@ public final class TaskUtils {
                     return true;
                 }
             } catch (UnknownHostException e) {
-                LOGGER.warn("Exception finding host name; message: " + e.getMessage());
+                LOGGER.warn("Exception finding host name: {}", e.getMessage());
             }
         }
         return false;

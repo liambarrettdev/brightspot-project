@@ -1,7 +1,7 @@
 package com.brightspot.utils;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ public final class HttpClientUtils {
             return "No Response Content";
         }
 
-        return EntityUtils.toString(response.getEntity(), Charset.defaultCharset());
+        return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
     }
 
     public static Integer getResponseStatus(HttpResponse response) {
@@ -53,7 +53,7 @@ public final class HttpClientUtils {
             request.setEntity(new StringEntity(jsonContent.toString(), ContentType.APPLICATION_JSON));
         }
         if (CollectionUtils.isNotEmpty(urlParams)) {
-            request.setEntity(new UrlEncodedFormEntity(urlParams, Charset.defaultCharset()));
+            request.setEntity(new UrlEncodedFormEntity(urlParams, StandardCharsets.UTF_8));
         }
     }
 }

@@ -76,7 +76,7 @@ public class TaskServlet extends HttpServlet {
                     statusMessageKey = runTask(task);
                 }
             } catch (Exception e) {
-                LOGGER.error("Could not run '{}' task", taskName, e);
+                LOGGER.warn("Could not run '{}' task", taskName, e);
             }
         }
 

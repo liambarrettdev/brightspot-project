@@ -1,7 +1,7 @@
 package com.brightspot.utils;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +47,7 @@ public final class CaptchaUtils {
             params.add(new BasicNameValuePair(REMOTE_KEY, remote));
 
             HttpPost httpPost = new HttpPost(CAPTCHA_VERIFY_URL);
-            httpPost.setEntity(new UrlEncodedFormEntity(params, Charset.defaultCharset()));
+            httpPost.setEntity(new UrlEncodedFormEntity(params, StandardCharsets.UTF_8));
 
             HttpResponse httpResponse = client.execute(httpPost);
 
