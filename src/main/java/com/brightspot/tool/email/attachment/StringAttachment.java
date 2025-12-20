@@ -1,5 +1,6 @@
 package com.brightspot.tool.email.attachment;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 public class StringAttachment extends Attachment {
@@ -17,7 +18,7 @@ public class StringAttachment extends Attachment {
     @Override
     public byte[] getBytes() {
         return Optional.ofNullable(getBody())
-            .map(String::getBytes)
+            .map(body -> body.getBytes(StandardCharsets.UTF_8))
             .orElse(null);
     }
 }

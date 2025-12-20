@@ -1,5 +1,6 @@
 package com.brightspot.utils;
 
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -87,7 +88,7 @@ public final class CronUtils {
                 }
 
                 return builder.toString();
-            } catch (Exception e) {
+            } catch (ParseException e) {
                 return "Invalid cron expression";
             }
         }

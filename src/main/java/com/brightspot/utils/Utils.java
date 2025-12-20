@@ -238,10 +238,10 @@ public final class Utils {
         }
     }
 
-    public static void sleep(final long millis) {
+    public static void sleep(long millis) {
         try {
             Thread.sleep(millis);
-        } catch (final InterruptedException ignored) {
+        } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }

@@ -14,9 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.brightspot.exception.BrightspotException;
+import com.brightspot.exception.ConfigurationException;
+import com.brightspot.exception.ValidationException;
 import com.brightspot.integration.IntegrationSiteSettings;
 import com.brightspot.integration.stripe.StripeClient;
 import com.brightspot.integration.stripe.StripeContact;
+import com.brightspot.integration.stripe.StripeOperationException;
 import com.brightspot.integration.stripe.StripeSettings;
 import com.brightspot.utils.DatabaseUtils;
 import com.psddev.cms.db.PageFilter;
@@ -25,6 +29,7 @@ import com.psddev.dari.util.IoUtils;
 import com.psddev.dari.util.RoutingFilter;
 import com.psddev.dari.util.gson.JsonArray;
 import com.psddev.dari.util.gson.JsonObject;
+import com.psddev.dari.util.gson.JsonParseException;
 import com.psddev.dari.util.gson.JsonParser;
 import com.stripe.model.Customer;
 import com.stripe.model.PaymentIntent;
@@ -71,144 +76,161 @@ public class StripeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
-        response.setStatus(HttpServletResponse.SC_OK);
+        try {
+            response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
+            response.setStatus(HttpServletResponse.SC_OK);
 
-        String action = request.getParameter(PARAM_ACTION);
-        if (StringUtils.isNotBlank(action)) {
-            try {
-                Site site = PageFilter.Static.getSite(request);
-
-                JsonObject jsonResponse;
-                switch (action) {
-                    case ACTION_PAYMENT_METHOD:
-                        jsonResponse = retrievePaymentMethods(request, site);
-                        break;
-                    case ACTION_PAYMENT_INTENT:
-                        throw new UnsupportedOperationException("Retrieving payment intents is not supported");
-                    default:
-                        jsonResponse = new JsonObject();
-                }
-
-                response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
-                response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-                response.getWriter().write(jsonResponse.toString());
-            } catch (Exception e) {
-                LOGGER.error("Error executing Stripe request", e);
-
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            String action = request.getParameter(PARAM_ACTION);
+            if (StringUtils.isBlank(action)) {
+                throw new ValidationException("Action parameter is required");
             }
+
+            Site site = PageFilter.Static.getSite(request);
+            if (site == null) {
+                throw new ConfigurationException("Site not found in request");
+            }
+
+            JsonObject jsonResponse;
+            switch (action) {
+                case ACTION_PAYMENT_METHOD:
+                    jsonResponse = retrievePaymentMethods(request, site);
+                    break;
+                case ACTION_PAYMENT_INTENT:
+                    throw new UnsupportedOperationException("Retrieving payment intents is not supported");
+                default:
+                    throw new ValidationException(String.format("Unknown action: %s", action));
+            }
+
+            response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+            response.getWriter().write(jsonResponse.toString());
+        } catch (IOException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ServletException(e);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
-        response.setStatus(HttpServletResponse.SC_OK);
+        try {
+            response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
+            response.setStatus(HttpServletResponse.SC_OK);
 
-        String action = request.getParameter(PARAM_ACTION);
-        if (StringUtils.isNotBlank(action)) {
-            try {
-                Site site = PageFilter.Static.getSite(request);
-
-                JsonObject jsonResponse;
-                switch (action) {
-                    case ACTION_PAYMENT_METHOD:
-                        jsonResponse = createPaymentMethod(request, site);
-                        break;
-                    case ACTION_PAYMENT_INTENT:
-                        jsonResponse = createPaymentIntent(request, site);
-                        break;
-                    default:
-                        jsonResponse = new JsonObject();
-                }
-
-                response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
-                response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-                response.getWriter().write(jsonResponse.toString());
-            } catch (Exception e) {
-                LOGGER.error("Error executing Stripe request", e);
-
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            String action = request.getParameter(PARAM_ACTION);
+            if (StringUtils.isBlank(action)) {
+                throw new ValidationException("Action parameter is required");
             }
+
+            Site site = PageFilter.Static.getSite(request);
+            if (site == null) {
+                throw new ConfigurationException("Site not found in request");
+            }
+
+            JsonObject jsonResponse;
+            switch (action) {
+                case ACTION_PAYMENT_METHOD:
+                    jsonResponse = createPaymentMethod(request, site);
+                    break;
+                case ACTION_PAYMENT_INTENT:
+                    jsonResponse = createPaymentIntent(request, site);
+                    break;
+                default:
+                    throw new ValidationException(String.format("Unknown action: %s", action));
+            }
+
+            response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+            response.getWriter().write(jsonResponse.toString());
+        } catch (IOException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ServletException(e);
         }
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
-        response.setStatus(HttpServletResponse.SC_OK);
+        try {
+            response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
+            response.setStatus(HttpServletResponse.SC_OK);
 
-        String action = request.getParameter(PARAM_ACTION);
-        if (StringUtils.isNotBlank(action)) {
-            try {
-                Site site = PageFilter.Static.getSite(request);
-
-                JsonObject jsonResponse;
-                switch (action) {
-                    case ACTION_PAYMENT_METHOD:
-                        jsonResponse = updatePaymentMethod(request, site);
-                        break;
-                    case ACTION_PAYMENT_INTENT:
-                        jsonResponse = updatePaymentIntent(request, site);
-                        break;
-                    default:
-                        jsonResponse = new JsonObject();
-                }
-
-                response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
-                response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-                response.getWriter().write(jsonResponse.toString());
-            } catch (Exception e) {
-                LOGGER.error("Error executing Stripe request", e);
-
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            String action = request.getParameter(PARAM_ACTION);
+            if (StringUtils.isBlank(action)) {
+                throw new ValidationException("Action parameter is required");
             }
+
+            Site site = PageFilter.Static.getSite(request);
+            if (site == null) {
+                throw new ConfigurationException("Site not found in request");
+            }
+
+            JsonObject jsonResponse;
+            switch (action) {
+                case ACTION_PAYMENT_METHOD:
+                    jsonResponse = updatePaymentMethod(request, site);
+                    break;
+                case ACTION_PAYMENT_INTENT:
+                    jsonResponse = updatePaymentIntent(request, site);
+                    break;
+                default:
+                    throw new ValidationException(String.format("Unknown action: %s", action));
+            }
+
+            response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+            response.getWriter().write(jsonResponse.toString());
+        } catch (IOException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ServletException(e);
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
-        response.setStatus(HttpServletResponse.SC_OK);
+        try {
+            response.setHeader("Cache-Control", "no-cache, no-store, private, max-age=0, must-revalidate");
+            response.setStatus(HttpServletResponse.SC_OK);
 
-        String action = request.getParameter(PARAM_ACTION);
-        if (StringUtils.isNotBlank(action)) {
-            try {
-                Site site = PageFilter.Static.getSite(request);
-
-                JsonObject jsonResponse;
-                switch (action) {
-                    case ACTION_PAYMENT_METHOD:
-                        jsonResponse = deletePaymentMethod(request, site);
-                        break;
-                    case ACTION_PAYMENT_INTENT:
-                        throw new UnsupportedOperationException("Deleting payment intents is not supported");
-                    default:
-                        jsonResponse = new JsonObject();
-                }
-
-                response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
-                response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-                response.getWriter().write(jsonResponse.toString());
-            } catch (Exception e) {
-                LOGGER.error("Error executing Stripe request", e);
-
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            String action = request.getParameter(PARAM_ACTION);
+            if (StringUtils.isBlank(action)) {
+                throw new ValidationException("Action parameter is required");
             }
+
+            Site site = PageFilter.Static.getSite(request);
+            if (site == null) {
+                throw new ConfigurationException("Site not found in request");
+            }
+
+            JsonObject jsonResponse;
+            switch (action) {
+                case ACTION_PAYMENT_METHOD:
+                    jsonResponse = deletePaymentMethod(request, site);
+                    break;
+                case ACTION_PAYMENT_INTENT:
+                    throw new UnsupportedOperationException("Deleting payment intents is not supported");
+                default:
+                    throw new ValidationException(String.format("Unknown action: %s", action));
+            }
+
+            response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+            response.getWriter().write(jsonResponse.toString());
+        } catch (IOException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ServletException(e);
         }
     }
 
-    protected JsonObject createPaymentMethod(HttpServletRequest request, Site site) throws Exception {
+    protected JsonObject createPaymentMethod(HttpServletRequest request, Site site) throws BrightspotException {
         StripeClient client = StripeClient.getInstance(getStripeSecret(site));
         if (client == null) {
-            throw new ServletException("Stripe is not configured");
+            throw new ConfigurationException("Stripe is not configured");
         }
 
         Customer customer = findCustomer(client, request);
-        if (customer == null) {
-            throw new ServletException("Unexpected error while retrieving customer data");
-        }
 
         Map<String, Object> params = new HashMap<>();
         params.put(StripeClient.PARAM_NUMBER, request.getParameter(PARAM_NUMBER));
@@ -216,62 +238,45 @@ public class StripeServlet extends HttpServlet {
         params.put(StripeClient.PARAM_EXPIRY_YEAR, request.getParameter(PARAM_EXPIRY_YEAR));
         params.put(StripeClient.PARAM_CVC, request.getParameter(PARAM_CVC));
 
-        if (validatePaymentMethod(client, customer, params)) {
-            throw new ServletException("Duplicate payment method");
+        if (!validatePaymentMethod(client, customer, params)) {
+            throw new ValidationException("Duplicate payment method");
         }
 
         PaymentMethod createdPaymentMethod = client.createPaymentMethod(params, new HashMap<>());
-        if (createdPaymentMethod == null) {
-            throw new ServletException("Unexpected error while creating new payment method");
-        }
-
         PaymentMethod attachedPaymentMethod = client.attachPaymentMethod(customer, createdPaymentMethod);
-        if (attachedPaymentMethod == null) {
-            throw new ServletException("Unexpected error while attaching payment method to customer");
-        }
 
         JsonObject responseJson = new JsonObject();
 
-        responseJson.add(JSON_KEY, JSON_PARSER.parse(getStripeKey(site)));
-        responseJson.add(JSON_CARD_NUMBER, JSON_PARSER.parse(attachedPaymentMethod.getCard().getLast4()));
+        responseJson.addProperty(JSON_KEY, getStripeKey(site));
+        responseJson.addProperty(JSON_CARD_NUMBER, attachedPaymentMethod.getCard().getLast4());
 
         return responseJson;
     }
 
-    protected JsonObject deletePaymentMethod(HttpServletRequest request, Site site) throws Exception {
+    protected JsonObject deletePaymentMethod(HttpServletRequest request, Site site) throws BrightspotException {
         StripeClient client = StripeClient.getInstance(getStripeSecret(site));
         if (client == null) {
-            throw new ServletException("Stripe is not configured");
+            throw new ConfigurationException("Stripe is not configured");
         }
 
         PaymentMethod attachedPaymentMethod = client.getPaymentMethod(request.getParameter(PARAM_CARD_ID));
-        if (attachedPaymentMethod == null) {
-            throw new ServletException("Unexpected error while retrieving payment method data");
-        }
-
         PaymentMethod detachedPaymentMethod = client.detachPaymentMethod(attachedPaymentMethod);
-        if (detachedPaymentMethod == null) {
-            throw new ServletException("Unexpected error while detaching payment method from customer");
-        }
 
         JsonObject responseJson = new JsonObject();
 
-        responseJson.add(JSON_KEY, JSON_PARSER.parse(getStripeKey(site)));
-        responseJson.add(JSON_CARD_NUMBER, JSON_PARSER.parse(detachedPaymentMethod.getCard().getLast4()));
+        responseJson.addProperty(JSON_KEY, getStripeKey(site));
+        responseJson.addProperty(JSON_CARD_NUMBER, detachedPaymentMethod.getCard().getLast4());
 
         return responseJson;
     }
 
-    protected JsonObject retrievePaymentMethods(HttpServletRequest request, Site site) throws Exception {
+    protected JsonObject retrievePaymentMethods(HttpServletRequest request, Site site) throws BrightspotException {
         StripeClient client = StripeClient.getInstance(getStripeSecret(site));
         if (client == null) {
-            throw new ServletException("Stripe is not configured");
+            throw new ConfigurationException("Stripe is not configured");
         }
 
         Customer customer = findCustomer(client, request);
-        if (customer == null) {
-            throw new ServletException("Unexpected error while retrieving customer data");
-        }
 
         JsonArray cardsJson = new JsonArray();
         for (PaymentMethod paymentMethod : client.getPaymentMethods(customer)) {
@@ -280,24 +285,24 @@ public class StripeServlet extends HttpServlet {
             }
 
             JsonObject cardJson = new JsonObject();
-            cardJson.add(JSON_ID, JSON_PARSER.parse(paymentMethod.getId()));
-            cardJson.add(JSON_TYPE, JSON_PARSER.parse(paymentMethod.getCard().getBrand()));
-            cardJson.add(JSON_NUMBER, JSON_PARSER.parse(paymentMethod.getCard().getLast4()));
+            cardJson.addProperty(JSON_ID, paymentMethod.getId());
+            cardJson.addProperty(JSON_TYPE, paymentMethod.getCard().getBrand());
+            cardJson.addProperty(JSON_NUMBER, paymentMethod.getCard().getLast4());
             cardsJson.add(cardJson);
         }
 
         JsonObject responseJson = new JsonObject();
 
-        responseJson.add(JSON_KEY, JSON_PARSER.parse(getStripeKey(site)));
+        responseJson.addProperty(JSON_KEY, getStripeKey(site));
         responseJson.add(JSON_CARDS, cardsJson);
 
         return responseJson;
     }
 
-    protected JsonObject createPaymentIntent(HttpServletRequest request, Site site) throws Exception {
+    protected JsonObject createPaymentIntent(HttpServletRequest request, Site site) throws BrightspotException, IOException {
         StripeClient client = StripeClient.getInstance(getStripeSecret(site));
         if (client == null) {
-            throw new ServletException("Stripe is not configured");
+            throw new ConfigurationException("Stripe is not configured");
         }
 
         JsonObject data = getPostData(request);
@@ -311,108 +316,97 @@ public class StripeServlet extends HttpServlet {
         params.put(StripeClient.PARAM_PAYMENT_TYPE, paymentMethodTypes);
 
         PaymentIntent paymentIntent = client.createPaymentIntent(params);
-        if (paymentIntent == null) {
-            throw new ServletException("Unexpected error while creating new payment intent");
-        }
 
         JsonObject responseJson = new JsonObject();
 
-        responseJson.add(JSON_KEY, JSON_PARSER.parse(getStripeKey(site)));
-        responseJson.add(JSON_SECRET, JSON_PARSER.parse(paymentIntent.getClientSecret()));
+        responseJson.addProperty(JSON_KEY, getStripeKey(site));
+        responseJson.addProperty(JSON_SECRET, paymentIntent.getClientSecret());
 
         return responseJson;
     }
 
-    protected JsonObject updatePaymentMethod(HttpServletRequest request, Site site) throws Exception {
+    protected JsonObject updatePaymentMethod(HttpServletRequest request, Site site) throws BrightspotException, IOException {
         StripeClient client = StripeClient.getInstance(getStripeSecret(site));
         if (client == null) {
-            throw new ServletException("Stripe is not configured");
-        }
-
-        PaymentMethod attachedPaymentMethod = client.getPaymentMethod(request.getParameter(PARAM_CARD_ID));
-        if (attachedPaymentMethod == null) {
-            throw new ServletException("Unexpected error while retrieving payment method data");
+            throw new ConfigurationException("Stripe is not configured");
         }
 
         Customer customer = findCustomer(client, request);
-        if (customer == null) {
-            throw new ServletException("Unexpected error while retrieving customer data");
-        }
+
+        PaymentMethod attachedPaymentMethod = client.getPaymentMethod(request.getParameter(PARAM_CARD_ID));
 
         Map<String, Object> invoiceSettings = new HashMap<>();
         invoiceSettings.put(StripeClient.PARAM_PAYMENT_DEFAULT, attachedPaymentMethod.getId());
 
-        Customer updatedCustomer = client.updateCustomer(customer, invoiceSettings);
-        if (updatedCustomer == null) {
-            throw new ServletException("Unexpected error while updating customer");
-        }
+        client.updateCustomer(customer, invoiceSettings);
 
         JsonObject responseJson = new JsonObject();
 
-        responseJson.add(JSON_KEY, JSON_PARSER.parse(getStripeKey(site)));
-        responseJson.add(JSON_CARD_NUMBER, JSON_PARSER.parse(attachedPaymentMethod.getCard().getLast4()));
+        responseJson.addProperty(JSON_KEY, getStripeKey(site));
+        responseJson.addProperty(JSON_CARD_NUMBER, attachedPaymentMethod.getCard().getLast4());
 
         return responseJson;
     }
 
-    protected JsonObject updatePaymentIntent(HttpServletRequest request, Site site) throws Exception {
+    protected JsonObject updatePaymentIntent(HttpServletRequest request, Site site) throws BrightspotException, IOException {
         StripeClient client = StripeClient.getInstance(getStripeSecret(site));
         if (client == null) {
-            throw new ServletException("Stripe is not configured");
+            throw new ConfigurationException("Stripe is not configured");
         }
 
         JsonObject data = getPostData(request);
 
         PaymentIntent paymentIntent = client.getPaymentIntent(request.getParameter(PARAM_INTENT_ID));
-        if (paymentIntent == null) {
-            throw new ServletException("Unexpected error while retrieving payment intent data");
-        }
 
         Map<String, Object> params = new HashMap<>();
         params.put(StripeClient.PARAM_AMOUNT, data.get(KEY_INTENT_AMOUNT));
 
         PaymentIntent updatedPaymentIntent = client.updatePaymentIntent(paymentIntent, params);
-        if (updatedPaymentIntent == null) {
-            throw new ServletException("Unexpected error while updating payment intent");
-        }
 
         JsonObject responseJson = new JsonObject();
 
-        responseJson.add(JSON_KEY, JSON_PARSER.parse(getStripeKey(site)));
-        responseJson.add(JSON_SECRET, JSON_PARSER.parse(updatedPaymentIntent.getClientSecret()));
+        responseJson.addProperty(JSON_KEY, getStripeKey(site));
+        responseJson.addProperty(JSON_SECRET, updatedPaymentIntent.getClientSecret());
 
         return responseJson;
     }
 
-    private JsonObject getPostData(HttpServletRequest request) throws IOException {
+    private Customer findCustomer(StripeClient client, HttpServletRequest request) throws StripeOperationException {
+        String customerId = Optional.ofNullable(request)
+            .map(r -> r.getParameter(PARAM_CONTACT_ID))
+            .map(id -> DatabaseUtils.findById(StripeContact.class, id))
+            .map(StripeContact::asStripeContactData)
+            .map(StripeContact.Data::getContactId)
+            .orElse(null);
+
+        return client.getCustomer(customerId);
+    }
+
+    private JsonObject getPostData(HttpServletRequest request) throws IOException, ValidationException {
         if (request.getContentType() != null && request.getContentType().contains("json")) {
             try (InputStream input = request.getInputStream()) {
                 String jsonString = IoUtils.toString(input, StandardCharsets.UTF_8);
                 return JSON_PARSER.parse(jsonString).getAsJsonObject();
+            } catch (JsonParseException e) {
+                throw new ValidationException("Invalid JSON format in request body", e);
             }
         }
         return new JsonObject();
     }
 
-    private Customer findCustomer(StripeClient client, HttpServletRequest request) {
-        return Optional.ofNullable(request)
-            .map(r -> r.getParameter(PARAM_CONTACT_ID))
-            .map(id -> DatabaseUtils.findById(StripeContact.class, id))
-            .map(StripeContact::asStripeContactData)
-            .map(StripeContact.Data::getContactId)
-            .map(client::getCustomer)
-            .orElse(null);
-    }
-
-    private boolean validatePaymentMethod(StripeClient client, Customer customer, Map<String, Object> params) throws Exception {
+    private boolean validatePaymentMethod(StripeClient client, Customer customer, Map<String, Object> params) {
         try {
             return client.getPaymentMethods(customer).stream()
                 .map(PaymentMethod::getCard)
                 .filter(card -> card.getLast4().equals(params.get(StripeClient.PARAM_NUMBER).toString().substring(12)))
                 .filter(card -> card.getExpMonth().equals(Long.valueOf(params.get(StripeClient.PARAM_EXPIRY_MONTH).toString())))
-                .anyMatch(card -> card.getExpYear().equals(Long.valueOf(params.get(StripeClient.PARAM_EXPIRY_YEAR).toString())));
-        } catch (Exception e) {
-            throw new ServletException("Unexpected error while creating new payment method");
+                .noneMatch(card -> card.getExpYear().equals(Long.valueOf(params.get(StripeClient.PARAM_EXPIRY_YEAR).toString())));
+        } catch (StripeOperationException e) {
+            LOGGER.warn("Unexpected error while validating payment method", e);
+            return false;
+        } catch (IllegalArgumentException | NullPointerException e) {
+            LOGGER.warn("Invalid parameters while validating payment method", e);
+            return false;
         }
     }
 
