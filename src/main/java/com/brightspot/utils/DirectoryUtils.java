@@ -10,19 +10,37 @@ import com.psddev.dari.db.Recordable;
 import com.psddev.dari.util.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Utility class for generating canonical URLs for content items.
+ *
+ * <p>This class provides methods to generate canonical URLs for recordable objects
+ * based on their permalink configuration and site associations.</p>
+ */
 public final class DirectoryUtils {
 
     private DirectoryUtils() {
     }
 
     /**
-     * Look for url in the following order:
+     * Gets the canonical URL for a recordable object.
+     *
+     * <p>Looks for a URL in the following order:</p>
      * <ol>
-     *     <li>look for a site permalink on the recordable from the requested <code>Site</code></li>
-     *     <li>look for a site permalink on the recordable from its owner <code>Site</code></li>
-     *     <li>look for the first site permalink on the recordable from any <code>Site</code> it is accessible by</li>
-     *     <li>look for a global permalink on the recordable</li>
+     *     <li>Site permalink from the requested {@code Site}</li>
+     *     <li>Site permalink from the recordable's owner {@code Site}</li>
+     *     <li>First site permalink from any {@code Site} the recordable is accessible by</li>
+     *     <li>Global permalink on the recordable (combined with site's primary URL)</li>
      * </ol>
+     *
+     * <p>Returns {@code null} if the recordable is null, has no state, or no valid
+     * permalink can be found. Any wildcard characters (*) in the URL are removed.</p>
+     *
+     * <p>TODO: Consider caching URL generation results for better performance</p>
+     * <p>FIXME: The logic for combining site URL with global permalink (step 4) may produce incorrect URLs if the permalink already includes a domain</p>
+     *
+     * @param site the site context for URL generation (may be null)
+     * @param recordable the recordable object to get the URL for
+     * @return the canonical URL, or {@code null} if not found or recordable is invalid
      */
     public static String getCanonicalUrl(Site site, Recordable recordable) {
 

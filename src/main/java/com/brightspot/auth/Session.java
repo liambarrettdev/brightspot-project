@@ -7,6 +7,21 @@ import com.psddev.dari.db.Record;
 import com.psddev.dari.db.Recordable;
 import org.apache.commons.lang.time.DateUtils;
 
+/**
+ * Represents an active user authentication session.
+ *
+ * <p>Sessions are stored in the database and tracked via authentication cookies. Each session
+ * has a start date and an optional end date. Sessions are considered valid if the end date
+ * is missing or in the future.</p>
+ *
+ * <p>Sessions are automatically created with a 1-month expiration period. Expired sessions
+ * are automatically filtered out when queried.</p>
+ *
+ * <p>All fields (user, start, end) are indexed for efficient querying.</p>
+ *
+ * @see AbstractAuthenticator#addUserSession(HttpServletRequest, HttpServletResponse, AuthenticationUser)
+ * @see AuthenticationUser
+ */
 public class Session extends Record {
 
     @Recordable.Indexed

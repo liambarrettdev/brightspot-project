@@ -4,6 +4,19 @@ import com.brightspot.model.page.AbstractPage;
 import com.psddev.dari.db.Record;
 import com.psddev.dari.db.Recordable;
 
+/**
+ * Configuration settings for authentication behavior on a site.
+ *
+ * <p>This embedded record is used to configure which authenticator to use and where to
+ * redirect users after login and logout. It is typically stored in site settings via
+ * {@link com.brightspot.tool.auth.AuthenticationSiteSettings}.</p>
+ *
+ * <p>The authenticator is required and determines how users authenticate. Landing pages
+ * are optional and control where users are redirected after authentication actions.</p>
+ *
+ * @see AbstractAuthenticator
+ * @see com.brightspot.tool.auth.AuthenticationSiteSettings
+ */
 @Recordable.Embedded
 public class AuthenticationSettings extends Record {
 
