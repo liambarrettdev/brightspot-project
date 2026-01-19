@@ -12,7 +12,7 @@ public abstract class AbstractTask extends RepeatingTask {
 
     protected abstract Logger logger();
 
-    protected abstract Boolean runImmediately();
+    protected abstract boolean runImmediately();
 
     protected abstract DateTime calculateNextRunTime(DateTime currentTime);
 
@@ -27,7 +27,7 @@ public abstract class AbstractTask extends RepeatingTask {
     @Override
     protected DateTime calculateRunTime(DateTime currentTime) {
         if (runImmediately()) {
-            return new DateTime();
+            return DateTime.now();
         }
 
         return calculateNextRunTime(currentTime);

@@ -38,7 +38,7 @@ public class MethodRecalculationTask extends AbstractTask {
     }
 
     @Override
-    protected Boolean runImmediately() {
+    protected boolean runImmediately() {
         return FORCE_RUN.compareAndSet(true, false);
     }
 
@@ -57,13 +57,22 @@ public class MethodRecalculationTask extends AbstractTask {
                 .where("calculationSaveDate < ?", Database.Static.getDefault().now())
                 .iterable(0)) {
 
-                logger().info("Begin processing method recalculation with identifier: {}", method.getIdentifier());
+                UUID methodId = method.getId();
+                String identifier = method.getIdentifier();
 
-                try {
-                    Query<Object> query = method.getQuery();
+                logger().info("Begin processing method recalculation with identifier: {}", identifier);
+
+                try {Query<Object> query = method.getQuery();
+                    if (query == null) {
+                        logger().warn("Method recalculation {} has null query, skipping", identifier);
+                        processed.add(methodId);
+                        continue;
+                    }
+
                     // Unset sort to avoid leaking database resources
                     query.setSorters(Collections.emptyList());
                     query.timeout(300.0);
+                    
                     query.iterable(5)
                         .forEach(object -> {
                             if (object instanceof Recordable && recalculated.add(((Recordable) object).getState()
@@ -83,20 +92,23 @@ public class MethodRecalculationTask extends AbstractTask {
                         });
                     processed.add(method.getId());
                 } catch (RuntimeException e) {
-                    logger().error(e.getMessage());
+                    logger().error("Runtime exception processing method recalculation with identifier: {}", identifier, e);
+                    // Don't add to processed set so it can be retried
                 }
 
                 logger().info("Finished processing method recalculation with identifier: {}", method.getIdentifier());
             }
         } finally {
+            // Clean up processed method recalculations
             processed.forEach(recordId -> {
                 try {
                     MethodRecalculation record = Query.findById(MethodRecalculation.class, recordId);
                     if (record != null) {
                         record.delete();
+                        logger().debug("Deleted processed method recalculation {}", recordId);
                     }
                 } catch (DatabaseException e) {
-                    logger().warn(e.getMessage(), e);
+                    logger().warn("Failed to delete method recalculation {}: {}", recordId, e.getMessage(), e);
                 }
             });
         }

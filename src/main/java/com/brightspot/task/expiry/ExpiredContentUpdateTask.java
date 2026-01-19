@@ -15,6 +15,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Re-save {@link Expirable} objects whose expired flag needs to be updated in the database.
+ *
+ * <p>This task queries all Expirable records and updates their expired status
+ * if the calculated value differs from the stored value.</p>
  */
 public class ExpiredContentUpdateTask extends AbstractTask {
 
@@ -34,7 +37,7 @@ public class ExpiredContentUpdateTask extends AbstractTask {
     }
 
     @Override
-    protected Boolean runImmediately() {
+    protected boolean runImmediately() {
         return FORCE_RUN.compareAndSet(true, false);
     }
 
@@ -47,21 +50,30 @@ public class ExpiredContentUpdateTask extends AbstractTask {
     protected void execute() {
         // only save records whose calculated value is not equal to the saved value.
         Function<Expirable, Boolean> processor = (obj) -> {
-            Expirable.Data expirableData = obj.as(Expirable.Data.class);
-
-            if (expirableData == null) {
+            if (obj == null) {
                 return false;
             }
 
-            boolean actualValue = Boolean.TRUE.equals(expirableData.getOriginalObject().isExpired());
-            boolean currentValue = expirableData.isExpired();
-
-            if (currentValue != actualValue) {
-                expirableData.setExpired(actualValue);
-                return true;
+            Expirable.Data expirableData = obj.as(Expirable.Data.class);
+            if (expirableData == null) {
+                logger().warn("Record {} does not have Expirable.Data, skipping", obj.getState().getId());
+                return false;
             }
 
-            return false;
+            try {
+                boolean actualValue = Boolean.TRUE.equals(expirableData.getOriginalObject().isExpired());
+                boolean currentValue = expirableData.isExpired();
+
+                if (currentValue != actualValue) {
+                    expirableData.setExpired(actualValue);
+                    return true;
+                }
+
+                return false;
+            } catch (Exception e) {
+                logger().warn("Error checking expired status for record {}: {}", obj.getState().getId(), e.getMessage(), e);
+                return false;
+            }
         };
 
         TaskUtils.asyncProcessQuery(

@@ -7,6 +7,7 @@ import com.brightspot.auth.Session;
 import com.brightspot.task.AbstractCronTask;
 import com.brightspot.task.AbstractTaskSettings;
 import com.brightspot.task.MutuallyExclusiveTask;
+import com.brightspot.task.TaskExecutionException;
 import com.brightspot.tool.task.TaskSettings;
 import com.psddev.dari.db.Query;
 import org.slf4j.Logger;
@@ -30,17 +31,30 @@ public class SessionPurgeTask extends AbstractCronTask implements MutuallyExclus
     }
 
     @Override
-    protected Boolean runImmediately() {
+    protected boolean runImmediately() {
         return FORCE_RUN.compareAndSet(true, false);
     }
 
     @Override
-    protected void execute() {
+    protected void execute() throws TaskExecutionException {
         Query<Session> query = Query.from(Session.class).where("end < ?", new Date());
 
-        logger().debug("Found {} sessions", query.count());
+        long count = query.count();
 
-        query.deleteAll();
+        if (count == 0) {
+            logger().debug("No expired sessions found to purge");
+            return;
+        }
+
+        logger().debug("Found {} expired sessions to purge", count);
+
+        try {
+            query.deleteAll();
+            logger().info("Successfully purged {} expired sessions", count);
+        } catch (Exception e) {
+            logger().error("Failed to purge expired sessions", e);
+            throw new TaskExecutionException("Failed to purge expired sessions", e);
+        }
     }
 
     @Override

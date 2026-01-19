@@ -88,7 +88,7 @@ public class TaskServlet extends HttpServlet {
     private String runTask(TriggerableTask triggeredTask) {
         for (TaskExecutor executor : TaskExecutor.Static.getAll()) {
             for (Object task : executor.getTasks()) {
-                if (triggeredTask.isInstance(task)) {
+                if (triggeredTask.isTask(task)) {
                     if (!((Task) task).isRunning()) {
                         triggeredTask.run();
                         return "widget.message.started";

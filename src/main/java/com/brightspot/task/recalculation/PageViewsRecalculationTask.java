@@ -31,7 +31,7 @@ public class PageViewsRecalculationTask extends AbstractTask {
     }
 
     @Override
-    protected Boolean runImmediately() {
+    protected boolean runImmediately() {
         return FORCE_RUN.compareAndSet(true, false);
     }
 
