@@ -9,7 +9,13 @@ import com.psddev.dari.util.StorageItem;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Fields available in all OEmbed responses.
+ * Utility class for working with OEmbed metadata.
+ *
+ * <p>This class provides methods to extract OEmbed response fields from metadata objects.
+ * OEmbed is a format for embedding content from third-party sites (e.g., YouTube, Twitter).</p>
+ *
+ * <p>Fields available in all OEmbed responses are defined as constants. The class supports
+ * extracting common fields like title, description, dimensions, and thumbnail information.</p>
  *
  * @see <a href="http://oembed.com/">http://oembed.com/</a>
  */
@@ -44,26 +50,75 @@ public final class OEmbedUtils {
 
     // -- Statics -- //
 
+    /**
+     * Extracts the title from OEmbed metadata.
+     *
+     * @param metadata the OEmbed metadata object
+     * @return the title string, or {@code null} if not found
+     */
     public static String getTitle(Object metadata) {
         return getValue(String.class, metadata, TITLE);
     }
 
+    /**
+     * Extracts the description from OEmbed metadata.
+     *
+     * @param metadata the OEmbed metadata object
+     * @return the description string, or {@code null} if not found
+     */
     public static String getDescription(Object metadata) {
         return getValue(String.class, metadata, DESCRIPTION);
     }
 
+    /**
+     * Extracts the duration from OEmbed metadata.
+     *
+     * <p>Duration is typically in seconds and is commonly used for video content.</p>
+     *
+     * @param metadata the OEmbed metadata object
+     * @return the duration as an Integer, or {@code null} if not found
+     */
     public static Integer getDuration(Object metadata) {
         return getValue(Integer.class, metadata, DURATION);
     }
 
+    /**
+     * Extracts the height from OEmbed metadata.
+     *
+     * <p>Height is typically in pixels and is used for photo, video, and rich content types.</p>
+     *
+     * @param metadata the OEmbed metadata object
+     * @return the height as an Integer, or {@code null} if not found
+     */
     public static Integer getHeight(Object metadata) {
         return getValue(Integer.class, metadata, HEIGHT);
     }
 
+    /**
+     * Extracts the width from OEmbed metadata.
+     *
+     * <p>Width is typically in pixels and is used for photo, video, and rich content types.</p>
+     *
+     * @param metadata the OEmbed metadata object
+     * @return the width as an Integer, or {@code null} if not found
+     */
     public static Integer getWidth(Object metadata) {
         return getValue(Integer.class, metadata, WIDTH);
     }
 
+    /**
+     * Creates a StorageItem from the thumbnail URL in OEmbed metadata.
+     *
+     * <p>Extracts the thumbnail URL and dimensions from the metadata and creates a
+     * StorageItem with appropriate metadata. Returns {@code null} if no thumbnail URL
+     * is found in the metadata.</p>
+     *
+     * <p>The created StorageItem includes width, height, and empty edit/crop/focus
+     * metadata maps for compatibility with the image system.</p>
+     *
+     * @param metadata the OEmbed metadata object
+     * @return a StorageItem representing the thumbnail, or {@code null} if no thumbnail URL
+     */
     public static StorageItem getThumbnail(Object metadata) {
         String thumbnailUrl = getValue(String.class, metadata, THUMBNAIL_URL);
         if (StringUtils.isNotBlank(thumbnailUrl)) {
@@ -83,6 +138,19 @@ public final class OEmbedUtils {
         return null;
     }
 
+    /**
+     * Extracts a typed value from a nested data structure using a path key.
+     *
+     * <p>Uses CollectionUtils.getByPath to navigate nested maps/lists and converts
+     * the result to the requested type. Returns {@code null} if the data is blank
+     * or the key path is not found.</p>
+     *
+     * @param <T> the type to convert to
+     * @param type the target class
+     * @param data the data structure to extract from
+     * @param key the path key (supports dot notation for nested paths)
+     * @return the extracted and converted value, or {@code null} if not found
+     */
     private static <T> T getValue(Class<T> type, Object data, String key) {
         if (ObjectUtils.isBlank(data)) {
             return null;

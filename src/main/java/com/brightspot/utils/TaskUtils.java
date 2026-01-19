@@ -25,6 +25,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Utility class for asynchronous task processing and task management.
+ *
+ * <p>This class provides methods for processing database queries asynchronously with
+ * multiple processors and writers, as well as utilities for checking task execution
+ * status and host configuration.</p>
+ *
+ * <p>The async processing methods use producer-consumer patterns with queues to
+ * efficiently process large datasets in parallel.</p>
+ */
 public final class TaskUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskUtils.class);
@@ -48,6 +58,9 @@ public final class TaskUtils {
      * @param batchSize Passed to the AsyncDatabaseWriters.
      * @param commitEventually Passed to the AsyncDatabaseWriters.
      * @param finished This is executed after all other tasks have completed. May be null.
+     *
+     * <p>TODO: Consider adding progress reporting/callbacks for long-running tasks</p>
+     * <p>FIXME: The batch size calculation (batchSize * numWriters) for the iterator may cause memory issues with large datasets - consider making this configurable</p>
      */
     public static <T extends Recordable> void asyncProcessQuery(
         Database db,
@@ -132,7 +145,7 @@ public final class TaskUtils {
                 @Override
                 protected void consume(T item) {
                     if (processor == null || processor.apply(item)) {
-                        if (writeOperation != null) {
+                        if (writeOperation != null && writeQueue != null) {
                             writeQueue.add(item);
                         }
                     }
@@ -142,9 +155,9 @@ public final class TaskUtils {
                 protected void finished() {
                     try {
                         running.await();
-                    } catch (BrokenBarrierException error) {
+                    } catch (BrokenBarrierException e) {
                         // Ignore.
-                    } catch (InterruptedException error) {
+                    } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
                 }
@@ -156,6 +169,17 @@ public final class TaskUtils {
         logger.accept("Started " + taskName + " task");
     }
 
+    /**
+     * Checks if the current host is configured as the task execution host.
+     *
+     * <p>Compares the local host address with the configured task host address
+     * from settings. Returns {@code false} if no task host is configured or if
+     * the host lookup fails.</p>
+     *
+     * <p>TODO: Consider caching the result to avoid repeated DNS lookups</p>
+     *
+     * @return {@code true} if running on the configured task host, {@code false} otherwise
+     */
     public static boolean isRunningOnTaskHost() {
         String defaultTaskHost = TaskSettings.get(TaskSettings::getTaskHost);
         if (!StringUtils.isEmpty(defaultTaskHost)) {
@@ -166,12 +190,25 @@ public final class TaskUtils {
                     return true;
                 }
             } catch (UnknownHostException e) {
-                LOGGER.warn("Exception finding host name; message: " + e.getMessage());
+                LOGGER.warn("Exception finding host name: {}", e.getMessage());
             }
         }
         return false;
     }
 
+    /**
+     * Checks if any other task (besides the specified one) is currently running.
+     *
+     * <p>Queries the task executor for running tasks and checks if any task other
+     * than the one with the specified name is currently running. Returns {@code false}
+     * if the task executor is not found.</p>
+     *
+     * <p>FIXME: The task name matching uses contains() which may cause false positives if task names are substrings of each other - consider using exact matching</p>
+     *
+     * @param taskExecutorName the name of the task executor to check
+     * @param taskName the name of the task to exclude from the check
+     * @return {@code true} if another task is running, {@code false} otherwise
+     */
     public static Boolean isOtherTaskRunning(String taskExecutorName, String taskName) {
         TaskExecutor instance = TaskExecutor.Static.getInstance(taskExecutorName);
         if (instance == null) {

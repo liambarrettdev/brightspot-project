@@ -45,19 +45,24 @@ public final class StripeClient {
     private StripeClient() {
     }
 
-    public Customer getCustomer(String customerId) {
+    public Customer getCustomer(String customerId) throws StripeOperationException {
+        if (StringUtils.isBlank(customerId)) {
+            throw new IllegalArgumentException("Customer ID cannot be blank");
+        }
+
         try {
             return Customer.retrieve(customerId);
         } catch (StripeException e) {
             LOGGER.error("Could not find Customer with ID {}", customerId, e);
+            throw new StripeOperationException(String.format("Failed to retrieve customer with ID: %s", customerId), e
+            );
         }
-
-        return null;
     }
 
-    public Customer updateCustomer(Customer customer, Map<String, Object> invoiceSettings) {
+    public Customer updateCustomer(Customer customer, Map<String, Object> invoiceSettings)
+        throws StripeOperationException {
         if (customer == null) {
-            return null;
+            throw new IllegalArgumentException("Customer cannot be null");
         }
 
         try {
@@ -66,13 +71,23 @@ public final class StripeClient {
 
             return customer.update(params);
         } catch (StripeException e) {
-            LOGGER.error("Could not update Customer", e);
+            LOGGER.error("Could not update Customer with ID {}", customer.getId(), e);
+            throw new StripeOperationException(
+                String.format("Failed to update customer with ID: %s", customer.getId()),
+                e
+            );
         }
-
-        return null;
     }
 
-    public PaymentMethod createPaymentMethod(Map<String, Object> card, Map<String, Object> billingDetails) {
+    public PaymentMethod createPaymentMethod(Map<String, Object> card, Map<String, Object> billingDetails)
+        throws StripeOperationException {
+        if (card == null) {
+            throw new IllegalArgumentException("Card details cannot be null");
+        }
+
+        if (billingDetails == null) {
+            throw new IllegalArgumentException("Billing details cannot be null");
+        }
 
         try {
             Map<String, Object> params = new HashMap<>();
@@ -83,24 +98,26 @@ public final class StripeClient {
             return PaymentMethod.create(params);
         } catch (StripeException e) {
             LOGGER.error("Could not create PaymentMethod", e);
+            throw new StripeOperationException("Failed to create payment method", e);
         }
-
-        return null;
     }
 
-    public PaymentMethod getPaymentMethod(String paymentMethodId) {
+    public PaymentMethod getPaymentMethod(String paymentMethodId) throws StripeOperationException {
+        if (StringUtils.isBlank(paymentMethodId)) {
+            throw new IllegalArgumentException("Payment method ID cannot be blank");
+        }
+
         try {
             return PaymentMethod.retrieve(paymentMethodId);
         } catch (StripeException e) {
             LOGGER.error("Could not find Payment Method with ID {}", paymentMethodId, e);
+            throw new StripeOperationException(String.format("Failed to retrieve payment method with ID: %s", paymentMethodId), e);
         }
-
-        return null;
     }
 
-    public List<PaymentMethod> getPaymentMethods(Customer customer) {
+    public List<PaymentMethod> getPaymentMethods(Customer customer) throws StripeOperationException {
         if (customer == null) {
-            return new ArrayList<>();
+            throw new IllegalArgumentException("Customer cannot be null");
         }
 
         try {
@@ -112,67 +129,86 @@ public final class StripeClient {
 
             return new ArrayList<>(customerPaymentMethod.getData());
         } catch (StripeException e) {
-            LOGGER.error("Could not find PaymentMethods for customer", e);
+            LOGGER.error("Could not find PaymentMethods for customer with ID {}", customer.getId(), e);
+            throw new StripeOperationException(String.format("Failed to retrieve payment methods for customer with ID: %s", customer.getId()), e);
         }
-
-        return new ArrayList<>();
     }
 
-    public PaymentMethod attachPaymentMethod(Customer customer, PaymentMethod paymentMethod) {
+    public PaymentMethod attachPaymentMethod(Customer customer, PaymentMethod paymentMethod)
+        throws StripeOperationException {
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer cannot be null");
+        }
+
+        if (paymentMethod == null) {
+            throw new IllegalArgumentException("Payment method cannot be null");
+        }
+
         try {
             Map<String, Object> params = new HashMap<>();
             params.put(PARAM_CUSTOMER, customer.getId());
 
             return paymentMethod.attach(params);
         } catch (StripeException e) {
-            LOGGER.error("Could not attach PaymentMethod to a Customer", e);
+            LOGGER.error("Could not attach PaymentMethod {} to Customer {}", paymentMethod.getId(), customer.getId(), e);
+            throw new StripeOperationException(String.format("Failed to attach payment method %s to customer %s", paymentMethod.getId(), customer.getId()), e);
         }
-
-        return null;
     }
 
-    public PaymentMethod detachPaymentMethod(PaymentMethod paymentMethod) {
+    public PaymentMethod detachPaymentMethod(PaymentMethod paymentMethod) throws StripeOperationException {
+        if (paymentMethod == null) {
+            throw new IllegalArgumentException("Payment method cannot be null");
+        }
+
         try {
             return paymentMethod.detach();
         } catch (StripeException e) {
-            LOGGER.error("Could not detach PaymentMethod from a Customer", e);
+            LOGGER.error("Could not detach PaymentMethod {}", paymentMethod.getId(), e);
+            throw new StripeOperationException(String.format("Failed to detach payment method: %s", paymentMethod.getId()), e);
         }
-
-        return null;
     }
 
-    public PaymentIntent getPaymentIntent(String intentId) {
+    public PaymentIntent getPaymentIntent(String intentId) throws StripeOperationException {
+        if (StringUtils.isBlank(intentId)) {
+            throw new IllegalArgumentException("Payment intent ID cannot be blank");
+        }
+
         try {
             return PaymentIntent.retrieve(intentId);
         } catch (StripeException e) {
             LOGGER.error("Could not find PaymentIntent with ID {}", intentId, e);
+            throw new StripeOperationException(String.format("Failed to retrieve payment intent with ID: %s", intentId), e);
         }
-
-        return null;
     }
 
-    public PaymentIntent createPaymentIntent(Map<String, Object> params) {
+    public PaymentIntent createPaymentIntent(Map<String, Object> params) throws StripeOperationException {
+        if (params == null) {
+            throw new IllegalArgumentException("Payment intent parameters cannot be null");
+        }
+
         try {
             return PaymentIntent.create(params);
         } catch (StripeException e) {
             LOGGER.error("Could not create PaymentIntent", e);
+            throw new StripeOperationException("Failed to create payment intent", e);
         }
-
-        return null;
     }
 
-    public PaymentIntent updatePaymentIntent(PaymentIntent paymentIntent, Map<String, Object> params) {
+    public PaymentIntent updatePaymentIntent(PaymentIntent paymentIntent, Map<String, Object> params)
+        throws StripeOperationException {
         if (paymentIntent == null) {
-            return null;
+            throw new IllegalArgumentException("Payment intent cannot be null");
+        }
+        if (params == null) {
+            throw new IllegalArgumentException("Update parameters cannot be null");
         }
 
         try {
             return paymentIntent.update(params);
         } catch (StripeException e) {
-            LOGGER.error("Could not update PaymentIntent", e);
+            LOGGER.error("Could not update PaymentIntent {}", paymentIntent.getId(), e);
+            throw new StripeOperationException(String.format("Failed to update payment intent: %s", paymentIntent.getId()), e);
         }
-
-        return null;
     }
 
     public static Boolean checkDefaultPaymentMethod(Customer customer, String paymentMethodId) {

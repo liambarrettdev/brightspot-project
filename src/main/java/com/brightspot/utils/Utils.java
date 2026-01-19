@@ -20,28 +20,86 @@ import com.psddev.dari.util.PageContextFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+/**
+ * General utility class providing common helper methods.
+ *
+ * <p>This class provides a variety of utility methods for string manipulation,
+ * URL encoding/decoding, type conversion, and common operations used throughout
+ * the application.</p>
+ */
 public final class Utils {
 
     private Utils() {
     }
 
+    /**
+     * Normalizes a string for use in URLs, filenames, etc.
+     *
+     * <p>Delegates to {@link com.psddev.dari.util.StringUtils#toNormalized(CharSequence)}
+     * which typically converts to lowercase, removes special characters, and replaces
+     * spaces with hyphens.</p>
+     *
+     * @param string the string to normalize
+     * @return the normalized string
+     */
     public static String toNormalized(CharSequence string) {
         return com.psddev.dari.util.StringUtils.toNormalized(string);
     }
 
+    /**
+     * Gets the current site from the current tool user.
+     *
+     * <p>Retrieves the current tool user and returns their current site, or
+     * {@code null} if no user is logged in.</p>
+     *
+     * @return the current site, or {@code null} if no user is logged in
+     */
     public static Site getCurrentSite() {
         ToolUser user = getCurrentToolUser();
         return user != null ? user.getCurrentSite() : null;
     }
 
+    /**
+     * Gets the current tool user from the page context.
+     *
+     * <p>Retrieves the HTTP request from the page context and extracts the
+     * authenticated user. Returns {@code null} if no request is available
+     * or no user is authenticated.</p>
+     *
+     * @return the current tool user, or {@code null} if not available
+     */
     public static ToolUser getCurrentToolUser() {
         return getCurrentToolUser(PageContextFilter.Static.getRequestOrNull());
     }
 
+    /**
+     * Gets the current tool user from an HTTP request.
+     *
+     * <p>Uses the AuthenticationFilter to extract the authenticated user from
+     * the request. Returns {@code null} if the request is null or no user is
+     * authenticated.</p>
+     *
+     * @param request the HTTP servlet request
+     * @return the current tool user, or {@code null} if not available
+     */
     public static ToolUser getCurrentToolUser(HttpServletRequest request) {
         return request != null ? AuthenticationFilter.Static.getUser(request) : null;
     }
 
+    /**
+     * Extracts a numeric value from a string.
+     *
+     * <p>Removes all non-numeric characters (except decimal points) and converts
+     * the result to the requested numeric type. Returns {@code null} if the input
+     * is blank.</p>
+     *
+     * <p>TODO: Consider using a more robust number parsing library that handles locale-specific decimal separators</p>
+     *
+     * @param <T> the numeric type
+     * @param input the string to extract the number from
+     * @param clazz the target numeric class
+     * @return the numeric value, or {@code null} if input is blank
+     */
     public static <T extends Number> T numericValue(String input, Class<T> clazz) {
         if (StringUtils.isBlank(input)) {
             return null;
@@ -51,6 +109,20 @@ public final class Utils {
         return ObjectUtils.to(clazz, value);
     }
 
+    /**
+     * Finds a map entry and converts it to the requested type.
+     *
+     * <p>Looks up the key in the map, converts the value to the requested type,
+     * and returns it. Returns the fallback value if the map is null, the key is
+     * not found, or the value cannot be converted.</p>
+     *
+     * @param <T> the target type
+     * @param key the map key to look up
+     * @param content the map to search in
+     * @param clazz the target class to convert to
+     * @param fallback the fallback value if not found or conversion fails
+     * @return the converted value, or the fallback if not found
+     */
     public static <T> T findMapEntry(String key, Map<String, Object> content, Class<T> clazz, T fallback) {
         return Optional.ofNullable(content)
             .map(m -> m.get(key))
@@ -58,11 +130,34 @@ public final class Utils {
             .orElse(fallback);
     }
 
+    /**
+     * Creates a predicate that filters duplicate elements based on a key extractor.
+     *
+     * <p>Returns a predicate that can be used with Stream.filter() to remove duplicates
+     * based on a key. Uses a ConcurrentHashMap to track seen keys for thread-safety.</p>
+     *
+     * <p>TODO: Consider adding a size limit to prevent memory issues with very large streams</p>
+     *
+     * @param <T> the element type
+     * @param keyExtractor the function to extract the key from each element
+     * @return a predicate that returns true for the first occurrence of each key
+     */
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
         return t -> seen.add(keyExtractor.apply(t));
     }
 
+    /**
+     * Converts seconds to a human-readable time string.
+     *
+     * <p>Formats the time as "MM mins SS secs" where MM is minutes and SS is seconds.
+     * The format is fixed-width with zero-padding.</p>
+     *
+     * <p>TODO: Consider supporting hours and days for longer durations</p>
+     *
+     * @param seconds the number of seconds
+     * @return a formatted time string (e.g., "05 mins 30 secs")
+     */
     public static String convertTime(long seconds) {
         return String.format("%02d mins %02d secs", seconds / 60, seconds % 60);
     }
@@ -135,8 +230,11 @@ public final class Utils {
 
         int parametersLength = parameters != null ? parameters.length : 0;
 
-        for (int i = 0; i < parametersLength; i += 2) {
+        if (parameters == null) {
+            return uri;
+        }
 
+        for (int i = 0; i < parametersLength; i += 2) {
             // Remove all occurrences of "&name=".
             String name = parameters[i].toString();
             String prefix = "&" + name + "=";
@@ -238,14 +336,37 @@ public final class Utils {
         }
     }
 
-    public static void sleep(final long millis) {
+    /**
+     * Sleeps for the specified number of milliseconds.
+     *
+     * <p>Interrupts are handled by restoring the interrupt flag on the current thread.
+     * This allows calling code to check for interrupts after the sleep completes.</p>
+     *
+     * <p>TODO: Consider using a more sophisticated sleep mechanism that can be cancelled</p>
+     *
+     * @param millis the number of milliseconds to sleep
+     */
+    public static void sleep(long millis) {
         try {
             Thread.sleep(millis);
-        } catch (final InterruptedException ignored) {
+        } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
 
+    /**
+     * Performs an unchecked cast from Object to a generic type.
+     *
+     * <p>This is a convenience method for cases where you know the type is correct
+     * but Java's type system requires an explicit cast. Returns {@code null} if
+     * the object is null.</p>
+     *
+     * <p>FIXME: Unchecked casts bypass type safety - use with caution and only when you're certain of the type</p>
+     *
+     * @param <T> the target type
+     * @param object the object to cast
+     * @return the cast object, or {@code null} if object is null
+     */
     @SuppressWarnings({ "unchecked" })
     public static <T> T uncheckedCast(Object object) {
         return object == null ? null : (T) object;

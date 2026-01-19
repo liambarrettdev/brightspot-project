@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 
+import com.brightspot.exception.EncryptionException;
 import com.brightspot.utils.EncryptionUtils;
 import com.psddev.cms.tool.PageServlet;
 import com.psddev.cms.tool.ToolPageContext;
@@ -48,7 +49,7 @@ public class EncryptedFieldProcessor extends PageServlet {
                     try {
                         state.put(fieldName, EncryptionUtils.encrypt(value));
                         state.put(fieldName + "ChangedDate", new Date());
-                    } catch (Exception error) {
+                    } catch (EncryptionException error) {
                         state.addError(field, error.getMessage());
                     }
                 }
